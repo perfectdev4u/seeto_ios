@@ -1,0 +1,1110 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13189EFC32F376AA3FBC02A4 /* Pods_Seeto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C594B00CB103016B0C143417 /* Pods_Seeto.framework */; };
+		1B08D5FD296A1C1F00458A46 /* EmployerDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B08D5FC296A1C1F00458A46 /* EmployerDetailVC.swift */; };
+		1B08D600296A1D1400458A46 /* CongratsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B08D5FE296A1D1400458A46 /* CongratsCell.swift */; };
+		1B08D601296A1D1400458A46 /* CongratsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B08D5FF296A1D1400458A46 /* CongratsCell.xib */; };
+		1B1D5AF929706737006CC084 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B1D5AF829706737006CC084 /* credentials.plist */; };
+		1B1D5AFB297077F6006CC084 /* ApiMAnager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5AFA297077F6006CC084 /* ApiMAnager.swift */; };
+		1B1D5AFD29709374006CC084 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5AFC29709374006CC084 /* Helpers.swift */; };
+		1B2424D0296B10D5003A363F /* HomeScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2424CF296B10D5003A363F /* HomeScreenVC.swift */; };
+		1B2424D3296B13BE003A363F /* VideoPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2424D1296B13BE003A363F /* VideoPlayerCell.swift */; };
+		1B2424D4296B13BE003A363F /* VideoPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2424D2296B13BE003A363F /* VideoPlayerCell.xib */; };
+		1B2424D8296B2386003A363F /* VideoPlayerCollViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2424D6296B2386003A363F /* VideoPlayerCollViewCell.swift */; };
+		1B2424D9296B2386003A363F /* VideoPlayerCollViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2424D7296B2386003A363F /* VideoPlayerCollViewCell.xib */; };
+		1B2424DB296CA5E0003A363F /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2424DA296CA5DF003A363F /* ProfileSettingView.swift */; };
+		1B2DF9052979C8780073D6A0 /* CompanyDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF9032979C8780073D6A0 /* CompanyDetailCell.swift */; };
+		1B2DF9062979C8780073D6A0 /* CompanyDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2DF9042979C8780073D6A0 /* CompanyDetailCell.xib */; };
+		1B2DF9092979D0430073D6A0 /* ProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF9072979D0430073D6A0 /* ProfileViewCell.swift */; };
+		1B2DF90A2979D0430073D6A0 /* ProfileViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2DF9082979D0430073D6A0 /* ProfileViewCell.xib */; };
+		1B2DF90D2979D9470073D6A0 /* LikeDislikeBtnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF90B2979D9470073D6A0 /* LikeDislikeBtnCell.swift */; };
+		1B2DF90E2979D9470073D6A0 /* LikeDislikeBtnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2DF90C2979D9470073D6A0 /* LikeDislikeBtnCell.xib */; };
+		1B2DF9102979E0800073D6A0 /* CongratsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF90F2979E0800073D6A0 /* CongratsVC.swift */; };
+		1B2DF9122979E3DB0073D6A0 /* SelectResumeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF9112979E3DB0073D6A0 /* SelectResumeVC.swift */; };
+		1B7F71CA2965EE6000D74132 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F71C92965EE6000D74132 /* AppDelegate.swift */; };
+		1B7F71CC2965EE6000D74132 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F71CB2965EE6000D74132 /* SceneDelegate.swift */; };
+		1B7F71D12965EE6000D74132 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B7F71CF2965EE6000D74132 /* Main.storyboard */; };
+		1B7F71D32965EE6100D74132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B7F71D22965EE6100D74132 /* Assets.xcassets */; };
+		1B7F71D62965EE6100D74132 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B7F71D42965EE6100D74132 /* LaunchScreen.storyboard */; };
+		1B7F71E12965EE6100D74132 /* SeetoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F71E02965EE6100D74132 /* SeetoTests.swift */; };
+		1B7F71EB2965EE6100D74132 /* SeetoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F71EA2965EE6100D74132 /* SeetoUITests.swift */; };
+		1B7F71ED2965EE6100D74132 /* SeetoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F71EC2965EE6100D74132 /* SeetoUITestsLaunchTests.swift */; };
+		1B7F71FF2966B0D900D74132 /* PhonenumberScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F71FE2966B0D900D74132 /* PhonenumberScreenVC.swift */; };
+		1B7F72012966B30300D74132 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F72002966B30300D74132 /* LoginViewController.swift */; };
+		1B7F72032967203000D74132 /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F72022967203000D74132 /* OTPViewController.swift */; };
+		1B7F7205296752ED00D74132 /* InstructionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F7204296752ED00D74132 /* InstructionsVC.swift */; };
+		1B7F72072967564200D74132 /* AppCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F72062967564200D74132 /* AppCategoryVC.swift */; };
+		1B7F720B296832C000D74132 /* CandidateProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F7209296832C000D74132 /* CandidateProfileCell.swift */; };
+		1B7F720C296832C000D74132 /* CandidateProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7F720A296832C000D74132 /* CandidateProfileCell.xib */; };
+		1B7F720E29683E9600D74132 /* CandidateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F720D29683E9600D74132 /* CandidateProfileVC.swift */; };
+		1B7F7210296949EA00D74132 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F720F296949EA00D74132 /* Constants.swift */; };
+		1B7F721229698F1900D74132 /* VideoRecordingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F721129698F1900D74132 /* VideoRecordingVC.swift */; };
+		1B7F72142969A3DF00D74132 /* MyJobDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F72132969A3DF00D74132 /* MyJobDetailVC.swift */; };
+		1B7F72172969A58500D74132 /* MyJobDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F72152969A58500D74132 /* MyJobDetailCell.swift */; };
+		1B7F72182969A58500D74132 /* MyJobDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7F72162969A58500D74132 /* MyJobDetailCell.xib */; };
+		1B7F721A2969ABC300D74132 /* ModifyJobSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F72192969ABC300D74132 /* ModifyJobSearchVC.swift */; };
+		1B7F721C2969B01600D74132 /* MyJobSearchesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F721B2969B01600D74132 /* MyJobSearchesVC.swift */; };
+		1B7F721F2969B27100D74132 /* MyJobSearchesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F721D2969B27100D74132 /* MyJobSearchesCell.swift */; };
+		1B7F72202969B27100D74132 /* MyJobSearchesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7F721E2969B27100D74132 /* MyJobSearchesCell.xib */; };
+		1B7F72222969BDEB00D74132 /* DeleteSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F72212969BDEB00D74132 /* DeleteSearchVC.swift */; };
+		1B7F72242969EC1700D74132 /* JobSearchDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F72232969EC1700D74132 /* JobSearchDetailsVC.swift */; };
+		1B7F72272969F04200D74132 /* DetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F72252969F04200D74132 /* DetailsCell.swift */; };
+		1B7F72282969F04200D74132 /* DetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7F72262969F04200D74132 /* DetailsCell.xib */; };
+		1B7F722A296A081900D74132 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F7229296A081900D74132 /* Extensions.swift */; };
+		1B7F722D296A0D5900D74132 /* MatchedEmployerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F722B296A0D5900D74132 /* MatchedEmployerCell.swift */; };
+		1B7F722E296A0D5900D74132 /* MatchedEmployerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7F722C296A0D5900D74132 /* MatchedEmployerCell.xib */; };
+		1BCE9B77296DB7DD005E40BB /* ThumbnailVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */; };
+		1BCE9B79296DFC32005E40BB /* ShowImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE9B78296DFC32005E40BB /* ShowImageVC.swift */; };
+		1BCE9B7C297013AC005E40BB /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B7B297013AC005E40BB /* FacebookCore */; };
+		1BCE9B7E297013AC005E40BB /* FacebookGamingServices in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B7D297013AC005E40BB /* FacebookGamingServices */; };
+		1BCE9B80297013AC005E40BB /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B7F297013AC005E40BB /* FacebookLogin */; };
+		1BCE9B82297013AC005E40BB /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B81297013AC005E40BB /* FacebookShare */; };
+		28B2DD2A2A8CE8444569BFA6 /* Pods_Seeto_SeetoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A094243270D965ECDE0EC43 /* Pods_Seeto_SeetoUITests.framework */; };
+		C0D4B24FC4C3F80E513AF22E /* Pods_SeetoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1051A658DD127BE89753F2A4 /* Pods_SeetoTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1B7F71DD2965EE6100D74132 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B7F71BE2965EE6000D74132 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B7F71C52965EE6000D74132;
+			remoteInfo = Seeto;
+		};
+		1B7F71E72965EE6100D74132 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B7F71BE2965EE6000D74132 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B7F71C52965EE6000D74132;
+			remoteInfo = Seeto;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		09FC291A92301CF96EA02729 /* Pods-Seeto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.debug.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.debug.xcconfig"; sourceTree = "<group>"; };
+		1051A658DD127BE89753F2A4 /* Pods_SeetoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeetoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		155D81081471DB7ECCE0D15D /* Pods-SeetoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.release.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.release.xcconfig"; sourceTree = "<group>"; };
+		1B08D5FC296A1C1F00458A46 /* EmployerDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerDetailVC.swift; sourceTree = "<group>"; };
+		1B08D5FE296A1D1400458A46 /* CongratsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsCell.swift; sourceTree = "<group>"; };
+		1B08D5FF296A1D1400458A46 /* CongratsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CongratsCell.xib; sourceTree = "<group>"; };
+		1B1D5AF829706737006CC084 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
+		1B1D5AFA297077F6006CC084 /* ApiMAnager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMAnager.swift; sourceTree = "<group>"; };
+		1B1D5AFC29709374006CC084 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		1B2424CF296B10D5003A363F /* HomeScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenVC.swift; sourceTree = "<group>"; };
+		1B2424D1296B13BE003A363F /* VideoPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerCell.swift; sourceTree = "<group>"; };
+		1B2424D2296B13BE003A363F /* VideoPlayerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayerCell.xib; sourceTree = "<group>"; };
+		1B2424D6296B2386003A363F /* VideoPlayerCollViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerCollViewCell.swift; sourceTree = "<group>"; };
+		1B2424D7296B2386003A363F /* VideoPlayerCollViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayerCollViewCell.xib; sourceTree = "<group>"; };
+		1B2424DA296CA5DF003A363F /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
+		1B2DF9032979C8780073D6A0 /* CompanyDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailCell.swift; sourceTree = "<group>"; };
+		1B2DF9042979C8780073D6A0 /* CompanyDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyDetailCell.xib; sourceTree = "<group>"; };
+		1B2DF9072979D0430073D6A0 /* ProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewCell.swift; sourceTree = "<group>"; };
+		1B2DF9082979D0430073D6A0 /* ProfileViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewCell.xib; sourceTree = "<group>"; };
+		1B2DF90B2979D9470073D6A0 /* LikeDislikeBtnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDislikeBtnCell.swift; sourceTree = "<group>"; };
+		1B2DF90C2979D9470073D6A0 /* LikeDislikeBtnCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikeDislikeBtnCell.xib; sourceTree = "<group>"; };
+		1B2DF90F2979E0800073D6A0 /* CongratsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsVC.swift; sourceTree = "<group>"; };
+		1B2DF9112979E3DB0073D6A0 /* SelectResumeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectResumeVC.swift; sourceTree = "<group>"; };
+		1B7F71C62965EE6000D74132 /* Seeto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seeto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B7F71C92965EE6000D74132 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1B7F71CB2965EE6000D74132 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		1B7F71D02965EE6000D74132 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1B7F71D22965EE6100D74132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1B7F71D52965EE6100D74132 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1B7F71D72965EE6100D74132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B7F71DC2965EE6100D74132 /* SeetoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeetoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B7F71E02965EE6100D74132 /* SeetoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeetoTests.swift; sourceTree = "<group>"; };
+		1B7F71E62965EE6100D74132 /* SeetoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeetoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B7F71EA2965EE6100D74132 /* SeetoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeetoUITests.swift; sourceTree = "<group>"; };
+		1B7F71EC2965EE6100D74132 /* SeetoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeetoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1B7F71FE2966B0D900D74132 /* PhonenumberScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonenumberScreenVC.swift; sourceTree = "<group>"; };
+		1B7F72002966B30300D74132 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1B7F72022967203000D74132 /* OTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
+		1B7F7204296752ED00D74132 /* InstructionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsVC.swift; sourceTree = "<group>"; };
+		1B7F72062967564200D74132 /* AppCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCategoryVC.swift; sourceTree = "<group>"; };
+		1B7F7209296832C000D74132 /* CandidateProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateProfileCell.swift; sourceTree = "<group>"; };
+		1B7F720A296832C000D74132 /* CandidateProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CandidateProfileCell.xib; sourceTree = "<group>"; };
+		1B7F720D29683E9600D74132 /* CandidateProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateProfileVC.swift; sourceTree = "<group>"; };
+		1B7F720F296949EA00D74132 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1B7F721129698F1900D74132 /* VideoRecordingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordingVC.swift; sourceTree = "<group>"; };
+		1B7F72132969A3DF00D74132 /* MyJobDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJobDetailVC.swift; sourceTree = "<group>"; };
+		1B7F72152969A58500D74132 /* MyJobDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJobDetailCell.swift; sourceTree = "<group>"; };
+		1B7F72162969A58500D74132 /* MyJobDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyJobDetailCell.xib; sourceTree = "<group>"; };
+		1B7F72192969ABC300D74132 /* ModifyJobSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyJobSearchVC.swift; sourceTree = "<group>"; };
+		1B7F721B2969B01600D74132 /* MyJobSearchesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJobSearchesVC.swift; sourceTree = "<group>"; };
+		1B7F721D2969B27100D74132 /* MyJobSearchesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJobSearchesCell.swift; sourceTree = "<group>"; };
+		1B7F721E2969B27100D74132 /* MyJobSearchesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyJobSearchesCell.xib; sourceTree = "<group>"; };
+		1B7F72212969BDEB00D74132 /* DeleteSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSearchVC.swift; sourceTree = "<group>"; };
+		1B7F72232969EC1700D74132 /* JobSearchDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobSearchDetailsVC.swift; sourceTree = "<group>"; };
+		1B7F72252969F04200D74132 /* DetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCell.swift; sourceTree = "<group>"; };
+		1B7F72262969F04200D74132 /* DetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailsCell.xib; sourceTree = "<group>"; };
+		1B7F7229296A081900D74132 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1B7F722B296A0D5900D74132 /* MatchedEmployerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchedEmployerCell.swift; sourceTree = "<group>"; };
+		1B7F722C296A0D5900D74132 /* MatchedEmployerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatchedEmployerCell.xib; sourceTree = "<group>"; };
+		1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailVideoVC.swift; sourceTree = "<group>"; };
+		1BCE9B78296DFC32005E40BB /* ShowImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageVC.swift; sourceTree = "<group>"; };
+		1BD6BEF1297047A900B8903A /* Seeto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Seeto.entitlements; sourceTree = "<group>"; };
+		2F742E58AF4CE8CFC3A4490F /* Pods-Seeto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.release.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.release.xcconfig"; sourceTree = "<group>"; };
+		4A94644957EC9AC1EF75BF8D /* Pods-Seeto-SeetoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto-SeetoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		5095E16581AFA7B99C6512CC /* Pods-SeetoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.debug.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		50B2A2814CB5F97418134A90 /* Pods-SeetoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.debug.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		57E02296D39A310804B97D58 /* Pods-Seeto-SeetoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto-SeetoUITests.release.xcconfig"; path = "Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		6A094243270D965ECDE0EC43 /* Pods_Seeto_SeetoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seeto_SeetoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		90222DD3017B0FCC8BA09222 /* Pods-Seeto-SeetoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto-SeetoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A8E6A709ED4F6795082FF6E4 /* Pods-Seeto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.debug.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.debug.xcconfig"; sourceTree = "<group>"; };
+		BE5D1DC32F4248638F800531 /* Pods-Seeto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.release.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.release.xcconfig"; sourceTree = "<group>"; };
+		C594B00CB103016B0C143417 /* Pods_Seeto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seeto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5A69C6FFEC3F23F2B907DE3 /* Pods-SeetoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.release.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.release.xcconfig"; sourceTree = "<group>"; };
+		FCBE327434B301A37D680C12 /* Pods-Seeto-SeetoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto-SeetoUITests.release.xcconfig"; path = "Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1B7F71C32965EE6000D74132 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BCE9B80297013AC005E40BB /* FacebookLogin in Frameworks */,
+				1BCE9B7E297013AC005E40BB /* FacebookGamingServices in Frameworks */,
+				13189EFC32F376AA3FBC02A4 /* Pods_Seeto.framework in Frameworks */,
+				1BCE9B82297013AC005E40BB /* FacebookShare in Frameworks */,
+				1BCE9B7C297013AC005E40BB /* FacebookCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B7F71D92965EE6100D74132 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0D4B24FC4C3F80E513AF22E /* Pods_SeetoTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B7F71E32965EE6100D74132 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28B2DD2A2A8CE8444569BFA6 /* Pods_Seeto_SeetoUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1B2424D5296B2356003A363F /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				1B2424D6296B2386003A363F /* VideoPlayerCollViewCell.swift */,
+				1B2424D7296B2386003A363F /* VideoPlayerCollViewCell.xib */,
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		1B7F71BD2965EE6000D74132 = {
+			isa = PBXGroup;
+			children = (
+				1B7F71C82965EE6000D74132 /* Seeto */,
+				1B7F71DF2965EE6100D74132 /* SeetoTests */,
+				1B7F71E92965EE6100D74132 /* SeetoUITests */,
+				1B7F71C72965EE6000D74132 /* Products */,
+				6852868D10518C05A2B15AB8 /* Frameworks */,
+				DE6F0D57875B413BB5F986DF /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		1B7F71C72965EE6000D74132 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1B7F71C62965EE6000D74132 /* Seeto.app */,
+				1B7F71DC2965EE6100D74132 /* SeetoTests.xctest */,
+				1B7F71E62965EE6100D74132 /* SeetoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1B7F71C82965EE6000D74132 /* Seeto */ = {
+			isa = PBXGroup;
+			children = (
+				1BD6BEF1297047A900B8903A /* Seeto.entitlements */,
+				1B7F71C92965EE6000D74132 /* AppDelegate.swift */,
+				1B7F71CB2965EE6000D74132 /* SceneDelegate.swift */,
+				1B7F720F296949EA00D74132 /* Constants.swift */,
+				1B1D5AFA297077F6006CC084 /* ApiMAnager.swift */,
+				1B7F7229296A081900D74132 /* Extensions.swift */,
+				1B1D5AFC29709374006CC084 /* Helpers.swift */,
+				1B1D5AF829706737006CC084 /* credentials.plist */,
+				1B7F71FD2966B01E00D74132 /* Controller */,
+				1B7F71FC2966B01300D74132 /* View */,
+				1B7F71FB2966B00400D74132 /* Model */,
+				1B7F71CF2965EE6000D74132 /* Main.storyboard */,
+				1B7F71D22965EE6100D74132 /* Assets.xcassets */,
+				1B7F71D42965EE6100D74132 /* LaunchScreen.storyboard */,
+				1B7F71D72965EE6100D74132 /* Info.plist */,
+			);
+			path = Seeto;
+			sourceTree = "<group>";
+		};
+		1B7F71DF2965EE6100D74132 /* SeetoTests */ = {
+			isa = PBXGroup;
+			children = (
+				1B7F71E02965EE6100D74132 /* SeetoTests.swift */,
+			);
+			path = SeetoTests;
+			sourceTree = "<group>";
+		};
+		1B7F71E92965EE6100D74132 /* SeetoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				69253F4472D9C00EAA7CCB65 /* Pods */,
+				1B7F71EA2965EE6100D74132 /* SeetoUITests.swift */,
+				1B7F71EC2965EE6100D74132 /* SeetoUITestsLaunchTests.swift */,
+			);
+			path = SeetoUITests;
+			sourceTree = "<group>";
+		};
+		1B7F71FB2966B00400D74132 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1B7F71FC2966B01300D74132 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1B2424D5296B2356003A363F /* CollectionViewCells */,
+				1B7F72082968329400D74132 /* TableViewCells */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1B7F71FD2966B01E00D74132 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1B7F72002966B30300D74132 /* LoginViewController.swift */,
+				1B7F71FE2966B0D900D74132 /* PhonenumberScreenVC.swift */,
+				1B7F72022967203000D74132 /* OTPViewController.swift */,
+				1B7F7204296752ED00D74132 /* InstructionsVC.swift */,
+				1B7F72062967564200D74132 /* AppCategoryVC.swift */,
+				1B7F720D29683E9600D74132 /* CandidateProfileVC.swift */,
+				1B7F721129698F1900D74132 /* VideoRecordingVC.swift */,
+				1B7F72132969A3DF00D74132 /* MyJobDetailVC.swift */,
+				1B7F72192969ABC300D74132 /* ModifyJobSearchVC.swift */,
+				1B7F721B2969B01600D74132 /* MyJobSearchesVC.swift */,
+				1B7F72212969BDEB00D74132 /* DeleteSearchVC.swift */,
+				1B7F72232969EC1700D74132 /* JobSearchDetailsVC.swift */,
+				1B08D5FC296A1C1F00458A46 /* EmployerDetailVC.swift */,
+				1B2424CF296B10D5003A363F /* HomeScreenVC.swift */,
+				1B2424DA296CA5DF003A363F /* ProfileSettingView.swift */,
+				1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */,
+				1BCE9B78296DFC32005E40BB /* ShowImageVC.swift */,
+				1B2DF90F2979E0800073D6A0 /* CongratsVC.swift */,
+				1B2DF9112979E3DB0073D6A0 /* SelectResumeVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1B7F72082968329400D74132 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				1B7F7209296832C000D74132 /* CandidateProfileCell.swift */,
+				1B7F720A296832C000D74132 /* CandidateProfileCell.xib */,
+				1B7F72152969A58500D74132 /* MyJobDetailCell.swift */,
+				1B7F72162969A58500D74132 /* MyJobDetailCell.xib */,
+				1B7F721D2969B27100D74132 /* MyJobSearchesCell.swift */,
+				1B7F721E2969B27100D74132 /* MyJobSearchesCell.xib */,
+				1B7F72252969F04200D74132 /* DetailsCell.swift */,
+				1B7F72262969F04200D74132 /* DetailsCell.xib */,
+				1B7F722B296A0D5900D74132 /* MatchedEmployerCell.swift */,
+				1B7F722C296A0D5900D74132 /* MatchedEmployerCell.xib */,
+				1B2DF9032979C8780073D6A0 /* CompanyDetailCell.swift */,
+				1B2DF9042979C8780073D6A0 /* CompanyDetailCell.xib */,
+				1B2DF9072979D0430073D6A0 /* ProfileViewCell.swift */,
+				1B2DF9082979D0430073D6A0 /* ProfileViewCell.xib */,
+				1B08D5FE296A1D1400458A46 /* CongratsCell.swift */,
+				1B08D5FF296A1D1400458A46 /* CongratsCell.xib */,
+				1B2424D1296B13BE003A363F /* VideoPlayerCell.swift */,
+				1B2DF90B2979D9470073D6A0 /* LikeDislikeBtnCell.swift */,
+				1B2DF90C2979D9470073D6A0 /* LikeDislikeBtnCell.xib */,
+				1B2424D2296B13BE003A363F /* VideoPlayerCell.xib */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		6852868D10518C05A2B15AB8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C594B00CB103016B0C143417 /* Pods_Seeto.framework */,
+				6A094243270D965ECDE0EC43 /* Pods_Seeto_SeetoUITests.framework */,
+				1051A658DD127BE89753F2A4 /* Pods_SeetoTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		69253F4472D9C00EAA7CCB65 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				09FC291A92301CF96EA02729 /* Pods-Seeto.debug.xcconfig */,
+				2F742E58AF4CE8CFC3A4490F /* Pods-Seeto.release.xcconfig */,
+				4A94644957EC9AC1EF75BF8D /* Pods-Seeto-SeetoUITests.debug.xcconfig */,
+				FCBE327434B301A37D680C12 /* Pods-Seeto-SeetoUITests.release.xcconfig */,
+				5095E16581AFA7B99C6512CC /* Pods-SeetoTests.debug.xcconfig */,
+				155D81081471DB7ECCE0D15D /* Pods-SeetoTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DE6F0D57875B413BB5F986DF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A8E6A709ED4F6795082FF6E4 /* Pods-Seeto.debug.xcconfig */,
+				BE5D1DC32F4248638F800531 /* Pods-Seeto.release.xcconfig */,
+				90222DD3017B0FCC8BA09222 /* Pods-Seeto-SeetoUITests.debug.xcconfig */,
+				57E02296D39A310804B97D58 /* Pods-Seeto-SeetoUITests.release.xcconfig */,
+				50B2A2814CB5F97418134A90 /* Pods-SeetoTests.debug.xcconfig */,
+				D5A69C6FFEC3F23F2B907DE3 /* Pods-SeetoTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1B7F71C52965EE6000D74132 /* Seeto */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B7F71F02965EE6100D74132 /* Build configuration list for PBXNativeTarget "Seeto" */;
+			buildPhases = (
+				35C25E157D632527F8990766 /* [CP] Check Pods Manifest.lock */,
+				1B7F71C22965EE6000D74132 /* Sources */,
+				1B7F71C32965EE6000D74132 /* Frameworks */,
+				1B7F71C42965EE6000D74132 /* Resources */,
+				8ABC617786B571DAC401C362 /* [CP] Embed Pods Frameworks */,
+				093E89B4AA00365B0823D8E1 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Seeto;
+			packageProductDependencies = (
+				1BCE9B7B297013AC005E40BB /* FacebookCore */,
+				1BCE9B7D297013AC005E40BB /* FacebookGamingServices */,
+				1BCE9B7F297013AC005E40BB /* FacebookLogin */,
+				1BCE9B81297013AC005E40BB /* FacebookShare */,
+			);
+			productName = Seeto;
+			productReference = 1B7F71C62965EE6000D74132 /* Seeto.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1B7F71DB2965EE6100D74132 /* SeetoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B7F71F32965EE6100D74132 /* Build configuration list for PBXNativeTarget "SeetoTests" */;
+			buildPhases = (
+				35E81ACD6C437D2F7044A564 /* [CP] Check Pods Manifest.lock */,
+				1B7F71D82965EE6100D74132 /* Sources */,
+				1B7F71D92965EE6100D74132 /* Frameworks */,
+				1B7F71DA2965EE6100D74132 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1B7F71DE2965EE6100D74132 /* PBXTargetDependency */,
+			);
+			name = SeetoTests;
+			productName = SeetoTests;
+			productReference = 1B7F71DC2965EE6100D74132 /* SeetoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1B7F71E52965EE6100D74132 /* SeetoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B7F71F62965EE6100D74132 /* Build configuration list for PBXNativeTarget "SeetoUITests" */;
+			buildPhases = (
+				A5E19ED36D8B6A960C2C5734 /* [CP] Check Pods Manifest.lock */,
+				1B7F71E22965EE6100D74132 /* Sources */,
+				1B7F71E32965EE6100D74132 /* Frameworks */,
+				1B7F71E42965EE6100D74132 /* Resources */,
+				A0583620DFFB6AC4D48E38F5 /* [CP] Embed Pods Frameworks */,
+				3A4193FD067E263A4B1B171D /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1B7F71E82965EE6100D74132 /* PBXTargetDependency */,
+			);
+			name = SeetoUITests;
+			productName = SeetoUITests;
+			productReference = 1B7F71E62965EE6100D74132 /* SeetoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1B7F71BE2965EE6000D74132 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1410;
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					1B7F71C52965EE6000D74132 = {
+						CreatedOnToolsVersion = 14.1;
+					};
+					1B7F71DB2965EE6100D74132 = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = 1B7F71C52965EE6000D74132;
+					};
+					1B7F71E52965EE6100D74132 = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = 1B7F71C52965EE6000D74132;
+					};
+				};
+			};
+			buildConfigurationList = 1B7F71C12965EE6000D74132 /* Build configuration list for PBXProject "Seeto" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1B7F71BD2965EE6000D74132;
+			packageReferences = (
+				1BCE9B7A297013AC005E40BB /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+			);
+			productRefGroup = 1B7F71C72965EE6000D74132 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1B7F71C52965EE6000D74132 /* Seeto */,
+				1B7F71DB2965EE6100D74132 /* SeetoTests */,
+				1B7F71E52965EE6100D74132 /* SeetoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1B7F71C42965EE6000D74132 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B2DF9062979C8780073D6A0 /* CompanyDetailCell.xib in Resources */,
+				1B7F71D62965EE6100D74132 /* LaunchScreen.storyboard in Resources */,
+				1B1D5AF929706737006CC084 /* credentials.plist in Resources */,
+				1B08D601296A1D1400458A46 /* CongratsCell.xib in Resources */,
+				1B2424D4296B13BE003A363F /* VideoPlayerCell.xib in Resources */,
+				1B7F71D32965EE6100D74132 /* Assets.xcassets in Resources */,
+				1B2DF90E2979D9470073D6A0 /* LikeDislikeBtnCell.xib in Resources */,
+				1B2424D9296B2386003A363F /* VideoPlayerCollViewCell.xib in Resources */,
+				1B7F71D12965EE6000D74132 /* Main.storyboard in Resources */,
+				1B7F722E296A0D5900D74132 /* MatchedEmployerCell.xib in Resources */,
+				1B7F72202969B27100D74132 /* MyJobSearchesCell.xib in Resources */,
+				1B7F720C296832C000D74132 /* CandidateProfileCell.xib in Resources */,
+				1B7F72282969F04200D74132 /* DetailsCell.xib in Resources */,
+				1B2DF90A2979D0430073D6A0 /* ProfileViewCell.xib in Resources */,
+				1B7F72182969A58500D74132 /* MyJobDetailCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B7F71DA2965EE6100D74132 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B7F71E42965EE6100D74132 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		093E89B4AA00365B0823D8E1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35C25E157D632527F8990766 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Seeto-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35E81ACD6C437D2F7044A564 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SeetoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3A4193FD067E263A4B1B171D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8ABC617786B571DAC401C362 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A0583620DFFB6AC4D48E38F5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5E19ED36D8B6A960C2C5734 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Seeto-SeetoUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1B7F71C22965EE6000D74132 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B7F721A2969ABC300D74132 /* ModifyJobSearchVC.swift in Sources */,
+				1B7F721F2969B27100D74132 /* MyJobSearchesCell.swift in Sources */,
+				1B08D600296A1D1400458A46 /* CongratsCell.swift in Sources */,
+				1B7F72272969F04200D74132 /* DetailsCell.swift in Sources */,
+				1B7F72032967203000D74132 /* OTPViewController.swift in Sources */,
+				1B2DF9102979E0800073D6A0 /* CongratsVC.swift in Sources */,
+				1B7F72242969EC1700D74132 /* JobSearchDetailsVC.swift in Sources */,
+				1B2424DB296CA5E0003A363F /* ProfileSettingView.swift in Sources */,
+				1B7F721C2969B01600D74132 /* MyJobSearchesVC.swift in Sources */,
+				1B2424D8296B2386003A363F /* VideoPlayerCollViewCell.swift in Sources */,
+				1B7F721229698F1900D74132 /* VideoRecordingVC.swift in Sources */,
+				1B7F71FF2966B0D900D74132 /* PhonenumberScreenVC.swift in Sources */,
+				1B7F72142969A3DF00D74132 /* MyJobDetailVC.swift in Sources */,
+				1B7F71CA2965EE6000D74132 /* AppDelegate.swift in Sources */,
+				1B7F72222969BDEB00D74132 /* DeleteSearchVC.swift in Sources */,
+				1B1D5AFB297077F6006CC084 /* ApiMAnager.swift in Sources */,
+				1B7F72172969A58500D74132 /* MyJobDetailCell.swift in Sources */,
+				1B7F720B296832C000D74132 /* CandidateProfileCell.swift in Sources */,
+				1B7F72072967564200D74132 /* AppCategoryVC.swift in Sources */,
+				1B7F7210296949EA00D74132 /* Constants.swift in Sources */,
+				1B7F722A296A081900D74132 /* Extensions.swift in Sources */,
+				1B2DF9122979E3DB0073D6A0 /* SelectResumeVC.swift in Sources */,
+				1B08D5FD296A1C1F00458A46 /* EmployerDetailVC.swift in Sources */,
+				1B7F72012966B30300D74132 /* LoginViewController.swift in Sources */,
+				1B7F71CC2965EE6000D74132 /* SceneDelegate.swift in Sources */,
+				1B2424D3296B13BE003A363F /* VideoPlayerCell.swift in Sources */,
+				1BCE9B79296DFC32005E40BB /* ShowImageVC.swift in Sources */,
+				1B7F722D296A0D5900D74132 /* MatchedEmployerCell.swift in Sources */,
+				1B1D5AFD29709374006CC084 /* Helpers.swift in Sources */,
+				1B2DF9092979D0430073D6A0 /* ProfileViewCell.swift in Sources */,
+				1B7F7205296752ED00D74132 /* InstructionsVC.swift in Sources */,
+				1B2DF9052979C8780073D6A0 /* CompanyDetailCell.swift in Sources */,
+				1BCE9B77296DB7DD005E40BB /* ThumbnailVideoVC.swift in Sources */,
+				1B2DF90D2979D9470073D6A0 /* LikeDislikeBtnCell.swift in Sources */,
+				1B7F720E29683E9600D74132 /* CandidateProfileVC.swift in Sources */,
+				1B2424D0296B10D5003A363F /* HomeScreenVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B7F71D82965EE6100D74132 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B7F71E12965EE6100D74132 /* SeetoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B7F71E22965EE6100D74132 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B7F71EB2965EE6100D74132 /* SeetoUITests.swift in Sources */,
+				1B7F71ED2965EE6100D74132 /* SeetoUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1B7F71DE2965EE6100D74132 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B7F71C52965EE6000D74132 /* Seeto */;
+			targetProxy = 1B7F71DD2965EE6100D74132 /* PBXContainerItemProxy */;
+		};
+		1B7F71E82965EE6100D74132 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B7F71C52965EE6000D74132 /* Seeto */;
+			targetProxy = 1B7F71E72965EE6100D74132 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1B7F71CF2965EE6000D74132 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B7F71D02965EE6000D74132 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1B7F71D42965EE6100D74132 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B7F71D52965EE6100D74132 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1B7F71EE2965EE6100D74132 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1B7F71EF2965EE6100D74132 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1B7F71F12965EE6100D74132 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09FC291A92301CF96EA02729 /* Pods-Seeto.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = CDKM6994Z2;
+				EXCLUDED_ARCHS = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Seeto/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow to use Microphone";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow to use Photo Library";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Seeto.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		1B7F71F22965EE6100D74132 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F742E58AF4CE8CFC3A4490F /* Pods-Seeto.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = CDKM6994Z2;
+				EXCLUDED_ARCHS = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Seeto/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow to use Microphone";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow to use Photo Library";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Seeto.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		1B7F71F42965EE6100D74132 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5095E16581AFA7B99C6512CC /* Pods-SeetoTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4RNEWLY2A4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SeetoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Seeto.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Seeto";
+			};
+			name = Debug;
+		};
+		1B7F71F52965EE6100D74132 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 155D81081471DB7ECCE0D15D /* Pods-SeetoTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4RNEWLY2A4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SeetoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Seeto.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Seeto";
+			};
+			name = Release;
+		};
+		1B7F71F72965EE6100D74132 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A94644957EC9AC1EF75BF8D /* Pods-Seeto-SeetoUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4RNEWLY2A4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SeetoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Seeto;
+			};
+			name = Debug;
+		};
+		1B7F71F82965EE6100D74132 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCBE327434B301A37D680C12 /* Pods-Seeto-SeetoUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4RNEWLY2A4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SeetoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Seeto;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1B7F71C12965EE6000D74132 /* Build configuration list for PBXProject "Seeto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B7F71EE2965EE6100D74132 /* Debug */,
+				1B7F71EF2965EE6100D74132 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B7F71F02965EE6100D74132 /* Build configuration list for PBXNativeTarget "Seeto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B7F71F12965EE6100D74132 /* Debug */,
+				1B7F71F22965EE6100D74132 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B7F71F32965EE6100D74132 /* Build configuration list for PBXNativeTarget "SeetoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B7F71F42965EE6100D74132 /* Debug */,
+				1B7F71F52965EE6100D74132 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B7F71F62965EE6100D74132 /* Build configuration list for PBXNativeTarget "SeetoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B7F71F72965EE6100D74132 /* Debug */,
+				1B7F71F82965EE6100D74132 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1BCE9B7A297013AC005E40BB /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1BCE9B7B297013AC005E40BB /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BCE9B7A297013AC005E40BB /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		1BCE9B7D297013AC005E40BB /* FacebookGamingServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BCE9B7A297013AC005E40BB /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookGamingServices;
+		};
+		1BCE9B7F297013AC005E40BB /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BCE9B7A297013AC005E40BB /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
+		};
+		1BCE9B81297013AC005E40BB /* FacebookShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BCE9B7A297013AC005E40BB /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookShare;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 1B7F71BE2965EE6000D74132 /* Project object */;
+}

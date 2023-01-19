@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="63" id="KGk-i7-Jjw" customClass="DetailsCell" customModule="Seeto" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHi-0W-Ewm">
+                        <rect key="frame" x="20" y="0.0" width="280" height="50"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9B-ed-5HD">
+                                <rect key="frame" x="20.000000000000004" y="23.666666666666671" width="44.333333333333343" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                                <color key="textColor" name="BlueMain"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vector" translatesAutoresizingMaskIntoConstraints="NO" id="K8z-ST-Ta0">
+                                <rect key="frame" x="245" y="22" width="15" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Eec-7U-ON5"/>
+                                    <constraint firstAttribute="width" constant="15" id="hTi-gX-YkD"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ev2-eu-PYP">
+                                <rect key="frame" x="240.66666666666669" y="25" width="24" height="14"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="DarkShade"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="K8z-ST-Ta0" secondAttribute="trailing" constant="20" id="7RT-B7-s10"/>
+                            <constraint firstItem="Ev2-eu-PYP" firstAttribute="centerY" secondItem="K8z-ST-Ta0" secondAttribute="centerY" id="BzU-bz-sAq"/>
+                            <constraint firstItem="Ev2-eu-PYP" firstAttribute="height" secondItem="K8z-ST-Ta0" secondAttribute="height" multiplier="0.7" id="MFt-aM-4BI"/>
+                            <constraint firstItem="m9B-ed-5HD" firstAttribute="leading" secondItem="fHi-0W-Ewm" secondAttribute="leading" constant="20" id="Tna-AP-z3S"/>
+                            <constraint firstItem="m9B-ed-5HD" firstAttribute="centerY" secondItem="fHi-0W-Ewm" secondAttribute="centerY" constant="7" id="UwP-IA-BaC"/>
+                            <constraint firstAttribute="height" constant="50" id="hyh-d6-erY"/>
+                            <constraint firstItem="K8z-ST-Ta0" firstAttribute="centerY" secondItem="m9B-ed-5HD" secondAttribute="centerY" id="jfr-az-Mq5"/>
+                            <constraint firstItem="Ev2-eu-PYP" firstAttribute="centerX" secondItem="K8z-ST-Ta0" secondAttribute="centerX" id="uZV-C8-UNR"/>
+                            <constraint firstItem="Ev2-eu-PYP" firstAttribute="width" secondItem="K8z-ST-Ta0" secondAttribute="width" multiplier="1.6" id="yBN-MQ-TQP"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" name="backgroundColor"/>
+                <constraints>
+                    <constraint firstItem="fHi-0W-Ewm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="W75-rn-MFU"/>
+                    <constraint firstAttribute="trailing" secondItem="fHi-0W-Ewm" secondAttribute="trailing" constant="20" id="WE4-6B-Tt6"/>
+                    <constraint firstItem="fHi-0W-Ewm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="rAg-rs-oW3"/>
+                    <constraint firstAttribute="bottom" secondItem="fHi-0W-Ewm" secondAttribute="bottom" id="x1X-MB-2s3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnEdit" destination="Ev2-eu-PYP" id="9fK-kR-Njc"/>
+                <outlet property="heightCell" destination="hyh-d6-erY" id="8QA-ie-zCs"/>
+                <outlet property="heightImage" destination="Eec-7U-ON5" id="M6s-y7-yTa"/>
+                <outlet property="imgDown" destination="K8z-ST-Ta0" id="0hF-sT-ZOt"/>
+                <outlet property="lblDetails" destination="m9B-ed-5HD" id="omw-cW-2ca"/>
+                <outlet property="mainView" destination="fHi-0W-Ewm" id="r2B-0R-XgE"/>
+                <outlet property="trailingImg" destination="7RT-B7-s10" id="bSm-ko-JYm"/>
+                <outlet property="widthImage" destination="hTi-gX-YkD" id="m0x-97-no8"/>
+            </connections>
+            <point key="canvasLocation" x="83.969465648854964" y="24.295774647887324"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Vector" width="14" height="8"/>
+        <namedColor name="BlueMain">
+            <color red="0.0039215686274509803" green="0.7686274509803922" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="DarkShade">
+            <color red="0.10980392156862745" green="0.10980392156862745" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="backgroundColor">
+            <color red="0.15294117647058825" green="0.15294117647058825" blue="0.15294117647058825" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

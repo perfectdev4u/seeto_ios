@@ -1,0 +1,6 @@
+framework module Pods_SeetoTests {
+  umbrella header "Pods-SeetoTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

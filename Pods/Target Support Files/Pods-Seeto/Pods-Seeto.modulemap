@@ -1,0 +1,6 @@
+framework module Pods_Seeto {
+  umbrella header "Pods-Seeto-umbrella.h"
+
+  export *
+  module * { export * }
+}
