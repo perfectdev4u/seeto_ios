@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		13189EFC32F376AA3FBC02A4 /* Pods_Seeto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C594B00CB103016B0C143417 /* Pods_Seeto.framework */; };
+		1B06194629803EC100E096C3 /* EmployerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06194529803EC100E096C3 /* EmployerVC.swift */; };
+		1B0619482980472F00E096C3 /* CandidateDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0619472980472F00E096C3 /* CandidateDetailVC.swift */; };
+		1B06194A29804F0F00E096C3 /* CandidateSearchDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06194929804F0F00E096C3 /* CandidateSearchDetailVC.swift */; };
 		1B08D5FD296A1C1F00458A46 /* EmployerDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B08D5FC296A1C1F00458A46 /* EmployerDetailVC.swift */; };
 		1B08D600296A1D1400458A46 /* CongratsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B08D5FE296A1D1400458A46 /* CongratsCell.swift */; };
 		1B08D601296A1D1400458A46 /* CongratsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B08D5FF296A1D1400458A46 /* CongratsCell.xib */; };
@@ -20,6 +23,9 @@
 		1B2424D8296B2386003A363F /* VideoPlayerCollViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2424D6296B2386003A363F /* VideoPlayerCollViewCell.swift */; };
 		1B2424D9296B2386003A363F /* VideoPlayerCollViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2424D7296B2386003A363F /* VideoPlayerCollViewCell.xib */; };
 		1B2424DB296CA5E0003A363F /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2424DA296CA5DF003A363F /* ProfileSettingView.swift */; };
+		1B264A8529806510001E7EDD /* CompanyModifyDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B264A8429806510001E7EDD /* CompanyModifyDetailVC.swift */; };
+		1B264A872980673C001E7EDD /* EmployerProfileSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B264A862980673C001E7EDD /* EmployerProfileSettingVC.swift */; };
+		1B264A8929806BDE001E7EDD /* EmployerMainSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B264A8829806BDE001E7EDD /* EmployerMainSettingVC.swift */; };
 		1B2DF9052979C8780073D6A0 /* CompanyDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF9032979C8780073D6A0 /* CompanyDetailCell.swift */; };
 		1B2DF9062979C8780073D6A0 /* CompanyDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2DF9042979C8780073D6A0 /* CompanyDetailCell.xib */; };
 		1B2DF9092979D0430073D6A0 /* ProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF9072979D0430073D6A0 /* ProfileViewCell.swift */; };
@@ -91,6 +97,9 @@
 		09FC291A92301CF96EA02729 /* Pods-Seeto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.debug.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.debug.xcconfig"; sourceTree = "<group>"; };
 		1051A658DD127BE89753F2A4 /* Pods_SeetoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeetoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		155D81081471DB7ECCE0D15D /* Pods-SeetoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.release.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.release.xcconfig"; sourceTree = "<group>"; };
+		1B06194529803EC100E096C3 /* EmployerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerVC.swift; sourceTree = "<group>"; };
+		1B0619472980472F00E096C3 /* CandidateDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDetailVC.swift; sourceTree = "<group>"; };
+		1B06194929804F0F00E096C3 /* CandidateSearchDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateSearchDetailVC.swift; sourceTree = "<group>"; };
 		1B08D5FC296A1C1F00458A46 /* EmployerDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerDetailVC.swift; sourceTree = "<group>"; };
 		1B08D5FE296A1D1400458A46 /* CongratsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsCell.swift; sourceTree = "<group>"; };
 		1B08D5FF296A1D1400458A46 /* CongratsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CongratsCell.xib; sourceTree = "<group>"; };
@@ -103,6 +112,9 @@
 		1B2424D6296B2386003A363F /* VideoPlayerCollViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerCollViewCell.swift; sourceTree = "<group>"; };
 		1B2424D7296B2386003A363F /* VideoPlayerCollViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayerCollViewCell.xib; sourceTree = "<group>"; };
 		1B2424DA296CA5DF003A363F /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
+		1B264A8429806510001E7EDD /* CompanyModifyDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyModifyDetailVC.swift; sourceTree = "<group>"; };
+		1B264A862980673C001E7EDD /* EmployerProfileSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerProfileSettingVC.swift; sourceTree = "<group>"; };
+		1B264A8829806BDE001E7EDD /* EmployerMainSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerMainSettingVC.swift; sourceTree = "<group>"; };
 		1B2DF9032979C8780073D6A0 /* CompanyDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailCell.swift; sourceTree = "<group>"; };
 		1B2DF9042979C8780073D6A0 /* CompanyDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyDetailCell.xib; sourceTree = "<group>"; };
 		1B2DF9072979D0430073D6A0 /* ProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewCell.swift; sourceTree = "<group>"; };
@@ -305,6 +317,12 @@
 				1BCE9B78296DFC32005E40BB /* ShowImageVC.swift */,
 				1B2DF90F2979E0800073D6A0 /* CongratsVC.swift */,
 				1B2DF9112979E3DB0073D6A0 /* SelectResumeVC.swift */,
+				1B06194529803EC100E096C3 /* EmployerVC.swift */,
+				1B0619472980472F00E096C3 /* CandidateDetailVC.swift */,
+				1B06194929804F0F00E096C3 /* CandidateSearchDetailVC.swift */,
+				1B264A8429806510001E7EDD /* CompanyModifyDetailVC.swift */,
+				1B264A862980673C001E7EDD /* EmployerProfileSettingVC.swift */,
+				1B264A8829806BDE001E7EDD /* EmployerMainSettingVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -669,16 +687,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B7F721A2969ABC300D74132 /* ModifyJobSearchVC.swift in Sources */,
+				1B264A8529806510001E7EDD /* CompanyModifyDetailVC.swift in Sources */,
 				1B7F721F2969B27100D74132 /* MyJobSearchesCell.swift in Sources */,
+				1B264A8929806BDE001E7EDD /* EmployerMainSettingVC.swift in Sources */,
 				1B08D600296A1D1400458A46 /* CongratsCell.swift in Sources */,
+				1B264A872980673C001E7EDD /* EmployerProfileSettingVC.swift in Sources */,
 				1B7F72272969F04200D74132 /* DetailsCell.swift in Sources */,
 				1B7F72032967203000D74132 /* OTPViewController.swift in Sources */,
+				1B06194629803EC100E096C3 /* EmployerVC.swift in Sources */,
 				1B2DF9102979E0800073D6A0 /* CongratsVC.swift in Sources */,
 				1B7F72242969EC1700D74132 /* JobSearchDetailsVC.swift in Sources */,
 				1B2424DB296CA5E0003A363F /* ProfileSettingView.swift in Sources */,
 				1B7F721C2969B01600D74132 /* MyJobSearchesVC.swift in Sources */,
 				1B2424D8296B2386003A363F /* VideoPlayerCollViewCell.swift in Sources */,
 				1B7F721229698F1900D74132 /* VideoRecordingVC.swift in Sources */,
+				1B06194A29804F0F00E096C3 /* CandidateSearchDetailVC.swift in Sources */,
 				1B7F71FF2966B0D900D74132 /* PhonenumberScreenVC.swift in Sources */,
 				1B7F72142969A3DF00D74132 /* MyJobDetailVC.swift in Sources */,
 				1B7F71CA2965EE6000D74132 /* AppDelegate.swift in Sources */,
@@ -696,6 +719,7 @@
 				1B2424D3296B13BE003A363F /* VideoPlayerCell.swift in Sources */,
 				1BCE9B79296DFC32005E40BB /* ShowImageVC.swift in Sources */,
 				1B7F722D296A0D5900D74132 /* MatchedEmployerCell.swift in Sources */,
+				1B0619482980472F00E096C3 /* CandidateDetailVC.swift in Sources */,
 				1B1D5AFD29709374006CC084 /* Helpers.swift in Sources */,
 				1B2DF9092979D0430073D6A0 /* ProfileViewCell.swift in Sources */,
 				1B7F7205296752ED00D74132 /* InstructionsVC.swift in Sources */,

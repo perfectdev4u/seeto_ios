@@ -1,19 +1,19 @@
 //
-//  CandidateProfileVC.swift
+//  EmployerVC.swift
 //  Seeto
 //
-//  Created by Paramveer Singh on 06/01/23.
+//  Created by Paramveer Singh on 24/01/23.
 //
 
 import UIKit
 import AVKit
 import MobileCoreServices
 
-class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate{
+class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate{
+    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"false","value":""],["title":"Industry","type":"text","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"false","value":""],["title":"Company Foundation Date","type":"text","required":"false","value":""],["title":"Company Location","type":"text","required":"false","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
     var urlVideo = URL(string: "")
-    var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Date of Birth","type":"text","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"false","value":""],["title":"Email Address","type":"text","required":"true","value":""],["title":"Linkedin Profile","type":"text","required":"true","value":""],["title":"Current Location","type":"drop","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
     let toolBar = UIToolbar()
@@ -24,10 +24,11 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     var datePicker = UIDatePicker()
     let toolbar = UIToolbar();
     var countryCode = "USA"
-    @IBOutlet var tblCandidateProfile: UITableView!
+    
+    @IBOutlet var tblEmployer: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        tblCandidateProfile.backgroundColor = backGroundColor
+        tblEmployer.backgroundColor = backGroundColor
         PickerView()
         showDatePicker()
         imagePicker.delegate = self
@@ -156,7 +157,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
 }
 
-extension CandidateProfileVC
+extension EmployerVC
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dictTable.count
@@ -166,7 +167,7 @@ extension CandidateProfileVC
         view.backgroundColor = backGroundColor
         let button = UIButton(frame: CGRect(x: 20, y: 40, width: self.view.frame.width - 40, height: 50))
         button.layer.cornerRadius = 10
-        button.setTitle("Create & Record Video", for: .normal)
+        button.setTitle("Create", for: .normal)
         button.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
         button.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
         button.backgroundColor = blueButtonColor
@@ -199,11 +200,11 @@ extension CandidateProfileVC
         let alert = UIAlertController(title: "", message: "Select Country Code", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "United States", style: .default, handler: { action in
             self.countryCode = "USA"
-            self.tblCandidateProfile.reloadData()
+            self.tblEmployer.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Ukraine", style: .default, handler: { action in
             self.countryCode = "Ukraine"
-            self.tblCandidateProfile.reloadData()
+            self.tblEmployer.reloadData()
 
         }))
         self.present(alert, animated: true, completion: nil)
@@ -247,7 +248,7 @@ extension CandidateProfileVC
             cell.widthImg.constant = 25
             cell.topImage.constant = 15
         }
-        else if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture"
+        else if (dictTable[indexPath.row]["title"]!) == "Upload Company Logo"
         {
             cell.imgVector.image = UIImage(imageLiteralResourceName: "upload")
             cell.heightImg.constant = 20
@@ -318,7 +319,7 @@ extension CandidateProfileVC
     }
 }
 
-extension CandidateProfileVC : UIPickerViewDelegate, UIPickerViewDataSource
+extension EmployerVC : UIPickerViewDelegate, UIPickerViewDataSource
 {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -334,7 +335,7 @@ extension CandidateProfileVC : UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         index = row
     }}
-extension CandidateProfileVC : UITextFieldDelegate
+extension EmployerVC : UITextFieldDelegate
 {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textFieldTag = textField.tag
@@ -416,11 +417,11 @@ extension CandidateProfileVC : UITextFieldDelegate
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        tblCandidateProfile.reloadData()
+        tblEmployer.reloadData()
     }
 }
 // MARK: - UIImagePickerControllerDelegate
-extension CandidateProfileVC: UIImagePickerControllerDelegate {
+extension EmployerVC: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
 
@@ -457,4 +458,3 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
       present(alert, animated: true, completion: nil)
   }
 }
-

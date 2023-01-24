@@ -1,14 +1,15 @@
 //
-//  ProfileSettingView.swift
+//  EmployerProfileSettingVC.swift
 //  Seeto
 //
-//  Created by Paramveer Singh on 10/01/23.
+//  Created by Paramveer Singh on 25/01/23.
 //
 
 import UIKit
 
-class ProfileSettingView: UIViewController {
-    var dictTable = [["title":"Name","value":"Vrinda Gupta"],["title":"DOB","value":"23-11-1999"],["title":"Linkedin Profile","value":"www.vrinda.com"],["title":"Gender","value":"Female"],["title":"Current Location","value":"India"],["title":"Current Position","value":"Nodejs Developer"],["title":"Experience Level","value":"Entry level"],["title":"Spoken Language","value":"English"]]
+class EmployerProfileSettingVC: UIViewController {
+
+    var dictTable = [["title":"Company name","value":"Apple"],["title":"Industry","value":"IT"],["title":"Website","value":"www.Apple.com"],["title":"Linkedin Profile","value":"www.Apple.com"],["title":"Company Foundation Date","value":"23-11-1999"],["title":"Company Size","value":"100000"]]
 
     @IBOutlet var tblProfileSettings: UITableView!
     override func viewDidLoad() {
@@ -23,7 +24,7 @@ class ProfileSettingView: UIViewController {
     
 
 }
-extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
+extension EmployerProfileSettingVC : UITableViewDelegate,UITableViewDataSource
 {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -84,9 +85,10 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
                 else
                 {
                     cell.myJobDataLbl.text = dictTable[indexPath.row - 1]["value"]
+
                     cell.myJobDataLbl.textColor = UIColor.white
                 }
-                if indexPath.row == (tableView.numberOfRows(inSection: 0) - 1)
+                if indexPath.row == (tableView.numberOfRows(inSection: 1) - 1)
                 {
                     cell.mainView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
                     cell.seperaterView.isHidden = true
@@ -117,26 +119,12 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
     }
    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height:section == 1 ? 80 : .leastNormalMagnitude))
-        if section == 1
-        {
-            view.backgroundColor = backGroundColor
-            let button = UIButton(frame: CGRect(x: 20, y: 20, width: self.view.frame.width - 40, height: 50))
-            button.layer.cornerRadius = 10
-            button.setTitle("      Resume Video Preview", for: .normal)
-            button.setTitleColor(blueButtonColor, for: .normal)
-            button.titleLabel?.font =  UIFont.systemFont(ofSize: 14, weight: .light)
-            button.backgroundColor = darkShadeColor
-            button.contentHorizontalAlignment = .left
-            let buttonEdit = UIButton(frame: CGRect(x:  self.view.frame.width - 65, y: 30, width: 30, height: 30))
-            buttonEdit.setImage(UIImage(named: "edit"), for: .normal)
-            view.addSubview(button)
-            view.addSubview(buttonEdit)
-        }
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: .leastNormalMagnitude))
+      
         return view
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return section == 0 ? .leastNormalMagnitude : 80
+        return .leastNormalMagnitude
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
