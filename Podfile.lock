@@ -17,7 +17,7 @@ PODS:
   - SwiftLoader (1.0.0)
 
 DEPENDENCIES:
-  - GoogleSignIn (~> 5.0)
+  - GoogleSignIn
   - IQKeyboardManager
   - SwiftLoader
 
@@ -38,6 +38,6 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
   SwiftLoader: f12f3a6fb42576862a3a5eb80c7e59fc881b6982
 
-PODFILE CHECKSUM: d1cc8b5a6ea1ee5ec5646be19c02186b883e962c
+PODFILE CHECKSUM: b3d84c30fc2b5ad74165553b40cf05c7548b8a16
 
 COCOAPODS: 1.11.2

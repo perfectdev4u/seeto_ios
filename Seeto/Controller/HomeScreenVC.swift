@@ -22,6 +22,7 @@ class HomeScreenVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
         let cells = collViewVideos.visibleCells.compactMap({ $0 as? VideoPlayerCollViewCell })
         cells.forEach { videoCell in
 
@@ -114,13 +115,15 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
  
     @objc func likeAct(_ sender : UIButton)
     {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelectResumeVC") as! SelectResumeVC
-        self.present(vc, animated: true)
+        Toast.show(message:"Done", controller: self)
+
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelectResumeVC") as! SelectResumeVC
+//        self.present(vc, animated: true)
     }
     
     @objc func dislikeAct(_ sender : UIButton)
     {
-        print("Disliked")
+        Toast.show(message:"Done", controller: self)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0

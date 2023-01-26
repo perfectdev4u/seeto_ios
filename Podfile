@@ -4,11 +4,12 @@
 target 'Seeto' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
+ 
 
   # Pods for Seeto
-pod 'IQKeyboardManager'
-pod 'SwiftLoader'
-pod 'GoogleSignIn', '~> 5.0'
+  pod 'IQKeyboardManager'
+  pod 'SwiftLoader'
+  pod 'GoogleSignIn'
 
   target 'SeetoTests' do
     inherit! :search_paths

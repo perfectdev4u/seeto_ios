@@ -33,6 +33,8 @@ class DeleteSearchVC: UIViewController {
         backView.addSubview(blurredEffectView)
     }
     @IBAction func btnConfirmAct(_ sender: Any) {
+        self.dismiss(animated: true)
+
     }
     
     @IBAction func btnCancelAct(_ sender: Any) {

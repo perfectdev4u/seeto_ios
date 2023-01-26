@@ -8,7 +8,7 @@
 import UIKit
 
 class AppCategoryVC: UIViewController {
-
+var appleLogin = false
     @IBOutlet var btnJustExploring: UIButton!
     @IBOutlet var btnFindJob: UIButton!
     @IBOutlet var btnHireTalent: UIButton!
@@ -26,14 +26,30 @@ class AppCategoryVC: UIViewController {
 
     }
     
+    @IBAction func btnHireTalentAct(_ sender: UIButton) {
+        Toast.show(message:"Under Development", controller: self)
+
+    }
     @IBAction func btnFindJobAct(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "CandidateProfileVC") as! CandidateProfileVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        if appleLogin == true
+        {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        else
+        {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "CandidateProfileVC") as! CandidateProfileVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @IBAction func btnActBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func btnJustExploring(_ sender: UIButton) {
+        Toast.show(message:"Under Development", controller: self)
 
+    }
+    
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class InstructionsVC: UIViewController {
-
+var appleLogin = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
@@ -19,6 +19,7 @@ class InstructionsVC: UIViewController {
 
     @IBAction func btnContinueAct(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
+        vc.appleLogin = appleLogin
         self.navigationController?.pushViewController(vc, animated: true)
 
     }

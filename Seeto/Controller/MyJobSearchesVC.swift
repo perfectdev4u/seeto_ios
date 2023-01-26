@@ -76,8 +76,7 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
     }
     @objc func btnNewSearchAct()
     {
-
-        
+        Toast.show(message:"Under Development", controller: self)
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 70

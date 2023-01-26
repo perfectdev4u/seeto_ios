@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13189EFC32F376AA3FBC02A4 /* Pods_Seeto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C594B00CB103016B0C143417 /* Pods_Seeto.framework */; };
 		1B06194629803EC100E096C3 /* EmployerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06194529803EC100E096C3 /* EmployerVC.swift */; };
 		1B0619482980472F00E096C3 /* CandidateDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0619472980472F00E096C3 /* CandidateDetailVC.swift */; };
 		1B06194A29804F0F00E096C3 /* CandidateSearchDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06194929804F0F00E096C3 /* CandidateSearchDetailVC.swift */; };
@@ -72,8 +71,9 @@
 		1BCE9B7E297013AC005E40BB /* FacebookGamingServices in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B7D297013AC005E40BB /* FacebookGamingServices */; };
 		1BCE9B80297013AC005E40BB /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B7F297013AC005E40BB /* FacebookLogin */; };
 		1BCE9B82297013AC005E40BB /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B81297013AC005E40BB /* FacebookShare */; };
-		28B2DD2A2A8CE8444569BFA6 /* Pods_Seeto_SeetoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A094243270D965ECDE0EC43 /* Pods_Seeto_SeetoUITests.framework */; };
-		C0D4B24FC4C3F80E513AF22E /* Pods_SeetoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1051A658DD127BE89753F2A4 /* Pods_SeetoTests.framework */; };
+		455BB3BC457C7CAE0D567FBD /* Pods_Seeto_SeetoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A655284114DEE154FB46A1B9 /* Pods_Seeto_SeetoUITests.framework */; };
+		78E6A7288BA00D26DE8E2886 /* Pods_Seeto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A038E224422560FFEDE1F1 /* Pods_Seeto.framework */; };
+		BAEC80B79DBCF5DF0D2D7B54 /* Pods_SeetoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85E46AC810AB87103CA2F00F /* Pods_SeetoTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,9 +94,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		09FC291A92301CF96EA02729 /* Pods-Seeto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.debug.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.debug.xcconfig"; sourceTree = "<group>"; };
-		1051A658DD127BE89753F2A4 /* Pods_SeetoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeetoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		155D81081471DB7ECCE0D15D /* Pods-SeetoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.release.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.release.xcconfig"; sourceTree = "<group>"; };
+		08AFC59F22517A1F97C71669 /* Pods-Seeto-SeetoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto-SeetoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		1B06194529803EC100E096C3 /* EmployerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerVC.swift; sourceTree = "<group>"; };
 		1B0619472980472F00E096C3 /* CandidateDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDetailVC.swift; sourceTree = "<group>"; };
 		1B06194929804F0F00E096C3 /* CandidateSearchDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateSearchDetailVC.swift; sourceTree = "<group>"; };
@@ -162,18 +160,14 @@
 		1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailVideoVC.swift; sourceTree = "<group>"; };
 		1BCE9B78296DFC32005E40BB /* ShowImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageVC.swift; sourceTree = "<group>"; };
 		1BD6BEF1297047A900B8903A /* Seeto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Seeto.entitlements; sourceTree = "<group>"; };
-		2F742E58AF4CE8CFC3A4490F /* Pods-Seeto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.release.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.release.xcconfig"; sourceTree = "<group>"; };
-		4A94644957EC9AC1EF75BF8D /* Pods-Seeto-SeetoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto-SeetoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		5095E16581AFA7B99C6512CC /* Pods-SeetoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.debug.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		50B2A2814CB5F97418134A90 /* Pods-SeetoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.debug.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		57E02296D39A310804B97D58 /* Pods-Seeto-SeetoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto-SeetoUITests.release.xcconfig"; path = "Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests.release.xcconfig"; sourceTree = "<group>"; };
-		6A094243270D965ECDE0EC43 /* Pods_Seeto_SeetoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seeto_SeetoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		90222DD3017B0FCC8BA09222 /* Pods-Seeto-SeetoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto-SeetoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		A8E6A709ED4F6795082FF6E4 /* Pods-Seeto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.debug.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.debug.xcconfig"; sourceTree = "<group>"; };
-		BE5D1DC32F4248638F800531 /* Pods-Seeto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.release.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.release.xcconfig"; sourceTree = "<group>"; };
-		C594B00CB103016B0C143417 /* Pods_Seeto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seeto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D5A69C6FFEC3F23F2B907DE3 /* Pods-SeetoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.release.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.release.xcconfig"; sourceTree = "<group>"; };
-		FCBE327434B301A37D680C12 /* Pods-Seeto-SeetoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto-SeetoUITests.release.xcconfig"; path = "Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		36F3AA0FD62ACE204D677DD2 /* Pods-SeetoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.release.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.release.xcconfig"; sourceTree = "<group>"; };
+		50857CA5FC8AD8607476CD7E /* Pods-Seeto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.release.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.release.xcconfig"; sourceTree = "<group>"; };
+		72D37960576CA2160C5CAF31 /* Pods-SeetoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.debug.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		85E46AC810AB87103CA2F00F /* Pods_SeetoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeetoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A655284114DEE154FB46A1B9 /* Pods_Seeto_SeetoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seeto_SeetoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB10A13A7D0C7DBB48D26871 /* Pods-Seeto-SeetoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto-SeetoUITests.release.xcconfig"; path = "Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B47B7E9304B1630C05FCA88B /* Pods-Seeto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.debug.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.debug.xcconfig"; sourceTree = "<group>"; };
+		C9A038E224422560FFEDE1F1 /* Pods_Seeto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seeto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,9 +177,9 @@
 			files = (
 				1BCE9B80297013AC005E40BB /* FacebookLogin in Frameworks */,
 				1BCE9B7E297013AC005E40BB /* FacebookGamingServices in Frameworks */,
-				13189EFC32F376AA3FBC02A4 /* Pods_Seeto.framework in Frameworks */,
 				1BCE9B82297013AC005E40BB /* FacebookShare in Frameworks */,
 				1BCE9B7C297013AC005E40BB /* FacebookCore in Frameworks */,
+				78E6A7288BA00D26DE8E2886 /* Pods_Seeto.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,7 +187,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0D4B24FC4C3F80E513AF22E /* Pods_SeetoTests.framework in Frameworks */,
+				BAEC80B79DBCF5DF0D2D7B54 /* Pods_SeetoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +195,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28B2DD2A2A8CE8444569BFA6 /* Pods_Seeto_SeetoUITests.framework in Frameworks */,
+				455BB3BC457C7CAE0D567FBD /* Pods_Seeto_SeetoUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,8 +218,8 @@
 				1B7F71DF2965EE6100D74132 /* SeetoTests */,
 				1B7F71E92965EE6100D74132 /* SeetoUITests */,
 				1B7F71C72965EE6000D74132 /* Products */,
-				6852868D10518C05A2B15AB8 /* Frameworks */,
 				DE6F0D57875B413BB5F986DF /* Pods */,
+				C03162D1926B9432D90C8D78 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -354,38 +348,32 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
-		6852868D10518C05A2B15AB8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C594B00CB103016B0C143417 /* Pods_Seeto.framework */,
-				6A094243270D965ECDE0EC43 /* Pods_Seeto_SeetoUITests.framework */,
-				1051A658DD127BE89753F2A4 /* Pods_SeetoTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		69253F4472D9C00EAA7CCB65 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				09FC291A92301CF96EA02729 /* Pods-Seeto.debug.xcconfig */,
-				2F742E58AF4CE8CFC3A4490F /* Pods-Seeto.release.xcconfig */,
-				4A94644957EC9AC1EF75BF8D /* Pods-Seeto-SeetoUITests.debug.xcconfig */,
-				FCBE327434B301A37D680C12 /* Pods-Seeto-SeetoUITests.release.xcconfig */,
-				5095E16581AFA7B99C6512CC /* Pods-SeetoTests.debug.xcconfig */,
-				155D81081471DB7ECCE0D15D /* Pods-SeetoTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C03162D1926B9432D90C8D78 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9A038E224422560FFEDE1F1 /* Pods_Seeto.framework */,
+				A655284114DEE154FB46A1B9 /* Pods_Seeto_SeetoUITests.framework */,
+				85E46AC810AB87103CA2F00F /* Pods_SeetoTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		DE6F0D57875B413BB5F986DF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A8E6A709ED4F6795082FF6E4 /* Pods-Seeto.debug.xcconfig */,
-				BE5D1DC32F4248638F800531 /* Pods-Seeto.release.xcconfig */,
-				90222DD3017B0FCC8BA09222 /* Pods-Seeto-SeetoUITests.debug.xcconfig */,
-				57E02296D39A310804B97D58 /* Pods-Seeto-SeetoUITests.release.xcconfig */,
-				50B2A2814CB5F97418134A90 /* Pods-SeetoTests.debug.xcconfig */,
-				D5A69C6FFEC3F23F2B907DE3 /* Pods-SeetoTests.release.xcconfig */,
+				B47B7E9304B1630C05FCA88B /* Pods-Seeto.debug.xcconfig */,
+				50857CA5FC8AD8607476CD7E /* Pods-Seeto.release.xcconfig */,
+				08AFC59F22517A1F97C71669 /* Pods-Seeto-SeetoUITests.debug.xcconfig */,
+				AB10A13A7D0C7DBB48D26871 /* Pods-Seeto-SeetoUITests.release.xcconfig */,
+				72D37960576CA2160C5CAF31 /* Pods-SeetoTests.debug.xcconfig */,
+				36F3AA0FD62ACE204D677DD2 /* Pods-SeetoTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -397,12 +385,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B7F71F02965EE6100D74132 /* Build configuration list for PBXNativeTarget "Seeto" */;
 			buildPhases = (
-				35C25E157D632527F8990766 /* [CP] Check Pods Manifest.lock */,
+				4919FB9528ECC94DE42FF1FC /* [CP] Check Pods Manifest.lock */,
 				1B7F71C22965EE6000D74132 /* Sources */,
 				1B7F71C32965EE6000D74132 /* Frameworks */,
 				1B7F71C42965EE6000D74132 /* Resources */,
-				8ABC617786B571DAC401C362 /* [CP] Embed Pods Frameworks */,
-				093E89B4AA00365B0823D8E1 /* [CP] Copy Pods Resources */,
+				E10185BD8F7B2A71A0289410 /* [CP] Embed Pods Frameworks */,
+				19B80FEDD9535EB0D205785B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -423,7 +411,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B7F71F32965EE6100D74132 /* Build configuration list for PBXNativeTarget "SeetoTests" */;
 			buildPhases = (
-				35E81ACD6C437D2F7044A564 /* [CP] Check Pods Manifest.lock */,
+				768416DE8668E84A21784637 /* [CP] Check Pods Manifest.lock */,
 				1B7F71D82965EE6100D74132 /* Sources */,
 				1B7F71D92965EE6100D74132 /* Frameworks */,
 				1B7F71DA2965EE6100D74132 /* Resources */,
@@ -442,12 +430,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B7F71F62965EE6100D74132 /* Build configuration list for PBXNativeTarget "SeetoUITests" */;
 			buildPhases = (
-				A5E19ED36D8B6A960C2C5734 /* [CP] Check Pods Manifest.lock */,
+				A84BB120E1BAC279D6D1D579 /* [CP] Check Pods Manifest.lock */,
 				1B7F71E22965EE6100D74132 /* Sources */,
 				1B7F71E32965EE6100D74132 /* Frameworks */,
 				1B7F71E42965EE6100D74132 /* Resources */,
-				A0583620DFFB6AC4D48E38F5 /* [CP] Embed Pods Frameworks */,
-				3A4193FD067E263A4B1B171D /* [CP] Copy Pods Resources */,
+				49F61E30DDFF7ED1D36CB7A4 /* [CP] Embed Pods Frameworks */,
+				8937420462A726FC0E442C6C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -545,7 +533,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		093E89B4AA00365B0823D8E1 /* [CP] Copy Pods Resources */ = {
+		19B80FEDD9535EB0D205785B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -562,7 +550,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		35C25E157D632527F8990766 /* [CP] Check Pods Manifest.lock */ = {
+		4919FB9528ECC94DE42FF1FC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -584,7 +572,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		35E81ACD6C437D2F7044A564 /* [CP] Check Pods Manifest.lock */ = {
+		49F61E30DDFF7ED1D36CB7A4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		768416DE8668E84A21784637 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -606,7 +611,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3A4193FD067E263A4B1B171D /* [CP] Copy Pods Resources */ = {
+		8937420462A726FC0E442C6C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -623,41 +628,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8ABC617786B571DAC401C362 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A0583620DFFB6AC4D48E38F5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seeto-SeetoUITests/Pods-Seeto-SeetoUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A5E19ED36D8B6A960C2C5734 /* [CP] Check Pods Manifest.lock */ = {
+		A84BB120E1BAC279D6D1D579 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -677,6 +648,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E10185BD8F7B2A71A0289410 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seeto/Pods-Seeto-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -819,6 +807,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -879,6 +868,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -899,20 +889,20 @@
 		};
 		1B7F71F12965EE6100D74132 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 09FC291A92301CF96EA02729 /* Pods-Seeto.debug.xcconfig */;
+			baseConfigurationReference = B47B7E9304B1630C05FCA88B /* Pods-Seeto.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Seeto/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use camera";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow to use Microphone";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow to use Photo Library";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use camera to record your video for the introduction.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow to use microphone to record your audio for the introduction.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow to use Photo Library to save your video for the introduction.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -925,6 +915,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Seeto.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -938,20 +929,20 @@
 		};
 		1B7F71F22965EE6100D74132 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F742E58AF4CE8CFC3A4490F /* Pods-Seeto.release.xcconfig */;
+			baseConfigurationReference = 50857CA5FC8AD8607476CD7E /* Pods-Seeto.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Seeto/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use camera";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow to use Microphone";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow to use Photo Library";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use camera to record your video for the introduction.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow to use microphone to record your audio for the introduction.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow to use Photo Library to save your video for the introduction.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -964,6 +955,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Seeto.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -977,7 +969,7 @@
 		};
 		1B7F71F42965EE6100D74132 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5095E16581AFA7B99C6512CC /* Pods-SeetoTests.debug.xcconfig */;
+			baseConfigurationReference = 72D37960576CA2160C5CAF31 /* Pods-SeetoTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -998,7 +990,7 @@
 		};
 		1B7F71F52965EE6100D74132 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 155D81081471DB7ECCE0D15D /* Pods-SeetoTests.release.xcconfig */;
+			baseConfigurationReference = 36F3AA0FD62ACE204D677DD2 /* Pods-SeetoTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1019,7 +1011,7 @@
 		};
 		1B7F71F72965EE6100D74132 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A94644957EC9AC1EF75BF8D /* Pods-Seeto-SeetoUITests.debug.xcconfig */;
+			baseConfigurationReference = 08AFC59F22517A1F97C71669 /* Pods-Seeto-SeetoUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1038,7 +1030,7 @@
 		};
 		1B7F71F82965EE6100D74132 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FCBE327434B301A37D680C12 /* Pods-Seeto-SeetoUITests.release.xcconfig */;
+			baseConfigurationReference = AB10A13A7D0C7DBB48D26871 /* Pods-Seeto-SeetoUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
