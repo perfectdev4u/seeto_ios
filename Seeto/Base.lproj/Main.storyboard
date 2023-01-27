@@ -1431,6 +1431,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ia6-Ql-0J2">
+                                <rect key="frame" x="0.0" y="442.5" width="414" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="TlD-at-eJP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KPb-HY-Di1">
                                 <rect key="frame" x="10" y="48" width="394" height="814"/>
                                 <color key="backgroundColor" name="backgroundColor"/>
@@ -1483,9 +1492,12 @@
                         <viewLayoutGuide key="safeArea" id="g4t-i2-a9n"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Ia6-Ql-0J2" firstAttribute="centerY" secondItem="g4t-i2-a9n" secondAttribute="centerY" id="2cq-F7-0bd"/>
+                            <constraint firstItem="g4t-i2-a9n" firstAttribute="trailing" secondItem="Ia6-Ql-0J2" secondAttribute="trailing" id="4Ze-de-Crg"/>
                             <constraint firstItem="KgI-NT-GRk" firstAttribute="leading" secondItem="g4t-i2-a9n" secondAttribute="leading" constant="20" id="51a-Zc-GfK"/>
                             <constraint firstItem="g4t-i2-a9n" firstAttribute="trailing" secondItem="3Dv-Gx-S0y" secondAttribute="trailing" constant="20" id="Cgd-dE-sAh"/>
                             <constraint firstItem="3Dv-Gx-S0y" firstAttribute="centerY" secondItem="3nr-3g-nAf" secondAttribute="centerY" id="M7J-oL-4E4"/>
+                            <constraint firstItem="Ia6-Ql-0J2" firstAttribute="leading" secondItem="g4t-i2-a9n" secondAttribute="leading" id="Mki-yG-5qy"/>
                             <constraint firstItem="3nr-3g-nAf" firstAttribute="centerY" secondItem="KgI-NT-GRk" secondAttribute="centerY" id="XT6-O1-4C7"/>
                             <constraint firstItem="g4t-i2-a9n" firstAttribute="bottom" secondItem="KPb-HY-Di1" secondAttribute="bottom" id="aah-jF-7Zv"/>
                             <constraint firstItem="KPb-HY-Di1" firstAttribute="top" secondItem="g4t-i2-a9n" secondAttribute="top" id="h0w-fJ-wPV"/>

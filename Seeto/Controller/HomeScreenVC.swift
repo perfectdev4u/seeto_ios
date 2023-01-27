@@ -13,12 +13,14 @@ class HomeScreenVC: UIViewController {
     @IBOutlet var collViewVideos: UICollectionView!
     let screenSize: CGRect = UIScreen.main.bounds
 
-    var videoUrlArray = ["http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v","http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v","http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v"]
+//    var videoUrlArray = ["http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v","http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v","http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v"]
+    var videoUrlArray = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
         //collViewVideos.layer.cornerRadius = 40
         collViewVideos.delegate = self
         collViewVideos.dataSource = self
+        collViewVideos.isHidden = true
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
