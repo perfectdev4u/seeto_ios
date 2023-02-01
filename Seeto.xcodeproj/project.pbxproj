@@ -16,6 +16,10 @@
 		1B1D5AF929706737006CC084 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B1D5AF829706737006CC084 /* credentials.plist */; };
 		1B1D5AFB297077F6006CC084 /* ApiMAnager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5AFA297077F6006CC084 /* ApiMAnager.swift */; };
 		1B1D5AFD29709374006CC084 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5AFC29709374006CC084 /* Helpers.swift */; };
+		1B1DDEDE2984369A008F7680 /* AddNewJobScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1DDEDD2984369A008F7680 /* AddNewJobScreen.swift */; };
+		1B1DDEE0298439BF008F7680 /* AddNewJobAndVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1DDEDF298439BF008F7680 /* AddNewJobAndVideoVC.swift */; };
+		1B1DDEE2298442F4008F7680 /* JobsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1DDEE1298442F4008F7680 /* JobsVC.swift */; };
+		1B1DDEE429844E58008F7680 /* DeleteJobVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1DDEE329844E58008F7680 /* DeleteJobVC.swift */; };
 		1B2424D0296B10D5003A363F /* HomeScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2424CF296B10D5003A363F /* HomeScreenVC.swift */; };
 		1B2424D3296B13BE003A363F /* VideoPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2424D1296B13BE003A363F /* VideoPlayerCell.swift */; };
 		1B2424D4296B13BE003A363F /* VideoPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2424D2296B13BE003A363F /* VideoPlayerCell.xib */; };
@@ -104,6 +108,10 @@
 		1B1D5AF829706737006CC084 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		1B1D5AFA297077F6006CC084 /* ApiMAnager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMAnager.swift; sourceTree = "<group>"; };
 		1B1D5AFC29709374006CC084 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		1B1DDEDD2984369A008F7680 /* AddNewJobScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewJobScreen.swift; sourceTree = "<group>"; };
+		1B1DDEDF298439BF008F7680 /* AddNewJobAndVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewJobAndVideoVC.swift; sourceTree = "<group>"; };
+		1B1DDEE1298442F4008F7680 /* JobsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsVC.swift; sourceTree = "<group>"; };
+		1B1DDEE329844E58008F7680 /* DeleteJobVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteJobVC.swift; sourceTree = "<group>"; };
 		1B2424CF296B10D5003A363F /* HomeScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenVC.swift; sourceTree = "<group>"; };
 		1B2424D1296B13BE003A363F /* VideoPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerCell.swift; sourceTree = "<group>"; };
 		1B2424D2296B13BE003A363F /* VideoPlayerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayerCell.xib; sourceTree = "<group>"; };
@@ -317,6 +325,10 @@
 				1B264A8429806510001E7EDD /* CompanyModifyDetailVC.swift */,
 				1B264A862980673C001E7EDD /* EmployerProfileSettingVC.swift */,
 				1B264A8829806BDE001E7EDD /* EmployerMainSettingVC.swift */,
+				1B1DDEDD2984369A008F7680 /* AddNewJobScreen.swift */,
+				1B1DDEDF298439BF008F7680 /* AddNewJobAndVideoVC.swift */,
+				1B1DDEE1298442F4008F7680 /* JobsVC.swift */,
+				1B1DDEE329844E58008F7680 /* DeleteJobVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -674,6 +686,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B1DDEE2298442F4008F7680 /* JobsVC.swift in Sources */,
 				1B7F721A2969ABC300D74132 /* ModifyJobSearchVC.swift in Sources */,
 				1B264A8529806510001E7EDD /* CompanyModifyDetailVC.swift in Sources */,
 				1B7F721F2969B27100D74132 /* MyJobSearchesCell.swift in Sources */,
@@ -696,7 +709,9 @@
 				1B7F72222969BDEB00D74132 /* DeleteSearchVC.swift in Sources */,
 				1B1D5AFB297077F6006CC084 /* ApiMAnager.swift in Sources */,
 				1B7F72172969A58500D74132 /* MyJobDetailCell.swift in Sources */,
+				1B1DDEE429844E58008F7680 /* DeleteJobVC.swift in Sources */,
 				1B7F720B296832C000D74132 /* CandidateProfileCell.swift in Sources */,
+				1B1DDEDE2984369A008F7680 /* AddNewJobScreen.swift in Sources */,
 				1B7F72072967564200D74132 /* AppCategoryVC.swift in Sources */,
 				1B7F7210296949EA00D74132 /* Constants.swift in Sources */,
 				1B7F722A296A081900D74132 /* Extensions.swift in Sources */,
@@ -706,6 +721,7 @@
 				1B7F71CC2965EE6000D74132 /* SceneDelegate.swift in Sources */,
 				1B2424D3296B13BE003A363F /* VideoPlayerCell.swift in Sources */,
 				1BCE9B79296DFC32005E40BB /* ShowImageVC.swift in Sources */,
+				1B1DDEE0298439BF008F7680 /* AddNewJobAndVideoVC.swift in Sources */,
 				1B7F722D296A0D5900D74132 /* MatchedEmployerCell.swift in Sources */,
 				1B0619482980472F00E096C3 /* CandidateDetailVC.swift in Sources */,
 				1B1D5AFD29709374006CC084 /* Helpers.swift in Sources */,

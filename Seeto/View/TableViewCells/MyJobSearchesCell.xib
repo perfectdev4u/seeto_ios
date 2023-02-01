@@ -63,6 +63,34 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rU9-JW-meA">
+                                <rect key="frame" x="52" y="38" width="22" height="22"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5Q-rd-8hc">
+                                        <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain"/>
+                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="player" translatesAutoresizingMaskIntoConstraints="NO" id="JLM-UR-qCQ">
+                                        <rect key="frame" x="7" y="6" width="10" height="10"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="10" id="Rpm-SQ-IbD"/>
+                                            <constraint firstAttribute="width" constant="10" id="yP1-Nb-8dC"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" name="videoColor"/>
+                                <constraints>
+                                    <constraint firstItem="JLM-UR-qCQ" firstAttribute="centerX" secondItem="rU9-JW-meA" secondAttribute="centerX" constant="1" id="9Fh-UD-kp6"/>
+                                    <constraint firstItem="L5Q-rd-8hc" firstAttribute="top" secondItem="rU9-JW-meA" secondAttribute="top" id="Cyv-Rh-CTV"/>
+                                    <constraint firstAttribute="width" constant="22" id="QGi-v7-dZK"/>
+                                    <constraint firstItem="L5Q-rd-8hc" firstAttribute="leading" secondItem="rU9-JW-meA" secondAttribute="leading" id="SBV-w2-pjf"/>
+                                    <constraint firstItem="JLM-UR-qCQ" firstAttribute="centerY" secondItem="rU9-JW-meA" secondAttribute="centerY" id="UtI-Nv-q6i"/>
+                                    <constraint firstAttribute="height" constant="22" id="a1f-Hv-X7u"/>
+                                    <constraint firstAttribute="bottom" secondItem="L5Q-rd-8hc" secondAttribute="bottom" id="s6T-q7-O7v"/>
+                                    <constraint firstAttribute="trailing" secondItem="L5Q-rd-8hc" secondAttribute="trailing" id="wt7-Yh-QqQ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
@@ -71,11 +99,13 @@
                             <constraint firstItem="ve2-1Z-gzU" firstAttribute="centerY" secondItem="IPo-82-2bH" secondAttribute="centerY" id="F5P-S8-lOv"/>
                             <constraint firstAttribute="height" constant="75" id="FUV-Px-gwq"/>
                             <constraint firstItem="leS-77-Vb2" firstAttribute="leading" secondItem="a5N-ZX-SAD" secondAttribute="leading" constant="25" id="InO-bl-Nsa"/>
+                            <constraint firstItem="rU9-JW-meA" firstAttribute="top" secondItem="leS-77-Vb2" secondAttribute="bottom" constant="-22" id="JYF-Rx-C18"/>
                             <constraint firstItem="ve2-1Z-gzU" firstAttribute="leading" secondItem="IPo-82-2bH" secondAttribute="trailing" id="NEL-UR-kvG"/>
                             <constraint firstItem="IPo-82-2bH" firstAttribute="centerY" secondItem="a5N-ZX-SAD" secondAttribute="centerY" id="ZF6-ui-Ebp"/>
                             <constraint firstItem="IPo-82-2bH" firstAttribute="leading" secondItem="PhI-dg-FHq" secondAttribute="trailing" constant="8" symbolic="YES" id="hfQ-Tf-w36"/>
                             <constraint firstItem="PhI-dg-FHq" firstAttribute="leading" secondItem="leS-77-Vb2" secondAttribute="trailing" constant="20" id="iCM-3p-0AN"/>
                             <constraint firstItem="Rvs-TN-mko" firstAttribute="leading" secondItem="leS-77-Vb2" secondAttribute="trailing" constant="20" id="lBV-xv-8Hb"/>
+                            <constraint firstItem="rU9-JW-meA" firstAttribute="leading" secondItem="leS-77-Vb2" secondAttribute="trailing" constant="-18" id="m7H-cK-KdC"/>
                             <constraint firstItem="PhI-dg-FHq" firstAttribute="top" secondItem="a5N-ZX-SAD" secondAttribute="top" constant="15" id="oma-Wx-4fk"/>
                             <constraint firstAttribute="bottom" secondItem="jV9-0n-qGD" secondAttribute="bottom" id="pNo-pt-fSd"/>
                             <constraint firstItem="jV9-0n-qGD" firstAttribute="top" secondItem="Rvs-TN-mko" secondAttribute="bottom" constant="16" id="skN-4b-QqM"/>
@@ -94,10 +124,14 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="heightPic" destination="qRk-aq-iqU" id="dGN-D1-2dB"/>
+                <outlet property="imgMain" destination="leS-77-Vb2" id="9oF-X1-4Ju"/>
                 <outlet property="lblDesignation" destination="PhI-dg-FHq" id="gY1-aO-a1Y"/>
                 <outlet property="lblLikes" destination="ve2-1Z-gzU" id="lfX-fu-KZM"/>
                 <outlet property="lblSkillLevel" destination="Rvs-TN-mko" id="rfD-2R-U6E"/>
                 <outlet property="seperatorView" destination="jV9-0n-qGD" id="6aX-fc-oLf"/>
+                <outlet property="viewPlay" destination="rU9-JW-meA" id="St2-Kp-wCy"/>
+                <outlet property="widthPic" destination="xtc-Ii-ftR" id="KRS-zV-k0S"/>
             </connections>
             <point key="canvasLocation" x="48.854961832061065" y="12.67605633802817"/>
         </tableViewCell>
@@ -105,11 +139,15 @@
     <resources>
         <image name="SearchIt" width="38" height="39"/>
         <image name="like" width="43" height="37"/>
+        <image name="player" width="10" height="12"/>
         <namedColor name="BlueMain">
             <color red="0.0039215686274509803" green="0.7686274509803922" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="backgroundColor">
             <color red="0.15294117647058825" green="0.15294117647058825" blue="0.15294117647058825" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="videoColor">
+            <color red="0.20784313725490197" green="0.20784313725490197" blue="0.20784313725490197" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

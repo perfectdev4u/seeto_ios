@@ -10,11 +10,16 @@ import UIKit
 class MyJobSearchesCell: UITableViewCell {
     @IBOutlet var seperatorView: UIView!
     
+    @IBOutlet var imgMain: UIImageView!
+    @IBOutlet var viewPlay: UIView!
+    @IBOutlet var widthPic: NSLayoutConstraint!
+    @IBOutlet var heightPic: NSLayoutConstraint!
     @IBOutlet var lblLikes: UILabel!
     @IBOutlet var lblDesignation: UILabel!
     @IBOutlet var lblSkillLevel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        viewPlay.layer.cornerRadius = viewPlay.frame.height / 2
         // Initialization code
     }
 
