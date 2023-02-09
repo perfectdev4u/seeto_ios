@@ -8,11 +8,13 @@
 import UIKit
 import AVKit
 import MobileCoreServices
+import SwiftLoader
 
 class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate{
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
     var urlVideo = URL(string: "")
+    var videoUrlString = ""
     var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Date of Birth","type":"text","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"false","value":""],["title":"Email Address","type":"text","required":"true","value":""],["title":"Linkedin Profile","type":"text","required":"true","value":""],["title":"Current Location","type":"drop","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
@@ -24,17 +26,93 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     var datePicker = UIDatePicker()
     let toolbar = UIToolbar();
     var countryCode = "USA"
+    var langArray = [] as! [String]
     @IBOutlet var tblCandidateProfile: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         tblCandidateProfile.backgroundColor = backGroundColor
         PickerView()
         showDatePicker()
         imagePicker.delegate = self
+       // getCandidateProfileApi()
         btnNext.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
         // Do any additional setup after loading the view.
     }
     
+    
+    @objc func updateCandidateProfileApi()
+    {
+       
+       
+        ApiManager().postRequest(parameters: updateCandidateProfileData(),api:  ApiManager.shared.UpdateCandidateProfile) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                if let dict = dataJson["data"] as? NSDictionary{
+                  }
+                  print(dataJson)
+                  DispatchQueue.main.async {
+                      self.btnCreateVideoAct()
+                  }
+
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+               //   Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
+
+    func updateCandidateProfileData() -> [String : Any]
+    {
+
+       return [
+            "userType" : 2,
+            "firstName" : dictTable[1]["value"]!,
+            "lastName" : dictTable[2]["value"]!,
+            "dateOfBirth" : dictTable[3]["value"]!,
+            "profileImage" : dictTable[0]["value"] ?? "",
+            "linkedInProfile" : dictTable[6]["value"]!,
+            "experienceLevel" : 2,
+            "desiredMonthlyIncome" : dictTable[10]["value"]!,
+            "education" : dictTable[12]["value"]!,
+            "workExperience" : dictTable[13]["value"]!,
+            "gender" : 1,
+            "disability" : dictTable[15]["value"]!,
+            "veteranStatus" : dictTable[16]["value"]!,
+            "country" : "America",
+            "region" : "California",
+            "city" : "Cali",
+            "currentLocation" : dictTable[7]["value"]!,
+            "latitude" : 0,
+            "longitude" : 0,
+            "currentPosition" : dictTable[8]["value"]!,
+            "jobType" : 0,
+            "videoUrl": videoUrlString,
+            "bio" : ""
+        ] as [String : Any]
+    }
     func PickerView(){
        // UIPickerView
        self.myPickerView = UIPickerView(frame:CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216))
@@ -99,6 +177,21 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         pickerViewTf.resignFirstResponder()
     }
 
+    func localToUTC(dateStr: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.calendar = Calendar.current
+        dateFormatter.timeZone = TimeZone.current
+        
+        if let date = dateFormatter.date(from: dateStr) {
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            dateFormatter.dateFormat = "H:mm:ss"
+        
+            return dateFormatter.string(from: date)
+        }
+        return nil
+    }
+    
     @IBAction func btnBackAct(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -144,6 +237,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             {
                 let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.modalPresentationStyle = .fullScreen
                 self.present(alert, animated: true, completion: nil)
             }
         }
@@ -152,6 +246,8 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         {
             imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
             imagePicker.allowsEditing = true
+            self.modalPresentationStyle = .fullScreen
+
             self.present(imagePicker, animated: true, completion: nil)
         }
 }
@@ -174,6 +270,9 @@ extension CandidateProfileVC
         return view
     }
     
+
+        
+    
     @objc func btnCreateVideoAct()
     {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
@@ -188,12 +287,9 @@ extension CandidateProfileVC
                } else {
                    print("Camera UnAvaialable")
                }
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-//        self.navigationController?.pushViewController(vc, animated: true)
 
         
     }
-    
     @objc func btnShowNumberPicker(_ sender : UIButton)
     {
         let alert = UIAlertController(title: "", message: "Select Country Code", preferredStyle: .alert)
@@ -294,14 +390,32 @@ extension CandidateProfileVC
         {
             cell.imgVector.isHidden = false
         }
-        if (dictTable[indexPath.row]["type"]!) == "btn"
+        if ((dictTable[indexPath.row]["type"]!) == "btn")
         {
-            cell.tfMain.isUserInteractionEnabled = false
+            if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture"
+            {
+                cell.tfMain.isUserInteractionEnabled = false
+            }
+          
+            else
+            {
+                cell.tfMain.isUserInteractionEnabled = true
+            }
         }
-        else
-        {
-            cell.tfMain.isUserInteractionEnabled = true
-        }
+//        if (dictTable[indexPath.row]["title"]!) == "Spoken Language" && langArray.count > 0
+//        {
+//            cell.colllV.isHidden = false
+//            cell.heightCollV.constant = 50
+//            cell.colllV.delegate = self
+//            cell.colllV.dataSource = self
+//            cell.colllV.reloadData()
+//        }
+//        else
+//        {
+//            cell.colllV.isHidden = true
+//            cell.heightCollV.constant = 0
+//
+//        }
         cell.tfMain.tag = indexPath.row
         cell.tfMain.delegate = self
         cell.selectionStyle = .none
@@ -314,6 +428,8 @@ extension CandidateProfileVC
             {
                 cameraGallery()
             }
+          
+           
         }
     }
 }
@@ -415,7 +531,10 @@ extension CandidateProfileVC : UITextFieldDelegate
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+        if (dictTable[textFieldTag]["title"]!) == "Spoken Language"
+        {
+            langArray.append(textField.text!)
+        }
         tblCandidateProfile.reloadData()
     }
 }
@@ -430,31 +549,169 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
             let url = info[UIImagePickerController.InfoKey(rawValue: UIImagePickerController.InfoKey.mediaURL.rawValue) ] as? URL,
             UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path)
             else {
+            let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image)
                 return
         }
     urlVideo = url
+        do {
+                        let data = try Data(contentsOf: url, options: .mappedIfSafe)
+                        print(data)
+            uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: data,url: url)
+        //  here you can see data bytes of selected video, this data object is upload to server by multipartFormData upload
+                    } catch  {
+                    }
         // Handle a movie capture
-        UISaveVideoAtPathToSavedPhotosAlbum(
-            url.path,
-            self,
-            #selector(video(_:didFinishSavingWithError:contextInfo:)),
-            nil)
+      
     }
+    func uploadVideo(paramName: String, fileName: String, dataVideo: Data,url : URL) {
+        SwiftLoader.show(animated: true)
 
+        let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
+
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+
+        let session = URLSession.shared
+
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = "POST"
+
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var data = Data()
+
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: video/mp4\r\n\r\n".data(using: .utf8)!)
+        data.append(dataVideo)
+
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
+                if let json = jsonData as? [String: Any] {
+                    if let dict = json["data"] as? NSDictionary{
+                        SwiftLoader.hide()
+
+                        self.videoUrlString = (dict["url"] as? String) ?? ""
+                        DispatchQueue.main.async {
+                            UISaveVideoAtPathToSavedPhotosAlbum(
+                                url!.path,
+                                self,
+                                #selector(self.video(_:didFinishSavingWithError:contextInfo:)),
+                                nil)
+
+                        }
+                      }
+                    print(json)
+                }
+                SwiftLoader.hide()
+
+            }
+            else
+            {
+                SwiftLoader.hide()
+
+                print(error?.localizedDescription)
+            }
+        }).resume()
+    }
+    func uploadImage(paramName: String, fileName: String, image: UIImage) {
+        SwiftLoader.show(animated: true)
+        let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
+
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+
+        let session = URLSession.shared
+
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = "POST"
+
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var data = Data()
+
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        data.append(image.pngData()!)
+
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
+                if let json = jsonData as? [String: Any] {
+                    if let dict = json["data"] as? NSDictionary{
+                        self.dictTable[0]["value"] = (dict["url"] as? String) ?? ""
+                        SwiftLoader.hide()
+                        DispatchQueue.main.async {
+                            self.tblCandidateProfile.reloadData()
+                        }
+                      
+                      }
+                    print(json)
+
+                }
+                SwiftLoader.hide()
+
+            }
+            else
+            {
+                SwiftLoader.hide()
+                print(error?.localizedDescription)
+            }
+        }).resume()
+    }
     @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo info: AnyObject) {
-      let title = (error == nil) ? "Success" : "Error"
-      let message = (error == nil) ? "Video was saved" : "Video failed to save"
+      let title = "Success"
+      let message = "Video was saved"
 
       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler:{_ in  print("Foo")
           let vc = self.storyboard?.instantiateViewController(withIdentifier: "ThumbnailVideoVC") as! ThumbnailVideoVC
           vc.urlVideo = self.urlVideo
+          vc.dictParam = self.updateCandidateProfileData()
           self.navigationController?.pushViewController(vc, animated: true)
-
-          
       }
                                    ))
       present(alert, animated: true, completion: nil)
   }
 }
 
+extension CandidateProfileVC: UICollectionViewDelegate, UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout{
+    // Bare bones implementation
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // TODO: need to implement
+        
+        return langArray.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // TODO: need to implem,ent
+        
+        collectionView.register(SpokenLanguageCell.self, forCellWithReuseIdentifier: "SpokenLanguageCell")
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SpokenLanguageCell", for: indexPath) as! SpokenLanguageCell
+        cell.lblLanguage.text = langArray[indexPath.row]
+          return cell
+        
+    }
+ 
+   
+
+}

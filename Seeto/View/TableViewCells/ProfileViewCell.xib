@@ -85,6 +85,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="imgVideo" destination="uh6-cU-nQl" id="Sq4-ZA-67N"/>
+                <outlet property="lblName" destination="NHZ-qg-BPL" id="iQa-N3-XMG"/>
                 <outlet property="viewBack" destination="U0C-HF-1qx" id="Ppz-4p-zfB"/>
                 <outlet property="viewEdit" destination="rCW-Zk-hKW" id="Jlf-Ty-hE6"/>
             </connections>

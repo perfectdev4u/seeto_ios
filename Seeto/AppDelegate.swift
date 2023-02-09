@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                    didFinishLaunchingWithOptions: launchOptions
                )
         GIDSignIn.sharedInstance().clientID = "72919610538-rhqe3h7lrovdsb254q3dg9kua4c6o0nm.apps.googleusercontent.com"
+        
+        
+        
         // 2
         // 3
 //        GIDSignIn.sharedInstance().restorePreviousSignIn()

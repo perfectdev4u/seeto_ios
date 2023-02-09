@@ -9,6 +9,8 @@ import UIKit
 
 class ProfileViewCell: UITableViewCell {
 
+    @IBOutlet var imgVideo: UIImageView!
+    @IBOutlet var lblName: UILabel!
     @IBOutlet var viewBack: UIView!
     @IBOutlet var viewEdit: UIView!
     override func awakeFromNib() {

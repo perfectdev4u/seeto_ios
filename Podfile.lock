@@ -14,11 +14,15 @@ PODS:
     - GTMSessionFetcher/Core (< 3.0, >= 1.5)
   - GTMSessionFetcher/Core (1.7.2)
   - IQKeyboardManager (6.5.10)
+  - SDWebImage (4.4.8):
+    - SDWebImage/Core (= 4.4.8)
+  - SDWebImage/Core (4.4.8)
   - SwiftLoader (1.0.0)
 
 DEPENDENCIES:
   - GoogleSignIn
   - IQKeyboardManager
+  - SDWebImage (~> 4.0)
   - SwiftLoader
 
 SPEC REPOS:
@@ -28,6 +32,7 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - IQKeyboardManager
+    - SDWebImage
     - SwiftLoader
 
 SPEC CHECKSUMS:
@@ -36,8 +41,9 @@ SPEC CHECKSUMS:
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
+  SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
   SwiftLoader: f12f3a6fb42576862a3a5eb80c7e59fc881b6982
 
-PODFILE CHECKSUM: b3d84c30fc2b5ad74165553b40cf05c7548b8a16
+PODFILE CHECKSUM: d15c13b52bd914d0a5595106b2193fbf0d3fb54d
 
 COCOAPODS: 1.11.2

@@ -13,6 +13,8 @@
 		1B08D5FD296A1C1F00458A46 /* EmployerDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B08D5FC296A1C1F00458A46 /* EmployerDetailVC.swift */; };
 		1B08D600296A1D1400458A46 /* CongratsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B08D5FE296A1D1400458A46 /* CongratsCell.swift */; };
 		1B08D601296A1D1400458A46 /* CongratsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B08D5FF296A1D1400458A46 /* CongratsCell.xib */; };
+		1B0B014E2994FA1C00A63DC4 /* SpokenLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B014C2994FA1C00A63DC4 /* SpokenLanguageCell.swift */; };
+		1B0B014F2994FA1C00A63DC4 /* SpokenLanguageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0B014D2994FA1C00A63DC4 /* SpokenLanguageCell.xib */; };
 		1B1D5AF929706737006CC084 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B1D5AF829706737006CC084 /* credentials.plist */; };
 		1B1D5AFB297077F6006CC084 /* ApiMAnager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5AFA297077F6006CC084 /* ApiMAnager.swift */; };
 		1B1D5AFD29709374006CC084 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5AFC29709374006CC084 /* Helpers.swift */; };
@@ -105,6 +107,8 @@
 		1B08D5FC296A1C1F00458A46 /* EmployerDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerDetailVC.swift; sourceTree = "<group>"; };
 		1B08D5FE296A1D1400458A46 /* CongratsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsCell.swift; sourceTree = "<group>"; };
 		1B08D5FF296A1D1400458A46 /* CongratsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CongratsCell.xib; sourceTree = "<group>"; };
+		1B0B014C2994FA1C00A63DC4 /* SpokenLanguageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpokenLanguageCell.swift; sourceTree = "<group>"; };
+		1B0B014D2994FA1C00A63DC4 /* SpokenLanguageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpokenLanguageCell.xib; sourceTree = "<group>"; };
 		1B1D5AF829706737006CC084 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		1B1D5AFA297077F6006CC084 /* ApiMAnager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMAnager.swift; sourceTree = "<group>"; };
 		1B1D5AFC29709374006CC084 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
@@ -215,6 +219,8 @@
 			children = (
 				1B2424D6296B2386003A363F /* VideoPlayerCollViewCell.swift */,
 				1B2424D7296B2386003A363F /* VideoPlayerCollViewCell.xib */,
+				1B0B014C2994FA1C00A63DC4 /* SpokenLanguageCell.swift */,
+				1B0B014D2994FA1C00A63DC4 /* SpokenLanguageCell.xib */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -521,6 +527,7 @@
 				1B7F71D12965EE6000D74132 /* Main.storyboard in Resources */,
 				1B7F722E296A0D5900D74132 /* MatchedEmployerCell.xib in Resources */,
 				1B7F72202969B27100D74132 /* MyJobSearchesCell.xib in Resources */,
+				1B0B014F2994FA1C00A63DC4 /* SpokenLanguageCell.xib in Resources */,
 				1B7F720C296832C000D74132 /* CandidateProfileCell.xib in Resources */,
 				1B7F72282969F04200D74132 /* DetailsCell.xib in Resources */,
 				1B2DF90A2979D0430073D6A0 /* ProfileViewCell.xib in Resources */,
@@ -727,6 +734,7 @@
 				1B1D5AFD29709374006CC084 /* Helpers.swift in Sources */,
 				1B2DF9092979D0430073D6A0 /* ProfileViewCell.swift in Sources */,
 				1B7F7205296752ED00D74132 /* InstructionsVC.swift in Sources */,
+				1B0B014E2994FA1C00A63DC4 /* SpokenLanguageCell.swift in Sources */,
 				1B2DF9052979C8780073D6A0 /* CompanyDetailCell.swift in Sources */,
 				1BCE9B77296DB7DD005E40BB /* ThumbnailVideoVC.swift in Sources */,
 				1B2DF90D2979D9470073D6A0 /* LikeDislikeBtnCell.swift in Sources */,
@@ -911,7 +919,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -930,7 +938,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Seeto.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -951,7 +959,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -970,7 +978,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Seeto.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";

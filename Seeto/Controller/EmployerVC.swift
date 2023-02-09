@@ -8,7 +8,7 @@
 import UIKit
 import AVKit
 import MobileCoreServices
-
+import SwiftLoader
 class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate{
     var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"false","value":""],["title":"Industry","type":"text","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"false","value":""],["title":"Company Foundation Date","type":"text","required":"false","value":""],["title":"Company Location","type":"text","required":"false","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
     let imagePicker = UIImagePickerController()
@@ -32,10 +32,64 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         PickerView()
         showDatePicker()
         imagePicker.delegate = self
-        btnNext.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
+        
+        btnNext.addTarget(self, action: #selector(btnCreateAct), for: .touchUpInside)
         // Do any additional setup after loading the view.
     }
     
+    func updateEmployerProfileData() -> [String : Any]
+    {
+       return [
+        "userType": 2,
+        "userId": 0,
+        "companyName": dictTable[1]["value"]!,
+        "industry":dictTable[2]["value"]!,
+        "webSite": dictTable[3]["value"]!,
+        "linkedInProfile": dictTable[4]["value"]!,
+        "foundationDate": dictTable[5]["value"]!,
+        "companySize": dictTable[7]["value"]!
+        // int company size
+        ] as [String : Any]
+    }
+    
+    func updateEmployerProfileApi()
+    {
+        ApiManager().postRequest(parameters:  updateEmployerProfileData(),api:  ApiManager.shared.UpdateEmployerProfile) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                if let dict = dataJson["data"] as? NSDictionary{
+                  }
+                  print(dataJson)
+
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                //  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
+
     func PickerView(){
        // UIPickerView
        self.myPickerView = UIPickerView(frame:CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216))
@@ -169,30 +223,15 @@ extension EmployerVC
         button.layer.cornerRadius = 10
         button.setTitle("Create", for: .normal)
         button.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
-        button.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
+        button.addTarget(self, action: #selector(btnCreateAct), for: .touchUpInside)
         button.backgroundColor = blueButtonColor
         view.addSubview(button)
         return view
     }
     
-    @objc func btnCreateVideoAct()
+    @objc func btnCreateAct()
     {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-                   print("Camera Available")
-
-                   imagePicker.sourceType = .camera
-                   imagePicker.mediaTypes = [kUTTypeMovie as String]
-                   imagePicker.allowsEditing = false
-                   imagePicker.videoQuality = .typeHigh
-
-                   self.present(imagePicker, animated: true, completion: nil)
-               } else {
-                   print("Camera UnAvaialable")
-               }
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-//        self.navigationController?.pushViewController(vc, animated: true)
-
-        
+        updateEmployerProfileApi()
     }
     
     @objc func btnShowNumberPicker(_ sender : UIButton)
@@ -230,6 +269,7 @@ extension EmployerVC
             string: (dictTable[indexPath.row]["title"]!),
             attributes: [NSAttributedString.Key.foregroundColor: grayColor]
         )
+        
         if (dictTable[indexPath.row]["required"]!) == "true"
         {
             
@@ -311,7 +351,7 @@ extension EmployerVC
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (dictTable[indexPath.row]["type"]!) == "btn"
         {
-            if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture"
+            if (dictTable[indexPath.row]["title"]!) == "Upload Company Logo"
             {
                 cameraGallery()
             }
@@ -423,38 +463,62 @@ extension EmployerVC : UITextFieldDelegate
 // MARK: - UIImagePickerControllerDelegate
 extension EmployerVC: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image)
         dismiss(animated: true, completion: nil)
+    }
+    func uploadImage(paramName: String, fileName: String, image: UIImage) {
+        SwiftLoader.show(animated: true)
+        let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
 
-        guard
-            let mediaType = info[UIImagePickerController.InfoKey(rawValue: UIImagePickerController.InfoKey.mediaType.rawValue) ] as? String,
-            mediaType == (kUTTypeMovie as String),
-            let url = info[UIImagePickerController.InfoKey(rawValue: UIImagePickerController.InfoKey.mediaURL.rawValue) ] as? URL,
-            UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path)
-            else {
-                return
-        }
-    urlVideo = url
-        // Handle a movie capture
-        UISaveVideoAtPathToSavedPhotosAlbum(
-            url.path,
-            self,
-            #selector(video(_:didFinishSavingWithError:contextInfo:)),
-            nil)
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+
+        let session = URLSession.shared
+
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = "POST"
+
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var data = Data()
+
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        data.append(image.pngData()!)
+
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
+                if let json = jsonData as? [String: Any] {
+                    if let dict = json["data"] as? NSDictionary{
+                        self.dictTable[0]["value"] = (dict["url"] as? String) ?? ""
+                        SwiftLoader.hide()
+
+                      
+                      }
+                    print(json)
+
+                }
+                SwiftLoader.hide()
+
+            }
+            else
+            {
+                SwiftLoader.hide()
+                print(error?.localizedDescription)
+            }
+        }).resume()
     }
 
-    @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo info: AnyObject) {
-      let title = (error == nil) ? "Success" : "Error"
-      let message = (error == nil) ? "Video was saved" : "Video failed to save"
 
-      let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler:{_ in  print("Foo")
-          let vc = self.storyboard?.instantiateViewController(withIdentifier: "ThumbnailVideoVC") as! ThumbnailVideoVC
-          vc.urlVideo = self.urlVideo
-          self.navigationController?.pushViewController(vc, animated: true)
-
-          
-      }
-                                   ))
-      present(alert, animated: true, completion: nil)
-  }
 }

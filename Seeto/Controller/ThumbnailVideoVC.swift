@@ -21,7 +21,8 @@ class ThumbnailVideoVC: UIViewController {
     let btnBackward = UIButton()
     let btnForward = UIButton()
     var finished = false
-    let videoUrl = "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v"
+    let videoUrl = ""
+    var dictParam = [:] as [String : Any]
     override func viewDidLoad() {
         super.viewDidLoad()
         btnCheck.layer.cornerRadius = btnCheck.frame.height / 2
@@ -107,14 +108,17 @@ class ThumbnailVideoVC: UIViewController {
             imageGenerator.appliesPreferredTrackTransform = true
             if let thumb: CGImage = try? imageGenerator.copyCGImage(at: (playerViewAV.player?.currentTime())!,actualTime: nil) {
                 //print("video img successful")
-                DispatchQueue.main.async {
-                    SwiftLoader.hide()
+                SwiftLoader.hide()
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
                     print("done")
+                    self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: UIImage(cgImage: thumb))
                    // self.thumbImg = true
                  //   self.imgThumbnail.image = UIImage(cgImage: thumb)
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-                    self.navigationController?.pushViewController(vc, animated: true)
+//                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+//                    self.navigationController?.pushViewController(vc, animated: true)
 
+                    
                 }
             }
             else
@@ -127,6 +131,114 @@ class ThumbnailVideoVC: UIViewController {
             SwiftLoader.hide()
         }
     }
+    
+    func updateCandidateProfileApi()
+    {
+       
+       
+        ApiManager().postRequest(parameters: dictParam,api:  ApiManager.shared.UpdateCandidateProfile) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                if let dict = dataJson["data"] as? NSDictionary{
+                  }
+                  print(dataJson)
+                  DispatchQueue.main.async {
+                      
+                      let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                      self.navigationController?.pushViewController(vc, animated: true)
+                  }
+
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:"Erro", controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
+    
+    func uploadImage(paramName: String, fileName: String, image: UIImage) {
+        let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
+        SwiftLoader.show(animated: true)
+
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+
+        let session = URLSession.shared
+
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = "POST"
+
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var data = Data()
+
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        data.append(image.pngData()!)
+
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
+                if let json = jsonData as? [String: Any] {
+                    if let dict = json["data"] as? NSDictionary{
+                        self.dictParam["thumbnailUrl"] = (dict["url"] as? String) ?? ""
+                        SwiftLoader.hide()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.updateCandidateProfileApi()
+
+//                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ThumbnailVideoVC") as! ThumbnailVideoVC
+//                            vc.urlVideo = URL(string: self.videoUrlString)
+//                            vc.dictParam = self.updateCandidateProfileData()
+//                            self.navigationController?.pushViewController(vc, animated: true)
+
+                        }
+                      }
+                    print(json)
+
+                }
+                SwiftLoader.hide()
+
+            }
+            else
+            {
+                SwiftLoader.hide()
+
+                print(error?.localizedDescription)
+            }
+        }).resume()
+    }
+
+    
     @IBAction func btnClickVideoPic(_ sender: UIButton) {
         print("entered")
         SwiftLoader.show(animated: true)

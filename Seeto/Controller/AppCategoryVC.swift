@@ -18,7 +18,8 @@ var appleLogin = false
         btnHireTalent.layer.cornerRadius = 6
         btnFindJob.layer.borderColor = UIColor.white.cgColor
         btnFindJob.layer.borderWidth = 1
-        
+        self.navigationController?.isNavigationBarHidden = true
+
         btnJustExploring.layer.cornerRadius = 6
         btnJustExploring.layer.borderColor = UIColor.white.cgColor
         btnJustExploring.layer.borderWidth = 1
@@ -27,8 +28,12 @@ var appleLogin = false
     }
     
     @IBAction func btnHireTalentAct(_ sender: UIButton) {
-        Toast.show(message:"Under Development", controller: self)
+//        Toast.show(message:"Under Development", controller: self)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "EmployerVC") as! EmployerVC
+        self.navigationController?.pushViewController(vc, animated: true)
 
+        
+        
     }
     @IBAction func btnFindJobAct(_ sender: UIButton) {
         if appleLogin == true

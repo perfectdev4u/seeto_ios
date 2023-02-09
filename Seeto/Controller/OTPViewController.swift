@@ -74,11 +74,27 @@ class OTPViewController: UIViewController ,MyTextFieldDelegate{
                 {
               if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
                 {
-                  DispatchQueue.main.async {
-                      let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
-                      self.navigationController?.pushViewController(vc, animated: true)
-                    //  self.showToast(message: ()
+                if let dict = dataJson["data"] as? NSDictionary{
+                    UserDefaults.standard.set((dict["access_token"] as? String) ?? "", forKey: "accessToken")
+                    UserDefaults.standard.set((dict["userType"] as? Int) ?? "", forKey: "userType")
+                    DispatchQueue.main.async {
+                        if let userType = (dict["userType"] as? Int)
+                        {
+                            if userType == 0
+                            {
+                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                            else
+                            {
+                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                        }
+                      //  self.showToast(message: ()
+                    }
                   }
+                
                 }
                 else
                 {

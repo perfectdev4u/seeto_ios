@@ -10,6 +10,7 @@ target 'Seeto' do
   pod 'IQKeyboardManager'
   pod 'SwiftLoader'
   pod 'GoogleSignIn'
+  pod 'SDWebImage', '~> 4.0'
 
   target 'SeetoTests' do
     inherit! :search_paths
