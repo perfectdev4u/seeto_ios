@@ -30,9 +30,9 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "564"
-            endingLineNumber = "564"
-            landmarkName = "textField(_:shouldChangeCharactersIn:replacementString:)"
+            startingLineNumber = "670"
+            endingLineNumber = "670"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -46,9 +46,9 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "554"
-            endingLineNumber = "554"
-            landmarkName = "textFieldDidBeginEditing(_:)"
+            startingLineNumber = "659"
+            endingLineNumber = "659"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -62,9 +62,9 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "660"
-            endingLineNumber = "660"
-            landmarkName = "uploadVideo(paramName:fileName:dataVideo:url:)"
+            startingLineNumber = "766"
+            endingLineNumber = "766"
+            landmarkName = "uploadImage(paramName:fileName:image:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -78,9 +78,9 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "552"
-            endingLineNumber = "552"
-            landmarkName = "textFieldDidBeginEditing(_:)"
+            startingLineNumber = "656"
+            endingLineNumber = "656"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -94,9 +94,9 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "630"
-            endingLineNumber = "630"
-            landmarkName = "uploadVideo(paramName:fileName:dataVideo:url:)"
+            startingLineNumber = "736"
+            endingLineNumber = "736"
+            landmarkName = "uploadImage(paramName:fileName:image:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -110,9 +110,9 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "653"
-            endingLineNumber = "653"
-            landmarkName = "uploadVideo(paramName:fileName:dataVideo:url:)"
+            startingLineNumber = "759"
+            endingLineNumber = "759"
+            landmarkName = "uploadImage(paramName:fileName:image:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -126,9 +126,9 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "658"
-            endingLineNumber = "658"
-            landmarkName = "uploadVideo(paramName:fileName:dataVideo:url:)"
+            startingLineNumber = "764"
+            endingLineNumber = "764"
+            landmarkName = "uploadImage(paramName:fileName:image:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -142,8 +142,8 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "677"
-            endingLineNumber = "677"
+            startingLineNumber = "783"
+            endingLineNumber = "783"
             landmarkName = "uploadImage(paramName:fileName:image:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,9 +158,9 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "659"
-            endingLineNumber = "659"
-            landmarkName = "uploadVideo(paramName:fileName:dataVideo:url:)"
+            startingLineNumber = "765"
+            endingLineNumber = "765"
+            landmarkName = "uploadImage(paramName:fileName:image:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -174,8 +174,8 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "666"
-            endingLineNumber = "666"
+            startingLineNumber = "772"
+            endingLineNumber = "772"
             landmarkName = "uploadImage(paramName:fileName:image:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,8 +190,8 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "668"
-            endingLineNumber = "668"
+            startingLineNumber = "774"
+            endingLineNumber = "774"
             landmarkName = "uploadImage(paramName:fileName:image:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "Seeto/Controller/ThumbnailVideoVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "uploadImage(paramName:fileName:image:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,8 +238,8 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
+            startingLineNumber = "504"
+            endingLineNumber = "504"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,8 +254,8 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "499"
+            endingLineNumber = "499"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -263,16 +263,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "003E2280-ECE4-42F9-9FA4-F5254EFABFA8"
+            uuid = "C745203C-EF7B-4739-85E2-F3A76F5CC5FA"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
-            landmarkName = "textFieldDidBeginEditing(_:)"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "doneClick()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "87A2DB6E-48BE-427B-9ED8-87E550F1063A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Seeto/Controller/CandidateProfileVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "doneClick()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "32DC2DE1-D929-417B-930E-018013A70ED4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Seeto/Controller/ProfileSettingView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "399"
+            endingLineNumber = "399"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

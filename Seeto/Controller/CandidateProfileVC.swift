@@ -11,11 +11,16 @@ import MobileCoreServices
 import SwiftLoader
 
 class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate{
+    @IBOutlet var topLbl: NSLayoutConstraint!
+    @IBOutlet var lblMain: UILabel!
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
+    var updateScreen = false
     var urlVideo = URL(string: "")
+    var dataJson = NSDictionary.init()
+
     var videoUrlString = ""
-    var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Date of Birth","type":"text","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"false","value":""],["title":"Email Address","type":"text","required":"true","value":""],["title":"Linkedin Profile","type":"text","required":"true","value":""],["title":"Current Location","type":"drop","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
+    var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Date of Birth","type":"drop","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"false","value":""],["title":"Email Address","type":"text","required":"true","value":""],["title":"Linkedin Profile","type":"text","required":"true","value":""],["title":"Current Location","type":"drop","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
     let toolBar = UIToolbar()
@@ -30,6 +35,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBOutlet var tblCandidateProfile: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+     
         self.navigationController?.isNavigationBarHidden = true
         tblCandidateProfile.backgroundColor = backGroundColor
         PickerView()
@@ -37,20 +43,48 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         imagePicker.delegate = self
        // getCandidateProfileApi()
         btnNext.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
+        if updateScreen == true
+        {
+            setUpUpdateScreen()
+        }
         // Do any additional setup after loading the view.
     }
     
+    func setUpUpdateScreen()
+    {
+        dictTable.remove(at: 0)
+        lblMain.isHidden = true
+        topLbl.constant = 10
+        btnNext.isHidden = true
+      //  + " " +  ((dataJson["data"] as! NSDictionary)["lastName"] as! String)
+        dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["firstName"] as? String) ?? ""
+        dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["lastName"] as? String) ?? ""
+        dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["dateOfBirth"] as? String) ?? ""
+        dictTable[3]["value"] = ((dataJson["data"] as! NSDictionary)["phoneNumber"] as? String) ?? ""
+        dictTable[4]["value"] = ""
+        dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as? String) ?? ""
+        dictTable[6]["value"] = ((dataJson["data"] as! NSDictionary)["currentLocation"] as? String) ?? ""
+        dictTable[7]["value"] = ((dataJson["data"] as! NSDictionary)["currentPosition"] as? String) ?? ""
+        dictTable[8]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["experienceLevel"] as AnyObject))  == "1" ? "1 year" : "More Than 1 year"
+        dictTable[9]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["desiredMonthlyIncome"] as AnyObject))
+        dictTable[10]["value"] = ""
+        dictTable[11]["value"] = ((dataJson["data"] as! NSDictionary)["education"] as? String) ?? ""
+        dictTable[12]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["workExperience"] as AnyObject))
+        dictTable[13]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : "Female"
+        dictTable[14]["value"] = ((dataJson["data"] as! NSDictionary)["disability"] as! String)
+        dictTable[15]["value"] = ((dataJson["data"] as! NSDictionary)["veteranStatus"] as! String)
+        
+        langArray = ((dataJson["data"] as! NSDictionary)["bio"] as! String).components(separatedBy: ",")
+    }
     
     @objc func updateCandidateProfileApi()
     {
-       
-       
-        ApiManager().postRequest(parameters: updateCandidateProfileData(),api:  ApiManager.shared.UpdateCandidateProfile) { dataJson, error in
+        ApiManager().postRequest(parameters: updateCandidateDict(),api:  ApiManager.shared.UpdateCandidateProfile) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {
-                    
                     self.showToast(message: error.localizedDescription)
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
             else
@@ -63,7 +97,9 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
                   }
                   print(dataJson)
                   DispatchQueue.main.async {
-                      self.btnCreateVideoAct()
+                      self.showToast(message: "Sucessfully Updated")
+
+                      self.navigationController?.popViewController(animated: true)
                   }
 
                 }
@@ -94,11 +130,11 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "dateOfBirth" : dictTable[3]["value"]!,
             "profileImage" : dictTable[0]["value"] ?? "",
             "linkedInProfile" : dictTable[6]["value"]!,
-            "experienceLevel" : 2,
+            "experienceLevel" :  dictTable[9]["value"]! == "1 year" ? 1 : 2,
             "desiredMonthlyIncome" : dictTable[10]["value"]!,
             "education" : dictTable[12]["value"]!,
             "workExperience" : dictTable[13]["value"]!,
-            "gender" : 1,
+            "gender" : dictTable[14]["value"]! == "Male" ? 1 : 2,
             "disability" : dictTable[15]["value"]!,
             "veteranStatus" : dictTable[16]["value"]!,
             "country" : "America",
@@ -110,9 +146,41 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "currentPosition" : dictTable[8]["value"]!,
             "jobType" : 0,
             "videoUrl": videoUrlString,
-            "bio" : ""
+            "bio" :langArray.joined(separator: ",")
         ] as [String : Any]
     }
+    
+    
+    func updateCandidateDict() -> [String : Any]
+    {
+
+       return [
+            "userType" : 2,
+            "firstName" : dictTable[0]["value"]!,
+            "lastName" : dictTable[1]["value"]!,
+            "dateOfBirth" : dictTable[2]["value"]!,
+            "linkedInProfile" : dictTable[5]["value"]!,
+            "experienceLevel" :  dictTable[8]["value"]! == "1 year" ? 1 : 2,
+            "desiredMonthlyIncome" : dictTable[9]["value"]!,
+            "education" : dictTable[11]["value"]!,
+            "workExperience" : dictTable[12]["value"]!,
+            "gender" : dictTable[13]["value"]! == "Male" ? 1 : 2,
+            "disability" : dictTable[14]["value"]!,
+            "veteranStatus" : dictTable[15]["value"]!,
+            "country" : "America",
+            "region" : "California",
+            "city" : "Cali",
+            "currentLocation" : dictTable[6]["value"]!,
+            "latitude" : 0,
+            "longitude" : 0,
+            "currentPosition" : dictTable[7]["value"]!,
+            "jobType" : 0,
+            "bio" :langArray.joined(separator: ",")
+        ] as [String : Any]
+    }
+
+    
+   
     func PickerView(){
        // UIPickerView
        self.myPickerView = UIPickerView(frame:CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216))
@@ -139,7 +207,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     func showDatePicker(){
       //Formate Date
       datePicker.datePickerMode = .date
-            datePicker.preferredDatePickerStyle = .wheels
+      datePicker.preferredDatePickerStyle = .wheels
         //ToolBar
         toolbar.barStyle = .default
         toolbar.isTranslucent = true
@@ -171,7 +239,28 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     @objc func doneClick() {
         dictTable[textFieldTag]["value"] = pickerArray[index]
+     
         pickerViewTf.resignFirstResponder()
+        if updateScreen == true
+        {
+            
+            if textFieldTag == 10 
+            {
+                langArray.append(pickerArray[index])
+                tblCandidateProfile.reloadData()
+
+            }
+        }
+        else
+        {
+            if textFieldTag == 11
+            {
+                langArray.append(pickerArray[index])
+                tblCandidateProfile.reloadData()
+
+            }
+        }
+       
      }
     @objc func cancelClick() {
         pickerViewTf.resignFirstResponder()
@@ -262,7 +351,7 @@ extension CandidateProfileVC
         view.backgroundColor = backGroundColor
         let button = UIButton(frame: CGRect(x: 20, y: 40, width: self.view.frame.width - 40, height: 50))
         button.layer.cornerRadius = 10
-        button.setTitle("Create & Record Video", for: .normal)
+        button.setTitle( updateScreen == false ? "Create & Record Video" : "Update", for: .normal)
         button.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
         button.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
         button.backgroundColor = blueButtonColor
@@ -275,20 +364,26 @@ extension CandidateProfileVC
     
     @objc func btnCreateVideoAct()
     {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-                   print("Camera Available")
-
-                   imagePicker.sourceType = .camera
-                   imagePicker.mediaTypes = [kUTTypeMovie as String]
-                   imagePicker.allowsEditing = false
-                   imagePicker.videoQuality = .typeHigh
-
-                   self.present(imagePicker, animated: true, completion: nil)
-               } else {
-                   print("Camera UnAvaialable")
-               }
-
-        
+        if updateScreen == false
+        {
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+                print("Camera Available")
+                
+                imagePicker.sourceType = .camera
+                imagePicker.mediaTypes = [kUTTypeMovie as String]
+                imagePicker.allowsEditing = false
+                imagePicker.videoQuality = .typeHigh
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            } else {
+                print("Camera UnAvaialable")
+            }
+            
+        }
+        else
+        {
+            updateCandidateProfileApi()
+        }
     }
     @objc func btnShowNumberPicker(_ sender : UIButton)
     {
@@ -338,17 +433,17 @@ extension CandidateProfileVC
         }
         if (dictTable[indexPath.row]["title"]!) == "Date of Birth"
         {
-            cell.imgVector.image = UIImage(imageLiteralResourceName: "Frame")
+            cell.imgVector.image = UIImage(named: "")
             cell.heightImg.constant = 25
             cell.widthImg.constant = 25
-            cell.topImage.constant = 15
+            cell.topImage.constant = 25
         }
         else if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture"
         {
             cell.imgVector.image = UIImage(imageLiteralResourceName: "upload")
             cell.heightImg.constant = 20
             cell.widthImg.constant = 20
-            cell.topImage.constant = 20
+            cell.topImage.constant = 30
             
         }
         else if (dictTable[indexPath.row]["title"]!) == "Education" || (dictTable[indexPath.row]["title"]!) == "Working Experience"
@@ -356,7 +451,7 @@ extension CandidateProfileVC
             cell.imgVector.image = UIImage(imageLiteralResourceName: "plus")
             cell.heightImg.constant = 20
             cell.widthImg.constant = 15
-            cell.topImage.constant = 20
+            cell.topImage.constant = 30
             
         }
         else
@@ -364,7 +459,7 @@ extension CandidateProfileVC
             cell.imgVector.image = UIImage(imageLiteralResourceName: "Vector")
             cell.heightImg.constant = 20
             cell.widthImg.constant = 15
-            cell.topImage.constant = 20
+            cell.topImage.constant = 30
 
         }
         if (dictTable[indexPath.row]["title"]!) == "+1 0000000000"
@@ -381,7 +476,14 @@ extension CandidateProfileVC
             cell.phoneCountryView.isHidden = true
         }
         cell.tfMain.attributedPlaceholder = attributedString
-        cell.tfMain.text = (dictTable[indexPath.row]["value"]!)
+        if (dictTable[indexPath.row]["title"]!) == "Spoken Language"
+        {
+            cell.tfMain.text = ""
+        }
+        else
+        {
+            cell.tfMain.text = (dictTable[indexPath.row]["value"]!)
+        }
         if (dictTable[indexPath.row]["type"]!) == "text"
         {
             cell.imgVector.isHidden = true
@@ -402,20 +504,25 @@ extension CandidateProfileVC
                 cell.tfMain.isUserInteractionEnabled = true
             }
         }
-//        if (dictTable[indexPath.row]["title"]!) == "Spoken Language" && langArray.count > 0
-//        {
-//            cell.colllV.isHidden = false
-//            cell.heightCollV.constant = 50
-//            cell.colllV.delegate = self
-//            cell.colllV.dataSource = self
-//            cell.colllV.reloadData()
-//        }
-//        else
-//        {
-//            cell.colllV.isHidden = true
-//            cell.heightCollV.constant = 0
-//
-//        }
+        else
+        {
+            cell.tfMain.isUserInteractionEnabled = true
+
+        }
+
+        if (dictTable[indexPath.row]["title"]!) == "Spoken Language" && langArray.count > 0
+        {
+            cell.colllV.isHidden = false
+            cell.colllV.delegate = self
+            cell.colllV.dataSource = self
+            cell.heightCollV.constant = 50
+            cell.colllV.reloadData()
+        }
+        else
+        {
+            cell.colllV.isHidden = true
+            cell.heightCollV.constant = 0
+        }
         cell.tfMain.tag = indexPath.row
         cell.tfMain.delegate = self
         cell.selectionStyle = .none
@@ -481,11 +588,11 @@ extension CandidateProfileVC : UITextFieldDelegate
         }
         else if (dictTable[textFieldTag]["title"]!) == "Experience Level"
         {
-            pickerArray = ["1 year","3 years"]
+            pickerArray = ["1 year","more than 1 year"]
         }
         else if (dictTable[textFieldTag]["title"]!) == "Spoken Language"
         {
-            pickerArray = ["Eng","Hindi"]
+            pickerArray = ["Eng","Hin"]
         }else if (dictTable[textFieldTag]["title"]!) == "Gender"
         {
             pickerArray = ["Male","Female"]
@@ -531,10 +638,7 @@ extension CandidateProfileVC : UITextFieldDelegate
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if (dictTable[textFieldTag]["title"]!) == "Spoken Language"
-        {
-            langArray.append(textField.text!)
-        }
+       
         tblCandidateProfile.reloadData()
     }
 }
@@ -550,6 +654,7 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
             UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path)
             else {
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+           
             uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image)
                 return
         }
@@ -557,6 +662,7 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
         do {
                         let data = try Data(contentsOf: url, options: .mappedIfSafe)
                         print(data)
+            
             uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: data,url: url)
         //  here you can see data bytes of selected video, this data object is upload to server by multipartFormData upload
                     } catch  {
@@ -704,14 +810,24 @@ extension CandidateProfileVC: UICollectionViewDelegate, UICollectionViewDataSour
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // TODO: need to implem,ent
-        
-        collectionView.register(SpokenLanguageCell.self, forCellWithReuseIdentifier: "SpokenLanguageCell")
+        collectionView.register(UINib(nibName: "SpokenLanguageCell", bundle: nil), forCellWithReuseIdentifier: "SpokenLanguageCell")
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SpokenLanguageCell", for: indexPath) as! SpokenLanguageCell
-        cell.lblLanguage.text = langArray[indexPath.row]
+        cell.lblLang.text = langArray[indexPath.row]
+        cell.btnCross.tag = indexPath.row
+        cell.btnCross.addTarget(self, action: #selector(self.btnCross(_:)), for: .touchUpInside)
           return cell
         
     }
  
-   
-
+    @objc func btnCross(_ sender : UIButton)
+    {
+        langArray.remove(at: sender.tag)
+        DispatchQueue.main.async {
+            self.tblCandidateProfile.reloadData()
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 80, height: 50)
+    }
 }

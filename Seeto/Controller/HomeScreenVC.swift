@@ -34,17 +34,17 @@ class HomeScreenVC: UIViewController {
     }
     @IBAction func btnSearchAct(_ sender: UIButton) {
         
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileSettingView") as! ProfileSettingView
-        self.navigationController?.pushViewController(vc, animated: true)
-//        videoUrlArray = []
-//        collViewVideos.reloadData()
-        let cells = collViewVideos.visibleCells.compactMap({ $0 as? VideoPlayerCollViewCell })
-        cells.forEach { videoCell in
-
-            if videoCell.isPlaying {
-                videoCell.stopPlaying()
-            }
-        }
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileSettingView") as! ProfileSettingView
+//        self.navigationController?.pushViewController(vc, animated: true)
+////        videoUrlArray = []
+////        collViewVideos.reloadData()
+//        let cells = collViewVideos.visibleCells.compactMap({ $0 as? VideoPlayerCollViewCell })
+//        cells.forEach { videoCell in
+//
+//            if videoCell.isPlaying {
+//                videoCell.stopPlaying()
+//            }
+//        }
 
     }
     

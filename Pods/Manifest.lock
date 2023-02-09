@@ -17,12 +17,14 @@ PODS:
   - SDWebImage (4.4.8):
     - SDWebImage/Core (= 4.4.8)
   - SDWebImage/Core (4.4.8)
+  - SkyFloatingLabelTextField (4.0.0)
   - SwiftLoader (1.0.0)
 
 DEPENDENCIES:
   - GoogleSignIn
   - IQKeyboardManager
   - SDWebImage (~> 4.0)
+  - SkyFloatingLabelTextField
   - SwiftLoader
 
 SPEC REPOS:
@@ -33,6 +35,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - IQKeyboardManager
     - SDWebImage
+    - SkyFloatingLabelTextField
     - SwiftLoader
 
 SPEC CHECKSUMS:
@@ -42,8 +45,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
   SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
+  SkyFloatingLabelTextField: 79ddc40e4ad59707fedbb48d605417aee48bb78a
   SwiftLoader: f12f3a6fb42576862a3a5eb80c7e59fc881b6982
 
-PODFILE CHECKSUM: d15c13b52bd914d0a5595106b2193fbf0d3fb54d
+PODFILE CHECKSUM: b22c2e11feff5a0527b0d1abff3ffbf3739f49b2
 
 COCOAPODS: 1.11.2

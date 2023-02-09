@@ -92,9 +92,12 @@ class ApiManager
                return ""
            }
        }
-    func getRequest(api : String , completion: @escaping ([String : Any]?, Error?) -> Void) {
+    func getRequest(api : String ,showLoader : Bool? = true, completion: @escaping ([String : Any]?, Error? ) -> Void) {
         let urlString =  baseURL +  api
-        SwiftLoader.show(animated: true)
+        if showLoader == true
+        {
+            SwiftLoader.show(animated: true)
+        }
         print(api)
 
         if let url = URL(string: urlString) {
@@ -108,13 +111,19 @@ class ApiManager
 
             URLSession.shared.dataTask(with: request) {data, res, error in
                 guard error == nil else {
-                    SwiftLoader.hide()
+                    if showLoader == true
+                    {
+                        SwiftLoader.hide()
+                    }
                     completion(nil, error)
                     return
                 }
 
                 guard let data = data else {
-                    SwiftLoader.hide()
+                    if showLoader == true
+                    {
+                        SwiftLoader.hide()
+                    }
                     completion(nil, NSError(domain: "dataNilError", code: -100001, userInfo: nil))
                     return
                 }
@@ -122,15 +131,24 @@ class ApiManager
                 do {
                     //create json object from data
                     guard let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] else {
-                        SwiftLoader.hide()
+                        if showLoader == true
+                        {
+                            SwiftLoader.hide()
+                        }
                         completion(nil, NSError(domain: "invalidJSONTypeError", code: -100009, userInfo: nil))
                         return
                     }
                     print(json)
-                    SwiftLoader.hide()
+                        if showLoader == true
+                        {
+                            SwiftLoader.hide()
+                        }
                     completion(json, nil)
                 } catch let error {
-                    SwiftLoader.hide()
+                    if showLoader == true
+                    {
+                        SwiftLoader.hide()
+                    }
                     print(error.localizedDescription)
                     completion(nil, error)
                 }

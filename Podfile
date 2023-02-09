@@ -11,7 +11,7 @@ target 'Seeto' do
   pod 'SwiftLoader'
   pod 'GoogleSignIn'
   pod 'SDWebImage', '~> 4.0'
-
+  pod "SkyFloatingLabelTextField"
   target 'SeetoTests' do
     inherit! :search_paths
     # Pods for testing

@@ -15,6 +15,7 @@
 		1B08D601296A1D1400458A46 /* CongratsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B08D5FF296A1D1400458A46 /* CongratsCell.xib */; };
 		1B0B014E2994FA1C00A63DC4 /* SpokenLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B014C2994FA1C00A63DC4 /* SpokenLanguageCell.swift */; };
 		1B0B014F2994FA1C00A63DC4 /* SpokenLanguageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0B014D2994FA1C00A63DC4 /* SpokenLanguageCell.xib */; };
+		1B0B01512995A62600A63DC4 /* ResumeVideoPreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0B01502995A62600A63DC4 /* ResumeVideoPreviewVC.swift */; };
 		1B1D5AF929706737006CC084 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B1D5AF829706737006CC084 /* credentials.plist */; };
 		1B1D5AFB297077F6006CC084 /* ApiMAnager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5AFA297077F6006CC084 /* ApiMAnager.swift */; };
 		1B1D5AFD29709374006CC084 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5AFC29709374006CC084 /* Helpers.swift */; };
@@ -109,6 +110,7 @@
 		1B08D5FF296A1D1400458A46 /* CongratsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CongratsCell.xib; sourceTree = "<group>"; };
 		1B0B014C2994FA1C00A63DC4 /* SpokenLanguageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpokenLanguageCell.swift; sourceTree = "<group>"; };
 		1B0B014D2994FA1C00A63DC4 /* SpokenLanguageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpokenLanguageCell.xib; sourceTree = "<group>"; };
+		1B0B01502995A62600A63DC4 /* ResumeVideoPreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeVideoPreviewVC.swift; sourceTree = "<group>"; };
 		1B1D5AF829706737006CC084 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		1B1D5AFA297077F6006CC084 /* ApiMAnager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMAnager.swift; sourceTree = "<group>"; };
 		1B1D5AFC29709374006CC084 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				1B1DDEDF298439BF008F7680 /* AddNewJobAndVideoVC.swift */,
 				1B1DDEE1298442F4008F7680 /* JobsVC.swift */,
 				1B1DDEE329844E58008F7680 /* DeleteJobVC.swift */,
+				1B0B01502995A62600A63DC4 /* ResumeVideoPreviewVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -733,6 +736,7 @@
 				1B0619482980472F00E096C3 /* CandidateDetailVC.swift in Sources */,
 				1B1D5AFD29709374006CC084 /* Helpers.swift in Sources */,
 				1B2DF9092979D0430073D6A0 /* ProfileViewCell.swift in Sources */,
+				1B0B01512995A62600A63DC4 /* ResumeVideoPreviewVC.swift in Sources */,
 				1B7F7205296752ED00D74132 /* InstructionsVC.swift in Sources */,
 				1B0B014E2994FA1C00A63DC4 /* SpokenLanguageCell.swift in Sources */,
 				1B2DF9052979C8780073D6A0 /* CompanyDetailCell.swift in Sources */,
@@ -919,7 +923,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -959,7 +963,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;

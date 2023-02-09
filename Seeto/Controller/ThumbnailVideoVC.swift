@@ -22,6 +22,7 @@ class ThumbnailVideoVC: UIViewController {
     let btnForward = UIButton()
     var finished = false
     let videoUrl = ""
+    var updateVideo = false
     var dictParam = [:] as [String : Any]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,10 +154,18 @@ class ThumbnailVideoVC: UIViewController {
                 if let dict = dataJson["data"] as? NSDictionary{
                   }
                   print(dataJson)
+                  UserDefaults.standard.set(2, forKey: "userType")
+
                   DispatchQueue.main.async {
-                      
-                      let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-                      self.navigationController?.pushViewController(vc, animated: true)
+                      if self.updateVideo == true
+                      {
+                          self.navigationController?.popViewController(animated: true)
+                      }
+                      else
+                      {
+                          let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                          self.navigationController?.pushViewController(vc, animated: true)
+                      }
                   }
 
                 }

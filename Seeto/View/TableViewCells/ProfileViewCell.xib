@@ -61,17 +61,26 @@
                                     <constraint firstAttribute="height" constant="25" id="yOl-D7-Upx"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hM-eD-Pdf">
+                                <rect key="frame" x="128" y="43" width="24" height="14"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="DarkShade"/>
                         <constraints>
                             <constraint firstItem="uh6-cU-nQl" firstAttribute="centerY" secondItem="U0C-HF-1qx" secondAttribute="centerY" id="3Sy-JI-zRg"/>
                             <constraint firstItem="uh6-cU-nQl" firstAttribute="leading" secondItem="U0C-HF-1qx" secondAttribute="leading" constant="25" id="82a-oT-Htd"/>
+                            <constraint firstItem="7hM-eD-Pdf" firstAttribute="height" secondItem="rCW-Zk-hKW" secondAttribute="height" id="BiR-dQ-pdZ"/>
                             <constraint firstItem="NHZ-qg-BPL" firstAttribute="centerY" secondItem="U0C-HF-1qx" secondAttribute="centerY" id="Fov-rk-e5F"/>
                             <constraint firstAttribute="trailing" secondItem="NHZ-qg-BPL" secondAttribute="trailing" id="Ms5-06-sVg"/>
                             <constraint firstAttribute="height" constant="100" id="OeP-ZT-SH9"/>
                             <constraint firstItem="rCW-Zk-hKW" firstAttribute="leading" secondItem="uh6-cU-nQl" secondAttribute="trailing" constant="-18" id="T3C-7i-A55"/>
                             <constraint firstAttribute="bottom" secondItem="rCW-Zk-hKW" secondAttribute="bottom" constant="20" id="Yfk-35-vd7"/>
+                            <constraint firstItem="7hM-eD-Pdf" firstAttribute="width" secondItem="rCW-Zk-hKW" secondAttribute="width" id="cmd-zj-ajB"/>
                             <constraint firstItem="NHZ-qg-BPL" firstAttribute="leading" secondItem="uh6-cU-nQl" secondAttribute="trailing" constant="20" id="icX-w3-6aF"/>
+                            <constraint firstItem="7hM-eD-Pdf" firstAttribute="centerX" secondItem="rCW-Zk-hKW" secondAttribute="centerX" id="j1h-cw-qTM"/>
+                            <constraint firstItem="7hM-eD-Pdf" firstAttribute="centerY" secondItem="rCW-Zk-hKW" secondAttribute="centerY" id="uVl-KB-5TP"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -85,6 +94,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnImageProfilr" destination="7hM-eD-Pdf" id="hQh-za-1dK"/>
                 <outlet property="imgVideo" destination="uh6-cU-nQl" id="Sq4-ZA-67N"/>
                 <outlet property="lblName" destination="NHZ-qg-BPL" id="iQa-N3-XMG"/>
                 <outlet property="viewBack" destination="U0C-HF-1qx" id="Ppz-4p-zfB"/>

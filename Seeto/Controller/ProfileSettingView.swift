@@ -7,23 +7,110 @@
 
 import UIKit
 import SDWebImage
-class ProfileSettingView: UIViewController {
+import AVKit
+import MobileCoreServices
+import SwiftLoader
+class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
     var dictTable = [["title":"Name","value":"Loading..."],["title":"DOB","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Gender","value":"Loading..."],["title":"Current Location","value":"Loading..."],["title":"Current Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Spoken Language","value":"Loading..."]]
     var mainDataJson = NSDictionary.init()
+    var urlVideo = URL(string: "")
+    var videoUrlString = ""
+
+    let imagePicker = UIImagePickerController()
+
     @IBOutlet var tblProfileSettings: UITableView!
+    var profileUrl = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        getCandidateProfileApi()
+        imagePicker.delegate = self
+
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        getCandidateProfileApi()
+
+    }
+    
+    @objc func updateCandidateProfileApi()
+    {
+        ApiManager().postRequest(parameters: updateCandidateDict(),api:  ApiManager.shared.UpdateCandidateProfile) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                if let dict = dataJson["data"] as? NSDictionary{
+                  }
+                  print(dataJson)
+                  DispatchQueue.main.async {
+                      self.showToast(message: "Sucessfully Updated")
+                      self.getCandidateProfileApi()
+
+                  }
+
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+               //   Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
+    func updateCandidateDict() -> [String : Any]
+    {
+
+       return [
+            "userType" : 2,
+            "firstName" : ((mainDataJson["data"] as! NSDictionary)["firstName"] as! String),
+            "lastName" : ((mainDataJson["data"] as! NSDictionary)["lastName"] as! String),
+            "dateOfBirth" : ((mainDataJson["data"] as! NSDictionary)["dateOfBirth"] as! String),
+            "linkedInProfile" : ((mainDataJson["data"] as! NSDictionary)["linkedInProfile"] as! String),
+            "experienceLevel" :  ((mainDataJson["data"] as! NSDictionary)["experienceLevel"] as! Int),
+            "desiredMonthlyIncome" : ((mainDataJson["data"] as! NSDictionary)["desiredMonthlyIncome"] as! Int),
+            "education" : ((mainDataJson["data"] as! NSDictionary)["education"] as! String),
+            "workExperience" :((mainDataJson["data"] as! NSDictionary)["workExperience"] as! String),
+            "gender" : ((mainDataJson["data"] as! NSDictionary)["gender"] as! Int),
+            "disability" : ((mainDataJson["data"] as! NSDictionary)["disability"] as! String),
+            "veteranStatus" : ((mainDataJson["data"] as! NSDictionary)["veteranStatus"] as! String),
+            "country" : "America",
+            "region" : "California",
+            "city" : "Cali",
+            "currentLocation" : ((mainDataJson["data"] as! NSDictionary)["currentLocation"] as! String),
+            "latitude" : 0,
+            "longitude" : 0,
+            "currentPosition" : ((mainDataJson["data"] as! NSDictionary)["currentPosition"] as! String),
+            "jobType" : 0,
+            "bio" :((mainDataJson["data"] as! NSDictionary)["bio"] as! String),
+            "videoUrl": videoUrlString,
+            "profileImage" : profileUrl,
+            
+        ] as [String : Any]
+    }
+
+
     func getCandidateProfileApi()
     {
-        ApiManager().getRequest(api: ApiManager.shared.GetCandidateProfile) { dataJson, error in
+        ApiManager().getRequest(api: ApiManager.shared.GetCandidateProfile,showLoader: false) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {
                     Toast.show(message:error.localizedDescription, controller: self)
-
                 }
             }
             else
@@ -40,11 +127,13 @@ class ProfileSettingView: UIViewController {
                       self.dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["firstName"] as! String) + " " +  ((dataJson["data"] as! NSDictionary)["lastName"] as! String)
                       self.dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["dateOfBirth"] as! String)
                       self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as! String)
-                      self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject))
+                      self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : "Female"
                       self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["currentLocation"] as! String)
                       self.dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["currentPosition"] as! String)
-                      self.dictTable[6]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["experienceLevel"] as AnyObject))
-//                      self.dictTable[7]["value"] = ((dataJson["data"] as! NSDictionary)["firstName"] as! String)
+                      self.dictTable[6]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["experienceLevel"] as AnyObject))  == "1" ? "1 year" : "More Than 1 year"
+                      self.dictTable[7]["value"] = ((dataJson["data"] as! NSDictionary)["bio"] as! String)
+                      self.profileUrl = ((dataJson["data"] as! NSDictionary)["profileImage"] as! String)
+                      self.videoUrlString = ((dataJson["data"] as! NSDictionary)["videoUrl"] as! String)
                       self.tblProfileSettings.reloadData()
                     //  self.showToast(message: ()
                   }
@@ -69,7 +158,62 @@ class ProfileSettingView: UIViewController {
     @IBAction func btnBackAct(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+    @objc func cameraGallery()
+   {
+       
+       let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+       alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+           self.openCamera()
+       }))
+       
+       alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+           self.openGallary()
+       }))
+       
+       alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+       
+       /*If you want work actionsheet on ipad
+       then you have to use popoverPresentationController to present the actionsheet,
+       otherwise app will crash on iPad */
+       switch UIDevice.current.userInterfaceIdiom {
+       case .pad:
+           alert.popoverPresentationController?.sourceView = self.view
+           alert.popoverPresentationController?.sourceRect = self.view.bounds
+           alert.popoverPresentationController?.permittedArrowDirections = .up
+       default:
+           break
+       }
+       
+       self.present(alert, animated: true, completion: nil)
+   }
+
+
+  @objc func openCamera()
+       {
+           if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
+           {
+               imagePicker.sourceType = UIImagePickerController.SourceType.camera
+               imagePicker.allowsEditing = true
+               self.present(imagePicker, animated: true, completion: nil)
+           }
+           else
+           {
+               let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+               alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+               self.modalPresentationStyle = .fullScreen
+               self.present(alert, animated: true, completion: nil)
+           }
+       }
+
+       func openGallary()
+       {
+           imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+           imagePicker.allowsEditing = true
+           self.modalPresentationStyle = .fullScreen
+
+           self.present(imagePicker, animated: true, completion: nil)
+       }
+
 
 }
 extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
@@ -98,6 +242,9 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
                 cell.imgVideo.sd_setImage(with: URL(string: ((mainDataJson["data"] as! NSDictionary)["profileImage"] as! String)), placeholderImage: UIImage(named: "AppIcon"))
 
             }
+            cell.btnImageProfilr.addTarget(self, action: #selector(cameraGallery), for: .touchUpInside)
+
+            
             return cell
 
         }
@@ -112,6 +259,7 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
                 cell.widthImage.constant = 23
                 cell.lblDetails.text = "Profile Details"
                 cell.trailingImg.constant = 18
+                cell.btnEdit.addTarget(self, action: #selector(btnActEdit), for: .touchUpInside)
                 cell.selectionStyle = .none
                 return cell
             }
@@ -124,7 +272,7 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
                 cell.mainView.backgroundColor = darkShadeColor
                 cell.leadingMainView.constant = 20
                 cell.trailingMainView.constant = 20
-                if (dictTable[indexPath.row - 1]["title"] ?? "") ==  "Website" || (dictTable[indexPath.row - 1]["title"] ?? "") ==  "Linkedin Profile"
+                if (dictTable[indexPath.row - 1]["title"] ?? "") ==  "Linkedin Profile"
                 {
                     cell.myJobDataLbl.textColor = blueButtonColor
                     let underlineAttriString = NSAttributedString(string: dictTable[indexPath.row - 1]["value"]!,
@@ -139,7 +287,8 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
                 }
                 else
                 {
-                    cell.myJobDataLbl.text = dictTable[indexPath.row - 1]["value"]
+                    let AttriString = NSAttributedString(string: dictTable[indexPath.row - 1]["value"]!)
+                    cell.myJobDataLbl.attributedText = AttriString
                     cell.myJobDataLbl.textColor = UIColor.white
                 }
                 if indexPath.row == (tableView.numberOfRows(inSection: 0) - 1)
@@ -158,6 +307,41 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
 
         }
 
+    @objc func btnCreateVideoAct()
+    {
+       
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+                print("Camera Available")
+                
+                imagePicker.sourceType = .camera
+                imagePicker.mediaTypes = [kUTTypeMovie as String]
+                imagePicker.allowsEditing = false
+                imagePicker.videoQuality = .typeHigh
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            } else {
+                print("Camera UnAvaialable")
+            }
+            
+        }
+    @objc func btnResumePreview()
+    {
+       
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResumeVideoPreviewVC") as! ResumeVideoPreviewVC
+            vc.urlVideo = URL(string: videoUrlString)
+            self.navigationController?.pushViewController(vc, animated: true)
+ }
+      
+    
+    
+    @objc func btnActEdit()
+    {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "CandidateProfileVC") as! CandidateProfileVC
+        vc.updateScreen = true
+        vc.dataJson = mainDataJson
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
     
     
     //MARK:- tappedOnLabel
@@ -186,6 +370,10 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
             button.contentHorizontalAlignment = .left
             let buttonEdit = UIButton(frame: CGRect(x:  self.view.frame.width - 65, y: 30, width: 30, height: 30))
             buttonEdit.setImage(UIImage(named: "edit"), for: .normal)
+            button.addTarget(self, action: #selector(btnResumePreview), for: .touchUpInside)
+            buttonEdit.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
+
+            
             view.addSubview(button)
             view.addSubview(buttonEdit)
         }
@@ -204,3 +392,160 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
         return .leastNormalMagnitude
     }
 }
+
+extension ProfileSettingView: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true, completion: nil)
+
+        guard
+            let mediaType = info[UIImagePickerController.InfoKey(rawValue: UIImagePickerController.InfoKey.mediaType.rawValue) ] as? String,
+            mediaType == (kUTTypeMovie as String),
+            let url = info[UIImagePickerController.InfoKey(rawValue: UIImagePickerController.InfoKey.mediaURL.rawValue) ] as? URL,
+            UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path)
+            else {
+            let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image)
+                return
+        }
+    urlVideo = url
+        do {
+                        let data = try Data(contentsOf: url, options: .mappedIfSafe)
+                        print(data)
+            uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: data,url: url)
+        //  here you can see data bytes of selected video, this data object is upload to server by multipartFormData upload
+                    } catch  {
+                    }
+        // Handle a movie capture
+      
+    }
+    func uploadVideo(paramName: String, fileName: String, dataVideo: Data,url : URL) {
+        SwiftLoader.show(animated: true)
+
+        let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
+
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+
+        let session = URLSession.shared
+
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = "POST"
+
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var data = Data()
+
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: video/mp4\r\n\r\n".data(using: .utf8)!)
+        data.append(dataVideo)
+
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
+                if let json = jsonData as? [String: Any] {
+                    if let dict = json["data"] as? NSDictionary{
+                        SwiftLoader.hide()
+
+                        self.videoUrlString = (dict["url"] as? String) ?? ""
+                        DispatchQueue.main.async {
+                            UISaveVideoAtPathToSavedPhotosAlbum(
+                                url!.path,
+                                self,
+                                #selector(self.video(_:didFinishSavingWithError:contextInfo:)),
+                                nil)
+
+                        }
+                      }
+                    print(json)
+                }
+                SwiftLoader.hide()
+
+            }
+            else
+            {
+                SwiftLoader.hide()
+
+                print(error?.localizedDescription)
+            }
+        }).resume()
+    }
+    func uploadImage(paramName: String, fileName: String, image: UIImage) {
+        SwiftLoader.show(animated: true)
+        let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
+
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+
+        let session = URLSession.shared
+
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = "POST"
+
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var data = Data()
+
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        data.append(image.pngData()!)
+
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
+                if let json = jsonData as? [String: Any] {
+                    if let dict = json["data"] as? NSDictionary{
+                        self.profileUrl = (dict["url"] as? String) ?? ""
+                        DispatchQueue.main.async {
+                            SwiftLoader.hide()
+                            self.updateCandidateProfileApi()
+                        }
+                      
+                      }
+                    print(json)
+
+                }
+                SwiftLoader.hide()
+
+            }
+            else
+            {
+                SwiftLoader.hide()
+                print(error?.localizedDescription)
+            }
+        }).resume()
+    }
+    @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo info: AnyObject) {
+      let title = "Success"
+      let message = "Video was saved"
+
+      let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler:{_ in  print("Foo")
+          let vc = self.storyboard?.instantiateViewController(withIdentifier: "ThumbnailVideoVC") as! ThumbnailVideoVC
+          vc.urlVideo = self.urlVideo
+          vc.dictParam = self.updateCandidateDict()
+          vc.updateVideo = true
+          self.navigationController?.pushViewController(vc, animated: true)
+      }
+                                   ))
+      present(alert, animated: true, completion: nil)
+  }
+}
+
