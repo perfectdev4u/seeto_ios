@@ -52,9 +52,7 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
                   DispatchQueue.main.async {
                       self.showToast(message: "Sucessfully Updated")
                       self.getCandidateProfileApi()
-
                   }
-
                 }
                 else
                 {

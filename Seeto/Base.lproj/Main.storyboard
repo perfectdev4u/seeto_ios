@@ -779,7 +779,9 @@
                     </view>
                     <connections>
                         <outlet property="btnNext" destination="CBQ-DE-A1T" id="X63-Kl-4Io"/>
+                        <outlet property="lblMain" destination="erY-5T-ple" id="PaL-Tw-3gf"/>
                         <outlet property="tblEmployer" destination="4J4-YN-okH" id="Mgf-LB-eev"/>
+                        <outlet property="topLbl" destination="NhW-hx-zVx" id="oKO-Tk-JhW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xRP-9Z-t0m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

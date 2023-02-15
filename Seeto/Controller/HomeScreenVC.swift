@@ -33,18 +33,27 @@ class HomeScreenVC: UIViewController {
         }
     }
     @IBAction func btnSearchAct(_ sender: UIButton) {
-        
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileSettingView") as! ProfileSettingView
-//        self.navigationController?.pushViewController(vc, animated: true)
-////        videoUrlArray = []
-////        collViewVideos.reloadData()
-//        let cells = collViewVideos.visibleCells.compactMap({ $0 as? VideoPlayerCollViewCell })
-//        cells.forEach { videoCell in
-//
-//            if videoCell.isPlaying {
-//                videoCell.stopPlaying()
-//            }
-//        }
+        if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
+        {
+            if userType == 2
+            {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileSettingView") as! ProfileSettingView
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else{
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "EmployerProfileSettingVC") as! EmployerProfileSettingVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            //        videoUrlArray = []
+            //        collViewVideos.reloadData()
+            let cells = collViewVideos.visibleCells.compactMap({ $0 as? VideoPlayerCollViewCell })
+            cells.forEach { videoCell in
+                
+                if videoCell.isPlaying {
+                    videoCell.stopPlaying()
+                }
+            }
+        }
 
     }
     

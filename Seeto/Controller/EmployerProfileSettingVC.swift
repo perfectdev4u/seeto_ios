@@ -6,20 +6,75 @@
 //
 
 import UIKit
+import SwiftLoader
 
 class EmployerProfileSettingVC: UIViewController {
 
-    var dictTable = [["title":"Company name","value":"Apple"],["title":"Industry","value":"IT"],["title":"Website","value":"www.Apple.com"],["title":"Linkedin Profile","value":"www.Apple.com"],["title":"Company Foundation Date","value":"23-11-1999"],["title":"Company Size","value":"100000"]]
+    var dictTable = [["title":"Company name","value":"Loading..."],["title":"Industry","value":"Loading..."],["title":"Website","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Company Foundation Date","value":"Loading..."],["title":"Company Size","value":"Loading..."]]
+    var mainDataJson = NSDictionary.init()
 
     @IBOutlet var tblProfileSettings: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        getEmployerProfileApi()
+
+    }
     
+    func getEmployerProfileApi()
+    {
+        
+        ApiManager().getRequest(api: ApiManager.shared.GetEmployerProfile,showLoader: true) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                  DispatchQueue.main.async {
+//                      let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
+//                      self.navigationController?.pushViewController(vc, animated: true)
+         print(dataJson)
+                      self.mainDataJson = dataJson as NSDictionary
+                      self.dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["companyName"] as! String)
+                      self.dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["industry"] as! String)
+                      self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["webSite"] as! String)
+                      self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as AnyObject))
+                      self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["foundationDate"] as! String)
+                      self.dictTable[5]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["companySize"] as AnyObject))  == "1000" ? "1000" : "> 1000"
+//                      self.profileUrl = ((dataJson["data"] as! NSDictionary)["profileImage"] as! String)
+//                      self.videoUrlString = ((dataJson["data"] as! NSDictionary)["videoUrl"] as! String)
+                      self.tblProfileSettings.reloadData()
+                    //  self.showToast(message: ()
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
 
     @IBAction func btnBackAct(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
 
@@ -42,6 +97,7 @@ extension EmployerProfileSettingVC : UITableViewDelegate,UITableViewDataSource
             let identifier = "ProfileViewCell"
             tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ProfileViewCell
+            cell.lblName.text = self.dictTable[0]["value"]
             cell.selectionStyle = .none
             return cell
 
@@ -57,6 +113,8 @@ extension EmployerProfileSettingVC : UITableViewDelegate,UITableViewDataSource
                 cell.widthImage.constant = 23
                 cell.lblDetails.text = "Profile Details"
                 cell.trailingImg.constant = 18
+                cell.btnEdit.addTarget(self, action: #selector(btnActEdit), for: .touchUpInside)
+
                 cell.selectionStyle = .none
                 return cell
             }
@@ -84,7 +142,9 @@ extension EmployerProfileSettingVC : UITableViewDelegate,UITableViewDataSource
                 }
                 else
                 {
-                    cell.myJobDataLbl.text = dictTable[indexPath.row - 1]["value"]
+                    let underlineAttriString = NSAttributedString(string: dictTable[indexPath.row - 1]["value"]!
+                                                             )
+                    cell.myJobDataLbl.attributedText = underlineAttriString
 
                     cell.myJobDataLbl.textColor = UIColor.white
                 }
@@ -105,6 +165,14 @@ extension EmployerProfileSettingVC : UITableViewDelegate,UITableViewDataSource
         }
 
     
+    @objc func btnActEdit()
+    {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "EmployerVC") as! EmployerVC
+        vc.updateScreen = true
+        vc.dataJson = mainDataJson
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
     
     //MARK:- tappedOnLabel
     @objc func tappedOnLabel(_ gesture: UITapGestureRecognizer) {

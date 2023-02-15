@@ -10,9 +10,14 @@ import AVKit
 import MobileCoreServices
 import SwiftLoader
 class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate{
-    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"false","value":""],["title":"Industry","type":"text","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"false","value":""],["title":"Company Foundation Date","type":"text","required":"false","value":""],["title":"Company Location","type":"text","required":"false","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
+    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"false","value":""],["title":"Industry","type":"text","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"false","value":""],["title":"Company Foundation Date","type":"drop","required":"false","value":""],["title":"Company Location","type":"text","required":"false","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
+    @IBOutlet var lblMain: UILabel!
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
+    @IBOutlet var topLbl: NSLayoutConstraint!
+    var updateScreen = false
+    var dataJson = NSDictionary.init()
+
     var urlVideo = URL(string: "")
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
@@ -32,29 +37,59 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         PickerView()
         showDatePicker()
         imagePicker.delegate = self
-        
+        if updateScreen == true
+        {
+            setUpUpdateScreen()
+        }
         btnNext.addTarget(self, action: #selector(btnCreateAct), for: .touchUpInside)
         // Do any additional setup after loading the view.
     }
-    
+    func setUpUpdateScreen()
+    {
+        lblMain.isHidden = true
+        topLbl.constant = 10
+
+        dictTable.remove(at: 0)
+        btnNext.isHidden = true
+        self.dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["companyName"] as! String)
+        self.dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["industry"] as! String)
+        self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["webSite"] as! String)
+        self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as AnyObject))
+        self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["foundationDate"] as! String)
+        self.dictTable[6]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["companySize"] as AnyObject))  == "1000" ? "1000" : "> 1000"
+
+    }
+
     func updateEmployerProfileData() -> [String : Any]
     {
        return [
-        "userType": 2,
-        "userId": 0,
+        "userType": 1,
         "companyName": dictTable[1]["value"]!,
         "industry":dictTable[2]["value"]!,
         "webSite": dictTable[3]["value"]!,
         "linkedInProfile": dictTable[4]["value"]!,
         "foundationDate": dictTable[5]["value"]!,
-        "companySize": dictTable[7]["value"]!
+        "companySize": dictTable[7]["value"]! == "1000" ? 1000 : 2000
         // int company size
         ] as [String : Any]
     }
     
+    func updateEmployer() -> [String : Any]
+    {
+       return [
+        "userType": 1,
+        "companyName": dictTable[0]["value"]!,
+        "industry":dictTable[1]["value"]!,
+        "webSite": dictTable[2]["value"]!,
+        "linkedInProfile": dictTable[3]["value"]!,
+        "foundationDate": dictTable[4]["value"]!,
+        "companySize": dictTable[6]["value"]! == "1000" ? 1000 : 2000
+        // int company size
+        ] as [String : Any]
+    }
     func updateEmployerProfileApi()
     {
-        ApiManager().postRequest(parameters:  updateEmployerProfileData(),api:  ApiManager.shared.UpdateEmployerProfile) { dataJson, error in
+        ApiManager().postRequest(parameters: updateScreen == true ? updateEmployer() :  updateEmployerProfileData(),api:  ApiManager.shared.UpdateEmployerProfile) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {
@@ -71,7 +106,20 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
                 if let dict = dataJson["data"] as? NSDictionary{
                   }
                   print(dataJson)
-
+                  DispatchQueue.main.async {
+                      if self.updateScreen == false
+                      {
+                          UserDefaults.standard.set(1, forKey: "userType")
+                          
+                          let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                          self.navigationController?.pushViewController(vc, animated: true)
+                      }
+                      else
+                      {
+                          self.navigationController?.popViewController(animated: true)
+                      }
+                      
+                  }
                 }
                 else
                 {
@@ -221,7 +269,7 @@ extension EmployerVC
         view.backgroundColor = backGroundColor
         let button = UIButton(frame: CGRect(x: 20, y: 40, width: self.view.frame.width - 40, height: 50))
         button.layer.cornerRadius = 10
-        button.setTitle("Create", for: .normal)
+        button.setTitle(updateScreen == false ? "Create" : "Update", for: .normal)
         button.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
         button.addTarget(self, action: #selector(btnCreateAct), for: .touchUpInside)
         button.backgroundColor = blueButtonColor
@@ -281,19 +329,19 @@ extension EmployerVC
 
             cell.tfMain.attributedPlaceholder = attributedString
         }
-        if (dictTable[indexPath.row]["title"]!) == "Date of Birth"
+        if (dictTable[indexPath.row]["title"]!) == "Company Foundation Date"
         {
             cell.imgVector.image = UIImage(imageLiteralResourceName: "Frame")
             cell.heightImg.constant = 25
             cell.widthImg.constant = 25
-            cell.topImage.constant = 15
+            cell.topImage.constant = 25
         }
         else if (dictTable[indexPath.row]["title"]!) == "Upload Company Logo"
         {
             cell.imgVector.image = UIImage(imageLiteralResourceName: "upload")
             cell.heightImg.constant = 20
             cell.widthImg.constant = 20
-            cell.topImage.constant = 20
+            cell.topImage.constant = 30
             
         }
         else if (dictTable[indexPath.row]["title"]!) == "Education" || (dictTable[indexPath.row]["title"]!) == "Working Experience"
@@ -301,7 +349,7 @@ extension EmployerVC
             cell.imgVector.image = UIImage(imageLiteralResourceName: "plus")
             cell.heightImg.constant = 20
             cell.widthImg.constant = 15
-            cell.topImage.constant = 20
+            cell.topImage.constant = 30
             
         }
         else
@@ -309,7 +357,7 @@ extension EmployerVC
             cell.imgVector.image = UIImage(imageLiteralResourceName: "Vector")
             cell.heightImg.constant = 20
             cell.widthImg.constant = 15
-            cell.topImage.constant = 20
+            cell.topImage.constant = 30
 
         }
         if (dictTable[indexPath.row]["title"]!) == "+1 0000000000"
@@ -381,7 +429,7 @@ extension EmployerVC : UITextFieldDelegate
         textFieldTag = textField.tag
         if (dictTable[textFieldTag]["type"]!) == "drop"
         {
-            if (dictTable[textFieldTag]["title"]!) == "Date of Birth"
+            if (dictTable[textFieldTag]["title"]!) == "Company Foundation Date"
             {
                 pickerArray = []
                 pickerViewTf = UITextField()
@@ -411,9 +459,9 @@ extension EmployerVC : UITextFieldDelegate
         else if (dictTable[textFieldTag]["title"]!) == "Spoken Language"
         {
             pickerArray = ["Eng","Hindi"]
-        }else if (dictTable[textFieldTag]["title"]!) == "Gender"
+        }else if (dictTable[textFieldTag]["title"]!) == "Company Size"
         {
-            pickerArray = ["Male","Female"]
+            pickerArray = ["1000","> 1000"]
         }
         }
         else if (dictTable[textFieldTag]["type"]!) == "btn"
@@ -427,9 +475,6 @@ extension EmployerVC : UITextFieldDelegate
             {
                 cameraGallery()
             }
-            
-                
-
         }
         else
         {
@@ -501,6 +546,9 @@ extension EmployerVC: UIImagePickerControllerDelegate {
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
                 if let json = jsonData as? [String: Any] {
                     if let dict = json["data"] as? NSDictionary{
+                        DispatchQueue.main.async {
+                            self.tblEmployer.reloadData()
+                        }
                         self.dictTable[0]["value"] = (dict["url"] as? String) ?? ""
                         SwiftLoader.hide()
 
