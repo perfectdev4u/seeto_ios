@@ -56,6 +56,8 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["webSite"] as! String)
         self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as AnyObject))
         self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["foundationDate"] as! String)
+        self.dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["companyLocation"] as? String) ?? ""
+
         self.dictTable[6]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["companySize"] as AnyObject))  == "1000" ? "1000" : "> 1000"
 
     }
@@ -63,12 +65,14 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
     func updateEmployerProfileData() -> [String : Any]
     {
        return [
+        "companyLogo":dictTable[0]["value"]!,
         "userType": 1,
         "companyName": dictTable[1]["value"]!,
         "industry":dictTable[2]["value"]!,
         "webSite": dictTable[3]["value"]!,
         "linkedInProfile": dictTable[4]["value"]!,
         "foundationDate": dictTable[5]["value"]!,
+        "companyLocation" : dictTable[6]["value"]!,
         "companySize": dictTable[7]["value"]! == "1000" ? 1000 : 2000
         // int company size
         ] as [String : Any]
@@ -83,6 +87,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         "webSite": dictTable[2]["value"]!,
         "linkedInProfile": dictTable[3]["value"]!,
         "foundationDate": dictTable[4]["value"]!,
+        "companyLocation" : dictTable[5]["value"]!,
         "companySize": dictTable[6]["value"]! == "1000" ? 1000 : 2000
         // int company size
         ] as [String : Any]
@@ -570,3 +575,4 @@ extension EmployerVC: UIImagePickerControllerDelegate {
 
 
 }
+

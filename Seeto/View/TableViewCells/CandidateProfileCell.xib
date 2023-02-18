@@ -140,6 +140,11 @@
             <point key="canvasLocation" x="178.62595419847327" y="34.507042253521128"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="AVt-Wk-Vvc">
+            <size key="intrinsicContentSize" width="70" height="18.666666666666668"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Vector" width="14" height="8"/>
         <image name="usa" width="1200" height="632"/>

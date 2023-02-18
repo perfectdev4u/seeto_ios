@@ -21,6 +21,7 @@ class ApiManager
     let UpdateCandidateProfile = "User/UpdateCandidateProfile"
     let UpdateEmployerProfile = "User/UpdateEmployerProfile"
     let UploadVideo = "User/UploadVideo"
+    let AddJobs = "Job/AddJobs"
 
     func postRequest(parameters : [String: Any] ,api : String , completion: @escaping ([String: Any]?, Error?) -> Void) {
 

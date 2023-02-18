@@ -29,7 +29,6 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         PickerView()
-        showDatePicker()
         tblJob.backgroundColor = backGroundColor
         imagePicker.delegate = self
         btnNext.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
@@ -59,39 +58,28 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
        toolBar.isUserInteractionEnabled = true
     }
     
-    func showDatePicker(){
-      //Formate Date
-      datePicker.datePickerMode = .date
-            datePicker.preferredDatePickerStyle = .wheels
-        //ToolBar
-        toolbar.barStyle = .default
-        toolbar.isTranslucent = true
-        toolbar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
-        toolbar.sizeToFit()
-
-     let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
-        doneButton.tintColor = UIColor.black
-
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-    let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
-        cancelButton.tintColor = UIColor.black
-
-   toolbar.setItems([cancelButton,spaceButton,doneButton], animated: false)
-
-
-   }
-
-    @objc func donedatePicker(){
-
-     let formatter = DateFormatter()
-     formatter.dateFormat = "dd/MM/yyyy"
-     dictTable[textFieldTag]["value"] = formatter.string(from: datePicker.date)
-     self.view.endEditing(true)
-   }
-
-   @objc func cancelDatePicker(){
-      self.view.endEditing(true)
+    func addNewJobData() -> [String : Any]
+    {
+       
+       return [
+            "position" : dictTable[0]["value"]!,
+            "experienceLevel" : dictTable[1]["value"]! == "1 year" ? 1 : 2,
+            "jobType" : dictTable[2]["value"]! == "IT" ? 1 : 2,
+            "jobLocation" : dictTable[3]["value"]! == "Remote" ? 2 : 1,
+            "location" : dictTable[4]["value"]!,
+            "minSalary" : dictTable[5]["value"]! == "50000 - 100000" ? 50000 : 1000000,
+            "maxSalary" :  dictTable[5]["value"]! == "50000 - 100000r" ? 1000000 : 2000000,
+            "isSalaryDisplayed" : true,
+            "jobDescription" : dictTable[6]["value"]!,
+            "country" : "America",
+            "region" : "California",
+            "city" : "Cali",
+            "latitude" : 0,
+            "longitude" : 0,
+        ] as [String : Any]
     }
+ 
+
     @objc func doneClick() {
         dictTable[textFieldTag]["value"] = pickerArray[index]
         pickerViewTf.resignFirstResponder()
@@ -241,50 +229,6 @@ extension AddNewJobAndVideoVC
 
             cell.tfMain.attributedPlaceholder = attributedString
         }
-        if (dictTable[indexPath.row]["title"]!) == "Date of Birth"
-        {
-            cell.imgVector.image = UIImage(imageLiteralResourceName: "Frame")
-            cell.heightImg.constant = 25
-            cell.widthImg.constant = 25
-            cell.topImage.constant = 15
-        }
-        else if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture"
-        {
-            cell.imgVector.image = UIImage(imageLiteralResourceName: "upload")
-            cell.heightImg.constant = 20
-            cell.widthImg.constant = 20
-            cell.topImage.constant = 20
-            
-        }
-        else if (dictTable[indexPath.row]["title"]!) == "Education" || (dictTable[indexPath.row]["title"]!) == "Working Experience"
-        {
-            cell.imgVector.image = UIImage(imageLiteralResourceName: "plus")
-            cell.heightImg.constant = 20
-            cell.widthImg.constant = 15
-            cell.topImage.constant = 20
-            
-        }
-        else
-        {
-            cell.imgVector.image = UIImage(imageLiteralResourceName: "Vector")
-            cell.heightImg.constant = 20
-            cell.widthImg.constant = 15
-            cell.topImage.constant = 20
-
-        }
-        if (dictTable[indexPath.row]["title"]!) == "+1 0000000000"
-        {
-            cell.leadingTf.constant = 100
-            cell.flagPicView.image = countryCode == "USA" ? UIImage(named: "usa") : UIImage(named: "ukr")
-            cell.phoneCountryView.isHidden = false
-            cell.btnSelectCountryView.tag = indexPath.row
-            cell.btnSelectCountryView.addTarget(self, action: #selector(btnShowNumberPicker), for: .touchUpInside)
-        }
-        else
-        {
-            cell.leadingTf.constant = 27
-            cell.phoneCountryView.isHidden = true
-        }
         cell.tfMain.attributedPlaceholder = attributedString
         cell.tfMain.text = (dictTable[indexPath.row]["value"]!)
         if (dictTable[indexPath.row]["type"]!) == "text"
@@ -295,14 +239,9 @@ extension AddNewJobAndVideoVC
         {
             cell.imgVector.isHidden = false
         }
-        if (dictTable[indexPath.row]["type"]!) == "btn"
-        {
-            cell.tfMain.isUserInteractionEnabled = false
-        }
-        else
-        {
-            cell.tfMain.isUserInteractionEnabled = true
-        }
+        cell.leadingTf.constant = 27
+        cell.phoneCountryView.isHidden = true
+
         cell.tfMain.tag = indexPath.row
         cell.tfMain.delegate = self
         cell.selectionStyle = .none
@@ -360,22 +299,27 @@ extension AddNewJobAndVideoVC : UITextFieldDelegate
             }
 
       
-        if (dictTable[textFieldTag]["title"]!) == "Current Location"
+        if (dictTable[textFieldTag]["title"]!) == "Experience Level"
         {
-            pickerArray = ["Ropar","Mansa"]
+            pickerArray = ["1 year","2 years","> 2 years"]
         }
-        else if (dictTable[textFieldTag]["title"]!) == "Experience Level"
+        else if (dictTable[textFieldTag]["title"]!) == "Job Type"
         {
-            pickerArray = ["1 year","3 years"]
+            pickerArray = ["IT","HR"]
         }
-        else if (dictTable[textFieldTag]["title"]!) == "Spoken Language"
+        else if (dictTable[textFieldTag]["title"]!) == "On-Site/Remote"
         {
-            pickerArray = ["Eng","Hindi"]
-        }else if (dictTable[textFieldTag]["title"]!) == "Gender"
+            pickerArray = ["On-Site","Remote"]
+        }else if (dictTable[textFieldTag]["title"]!) == "Location"
         {
-            pickerArray = ["Male","Female"]
+            pickerArray = ["Mohali","Noida"]
         }
+            else if (dictTable[textFieldTag]["title"]!) == "Salary Range"
+            {
+                pickerArray = ["50000 - 100000","100000 - 200000"]
+            }
         }
+        
         else if (dictTable[textFieldTag]["type"]!) == "btn"
         {
             pickerArray = []
@@ -448,8 +392,9 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
 
       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler:{_ in  print("Foo")
-          let vc = self.storyboard?.instantiateViewController(withIdentifier: "ThumbnailVideoVC") as! ThumbnailVideoVC
+          let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddJobVideo") as! AddJobVideo
           vc.urlVideo = self.urlVideo
+          vc.dictParam = self.addNewJobData()
           self.navigationController?.pushViewController(vc, animated: true)
 
           

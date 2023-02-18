@@ -20,6 +20,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     var dataJson = NSDictionary.init()
 
     var videoUrlString = ""
+    var langList = [NSDictionary].init()
     var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Date of Birth","type":"drop","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"false","value":""],["title":"Email Address","type":"text","required":"true","value":""],["title":"Linkedin Profile","type":"text","required":"true","value":""],["title":"Current Location","type":"drop","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
@@ -73,8 +74,13 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         dictTable[13]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : "Female"
         dictTable[14]["value"] = ((dataJson["data"] as! NSDictionary)["disability"] as! String)
         dictTable[15]["value"] = ((dataJson["data"] as! NSDictionary)["veteranStatus"] as! String)
+        dictTable[16]["value"] = ((dataJson["data"] as! NSDictionary)["militaryStatus"] as? String) ?? ""
         
-        langArray = ((dataJson["data"] as! NSDictionary)["bio"] as! String).components(separatedBy: ",")
+        langList = ((dataJson["data"] as! NSDictionary)["languageList"] as! [NSDictionary])
+        for i in langList
+        {
+            langArray.append(i["language"] as! String)
+        }
     }
     
     @objc func updateCandidateProfileApi()
@@ -122,7 +128,11 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
 
     func updateCandidateProfileData() -> [String : Any]
     {
-
+        langList.removeAll()
+        for i in langArray
+        {
+            langList.append(["language" : i,"fluencyLevel" : 0])
+        }
        return [
             "userType" : 2,
             "firstName" : dictTable[1]["value"]!,
@@ -130,6 +140,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "dateOfBirth" : dictTable[3]["value"]!,
             "profileImage" : dictTable[0]["value"] ?? "",
             "linkedInProfile" : dictTable[6]["value"]!,
+            "phoneNumber" :  dictTable[4]["value"]!,
             "experienceLevel" :  dictTable[9]["value"]! == "1 year" ? 1 : 2,
             "desiredMonthlyIncome" : dictTable[10]["value"]!,
             "education" : dictTable[12]["value"]!,
@@ -146,19 +157,28 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "currentPosition" : dictTable[8]["value"]!,
             "jobType" : 0,
             "videoUrl": videoUrlString,
-            "bio" :langArray.joined(separator: ",")
+            "bio" : "",
+            "militaryStatus":dictTable[17]["value"]!,
+            "languageList" : langList
         ] as [String : Any]
     }
     
     
     func updateCandidateDict() -> [String : Any]
     {
+        langList.removeAll()
 
+        for i in langArray
+        {
+            langList.append(["language" : i,"fluencyLevel" : 0])
+        }
        return [
             "userType" : 2,
             "firstName" : dictTable[0]["value"]!,
             "lastName" : dictTable[1]["value"]!,
             "dateOfBirth" : dictTable[2]["value"]!,
+            "phoneNumber" :  dictTable[3]["value"]!,
+
             "linkedInProfile" : dictTable[5]["value"]!,
             "experienceLevel" :  dictTable[8]["value"]! == "1 year" ? 1 : 2,
             "desiredMonthlyIncome" : dictTable[9]["value"]!,
@@ -175,7 +195,9 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "longitude" : 0,
             "currentPosition" : dictTable[7]["value"]!,
             "jobType" : 0,
-            "bio" :langArray.joined(separator: ",")
+            "bio" :"",
+            "militaryStatus":dictTable[16]["value"]!,
+            "languageList" : langList
         ] as [String : Any]
     }
 

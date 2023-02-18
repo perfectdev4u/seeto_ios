@@ -41,7 +41,7 @@ class HomeScreenVC: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else{
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "EmployerProfileSettingVC") as! EmployerProfileSettingVC
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobsVC") as! JobsVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             //        videoUrlArray = []

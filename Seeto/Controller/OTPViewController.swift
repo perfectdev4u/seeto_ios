@@ -18,6 +18,7 @@ class OTPViewController: UIViewController ,MyTextFieldDelegate{
     var email = false
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         firstTf.attributedPlaceholder = NSAttributedString(
             string: "X",
             attributes: [NSAttributedString.Key.foregroundColor: grayColor]

@@ -129,9 +129,14 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
                       self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["currentLocation"] as! String)
                       self.dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["currentPosition"] as! String)
                       self.dictTable[6]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["experienceLevel"] as AnyObject))  == "1" ? "1 year" : "More Than 1 year"
-                      self.dictTable[7]["value"] = ((dataJson["data"] as! NSDictionary)["bio"] as! String)
+                     // = ((dataJson["data"] as! NSDictionary)["languageList"] as! String)
                       self.profileUrl = ((dataJson["data"] as! NSDictionary)["profileImage"] as! String)
                       self.videoUrlString = ((dataJson["data"] as! NSDictionary)["videoUrl"] as! String)
+                      self.dictTable[7]["value"] = ""
+                      for i in ((dataJson["data"] as! NSDictionary)["languageList"] as! [NSDictionary])
+                      {
+                          self.dictTable[7]["value"]?.append((i["language"] as! String) + " ")
+                      }
                       self.tblProfileSettings.reloadData()
                     //  self.showToast(message: ()
                   }
