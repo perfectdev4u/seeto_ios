@@ -178,7 +178,6 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "lastName" : dictTable[1]["value"]!,
             "dateOfBirth" : dictTable[2]["value"]!,
             "phoneNumber" :  dictTable[3]["value"]!,
-
             "linkedInProfile" : dictTable[5]["value"]!,
             "experienceLevel" :  dictTable[8]["value"]! == "1 year" ? 1 : 2,
             "desiredMonthlyIncome" : dictTable[9]["value"]!,

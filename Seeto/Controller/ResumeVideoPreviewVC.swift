@@ -7,7 +7,7 @@
 
 import UIKit
 import AVFoundation
-
+import SwiftLoader
 class ResumeVideoPreviewVC: UIViewController {
 
     @IBOutlet var viewMain: UIView!
@@ -29,7 +29,6 @@ class ResumeVideoPreviewVC: UIViewController {
             avPlayer = AVPlayer(url: url)
             playerViewAV.player = avPlayer
             playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height:viewMain.frame.height)
-
             playerViewAV.videoGravity = AVLayerVideoGravity.resize
             viewMain.layer.addSublayer(playerViewAV)
           //  viewMain.layer.cornerRadius = 40
@@ -37,12 +36,34 @@ class ResumeVideoPreviewVC: UIViewController {
             viewMain.addSubview(btnBackward)
             viewMain.addSubview(btnForward)
             playerViewAV.player?.play()
+            SwiftLoader.show(animated: true);
+            playerViewAV.player?.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
 
             NotificationCenter.default.addObserver(self, selector: #selector(ThumbnailVideoVC.didfinishplaying),name:NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerViewAV.player?.currentItem)
         }
         // Do any additional setup after loading the view.
     }
     
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+            if keyPath == "timeControlStatus", let change = change, let newValue = change[NSKeyValueChangeKey.newKey] as? Int, let oldValue = change[NSKeyValueChangeKey.oldKey] as? Int {
+                if #available(iOS 10.0, *) {
+                    let oldStatus = AVPlayer.TimeControlStatus(rawValue: oldValue)
+                    let newStatus = AVPlayer.TimeControlStatus(rawValue: newValue)
+                    if newStatus != oldStatus {
+                       DispatchQueue.main.async {[weak self] in
+                           if newStatus == .playing || newStatus == .paused {
+                               SwiftLoader.hide()
+                           } else {
+                               SwiftLoader.show(animated: true);
+                           }
+                       }
+                    }
+                } else {
+                    // Fallback on earlier versions
+                    SwiftLoader.hide()
+                }
+            }
+        }
     
     @objc func didfinishplaying()
     {

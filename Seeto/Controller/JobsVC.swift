@@ -7,16 +7,57 @@
 
 import UIKit
 
-class JobsVC: UIViewController {
-
+class JobsVC: UIViewController,JobDelegate {
+    func JobDone() {
+        getJobsApi()
+    }
+    
+    var mainArray = [NSDictionary].init()
     @IBOutlet var tblJob: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        getJobsApi()
         // Do any additional setup after loading the view.
     }
     
+    func getJobsApi()
+    {
+        ApiManager().postRequest(parameters: [:], api: ApiManager.shared.GetMyJobs) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                  DispatchQueue.main.async {
+                      self.mainArray = dataJson["data"] as? [NSDictionary] ?? []
+                      self.tblJob.reloadData()
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
 
     @IBAction func btnSettings(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -25,7 +66,7 @@ class JobsVC: UIViewController {
 extension JobsVC : UITableViewDelegate,UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return mainArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -37,6 +78,9 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
         cell.heightPic.constant = 55
         cell.widthPic.constant = 55
         cell.imgMain.image = UIImage(named: "video")
+        cell.lblSkillLevel.text = "Fresher"
+        cell.lblDesignation.text = mainArray[indexPath.row]["position"] as? String ?? ""
+        cell.lblLikes.text = String(describing:  mainArray[indexPath.row]["matchCount"] as AnyObject)
         if indexPath.row == (tableView.numberOfRows(inSection: 0) - 1)
         {
             cell.seperatorView.isHidden = true
@@ -54,6 +98,8 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
     {
         let deleteAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "DeleteJobVC") as! DeleteJobVC
+            vc.jobId = self.mainArray[indexPath.row]["jobId"] as? Int ?? -1
+            vc.deleteDelegate = self
             self.present(vc, animated: true)
 
             
@@ -65,6 +111,12 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
         deleteAction.backgroundColor = grayShadeColor
 
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "CandidateSearchDetailVC") as! CandidateSearchDetailVC
+        vc.jobId = self.mainArray[indexPath.row]["jobId"] as? Int ?? -1
+        self.navigationController?.pushViewController(vc, animated: true)
+  
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 70))
@@ -80,7 +132,9 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
     }
     @objc func btnNewSearchAct()
     {
-        Toast.show(message:"Under Development", controller: self)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddNewJobAndVideoVC") as! AddNewJobAndVideoVC
+        vc.jobDelegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 70

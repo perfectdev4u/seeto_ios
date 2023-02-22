@@ -22,7 +22,12 @@ class ApiManager
     let UpdateEmployerProfile = "User/UpdateEmployerProfile"
     let UploadVideo = "User/UploadVideo"
     let AddJobs = "Job/AddJobs"
-
+    let GetMyJobs = "Job/GetMyJobs"
+    let DeleteJob = "Job/DeleteJob"
+    let GetJobWithCandidate = "Job/GetJobWithCandidate"
+    let SearchJob = "Job/SearchJob"
+    let GetCandidateById = "User/GetCandidateById"
+    
     func postRequest(parameters : [String: Any] ,api : String , completion: @escaping ([String: Any]?, Error?) -> Void) {
 
         //declare parameter as a dictionary which contains string as key and value combination.
@@ -95,11 +100,12 @@ class ApiManager
        }
     func getRequest(api : String ,showLoader : Bool? = true, completion: @escaping ([String : Any]?, Error? ) -> Void) {
         let urlString =  baseURL +  api
+        print(urlString)
+
         if showLoader == true
         {
             SwiftLoader.show(animated: true)
         }
-        print(api)
 
         if let url = URL(string: urlString) {
             var request = URLRequest(url: url)
@@ -131,14 +137,7 @@ class ApiManager
 
                 do {
                     //create json object from data
-                    guard let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] else {
-                        if showLoader == true
-                        {
-                            SwiftLoader.hide()
-                        }
-                        completion(nil, NSError(domain: "invalidJSONTypeError", code: -100009, userInfo: nil))
-                        return
-                    }
+                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any]
                     print(json)
                         if showLoader == true
                         {

@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol JobDelegate
+{
+    func JobDone()
+}
+ 
 class DeleteJobVC: UIViewController {
-
+    var jobId = 0
     @IBOutlet var mainView: UIView!
     @IBOutlet var backView: UIView!
     @IBOutlet var btnConfirm: UIButton!
@@ -19,6 +24,7 @@ class DeleteJobVC: UIViewController {
         addBlurToView()
         // Do any additional setup after loading the view.
     }
+     var deleteDelegate : JobDelegate?
     func addBlurToView() {
         var blurEffect: UIBlurEffect!
         if #available(ios 10.0, *) {
@@ -33,9 +39,49 @@ class DeleteJobVC: UIViewController {
         backView.addSubview(blurredEffectView)
     }
     @IBAction func btnConfirmAct(_ sender: Any) {
-        self.dismiss(animated: true)
+        deleteJobsApi()
 
     }
+    
+    func deleteJobsApi()
+    {
+        ApiManager().postRequest(parameters: [  "jobId": jobId
+], api: ApiManager.shared.DeleteJob) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                  DispatchQueue.main.async {
+                      Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                      self.deleteDelegate?.JobDone()
+                      self.dismiss(animated: true)
+                  }
+
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
     
     @IBAction func btnCancelAct(_ sender: Any) {
         self.dismiss(animated: true)

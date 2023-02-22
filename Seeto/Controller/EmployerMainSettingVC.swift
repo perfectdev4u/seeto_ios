@@ -8,18 +8,64 @@
 import UIKit
 
 class EmployerMainSettingVC: UIViewController {
-
-    var dictTable = [["title":"DOB","value":"23-11-1999"],["title":"Linkedin Profile","value":"www.vrinda.com"],["title":"Gender","value":"Female"],["title":"Current Location","value":"India"],["title":"Current Position","value":"Nodejs Developer"],["title":"Experience Level","value":"Entry level"],["title":"Spoken Language","value":"English"]]
+   var candidateId = -1
+    var mainDict = NSDictionary.init()
+    var dictTable = [["title":"DOB","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Gender","value":"Loading..."],["title":"Current Location","value":"Loading..."],["title":"Current Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Spoken Language","value":"Loading..."]]
 
     @IBOutlet var tblProfileSettings: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getCandidateApi()
         // Do any additional setup after loading the view.
     }
-    
+    func getCandidateApi()
+    {
+        ApiManager().postRequest(parameters: ["candidateId": candidateId], api: ApiManager.shared.GetCandidateById) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                  DispatchQueue.main.async {
+                      self.mainDict = dataJson["data"] as? NSDictionary ?? [:]
+                      self.dictTable[0]["value"] = self.mainDict["dateOfBirth"] as? String ?? ""
+                      self.dictTable[1]["value"] = self.mainDict["linkedInProfile"] as? String ?? ""
+                      self.dictTable[2]["value"] = String(describing: self.mainDict["gender"] as AnyObject) == "2" ? "Female" : "Male"
+                      self.dictTable[3]["value"] = self.mainDict["currentLocation"] as? String ?? ""
+                      self.dictTable[4]["value"] = self.mainDict["currentPosition"] as? String ?? ""
+                      self.dictTable[5]["value"] = String(describing: self.mainDict["experienceLevel"] as AnyObject) == "2" ? "High" : "Beginner"
+                      self.dictTable[6]["value"] = self.mainDict["language"] as? String ?? "English"
+
+                      
+                      self.tblProfileSettings.reloadData()
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
 
     @IBAction func btnBackAct(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
 
@@ -42,7 +88,10 @@ extension EmployerMainSettingVC : UITableViewDelegate,UITableViewDataSource
             let identifier = "ProfileViewCell"
             tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ProfileViewCell
-
+            cell.lblName.text = self.mainDict["fullName"] as? String ?? ""
+            cell.imgVideo.sd_setImage(with: URL(string: mainDict["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "AppIcon"))
+            cell.btnImageProfilr.addTarget(self, action: #selector(playVideo), for: .touchUpInside)
+            cell.imgEdit.image = UIImage(named: "player")
             cell.selectionStyle = .none
             return cell
 
@@ -72,17 +121,21 @@ extension EmployerMainSettingVC : UITableViewDelegate,UITableViewDataSource
                     cell.myJobDataLbl.textColor = blueButtonColor
                     let underlineAttriString = NSAttributedString(string: dictTable[indexPath.row - 1]["value"]!,
                                                               attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
-                    cell.myJobDataLbl.attributedText = underlineAttriString
                     cell.myJobDataLbl.isUserInteractionEnabled = true
                     cell.myJobDataLbl.tag = indexPath.row
+                    cell.myJobDataLbl.attributedText = underlineAttriString
+
                     let tapgesture = UITapGestureRecognizer(target: self, action: #selector(tappedOnLabel(_ :)))
                     tapgesture.numberOfTapsRequired = 1
                     cell.myJobDataLbl.addGestureRecognizer(tapgesture)
 
                 }
+                
                 else
                 {
-                    cell.myJobDataLbl.text = dictTable[indexPath.row - 1]["value"]
+                    let underlineAttriString = NSAttributedString(string: dictTable[indexPath.row - 1]["value"]!)
+
+                    cell.myJobDataLbl.attributedText = underlineAttriString
 
                     cell.myJobDataLbl.textColor = UIColor.white
                 }
@@ -102,7 +155,14 @@ extension EmployerMainSettingVC : UITableViewDelegate,UITableViewDataSource
 
         }
 
-    
+    //MARK:-
+   @objc func playVideo()
+    {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResumeVideoPreviewVC") as! ResumeVideoPreviewVC
+        vc.urlVideo = URL(string: mainDict["videoUrl"] as? String ?? "")
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
     
     //MARK:- tappedOnLabel
     @objc func tappedOnLabel(_ gesture: UITapGestureRecognizer) {
@@ -127,13 +187,13 @@ extension EmployerMainSettingVC : UITableViewDelegate,UITableViewDataSource
             button.layer.cornerRadius = 10
             button.setTitle("Contact", for: .normal)
             button.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
-            button.addTarget(self, action: #selector(btnNewSearchAct), for: .touchUpInside)
+            button.addTarget(self, action: #selector(btnShowCandidateDetailAct), for: .touchUpInside)
             button.backgroundColor = blueButtonColor
             view.addSubview(button)
         }
         return view
     }
-    @objc func btnNewSearchAct()
+    @objc func btnShowCandidateDetailAct()
     {
 
         

@@ -8,14 +8,56 @@
 import UIKit
 
 class CandidateSearchDetailVC: UIViewController {
-
+     var jobId = -1
     @IBOutlet var tblCandidateSearch: UITableView!
-    var dictTable = [["title":"Position","value":"UI UX Designer"],["title":"Experience Level","value":"Entry Level"],["title":"Job Type","value":"Internship"],["title":"Location","value":"India"]]
-
+    var dictTable = [["title":"Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Job Type","value":"Loading..."],["title":"Location","value":"Loading..."]]
+    var mainDict = NSDictionary.init()
+    var matchCandidateArray = [NSDictionary].init()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getJobWithCandidateApi()
         // Do any additional setup after loading the view.
+    }
+    
+    func getJobWithCandidateApi()
+    {
+        ApiManager().postRequest(parameters: ["jobId": jobId], api: ApiManager.shared.GetJobWithCandidate) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                  DispatchQueue.main.async {
+                      self.mainDict = dataJson["data"] as? NSDictionary ?? [:]
+                      self.dictTable[0]["value"] = self.mainDict["position"] as? String ?? ""
+                      self.dictTable[1]["value"] = "Entry Level"
+                      self.dictTable[2]["value"] = String(describing: self.mainDict["jobType"] as AnyObject) == "2" ? "HR" : "IT"
+                      self.dictTable[3]["value"] = self.mainDict["location"] as? String ?? ""
+                      self.matchCandidateArray = self.mainDict["machedCandidates"] as? [NSDictionary] ?? []
+                      self.tblCandidateSearch.reloadData()
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
     }
 
     @IBAction func btnBackAct(_ sender: UIButton) {
@@ -66,9 +108,16 @@ extension CandidateSearchDetailVC : UITableViewDelegate,UITableViewDataSource
             return  dictTable.count + 1
         }
       
-        return 3
+        return matchCandidateArray.count
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 2
+        {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "EmployerMainSettingVC") as! EmployerMainSettingVC
+            vc.candidateId = matchCandidateArray[indexPath.row]["candidateId"] as? Int ?? -1
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0
         {
@@ -77,6 +126,7 @@ extension CandidateSearchDetailVC : UITableViewDelegate,UITableViewDataSource
             tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ProfileViewCell
             cell.selectionStyle = .none
+            cell.lblName.text = mainDict["position"] as? String ?? "Loading..."
             cell.viewEdit.isHidden = true
             return cell
 
@@ -93,7 +143,6 @@ extension CandidateSearchDetailVC : UITableViewDelegate,UITableViewDataSource
                 cell.heightCell.constant = 20
                 cell.selectionStyle = .none
                 return cell
-                
             }
             
                 let identifier = "MyJobDetailCell"
@@ -115,8 +164,6 @@ extension CandidateSearchDetailVC : UITableViewDelegate,UITableViewDataSource
                 }
                 cell.selectionStyle = .none
                 return cell
-                
-            
         }
         else
         {
@@ -131,10 +178,12 @@ extension CandidateSearchDetailVC : UITableViewDelegate,UITableViewDataSource
             {
                 cell.seperatorView.isHidden = false
             }
+            cell.companyTitle.text = matchCandidateArray[indexPath.row]["name"] as? String ?? "N/A"
+            cell.imgThumb.sd_setImage(with: URL(string: matchCandidateArray[indexPath.row]["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "AppIcon"))
+
             cell.selectionStyle = .none
             return cell
         }
-
     }
    
 

@@ -19,3 +19,11 @@ let likeButtonBackGroundColor = UIColor.init(red: 0.145, green:0.212, blue: 0.23
 let googleClientID = "72919610538-rhqe3h7lrovdsb254q3dg9kua4c6o0nm.apps.googleusercontent.com"
 
 let baseURL = "http://34.207.158.183/api/v1.0/"
+
+var experienceArray = [DropdownModel(val: "Not Selected", id: 0),DropdownModel(val: "Entry Level", id: 1),DropdownModel(val: "Internship", id: 2),DropdownModel(val: "Associate", id: 3),DropdownModel(val: "Mid Senior", id: 4),DropdownModel(val: "Director", id: 5),DropdownModel(val: "Executive", id: 6)]
+
+struct DropdownModel
+{
+   let val : String
+   let id : Int
+}

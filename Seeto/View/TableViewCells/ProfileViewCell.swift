@@ -10,6 +10,8 @@ import UIKit
 class ProfileViewCell: UITableViewCell {
 
     @IBOutlet var btnImageProfilr: UIButton!
+    @IBOutlet var imgEdit: UIImageView!
+    @IBOutlet var btnShowVideoUrl: UIButton!
     @IBOutlet var imgVideo: UIImageView!
     @IBOutlet var lblName: UILabel!
     @IBOutlet var viewBack: UIView!
@@ -18,6 +20,7 @@ class ProfileViewCell: UITableViewCell {
         super.awakeFromNib()
         viewBack.layer.cornerRadius = 10
         viewEdit.layer.cornerRadius = viewEdit.frame.height / 2
+        imgVideo.layer.cornerRadius = imgVideo.frame.height / 2
         // Initialization code
     }
 

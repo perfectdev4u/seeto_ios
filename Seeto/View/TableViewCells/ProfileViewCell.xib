@@ -95,6 +95,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btnImageProfilr" destination="7hM-eD-Pdf" id="hQh-za-1dK"/>
+                <outlet property="btnShowVideoUrl" destination="DZc-1S-ZXe" id="yDW-ol-GlH"/>
+                <outlet property="imgEdit" destination="ZIo-aK-DsL" id="cGD-nu-lia"/>
                 <outlet property="imgVideo" destination="uh6-cU-nQl" id="Sq4-ZA-67N"/>
                 <outlet property="lblName" destination="NHZ-qg-BPL" id="iQa-N3-XMG"/>
                 <outlet property="viewBack" destination="U0C-HF-1qx" id="Ppz-4p-zfB"/>

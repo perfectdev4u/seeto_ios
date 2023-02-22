@@ -10,10 +10,12 @@ import UIKit
 class MatchedEmployerCell: UITableViewCell {
 
     @IBOutlet var companyTitle: UILabel!
+    @IBOutlet var imgThumb: UIImageView!
     @IBOutlet var noOfEmployeesLbl: UILabel!
     @IBOutlet var seperatorView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        imgThumb.layer.cornerRadius = imgThumb.frame.height / 2
         // Initialization code
     }
 

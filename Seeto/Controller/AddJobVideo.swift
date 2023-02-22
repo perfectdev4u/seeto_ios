@@ -25,6 +25,8 @@ class AddJobVideo: UIViewController {
     let videoUrl = ""
     var updateVideo = false
     var dictParam = [:] as [String : Any]
+    var jobDelegate : JobDelegate!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         btnCheck.layer.cornerRadius = btnCheck.frame.height / 2
@@ -114,8 +116,7 @@ class AddJobVideo: UIViewController {
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
                     print("done")
-                   // self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: UIImage(cgImage: thumb))
-                    self.AddJobsApi()
+                    self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: UIImage(cgImage: thumb))
                    // self.thumbImg = true
                  //   self.imgThumbnail.image = UIImage(cgImage: thumb)
 //                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
@@ -156,9 +157,10 @@ class AddJobVideo: UIViewController {
                 if let dict = dataJson["data"] as? NSDictionary{
                   }
                   print(dataJson)
-                  UserDefaults.standard.set(2, forKey: "userType")
-
+//                  UserDefaults.standard.set(2, forKey: "userType")
                   DispatchQueue.main.async {
+                      self.jobDelegate.JobDone()
+
                       if self.updateVideo == true
                       {
                           self.navigationController?.popViewController(animated: true)
@@ -224,7 +226,7 @@ class AddJobVideo: UIViewController {
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
                 if let json = jsonData as? [String: Any] {
                     if let dict = json["data"] as? NSDictionary{
-                     //   self.dictParam["thumbnailUrl"] = (dict["url"] as? String) ?? ""
+                        self.dictParam["thumbnailUrl"] = (dict["url"] as? String) ?? ""
                         SwiftLoader.hide()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             self.AddJobsApi()

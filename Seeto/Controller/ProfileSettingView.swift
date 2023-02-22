@@ -118,8 +118,6 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
               if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
                 {
                   DispatchQueue.main.async {
-//                      let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
-//                      self.navigationController?.pushViewController(vc, animated: true)
          print(dataJson)
                       self.mainDataJson = dataJson as NSDictionary
                       self.dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["firstName"] as! String) + " " +  ((dataJson["data"] as! NSDictionary)["lastName"] as! String)
@@ -146,7 +144,7 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
                     DispatchQueue.main.async {
 
                       //  self.showToast(message: ()
-                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                        Toast.show(message:(dataJson["returnMessage"] as? [String])?[0] ?? "Error Occured", controller: self)
                     }
 
                 }

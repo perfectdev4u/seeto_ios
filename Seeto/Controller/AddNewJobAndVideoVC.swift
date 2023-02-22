@@ -8,9 +8,19 @@
 import UIKit
 import AVKit
 import MobileCoreServices
+import SwiftLoader
 
-class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate {
-
+class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate,JobDelegate {
+    func JobDone() {
+        
+        jobDelegate.JobDone()
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+    }
+    var jobDelegate : JobDelegate!
+    var videoUrlString = ""
     @IBOutlet var tblJob: UITableView!
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
@@ -23,9 +33,9 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
     var pickerViewTf = UITextField()
     var pickerString = ""
     var textFieldTag = 0
-    var datePicker = UIDatePicker()
     let toolbar = UIToolbar();
     var countryCode = "USA"
+    var jobsDelegate : JobDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
         PickerView()
@@ -68,7 +78,7 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
             "jobLocation" : dictTable[3]["value"]! == "Remote" ? 2 : 1,
             "location" : dictTable[4]["value"]!,
             "minSalary" : dictTable[5]["value"]! == "50000 - 100000" ? 50000 : 1000000,
-            "maxSalary" :  dictTable[5]["value"]! == "50000 - 100000r" ? 1000000 : 2000000,
+            "maxSalary" :  dictTable[5]["value"]! == "50000 - 100000" ? 1000000 : 2000000,
             "isSalaryDisplayed" : true,
             "jobDescription" : dictTable[6]["value"]!,
             "country" : "America",
@@ -76,6 +86,7 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
             "city" : "Cali",
             "latitude" : 0,
             "longitude" : 0,
+            "videoUrl": videoUrlString,
         ] as [String : Any]
     }
  
@@ -220,7 +231,6 @@ extension AddNewJobAndVideoVC
         )
         if (dictTable[indexPath.row]["required"]!) == "true"
         {
-            
             let attributedMark = NSMutableAttributedString(
                 string: "*",
                 attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]
@@ -280,23 +290,14 @@ extension AddNewJobAndVideoVC : UITextFieldDelegate
         textFieldTag = textField.tag
         if (dictTable[textFieldTag]["type"]!) == "drop"
         {
-            if (dictTable[textFieldTag]["title"]!) == "Date of Birth"
-            {
-                pickerArray = []
-                pickerViewTf = UITextField()
-                textField.inputView = datePicker
-                textField.inputAccessoryView = toolbar
-
-            }
-            else
-            {
+         
                 pickerViewTf = textField
                 textField.inputView = myPickerView
                 textField.inputAccessoryView = toolBar
                 index = 0
                 self.myPickerView.selectRow(0, inComponent: 0, animated: false)
 
-            }
+            
 
       
         if (dictTable[textFieldTag]["title"]!) == "Experience Level"
@@ -378,23 +379,86 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
                 return
         }
     urlVideo = url
-        // Handle a movie capture
-        UISaveVideoAtPathToSavedPhotosAlbum(
-            url.path,
-            self,
-            #selector(video(_:didFinishSavingWithError:contextInfo:)),
-            nil)
+        do {
+                        let data = try Data(contentsOf: url, options: .mappedIfSafe)
+                        print(data)
+            
+            uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: data,url: url)
+        //  here you can see data bytes of selected video, this data object is upload to server by multipartFormData upload
+                    } catch  {
+                    }
+    }
+    func uploadVideo(paramName: String, fileName: String, dataVideo: Data,url : URL) {
+        SwiftLoader.show(animated: true)
+
+        let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
+
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+
+        let session = URLSession.shared
+
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = "POST"
+
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var data = Data()
+
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: video/mp4\r\n\r\n".data(using: .utf8)!)
+        data.append(dataVideo)
+
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
+                if let json = jsonData as? [String: Any] {
+                    if let dict = json["data"] as? NSDictionary{
+                        SwiftLoader.hide()
+
+                        self.videoUrlString = (dict["url"] as? String) ?? ""
+                        DispatchQueue.main.async {
+                            UISaveVideoAtPathToSavedPhotosAlbum(
+                                url!.path,
+                                self,
+                                #selector(self.video(_:didFinishSavingWithError:contextInfo:)),
+                                nil)
+
+                        }
+                      }
+                    print(json)
+                }
+                SwiftLoader.hide()
+
+            }
+            else
+            {
+                SwiftLoader.hide()
+
+                print(error?.localizedDescription)
+            }
+        }).resume()
     }
 
     @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo info: AnyObject) {
-      let title = (error == nil) ? "Success" : "Error"
-      let message = (error == nil) ? "Video was saved" : "Video failed to save"
+      let title =  "Success"
+      let message =  "Video was saved"
 
       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler:{_ in  print("Foo")
+      alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler:{_ in
           let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddJobVideo") as! AddJobVideo
           vc.urlVideo = self.urlVideo
           vc.dictParam = self.addNewJobData()
+          vc.jobDelegate = self
           self.navigationController?.pushViewController(vc, animated: true)
 
           
