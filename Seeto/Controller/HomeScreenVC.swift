@@ -32,7 +32,10 @@ class HomeScreenVC: UIViewController {
             }
         }
     }
+    
     @IBAction func btnSearchAct(_ sender: UIButton) {
+//        Toast.show(message:"Under Development", controller: self)
+
         if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
         {
             if userType == 2
@@ -48,7 +51,7 @@ class HomeScreenVC: UIViewController {
             //        collViewVideos.reloadData()
             let cells = collViewVideos.visibleCells.compactMap({ $0 as? VideoPlayerCollViewCell })
             cells.forEach { videoCell in
-                
+
                 if videoCell.isPlaying {
                     videoCell.stopPlaying()
                 }

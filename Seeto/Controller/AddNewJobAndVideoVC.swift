@@ -70,7 +70,6 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
     
     func addNewJobData() -> [String : Any]
     {
-       
        return [
             "position" : dictTable[0]["value"]!,
             "experienceLevel" : dictTable[1]["value"]! == "1 year" ? 1 : 2,

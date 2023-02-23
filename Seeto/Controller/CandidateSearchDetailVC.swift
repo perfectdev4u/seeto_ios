@@ -121,15 +121,17 @@ extension CandidateSearchDetailVC : UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0
         {
-            
             let identifier = "ProfileViewCell"
             tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ProfileViewCell
             cell.selectionStyle = .none
             cell.lblName.text = mainDict["position"] as? String ?? "Loading..."
-            cell.viewEdit.isHidden = true
-            return cell
+            cell.imgVideo.sd_setImage(with: URL(string: mainDict["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "AppIcon"))
+            cell.viewEdit.isHidden = false
+            cell.imgEdit.image = UIImage(named: "player")
+            cell.btnImageProfilr.addTarget(self, action: #selector(playVideo), for: .touchUpInside)
 
+            return cell
         }
        else if indexPath.section == 1
         {
@@ -185,7 +187,14 @@ extension CandidateSearchDetailVC : UITableViewDelegate,UITableViewDataSource
             return cell
         }
     }
-   
+    //MARK:-
+    @objc func playVideo(_ sender : UIButton)
+    {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResumeVideoPreviewVC") as! ResumeVideoPreviewVC
+        vc.urlVideo = URL(string: mainDict["videoUrl"] as? String ?? "")
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
 
     
 }

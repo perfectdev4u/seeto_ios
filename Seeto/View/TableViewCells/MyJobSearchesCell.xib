@@ -124,6 +124,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnPlayVideo" destination="L5Q-rd-8hc" id="mHJ-Q4-E05"/>
                 <outlet property="heightPic" destination="qRk-aq-iqU" id="dGN-D1-2dB"/>
                 <outlet property="imgMain" destination="leS-77-Vb2" id="9oF-X1-4Ju"/>
                 <outlet property="lblDesignation" destination="PhI-dg-FHq" id="gY1-aO-a1Y"/>

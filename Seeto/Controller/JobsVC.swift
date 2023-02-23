@@ -75,12 +75,15 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
         tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! MyJobSearchesCell
         cell.viewPlay.isHidden = false
-        cell.heightPic.constant = 55
-        cell.widthPic.constant = 55
-        cell.imgMain.image = UIImage(named: "video")
+        cell.heightPic.constant = 45
+        cell.widthPic.constant = 45
+        cell.imgMain.sd_setImage(with: URL(string: mainArray[indexPath.row]["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "AppIcon"))
+        cell.imgMain.layer.cornerRadius = cell.imgMain.frame.height / 2
         cell.lblSkillLevel.text = "Fresher"
         cell.lblDesignation.text = mainArray[indexPath.row]["position"] as? String ?? ""
         cell.lblLikes.text = String(describing:  mainArray[indexPath.row]["matchCount"] as AnyObject)
+        cell.btnPlayVideo.tag = indexPath.row
+        cell.btnPlayVideo.addTarget(self, action: #selector(playVideo), for: .touchUpInside)
         if indexPath.row == (tableView.numberOfRows(inSection: 0) - 1)
         {
             cell.seperatorView.isHidden = true
@@ -91,6 +94,14 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
         }
         cell.selectionStyle = .none
         return cell
+
+    }
+    //MARK:-
+    @objc func playVideo(_ sender : UIButton)
+    {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResumeVideoPreviewVC") as! ResumeVideoPreviewVC
+        vc.urlVideo = URL(string: mainArray[sender.tag]["videoUrl"] as? String ?? "")
+        self.navigationController?.pushViewController(vc, animated: true)
 
     }
     func tableView(_ tableView: UITableView,

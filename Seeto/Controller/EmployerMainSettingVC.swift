@@ -181,7 +181,7 @@ extension EmployerMainSettingVC : UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: section == 1 ? 95 : .leastNormalMagnitude))
         view.backgroundColor = backGroundColor
-        if section == 1
+        if section == 3
         {
             let button = UIButton(frame: CGRect(x: 20, y: 60, width: self.view.frame.width - 40, height: 50))
             button.layer.cornerRadius = 10
@@ -199,7 +199,7 @@ extension EmployerMainSettingVC : UITableViewDelegate,UITableViewDataSource
         
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return section == 1 ? 95 : .leastNormalMagnitude
+        return section == 3 ? 95 : .leastNormalMagnitude
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))

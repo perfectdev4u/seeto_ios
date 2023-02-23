@@ -16,10 +16,13 @@ class MyJobSearchesCell: UITableViewCell {
     @IBOutlet var heightPic: NSLayoutConstraint!
     @IBOutlet var lblLikes: UILabel!
     @IBOutlet var lblDesignation: UILabel!
+    @IBOutlet var btnPlayVideo: UIButton!
     @IBOutlet var lblSkillLevel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         viewPlay.layer.cornerRadius = viewPlay.frame.height / 2
+        imgMain.layer.cornerRadius = imgMain.frame.height / 2
+
         // Initialization code
     }
 

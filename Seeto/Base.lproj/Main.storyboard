@@ -1907,7 +1907,7 @@
                                     <outlet property="delegate" destination="tXe-0H-hVg" id="wp4-IY-oHe"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LdH-AI-mpy">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LdH-AI-mpy">
                                 <rect key="frame" x="344" y="68" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="cUn-Se-Z9A"/>
