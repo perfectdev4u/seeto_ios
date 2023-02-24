@@ -117,13 +117,9 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
             cell.contentView.addSubview(btnLike)
             cell.contentView.addSubview(imageLike)
             cell.contentView.addSubview(imageDislike)
-
                  //Setting cell's player
              }
-          
-          
           return cell
-        
     }
  
     @objc func likeAct(_ sender : UIButton)
