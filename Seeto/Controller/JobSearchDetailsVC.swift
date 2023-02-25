@@ -8,15 +8,55 @@
 import UIKit
 
 class JobSearchDetailsVC: UIViewController {
-    var dictTable = [["title":"Position","value":"UI UX Designer"],["title":"Experience Level","value":"Entry Level"],["title":"Job Type","value":"Internship"],["title":"Location","value":"India"]]
-
+    var dictTable = [["title":"Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Job Type","value":"Loading..."],["title":"Location","value":"Loading..."]]
+    var jobId = -1
+    var mainDict = NSDictionary.init()
+    var matchEmployerArray = [NSDictionary].init()
     @IBOutlet var tblViewJobSearchDetail: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getJobWithCandidateApi()
         // Do any additional setup after loading the view.
     }
+    func getJobWithCandidateApi()
+    {
+        ApiManager().postRequest(parameters: ["jobId": jobId], api: ApiManager.shared.GetJobWithCandidate) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                  DispatchQueue.main.async {
+                      self.mainDict = dataJson["data"] as? NSDictionary ?? [:]
+                      self.dictTable[0]["value"] = self.mainDict["position"] as? String ?? ""
+                      self.dictTable[1]["value"] = "Entry Level"
+                      self.dictTable[2]["value"] = String(describing: self.mainDict["jobType"] as AnyObject) == "2" ? "HR" : "IT"
+                      self.dictTable[3]["value"] = self.mainDict["location"] as? String ?? ""
+                      self.matchEmployerArray = self.mainDict["machedCandidates"] as? [NSDictionary] ?? []
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
 
+                      //  self.showToast(message: ()
+                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
     @IBAction func btnBackAct(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }

@@ -40,7 +40,7 @@ class HomeScreenVC: UIViewController {
         {
             if userType == 2
             {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileSettingView") as! ProfileSettingView
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else{

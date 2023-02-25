@@ -8,7 +8,7 @@
 import UIKit
 
 class MyJobSearchesVC: UIViewController {
-
+    var arraySearch = [NSDictionary].init()
     @IBOutlet var tblJobSearches: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class MyJobSearchesVC: UIViewController {
 extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return arraySearch.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -33,6 +33,10 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
         let identifier = "MyJobSearchesCell"
         tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! MyJobSearchesCell
+        cell.lblLikes.text = arraySearch[indexPath.row]["mutualMatchCount"] as? String ?? ""
+        cell.lblDesignation.text = arraySearch[indexPath.row]["position"] as? String ?? ""
+        cell.lblSkillLevel.text = String(describing: arraySearch[indexPath.row]["experienceLevel"] as? AnyObject) == "1" ? "Fresher" : "Experienced"
+
         if indexPath.row == (tableView.numberOfRows(inSection: 0) - 1)
         {
             cell.seperatorView.isHidden = true
@@ -43,6 +47,14 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
         }
         cell.selectionStyle = .none
         return cell
+
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobSearchDetailsVC") as! JobSearchDetailsVC
+        vc.jobId = self.arraySearch[indexPath.row]["jobId"] as? Int ?? -1
+        self.navigationController?.pushViewController(vc, animated: true)
 
     }
     func tableView(_ tableView: UITableView,
@@ -76,7 +88,7 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
     }
     @objc func btnNewSearchAct()
     {
-        Toast.show(message:"Under Development", controller: self)
+        self.navigationController?.popViewController(animated: true)
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 70

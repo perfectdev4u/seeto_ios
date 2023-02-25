@@ -29,7 +29,6 @@ class ApiManager
     let GetCandidateById = "User/GetCandidateById"
     
     func postRequest(parameters : [String: Any] ,api : String , completion: @escaping ([String: Any]?, Error?) -> Void) {
-
         //declare parameter as a dictionary which contains string as key and value combination.
         SwiftLoader.show(animated: true)
         print(api)
