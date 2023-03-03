@@ -154,6 +154,50 @@ class ApiManager
             }.resume()
         }
     }
-    
+    func getRequestApi(api : String ,showLoader : Bool? = true, completion: @escaping (Data?, Error? ) -> Void) {
+        let urlString =  baseURL +  api
+        print(urlString)
+
+        if showLoader == true
+        {
+            SwiftLoader.show(animated: true)
+        }
+
+        if let url = URL(string: urlString) {
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET" //set http method as POST
+            //HTTP Headers
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+           request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue(self.getAccessToken(), forHTTPHeaderField: "Authorization")
+
+
+            URLSession.shared.dataTask(with: request) {data, res, error in
+                guard error == nil else {
+                    if showLoader == true
+                    {
+                        SwiftLoader.hide()
+                    }
+                    completion(nil, error)
+                    return
+                }
+
+                guard let data = data else {
+                    if showLoader == true
+                    {
+                        SwiftLoader.hide()
+                    }
+                    completion(nil, NSError(domain: "dataNilError", code: -100001, userInfo: nil))
+                    return
+                }
+                        if showLoader == true
+                        {
+                            SwiftLoader.hide()
+                        }
+                    completion(data, nil)
+               
+            }.resume()
+        }
+    }
     
 }

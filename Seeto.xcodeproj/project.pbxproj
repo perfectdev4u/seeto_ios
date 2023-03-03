@@ -10,6 +10,7 @@
 		1B06194629803EC100E096C3 /* EmployerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06194529803EC100E096C3 /* EmployerVC.swift */; };
 		1B0619482980472F00E096C3 /* CandidateDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0619472980472F00E096C3 /* CandidateDetailVC.swift */; };
 		1B06194A29804F0F00E096C3 /* CandidateSearchDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06194929804F0F00E096C3 /* CandidateSearchDetailVC.swift */; };
+		1B07BD6129AFD12000F075C9 /* CandidateDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B07BD6029AFD11F00F075C9 /* CandidateDataModel.swift */; };
 		1B08D5FD296A1C1F00458A46 /* EmployerDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B08D5FC296A1C1F00458A46 /* EmployerDetailVC.swift */; };
 		1B08D600296A1D1400458A46 /* CongratsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B08D5FE296A1D1400458A46 /* CongratsCell.swift */; };
 		1B08D601296A1D1400458A46 /* CongratsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B08D5FF296A1D1400458A46 /* CongratsCell.xib */; };
@@ -106,6 +107,7 @@
 		1B06194529803EC100E096C3 /* EmployerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerVC.swift; sourceTree = "<group>"; };
 		1B0619472980472F00E096C3 /* CandidateDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDetailVC.swift; sourceTree = "<group>"; };
 		1B06194929804F0F00E096C3 /* CandidateSearchDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateSearchDetailVC.swift; sourceTree = "<group>"; };
+		1B07BD6029AFD11F00F075C9 /* CandidateDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateDataModel.swift; sourceTree = "<group>"; };
 		1B08D5FC296A1C1F00458A46 /* EmployerDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerDetailVC.swift; sourceTree = "<group>"; };
 		1B08D5FE296A1D1400458A46 /* CongratsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsCell.swift; sourceTree = "<group>"; };
 		1B08D5FF296A1D1400458A46 /* CongratsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CongratsCell.xib; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 		1B7F71FB2966B00400D74132 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1B07BD6029AFD11F00F075C9 /* CandidateDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -726,6 +729,7 @@
 				1B7F720B296832C000D74132 /* CandidateProfileCell.swift in Sources */,
 				1B1DDEDE2984369A008F7680 /* AddNewJobScreen.swift in Sources */,
 				1B7F72072967564200D74132 /* AppCategoryVC.swift in Sources */,
+				1B07BD6129AFD12000F075C9 /* CandidateDataModel.swift in Sources */,
 				1B7F7210296949EA00D74132 /* Constants.swift in Sources */,
 				1B7F722A296A081900D74132 /* Extensions.swift in Sources */,
 				1B2DF9122979E3DB0073D6A0 /* SelectResumeVC.swift in Sources */,

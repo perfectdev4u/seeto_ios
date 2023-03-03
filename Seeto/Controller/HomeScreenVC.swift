@@ -40,7 +40,7 @@ class HomeScreenVC: UIViewController {
         {
             if userType == 2
             {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileSettingView") as! ProfileSettingView
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else{
@@ -83,9 +83,7 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
         if let url = URL(string: videoUrlArray[indexPath.row])
         {
             let avPlayer = AVPlayer(url: url)
-            
             cell.playerViewAV.player = avPlayer
-//            cell.playerViewAV.player?.volume = 0
             cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height:collectionView.frame.height)
             cell.playerViewAV.videoGravity = AVLayerVideoGravity.resize
             let btnLike = UIButton()
@@ -96,7 +94,6 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
             let imageDislike = UIImageView(image:  UIImage(named: "cross"))
             imageDislike.frame = CGRect(x: ((screenSize.width - 20) / 2) + 40, y: collectionView.frame.height - 82.5, width: 35, height: 35)
             imageDislike.contentMode = .scaleAspectFill
-
             btnLike.frame = CGRect(x: ((screenSize.width - 20) / 2) - 97.5, y: collectionView.frame.height - 105, width: 80, height: 80)
             btnLike.backgroundColor = likeButtonBackGroundColor
             btnLike.layer.cornerRadius = btnLike.frame.height / 2
@@ -107,7 +104,6 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
             btnLike.setShadowButton()
             btnDislike.addTarget(self, action: #selector(dislikeAct), for: .touchUpInside)
             btnLike.addTarget(self, action: #selector(likeAct), for: .touchUpInside)
-
             let blackView = UIView()
             blackView.frame = CGRect(x: 0, y: 0, width: cell.playerViewAV.frame.width, height: cell.playerViewAV.frame.height)
             blackView.setGradientBackground()
