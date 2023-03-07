@@ -10,17 +10,21 @@ import UIKit
 class JobSearchDetailsVC: UIViewController {
     var dictTable = [["title":"Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Job Type","value":"Loading..."],["title":"Location","value":"Loading..."]]
     var jobId = -1
+    var jobTypeArray = JobType.allCases.map { $0.rawValue }
+
     var mainDict = NSDictionary.init()
-    var matchEmployerArray = [NSDictionary].init()
+    var employerMatchesModel : EmployerMatchesModel!
     @IBOutlet var tblViewJobSearchDetail: UITableView!
+    var matchEmployerArray = [NSDictionary].init()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        getJobWithCandidateApi()
+        getJobWithEmployerApi()
         // Do any additional setup after loading the view.
     }
-    func getJobWithCandidateApi()
+    func getJobWithEmployerApi()
     {
-        ApiManager().postRequest(parameters: ["jobId": jobId], api: ApiManager.shared.GetJobWithCandidate) { dataJson, error in
+        ApiManager().postRequest(parameters: ["jobId": jobId], api: ApiManager.shared.GetJobWithEmployer) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {
@@ -36,10 +40,12 @@ class JobSearchDetailsVC: UIViewController {
                   DispatchQueue.main.async {
                       self.mainDict = dataJson["data"] as? NSDictionary ?? [:]
                       self.dictTable[0]["value"] = self.mainDict["position"] as? String ?? ""
-                      self.dictTable[1]["value"] = "Entry Level"
-                      self.dictTable[2]["value"] = String(describing: self.mainDict["jobType"] as AnyObject) == "2" ? "HR" : "IT"
+                      self.dictTable[1]["value"] = experienceArray[(self.mainDict["experienceLevel"] as? Int) ?? 0]
+                      self.dictTable[2]["value"] = self.jobTypeArray[(self.mainDict["jobType"] as? Int) ?? 0]
                       self.dictTable[3]["value"] = self.mainDict["location"] as? String ?? ""
-                      self.matchEmployerArray = self.mainDict["machedCandidates"] as? [NSDictionary] ?? []
+                      self.matchEmployerArray = self.mainDict["machedEmployer"] as? [NSDictionary] ?? []
+                       
+                      self.tblViewJobSearchDetail.reloadData()
                   }
                 }
                 else
@@ -57,6 +63,48 @@ class JobSearchDetailsVC: UIViewController {
             }
         }
     }
+  //  func candidateMatchesListApi()
+//    {
+//        ApiManager().postRequestApi(parameters: [:], api: ApiManager.shared.CandidateMatchesList) { dataMain, error in
+//            if let error = error
+//            {
+//                DispatchQueue.main.async {
+//                    Toast.show(message:error.localizedDescription, controller: self)
+//                }
+//            }
+//            else
+//            {
+//            if let dataMain = dataMain
+//                {
+//                do
+//                {
+//                    self.employerMatchesModel = try JSONDecoder().decode(EmployerMatchesModel.self, from: dataMain)
+//                }
+//                catch
+//                {
+//
+//                }
+//                if self.employerMatchesModel.statusCode == 200
+//                {
+//                  DispatchQueue.main.async {
+//                      self.tblViewJobSearchDetail.reloadData()
+//                  }
+//                }
+//                else
+//                {
+//                    DispatchQueue.main.async {
+//                      //  self.showToast(message: ()
+//                        Toast.show(message: self.employerMatchesModel?.returnMessage[0] as? String ?? "", controller: self)
+//                    }
+//
+//                }
+//
+//            }
+//
+//            }
+//        }
+//    }
+
     @IBAction func btnBackAct(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -96,7 +144,7 @@ extension JobSearchDetailsVC : UITableViewDelegate,UITableViewDataSource
         return  section == 1 ? 80 : .leastNormalMagnitude
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? dictTable.count + 1  : 3
+        return section == 0 ? dictTable.count + 1  : self.matchEmployerArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -142,6 +190,9 @@ extension JobSearchDetailsVC : UITableViewDelegate,UITableViewDataSource
             let identifier = "MatchedEmployerCell"
             tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! MatchedEmployerCell
+            cell.companyTitle.text = matchEmployerArray[indexPath.row]["name"] as? String ?? "N/A"
+            cell.imgThumb.sd_setImage(with: URL(string: matchEmployerArray[indexPath.row]["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "placeholderImg"))
+            cell.noOfEmployeesLbl.text =  matchEmployerArray[indexPath.row]["industry"] as? String ?? "N/A"
             if indexPath.row == (tableView.numberOfRows(inSection: 1) - 1)
             {
                 cell.seperatorView.isHidden = true

@@ -6,13 +6,18 @@
 //
 
 import UIKit
-
+ 
+protocol SearchDetailDelegate
+{
+    func dataFromSearch(data : [NSDictionary] )
+}
 class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
-    
+    var fromHome = false
+
     var dictTable = [["title":"Position","type":"text","value":""],["title":"Experience Level","type":"drop","value":""],["title":"Industry","type":"drop","value":""],["title":"Job Type","type":"drop","value":""],["title":"On-Site/Remote","type":"drop","value":""],["title":"Location","type":"drop","value":""],["title":"Desired Salary","type":"text","value":""]]
     var pickerArray = [""]
     
-    
+    var searchDetailDelegate : SearchDetailDelegate!
     let toolBar = UIToolbar()
     var index = 0
     var textFieldTag = 0
@@ -28,8 +33,6 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
     }
     func addNewSearchData() -> [String : Any]
     {
-       
-       
        return [
             "position" : dictTable[0]["value"]!,
             "experienceLevel" : ExperienceLevel(rawValue: dictTable[1]["value"]!)?.id ?? "",
@@ -40,7 +43,59 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
             "pageSize" : 10,
         ] as [String : Any]
     }
-    
+    func getIndustryApi()
+    {
+        ApiManager().postRequest(parameters: [:],api:  ApiManager.shared.GetAllIndustries) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                if let dictArray = dataJson["data"] as? [NSDictionary]{
+                    DispatchQueue.main.async {
+                       
+                        if self.fromHome == false
+                        {
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobSearchesVC") as! MyJobSearchesVC
+                            vc.arraySearch = dictArray
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                        else
+                        {
+                            self.searchDetailDelegate.dataFromSearch(data: dictArray)
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                        
+                    }
+                  }
+
+
+
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:"Erro", controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
     func AddSearchApi()
     {
         ApiManager().postRequest(parameters: addNewSearchData(),api:  ApiManager.shared.SearchJob) { dataJson, error in
@@ -60,10 +115,17 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
                 if let dictArray = dataJson["data"] as? [NSDictionary]{
                     DispatchQueue.main.async {
                        
-
+                        if self.fromHome == false
+                        {
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobSearchesVC") as! MyJobSearchesVC
                             vc.arraySearch = dictArray
                             self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                        else
+                        {
+                            self.searchDetailDelegate.dataFromSearch(data: dictArray)
+                            self.navigationController?.popViewController(animated: true)
+                        }
                         
                     }
                   }
@@ -169,6 +231,29 @@ extension ModifyJobSearchVC : UITableViewDelegate,UITableViewDataSource
     }
     @objc func btnApplyAct()
     {
+        if dictTable[0]["value"] == ""
+        {
+            Toast.show(message:"Please add Position", controller: self)
+            return
+        }
+        else if dictTable[1]["value"] == ""
+        {
+            Toast.show(message:"Please add Experience Level", controller: self)
+            return
+        }
+        else if dictTable[2]["value"] == ""
+        {
+            Toast.show(message:"Please add Industry", controller: self)
+            return
+        }  else if dictTable[3]["value"] == ""
+        {
+            Toast.show(message:"Please add Job Type", controller: self)
+            return
+        }  else if dictTable[4]["value"] == ""
+        {
+            Toast.show(message:"Please add On-Site/Remote", controller: self)
+            return
+        }
         AddSearchApi()
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

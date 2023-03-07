@@ -77,16 +77,73 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, 
         if((AccessToken.current) != nil){
             GraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
            if (error == nil){
-               let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
-               self.navigationController?.pushViewController(vc, animated: true)
-
+               if let id =  (result as? NSDictionary)!["id"] as? AnyObject,let email =  (result as? NSDictionary)!["email"] as? AnyObject
+               {
+                   DispatchQueue.main.async {
+                       self.verifyApi(grantType: "facebook", externalLogin: String(describing:id), email: String(describing:email))
+                   }
+               }
              //everything works print the user data
              print(result)
            }
          })
        }
      }
-    
+    func verifyApi(grantType : String,externalLogin : String,email : String)
+    {
+       
+        var params = ["grantType" : grantType,"extrenalLoginToken" : externalLogin,  "email": email
+] as [String : Any]
+        
+        ApiManager().postRequest(parameters: params,api:  ApiManager.shared.LoginPhoneApi) { dataJson, error in
+            if let error = error
+            {
+                self.showToast(message: error.localizedDescription)
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                if let dict = dataJson["data"] as? NSDictionary{
+                    UserDefaults.standard.set((dict["access_token"] as? String) ?? "", forKey: "accessToken")
+                    UserDefaults.standard.set((dict["userType"] as? Int) ?? "", forKey: "userType")
+                    DispatchQueue.main.async {
+                        if let userType = (dict["userType"] as? Int)
+                        {
+                            if userType == 0
+                            {
+                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                            else
+                            {
+                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                        }
+                      //  self.showToast(message: ()
+                    }
+                  }
+                
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
     @IBAction func btnGoogleLoginAct(_ sender: UIButton) {
 
         GIDSignIn.sharedInstance().presentingViewController = self
@@ -129,12 +186,12 @@ extension LoginViewController: GIDSignInDelegate {
             }
             return
         }
-                data()
+        
+        
+        
+        self.verifyApi(grantType: "google", externalLogin: user.userID ?? "", email: user.profile.email ?? "")
+
        
     }
-    @objc func data()
-    {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+    
 }

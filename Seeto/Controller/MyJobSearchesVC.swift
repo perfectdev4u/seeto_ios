@@ -7,17 +7,71 @@
 
 import UIKit
 
-class MyJobSearchesVC: UIViewController {
+class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelegate {
+    func deleteIndex(index: Int) {
+        arraySearch.remove(at: index)
+        setUpView()
+        self.tblJobSearches.reloadData()
+    }
+    
+    @IBOutlet var viewOops: UIView!
+    @IBOutlet var btnNewSearch: UIButton!
+
+    func dataFromSearch(data: [NSDictionary]) {
+        arraySearch = data
+        self.tblJobSearches.reloadData()
+    }
+    
+    @IBAction func btnNewSearch(_ sender: UIButton) {
+        if fromHome == false
+        {
+            self.navigationController?.popViewController(animated: true)
+        }
+        else
+        {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
+            vc.fromHome = fromHome
+            vc.searchDetailDelegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+
+        }
+    }
     var arraySearch = [NSDictionary].init()
+    var fromHome = false
     @IBOutlet var tblJobSearches: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        btnNewSearch.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        setUpView()
+    }
+   func setUpView()
+    {
+        if arraySearch.count == 0
+        {
+            viewOops.isHidden = false
+            tblJobSearches.isHidden = true
+        }
+        else
+        {
+            viewOops.isHidden = true
+            tblJobSearches.isHidden = false
 
+        }
+    }
+    @IBAction func btnSettingsAct(_ sender: UIButton) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileSettingView") as! ProfileSettingView
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
+    
     @IBAction func btnBackAct(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+       
+            self.navigationController?.popViewController(animated: true)
+    
+       
     }
     
 }
@@ -35,8 +89,7 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! MyJobSearchesCell
         cell.lblLikes.text = arraySearch[indexPath.row]["mutualMatchCount"] as? String ?? ""
         cell.lblDesignation.text = arraySearch[indexPath.row]["position"] as? String ?? ""
-        cell.lblSkillLevel.text = String(describing: arraySearch[indexPath.row]["experienceLevel"] as? AnyObject) == "1" ? "Fresher" : "Experienced"
-
+        cell.lblSkillLevel.text = experienceArray[(arraySearch[indexPath.row]["experienceLevel"] as? Int) ?? 0]
         if indexPath.row == (tableView.numberOfRows(inSection: 0) - 1)
         {
             cell.seperatorView.isHidden = true
@@ -62,6 +115,8 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
     {
         let deleteAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "DeleteSearchVC") as! DeleteSearchVC
+            vc.index = indexPath.row
+            vc.deleteIndexDelegate = self
             self.present(vc, animated: true)
 
             
@@ -88,7 +143,19 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
     }
     @objc func btnNewSearchAct()
     {
-        self.navigationController?.popViewController(animated: true)
+        if fromHome == false
+        {
+            self.navigationController?.popViewController(animated: true)
+        }
+        else
+        {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
+            vc.fromHome = fromHome
+            vc.searchDetailDelegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+
+        }
+        
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 70

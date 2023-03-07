@@ -40,7 +40,7 @@ class HomeScreenVC: UIViewController {
         {
             if userType == 2
             {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileSettingView") as! ProfileSettingView
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else{
@@ -61,7 +61,21 @@ class HomeScreenVC: UIViewController {
     }
     
     @IBAction func btnBackAct(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
+        {
+            if userType == 2
+            {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobSearchesVC") as! MyJobSearchesVC
+                vc.fromHome = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else
+            {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobsVC") as! JobsVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+     //   self.navigationController?.popViewController(animated: true)
     }
     
 }

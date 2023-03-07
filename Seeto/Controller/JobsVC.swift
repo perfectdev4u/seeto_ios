@@ -20,6 +20,10 @@ class JobsVC: UIViewController,JobDelegate {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func btnBackAct(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func getJobsApi()
     {
         ApiManager().postRequest(parameters: [:], api: ApiManager.shared.GetMyJobs) { dataJson, error in
@@ -57,7 +61,9 @@ class JobsVC: UIViewController,JobDelegate {
     }
 
     @IBAction func btnSettings(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "EmployerProfileSettingVC") as! EmployerProfileSettingVC
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
     
     
@@ -77,7 +83,7 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
         cell.viewPlay.isHidden = false
         cell.heightPic.constant = 45
         cell.widthPic.constant = 45
-        cell.imgMain.sd_setImage(with: URL(string: mainArray[indexPath.row]["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "AppIcon"))
+        cell.imgMain.sd_setImage(with: URL(string: mainArray[indexPath.row]["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "placeholderImg"))
         cell.imgMain.layer.cornerRadius = cell.imgMain.frame.height / 2
         cell.lblSkillLevel.text = "Fresher"
         cell.lblDesignation.text = mainArray[indexPath.row]["position"] as? String ?? ""

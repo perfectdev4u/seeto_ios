@@ -126,7 +126,7 @@ extension CandidateSearchDetailVC : UITableViewDelegate,UITableViewDataSource
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ProfileViewCell
             cell.selectionStyle = .none
             cell.lblName.text = mainDict["position"] as? String ?? "Loading..."
-            cell.imgVideo.sd_setImage(with: URL(string: mainDict["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "AppIcon"))
+            cell.imgVideo.sd_setImage(with: URL(string: mainDict["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "placeholderImg"))
             cell.viewEdit.isHidden = false
             cell.imgEdit.image = UIImage(named: "player")
             cell.btnImageProfilr.addTarget(self, action: #selector(playVideo), for: .touchUpInside)
@@ -181,7 +181,7 @@ extension CandidateSearchDetailVC : UITableViewDelegate,UITableViewDataSource
                 cell.seperatorView.isHidden = false
             }
             cell.companyTitle.text = matchCandidateArray[indexPath.row]["name"] as? String ?? "N/A"
-            cell.imgThumb.sd_setImage(with: URL(string: matchCandidateArray[indexPath.row]["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "AppIcon"))
+            cell.imgThumb.sd_setImage(with: URL(string: matchCandidateArray[indexPath.row]["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "placeholderImg"))
 
             cell.selectionStyle = .none
             return cell

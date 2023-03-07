@@ -16,6 +16,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
     var updateScreen = false
+
     var urlVideo = URL(string: "")
     var dataJson = NSDictionary.init()
 
@@ -66,7 +67,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as? String) ?? ""
         dictTable[6]["value"] = ((dataJson["data"] as! NSDictionary)["currentLocation"] as? String) ?? ""
         dictTable[7]["value"] = ((dataJson["data"] as! NSDictionary)["currentPosition"] as? String) ?? ""
-        dictTable[8]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["experienceLevel"] as AnyObject))  == "1" ? "1 year" : "More Than 1 year"
+        dictTable[8]["value"] = experienceArray[((dataJson["data"] as! NSDictionary)["experienceLevel"] as? Int) ?? 0]
         dictTable[9]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["desiredMonthlyIncome"] as AnyObject))
         dictTable[10]["value"] = ""
         dictTable[11]["value"] = ((dataJson["data"] as! NSDictionary)["education"] as? String) ?? ""
@@ -141,7 +142,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "profileImage" : dictTable[0]["value"] ?? "",
             "linkedInProfile" : dictTable[6]["value"]!,
             "phoneNumber" :  dictTable[4]["value"]!,
-            "experienceLevel" :  dictTable[9]["value"]! == "1 year" ? 1 : 2,
+            "experienceLevel" :   ExperienceLevel(rawValue: dictTable[9]["value"]!)?.id ?? "",
             "desiredMonthlyIncome" : dictTable[10]["value"]!,
             "education" : dictTable[12]["value"]!,
             "workExperience" : dictTable[13]["value"]!,
@@ -179,7 +180,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "dateOfBirth" : dictTable[2]["value"]!,
             "phoneNumber" :  dictTable[3]["value"]!,
             "linkedInProfile" : dictTable[5]["value"]!,
-            "experienceLevel" :  dictTable[8]["value"]! == "1 year" ? 1 : 2,
+            "experienceLevel" :   ExperienceLevel(rawValue: dictTable[8]["value"]!)?.id ?? "",
             "desiredMonthlyIncome" : dictTable[9]["value"]!,
             "education" : dictTable[11]["value"]!,
             "workExperience" : dictTable[12]["value"]!,
@@ -260,12 +261,11 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     @objc func doneClick() {
         dictTable[textFieldTag]["value"] = pickerArray[index]
-     
+        
         pickerViewTf.resignFirstResponder()
         if updateScreen == true
         {
-            
-            if textFieldTag == 10 
+            if textFieldTag == 10
             {
                 langArray.append(pickerArray[index])
                 tblCandidateProfile.reloadData()
@@ -584,6 +584,26 @@ extension CandidateProfileVC : UITextFieldDelegate
         textFieldTag = textField.tag
         if (dictTable[textFieldTag]["type"]!) == "drop"
         {
+          
+
+      
+        if (dictTable[textFieldTag]["title"]!) == "Current Location"
+        {
+            pickerArray = ["Ropar","Mansa"]
+        }
+        else if (dictTable[textFieldTag]["title"]!) == "Experience Level"
+        {
+            DispatchQueue.main.async { [self] in
+                pickerArray = ExperienceLevel.allCases.map { $0.rawValue }
+
+            }        }
+        else if (dictTable[textFieldTag]["title"]!) == "Spoken Language"
+        {
+            pickerArray = ["Eng","Hin"]
+        }else if (dictTable[textFieldTag]["title"]!) == "Gender"
+        {
+            pickerArray = ["Male","Female"]
+        }
             if (dictTable[textFieldTag]["title"]!) == "Date of Birth"
             {
                 pickerArray = []
@@ -601,23 +621,6 @@ extension CandidateProfileVC : UITextFieldDelegate
                 self.myPickerView.selectRow(0, inComponent: 0, animated: false)
 
             }
-
-      
-        if (dictTable[textFieldTag]["title"]!) == "Current Location"
-        {
-            pickerArray = ["Ropar","Mansa"]
-        }
-        else if (dictTable[textFieldTag]["title"]!) == "Experience Level"
-        {
-            pickerArray = ["1 year","more than 1 year"]
-        }
-        else if (dictTable[textFieldTag]["title"]!) == "Spoken Language"
-        {
-            pickerArray = ["Eng","Hin"]
-        }else if (dictTable[textFieldTag]["title"]!) == "Gender"
-        {
-            pickerArray = ["Male","Female"]
-        }
         }
         else if (dictTable[textFieldTag]["type"]!) == "btn"
         {

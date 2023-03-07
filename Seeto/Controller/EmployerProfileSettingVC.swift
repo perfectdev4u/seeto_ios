@@ -128,7 +128,7 @@ extension EmployerProfileSettingVC : UITableViewDelegate,UITableViewDataSource
             if self.dictTable[0]["value"] != "Loading..."
             {
                 cell.imgVideo.layer.cornerRadius = cell.imgVideo.frame.height / 2
-                cell.imgVideo.sd_setImage(with: URL(string: companyLogoUrl), placeholderImage: UIImage(named: "AppIcon"))
+                cell.imgVideo.sd_setImage(with: URL(string: companyLogoUrl), placeholderImage: UIImage(named: "placeholderImg"))
 
             }
             cell.btnImageProfilr.addTarget(self, action: #selector(cameraGallery), for: .touchUpInside)

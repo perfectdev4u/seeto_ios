@@ -15,6 +15,8 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
     var mainDataJson = NSDictionary.init()
     var urlVideo = URL(string: "")
     var videoUrlString = ""
+    var langList = [NSDictionary].init()
+    var langArray = [] as! [String]
 
     let imagePicker = UIImagePickerController()
 
@@ -28,7 +30,6 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         getCandidateProfileApi()
-
     }
     
     @objc func updateCandidateProfileApi()
@@ -69,10 +70,10 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
             }
         }
     }
-
+    
     func updateCandidateDict() -> [String : Any]
     {
-
+        
        return [
             "userType" : 2,
             "firstName" : ((mainDataJson["data"] as! NSDictionary)["firstName"] as! String),
@@ -94,17 +95,18 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
             "longitude" : 0,
             "currentPosition" : ((mainDataJson["data"] as! NSDictionary)["currentPosition"] as! String),
             "jobType" : 0,
-            "bio" :((mainDataJson["data"] as! NSDictionary)["bio"] as! String),
+            "bio" :"",
             "videoUrl": videoUrlString,
             "profileImage" : profileUrl,
-            
+            "languageList" : ((mainDataJson["data"] as! NSDictionary)["languageList"] as! [NSDictionary])
+
         ] as [String : Any]
     }
 
 
     func getCandidateProfileApi()
     {
-        ApiManager().getRequest(api: ApiManager.shared.GetCandidateProfile,showLoader: false) { dataJson, error in
+        ApiManager().getRequest(api: ApiManager.shared.GetCandidateProfile,showLoader: true) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {
@@ -126,13 +128,14 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
                       self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : "Female"
                       self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["currentLocation"] as! String)
                       self.dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["currentPosition"] as! String)
-                      self.dictTable[6]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["experienceLevel"] as AnyObject))  == "1" ? "1 year" : "More Than 1 year"
+                      self.dictTable[6]["value"] = experienceArray[((dataJson["data"] as! NSDictionary)["experienceLevel"] as? Int) ?? 0]
                      // = ((dataJson["data"] as! NSDictionary)["languageList"] as! String)
                       self.profileUrl = ((dataJson["data"] as! NSDictionary)["profileImage"] as! String)
                       self.videoUrlString = ((dataJson["data"] as! NSDictionary)["videoUrl"] as! String)
                       self.dictTable[7]["value"] = ""
                       for i in ((dataJson["data"] as! NSDictionary)["languageList"] as! [NSDictionary])
                       {
+                          
                           self.dictTable[7]["value"]?.append((i["language"] as! String) + " ")
                       }
                       self.tblProfileSettings.reloadData()
@@ -240,7 +243,7 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
             if self.dictTable[0]["value"] != "Loading..."
             {
                 cell.imgVideo.layer.cornerRadius = cell.imgVideo.frame.height / 2
-                cell.imgVideo.sd_setImage(with: URL(string: ((mainDataJson["data"] as! NSDictionary)["profileImage"] as! String)), placeholderImage: UIImage(named: "AppIcon"))
+                cell.imgVideo.sd_setImage(with: URL(string: ((mainDataJson["data"] as! NSDictionary)["profileImage"] as! String)), placeholderImage: UIImage(named: "placeholderImg"))
 
             }
             cell.btnImageProfilr.addTarget(self, action: #selector(cameraGallery), for: .touchUpInside)

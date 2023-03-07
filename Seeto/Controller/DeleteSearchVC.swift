@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol DeleteIndexDelegate
+{
+    func deleteIndex(index : Int)
+}
 class DeleteSearchVC: UIViewController {
 
     @IBOutlet var mainView: UIView!
@@ -19,6 +23,8 @@ class DeleteSearchVC: UIViewController {
         addBlurToView()
         // Do any additional setup after loading the view.
     }
+    var index = 0
+    var deleteIndexDelegate : DeleteIndexDelegate!
     func addBlurToView() {
         var blurEffect: UIBlurEffect!
         if #available(ios 10.0, *) {
@@ -33,6 +39,7 @@ class DeleteSearchVC: UIViewController {
         backView.addSubview(blurredEffectView)
     }
     @IBAction func btnConfirmAct(_ sender: Any) {
+        deleteIndexDelegate.deleteIndex(index: index)
         self.dismiss(animated: true)
 
     }

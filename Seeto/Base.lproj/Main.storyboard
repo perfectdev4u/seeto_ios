@@ -978,6 +978,58 @@
                                     <action selector="btnBackAct:" destination="t1I-vO-UfX" eventType="touchUpInside" id="9Ox-Q9-Jqg"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9gz-2D-JDX">
+                                <rect key="frame" x="0.0" y="293" width="414" height="324"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejy-OB-y43">
+                                        <rect key="frame" x="0.0" y="55" width="414" height="43"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="43" id="FRe-ni-wMG"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No search here yet kindly click on below button to search" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46e-w7-KuN">
+                                        <rect key="frame" x="0.0" y="113" width="414" height="53"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="53" id="HoZ-KL-B4W"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" name="grayColor2"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbF-XN-zeg">
+                                        <rect key="frame" x="20" y="196" width="374" height="50"/>
+                                        <color key="backgroundColor" red="0.33725491169999999" green="0.73333334920000004" blue="0.94509804249999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="6b5-Pf-eYs"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Nub-di-Vbi"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="New Search">
+                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
+                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="btnNewSearch:" destination="t1I-vO-UfX" eventType="touchUpInside" id="jwJ-uy-vAP"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="nbF-XN-zeg" firstAttribute="top" secondItem="46e-w7-KuN" secondAttribute="bottom" constant="30" id="EjE-4s-m12"/>
+                                    <constraint firstItem="ejy-OB-y43" firstAttribute="leading" secondItem="9gz-2D-JDX" secondAttribute="leading" id="Fpe-e9-sfX"/>
+                                    <constraint firstItem="nbF-XN-zeg" firstAttribute="leading" secondItem="9gz-2D-JDX" secondAttribute="leading" constant="20" id="KoW-Bf-PD3"/>
+                                    <constraint firstItem="ejy-OB-y43" firstAttribute="top" secondItem="9gz-2D-JDX" secondAttribute="top" constant="55" id="MkN-j7-ejd"/>
+                                    <constraint firstItem="46e-w7-KuN" firstAttribute="top" secondItem="ejy-OB-y43" secondAttribute="bottom" constant="15" id="Qcx-QB-SZ1"/>
+                                    <constraint firstItem="46e-w7-KuN" firstAttribute="leading" secondItem="9gz-2D-JDX" secondAttribute="leading" id="Sgf-16-T8j"/>
+                                    <constraint firstAttribute="trailing" secondItem="46e-w7-KuN" secondAttribute="trailing" id="T8T-U4-S49"/>
+                                    <constraint firstAttribute="trailing" secondItem="ejy-OB-y43" secondAttribute="trailing" id="fOu-KE-07E"/>
+                                    <constraint firstAttribute="height" constant="324" id="pMz-75-Gpe"/>
+                                    <constraint firstAttribute="trailing" secondItem="nbF-XN-zeg" secondAttribute="trailing" constant="20" id="tsS-bl-aGS"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="SZX-hM-Tbc">
                                 <rect key="frame" x="0.0" y="128" width="414" height="734"/>
                                 <color key="backgroundColor" name="backgroundColor"/>
@@ -995,10 +1047,10 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="btnBackAct:" destination="t1I-vO-UfX" eventType="touchUpInside" id="A2B-vq-dUv"/>
+                                    <action selector="btnSettingsAct:" destination="t1I-vO-UfX" eventType="touchUpInside" id="yIW-zW-Q9S"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" translatesAutoresizingMaskIntoConstraints="NO" id="tC9-3w-D15">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="tC9-3w-D15">
                                 <rect key="frame" x="359" y="83" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="1Uw-w5-uCh"/>
@@ -1009,6 +1061,8 @@
                         <viewLayoutGuide key="safeArea" id="pFf-Ma-x0B"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
+                            <constraint firstItem="9gz-2D-JDX" firstAttribute="centerX" secondItem="pFf-Ma-x0B" secondAttribute="centerX" id="5gn-ht-i4S"/>
+                            <constraint firstItem="9gz-2D-JDX" firstAttribute="centerY" secondItem="pFf-Ma-x0B" secondAttribute="centerY" id="BSM-9n-ad3"/>
                             <constraint firstItem="SZX-hM-Tbc" firstAttribute="trailing" secondItem="pFf-Ma-x0B" secondAttribute="trailing" id="Gpa-wB-vPe"/>
                             <constraint firstItem="fdK-AY-cUB" firstAttribute="top" secondItem="pFf-Ma-x0B" secondAttribute="top" constant="20" id="Ior-Yi-by9"/>
                             <constraint firstItem="fdK-AY-cUB" firstAttribute="leading" secondItem="pFf-Ma-x0B" secondAttribute="leading" constant="20" id="Klo-lo-O3c"/>
@@ -1016,13 +1070,17 @@
                             <constraint firstItem="tC9-3w-D15" firstAttribute="centerY" secondItem="Q0S-e6-wk8" secondAttribute="centerY" id="VZW-SI-GVI"/>
                             <constraint firstItem="SZX-hM-Tbc" firstAttribute="bottom" secondItem="pFf-Ma-x0B" secondAttribute="bottom" id="YqB-Hu-Cy9"/>
                             <constraint firstItem="pFf-Ma-x0B" firstAttribute="trailing" secondItem="Q0S-e6-wk8" secondAttribute="trailing" constant="20" id="aka-7p-4wg"/>
+                            <constraint firstItem="9gz-2D-JDX" firstAttribute="leading" secondItem="nHB-oq-YnQ" secondAttribute="leading" id="iT2-aH-Hbh"/>
                             <constraint firstItem="SZX-hM-Tbc" firstAttribute="top" secondItem="fdK-AY-cUB" secondAttribute="bottom" constant="10" id="kOF-Uz-MUk"/>
+                            <constraint firstAttribute="trailing" secondItem="9gz-2D-JDX" secondAttribute="trailing" id="lFm-Zf-1xL"/>
                             <constraint firstItem="SZX-hM-Tbc" firstAttribute="leading" secondItem="pFf-Ma-x0B" secondAttribute="leading" id="lzT-S3-9SE"/>
                             <constraint firstItem="Q0S-e6-wk8" firstAttribute="centerY" secondItem="fdK-AY-cUB" secondAttribute="centerY" id="mvm-NJ-CuT"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnNewSearch" destination="nbF-XN-zeg" id="Pez-6c-CKx"/>
                         <outlet property="tblJobSearches" destination="SZX-hM-Tbc" id="LAg-DP-Ia1"/>
+                        <outlet property="viewOops" destination="9gz-2D-JDX" id="9fC-MU-vcn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="56m-Em-0jz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1958,50 +2016,66 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="settings"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URn-eV-tap">
-                                <rect key="frame" x="0.0" y="333.5" width="414" height="43"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="36"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a new job posting to match with candidates" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMf-NN-IeH">
-                                <rect key="frame" x="0.0" y="406.5" width="414" height="53"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" name="grayColor2"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1G-0J-syn">
-                                <rect key="frame" x="20" y="489.5" width="374" height="50"/>
-                                <color key="backgroundColor" red="0.33725491169999999" green="0.73333334920000004" blue="0.94509804249999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYV-LX-rTd">
+                                <rect key="frame" x="0.0" y="293" width="414" height="324"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFm-XV-jUH">
+                                        <rect key="frame" x="0.0" y="55" width="414" height="43"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="43" id="ucs-Fw-QAU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a new job posting to match with candidates" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlc-1k-dfY">
+                                        <rect key="frame" x="0.0" y="128" width="414" height="53"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="53" id="g59-65-SzR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" name="grayColor2"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLm-e5-n6u">
+                                        <rect key="frame" x="20" y="211" width="374" height="50"/>
+                                        <color key="backgroundColor" red="0.33725491169999999" green="0.73333334920000004" blue="0.94509804249999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Wsi-Ow-UV9"/>
+                                            <constraint firstAttribute="height" constant="50" id="ffl-iF-dCg"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Add New Job">
+                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
+                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="aox-JY-3qq"/>
+                                    <constraint firstAttribute="height" constant="324" id="4LY-et-jQA"/>
+                                    <constraint firstItem="Nlc-1k-dfY" firstAttribute="top" secondItem="GFm-XV-jUH" secondAttribute="bottom" constant="30" id="OX6-dd-5bZ"/>
+                                    <constraint firstItem="aLm-e5-n6u" firstAttribute="top" secondItem="Nlc-1k-dfY" secondAttribute="bottom" constant="30" id="QE6-lY-Aas"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nlc-1k-dfY" secondAttribute="trailing" id="Vsv-2n-5mC"/>
+                                    <constraint firstAttribute="trailing" secondItem="aLm-e5-n6u" secondAttribute="trailing" constant="20" id="aHe-gO-vzh"/>
+                                    <constraint firstItem="Nlc-1k-dfY" firstAttribute="leading" secondItem="IYV-LX-rTd" secondAttribute="leading" id="aPB-cf-ZMO"/>
+                                    <constraint firstItem="GFm-XV-jUH" firstAttribute="top" secondItem="IYV-LX-rTd" secondAttribute="top" constant="55" id="f9Q-Bs-vls"/>
+                                    <constraint firstAttribute="trailing" secondItem="GFm-XV-jUH" secondAttribute="trailing" id="kyG-HQ-Z9D"/>
+                                    <constraint firstItem="GFm-XV-jUH" firstAttribute="leading" secondItem="IYV-LX-rTd" secondAttribute="leading" id="lhz-AD-p8x"/>
+                                    <constraint firstItem="aLm-e5-n6u" firstAttribute="leading" secondItem="IYV-LX-rTd" secondAttribute="leading" constant="20" id="yab-eU-10G"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Add New Job">
-                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </buttonConfiguration>
-                            </button>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MH5-3Z-CDB"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="cMf-NN-IeH" firstAttribute="top" secondItem="URn-eV-tap" secondAttribute="bottom" constant="30" id="FtX-Pe-mTF"/>
-                            <constraint firstItem="MH5-3Z-CDB" firstAttribute="trailing" secondItem="cMf-NN-IeH" secondAttribute="trailing" id="Qd7-Y5-5ir"/>
+                            <constraint firstItem="IYV-LX-rTd" firstAttribute="trailing" secondItem="MH5-3Z-CDB" secondAttribute="trailing" id="IV3-my-ihT"/>
+                            <constraint firstItem="IYV-LX-rTd" firstAttribute="centerY" secondItem="MH5-3Z-CDB" secondAttribute="centerY" id="LVo-E7-Afa"/>
                             <constraint firstItem="MH5-3Z-CDB" firstAttribute="trailing" secondItem="NGO-R9-qkX" secondAttribute="trailing" constant="20" id="RQ7-11-4B4"/>
                             <constraint firstItem="NGO-R9-qkX" firstAttribute="top" secondItem="MH5-3Z-CDB" secondAttribute="top" constant="20" id="US6-13-6hn"/>
-                            <constraint firstItem="cMf-NN-IeH" firstAttribute="leading" secondItem="MH5-3Z-CDB" secondAttribute="leading" id="Vyp-4K-qmQ"/>
-                            <constraint firstItem="K1G-0J-syn" firstAttribute="leading" secondItem="MH5-3Z-CDB" secondAttribute="leading" constant="20" id="hHf-9e-JYu"/>
-                            <constraint firstItem="MH5-3Z-CDB" firstAttribute="trailing" secondItem="URn-eV-tap" secondAttribute="trailing" id="kIo-Cg-fvH"/>
-                            <constraint firstItem="MH5-3Z-CDB" firstAttribute="trailing" secondItem="K1G-0J-syn" secondAttribute="trailing" constant="20" id="mnD-Ss-1TY"/>
-                            <constraint firstItem="K1G-0J-syn" firstAttribute="top" secondItem="cMf-NN-IeH" secondAttribute="bottom" constant="30" id="pg2-hA-unJ"/>
-                            <constraint firstItem="URn-eV-tap" firstAttribute="centerY" secondItem="MH5-3Z-CDB" secondAttribute="centerY" constant="-100" id="s3r-OA-q1C"/>
-                            <constraint firstItem="URn-eV-tap" firstAttribute="leading" secondItem="MH5-3Z-CDB" secondAttribute="leading" id="sPC-2b-hT4"/>
+                            <constraint firstItem="IYV-LX-rTd" firstAttribute="leading" secondItem="MH5-3Z-CDB" secondAttribute="leading" id="bJm-o6-6JP"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="btnAddNewJob" destination="K1G-0J-syn" id="O89-iS-TK9"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Bz-Z9-Xvf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2104,6 +2178,18 @@
                                     <action selector="btnSettings:" destination="HyM-qG-XtD" eventType="touchUpInside" id="R5a-1y-dgI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8e-Gb-yXR">
+                                <rect key="frame" x="20" y="68" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="3c5-6I-Exm"/>
+                                    <constraint firstAttribute="height" constant="50" id="EGb-Ul-P3h"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="back"/>
+                                <connections>
+                                    <action selector="btnBackAct:" destination="HyM-qG-XtD" eventType="touchUpInside" id="mLf-6R-C9h"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bcu-DX-uPV"/>
                         <color key="backgroundColor" name="backgroundColor"/>
@@ -2111,8 +2197,10 @@
                             <constraint firstItem="f4a-M0-DYk" firstAttribute="top" secondItem="bcu-DX-uPV" secondAttribute="top" constant="20" id="AG1-i1-db2"/>
                             <constraint firstItem="FLD-I8-jbA" firstAttribute="leading" secondItem="bcu-DX-uPV" secondAttribute="leading" id="BA8-Rj-v8q"/>
                             <constraint firstItem="FLD-I8-jbA" firstAttribute="bottom" secondItem="bcu-DX-uPV" secondAttribute="bottom" id="E2C-fg-ZYc"/>
+                            <constraint firstItem="o8e-Gb-yXR" firstAttribute="centerY" secondItem="f4a-M0-DYk" secondAttribute="centerY" id="HVw-QR-7yo"/>
                             <constraint firstItem="FLD-I8-jbA" firstAttribute="top" secondItem="f4a-M0-DYk" secondAttribute="bottom" constant="10" id="P0e-7B-yVb"/>
                             <constraint firstItem="bcu-DX-uPV" firstAttribute="trailing" secondItem="f4a-M0-DYk" secondAttribute="trailing" constant="20" id="ZwC-Oe-Qfh"/>
+                            <constraint firstItem="o8e-Gb-yXR" firstAttribute="leading" secondItem="bcu-DX-uPV" secondAttribute="leading" constant="20" id="oaq-C8-NrT"/>
                             <constraint firstItem="FLD-I8-jbA" firstAttribute="trailing" secondItem="bcu-DX-uPV" secondAttribute="trailing" id="wFS-ZX-X9S"/>
                         </constraints>
                     </view>
@@ -2122,7 +2210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="82z-Wk-oVa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9976.8115942028999" y="-1317.1875"/>
+            <point key="canvasLocation" x="9670" y="-1394"/>
         </scene>
         <!--Delete JobVC-->
         <scene sceneID="Fln-pN-yRH">
@@ -2541,7 +2629,6 @@
         <image name="mobile" width="28" height="28"/>
         <image name="next" width="20" height="20"/>
         <image name="placeholder" width="30" height="26"/>
-        <image name="plus" width="14" height="14"/>
         <image name="search" width="26" height="26"/>
         <image name="seetoLogo" width="258" height="258"/>
         <image name="settings" width="24" height="24"/>

@@ -80,6 +80,7 @@
 		1BCE9B7E297013AC005E40BB /* FacebookGamingServices in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B7D297013AC005E40BB /* FacebookGamingServices */; };
 		1BCE9B80297013AC005E40BB /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B7F297013AC005E40BB /* FacebookLogin */; };
 		1BCE9B82297013AC005E40BB /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B81297013AC005E40BB /* FacebookShare */; };
+		1BD66B7129B1C31100C11B9D /* EmployerMatchesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD66B7029B1C31100C11B9D /* EmployerMatchesModel.swift */; };
 		455BB3BC457C7CAE0D567FBD /* Pods_Seeto_SeetoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A655284114DEE154FB46A1B9 /* Pods_Seeto_SeetoUITests.framework */; };
 		78E6A7288BA00D26DE8E2886 /* Pods_Seeto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A038E224422560FFEDE1F1 /* Pods_Seeto.framework */; };
 		BAEC80B79DBCF5DF0D2D7B54 /* Pods_SeetoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85E46AC810AB87103CA2F00F /* Pods_SeetoTests.framework */; };
@@ -177,6 +178,7 @@
 		1B7F722C296A0D5900D74132 /* MatchedEmployerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatchedEmployerCell.xib; sourceTree = "<group>"; };
 		1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailVideoVC.swift; sourceTree = "<group>"; };
 		1BCE9B78296DFC32005E40BB /* ShowImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageVC.swift; sourceTree = "<group>"; };
+		1BD66B7029B1C31100C11B9D /* EmployerMatchesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerMatchesModel.swift; sourceTree = "<group>"; };
 		1BD6BEF1297047A900B8903A /* Seeto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Seeto.entitlements; sourceTree = "<group>"; };
 		36F3AA0FD62ACE204D677DD2 /* Pods-SeetoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.release.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.release.xcconfig"; sourceTree = "<group>"; };
 		50857CA5FC8AD8607476CD7E /* Pods-Seeto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.release.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.release.xcconfig"; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				1B07BD6029AFD11F00F075C9 /* CandidateDataModel.swift */,
+				1BD66B7029B1C31100C11B9D /* EmployerMatchesModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -736,6 +739,7 @@
 				1B08D5FD296A1C1F00458A46 /* EmployerDetailVC.swift in Sources */,
 				1B59FD2029A1123A002F159A /* AddJobVideo.swift in Sources */,
 				1B7F72012966B30300D74132 /* LoginViewController.swift in Sources */,
+				1BD66B7129B1C31100C11B9D /* EmployerMatchesModel.swift in Sources */,
 				1B7F71CC2965EE6000D74132 /* SceneDelegate.swift in Sources */,
 				1B2424D3296B13BE003A363F /* VideoPlayerCell.swift in Sources */,
 				1BCE9B79296DFC32005E40BB /* ShowImageVC.swift in Sources */,
@@ -931,7 +935,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -950,7 +954,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Seeto.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -971,7 +975,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -990,7 +994,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Seeto.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
