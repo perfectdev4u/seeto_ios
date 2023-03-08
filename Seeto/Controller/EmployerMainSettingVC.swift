@@ -40,7 +40,7 @@ class EmployerMainSettingVC: UIViewController {
                       self.dictTable[2]["value"] = String(describing: self.mainDict["gender"] as AnyObject) == "2" ? "Female" : "Male"
                       self.dictTable[3]["value"] = self.mainDict["currentLocation"] as? String ?? ""
                       self.dictTable[4]["value"] = self.mainDict["currentPosition"] as? String ?? ""
-                      self.dictTable[5]["value"] = String(describing: self.mainDict["experienceLevel"] as AnyObject) == "2" ? "High" : "Beginner"
+                      self.dictTable[5]["value"] = experienceArray[( self.mainDict["experienceLevel"] as? Int) ?? 0]
                       self.dictTable[6]["value"] = self.mainDict["language"] as? String ?? "English"
 
                       

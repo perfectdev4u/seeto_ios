@@ -2190,6 +2190,58 @@
                                     <action selector="btnBackAct:" destination="HyM-qG-XtD" eventType="touchUpInside" id="mLf-6R-C9h"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lNO-WT-DnZ">
+                                <rect key="frame" x="0.0" y="293" width="414" height="324"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63L-Hp-4zA">
+                                        <rect key="frame" x="0.0" y="55" width="414" height="43"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="43" id="UuE-qf-8jb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a new job posting to match with candidates" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LtZ-mq-r40">
+                                        <rect key="frame" x="0.0" y="128" width="414" height="53"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="53" id="mgx-M3-Qdq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" name="grayColor2"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7b-Sz-mgK">
+                                        <rect key="frame" x="20" y="211" width="374" height="50"/>
+                                        <color key="backgroundColor" red="0.33725491169999999" green="0.73333334920000004" blue="0.94509804249999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="3EN-vV-Ot1"/>
+                                            <constraint firstAttribute="height" constant="50" id="fPB-T5-tGB"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Add New Job">
+                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
+                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="btnAddNewJob:" destination="HyM-qG-XtD" eventType="touchUpInside" id="Lg7-q8-grG"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="n7b-Sz-mgK" secondAttribute="trailing" constant="20" id="63P-h6-4m9"/>
+                                    <constraint firstItem="63L-Hp-4zA" firstAttribute="top" secondItem="lNO-WT-DnZ" secondAttribute="top" constant="55" id="DN8-5l-cxa"/>
+                                    <constraint firstItem="n7b-Sz-mgK" firstAttribute="top" secondItem="LtZ-mq-r40" secondAttribute="bottom" constant="30" id="IwP-HR-gZm"/>
+                                    <constraint firstItem="63L-Hp-4zA" firstAttribute="leading" secondItem="lNO-WT-DnZ" secondAttribute="leading" id="MYd-CA-lvD"/>
+                                    <constraint firstItem="LtZ-mq-r40" firstAttribute="top" secondItem="63L-Hp-4zA" secondAttribute="bottom" constant="30" id="Ovw-M8-QDg"/>
+                                    <constraint firstAttribute="trailing" secondItem="LtZ-mq-r40" secondAttribute="trailing" id="Pdh-VW-Ktq"/>
+                                    <constraint firstItem="LtZ-mq-r40" firstAttribute="leading" secondItem="lNO-WT-DnZ" secondAttribute="leading" id="RXy-Ww-LEx"/>
+                                    <constraint firstAttribute="height" constant="324" id="d7I-YX-X2b"/>
+                                    <constraint firstAttribute="trailing" secondItem="63L-Hp-4zA" secondAttribute="trailing" id="gEf-Iv-zrn"/>
+                                    <constraint firstItem="n7b-Sz-mgK" firstAttribute="leading" secondItem="lNO-WT-DnZ" secondAttribute="leading" constant="20" id="zYj-T1-hmw"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bcu-DX-uPV"/>
                         <color key="backgroundColor" name="backgroundColor"/>
@@ -2197,14 +2249,20 @@
                             <constraint firstItem="f4a-M0-DYk" firstAttribute="top" secondItem="bcu-DX-uPV" secondAttribute="top" constant="20" id="AG1-i1-db2"/>
                             <constraint firstItem="FLD-I8-jbA" firstAttribute="leading" secondItem="bcu-DX-uPV" secondAttribute="leading" id="BA8-Rj-v8q"/>
                             <constraint firstItem="FLD-I8-jbA" firstAttribute="bottom" secondItem="bcu-DX-uPV" secondAttribute="bottom" id="E2C-fg-ZYc"/>
+                            <constraint firstItem="lNO-WT-DnZ" firstAttribute="centerX" secondItem="bcu-DX-uPV" secondAttribute="centerX" id="FzS-Ci-CWK"/>
                             <constraint firstItem="o8e-Gb-yXR" firstAttribute="centerY" secondItem="f4a-M0-DYk" secondAttribute="centerY" id="HVw-QR-7yo"/>
                             <constraint firstItem="FLD-I8-jbA" firstAttribute="top" secondItem="f4a-M0-DYk" secondAttribute="bottom" constant="10" id="P0e-7B-yVb"/>
                             <constraint firstItem="bcu-DX-uPV" firstAttribute="trailing" secondItem="f4a-M0-DYk" secondAttribute="trailing" constant="20" id="ZwC-Oe-Qfh"/>
+                            <constraint firstItem="lNO-WT-DnZ" firstAttribute="centerY" secondItem="bcu-DX-uPV" secondAttribute="centerY" id="dpj-0Z-u2f"/>
                             <constraint firstItem="o8e-Gb-yXR" firstAttribute="leading" secondItem="bcu-DX-uPV" secondAttribute="leading" constant="20" id="oaq-C8-NrT"/>
+                            <constraint firstItem="lNO-WT-DnZ" firstAttribute="trailing" secondItem="bcu-DX-uPV" secondAttribute="trailing" id="uSS-gC-dyi"/>
+                            <constraint firstItem="lNO-WT-DnZ" firstAttribute="leading" secondItem="bcu-DX-uPV" secondAttribute="leading" id="vvD-wK-EHb"/>
                             <constraint firstItem="FLD-I8-jbA" firstAttribute="trailing" secondItem="bcu-DX-uPV" secondAttribute="trailing" id="wFS-ZX-X9S"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnJob" destination="n7b-Sz-mgK" id="9ig-42-npM"/>
+                        <outlet property="oopsView" destination="lNO-WT-DnZ" id="f5J-I6-iT1"/>
                         <outlet property="tblJob" destination="FLD-I8-jbA" id="Bz8-uV-spP"/>
                     </connections>
                 </viewController>

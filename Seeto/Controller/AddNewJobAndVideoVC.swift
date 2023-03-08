@@ -72,9 +72,9 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
     {
        return [
             "position" : dictTable[0]["value"]!,
-            "experienceLevel" : dictTable[1]["value"]! == "1 year" ? 1 : 2,
-            "jobType" : dictTable[2]["value"]! == "IT" ? 1 : 2,
-            "jobLocation" : dictTable[3]["value"]! == "Remote" ? 2 : 1,
+            "experienceLevel" : ExperienceLevel(rawValue: dictTable[1]["value"]!)?.id ?? "",
+            "jobType" : JobType(rawValue: dictTable[2]["value"]!)?.id ?? "",
+            "jobLocation" : JobLocation(rawValue: dictTable[3]["value"]!)?.id ?? "",
             "location" : dictTable[4]["value"]!,
             "minSalary" : dictTable[5]["value"]! == "50000 - 100000" ? 50000 : 1000000,
             "maxSalary" :  dictTable[5]["value"]! == "50000 - 100000" ? 1000000 : 2000000,
@@ -290,27 +290,28 @@ extension AddNewJobAndVideoVC : UITextFieldDelegate
         if (dictTable[textFieldTag]["type"]!) == "drop"
         {
          
-                pickerViewTf = textField
-                textField.inputView = myPickerView
-                textField.inputAccessoryView = toolBar
-                index = 0
-                self.myPickerView.selectRow(0, inComponent: 0, animated: false)
-
-            
-
       
         if (dictTable[textFieldTag]["title"]!) == "Experience Level"
         {
-            pickerArray = ["1 year","2 years","> 2 years"]
-        }
+            DispatchQueue.main.async { [self] in
+                pickerArray = ExperienceLevel.allCases.map { $0.rawValue }
+
+            }        }
         else if (dictTable[textFieldTag]["title"]!) == "Job Type"
         {
-            pickerArray = ["IT","HR"]
-        }
+            DispatchQueue.main.async { [self] in
+                
+                pickerArray = JobType.allCases.map { $0.rawValue }
+            }        }
         else if (dictTable[textFieldTag]["title"]!) == "On-Site/Remote"
         {
-            pickerArray = ["On-Site","Remote"]
-        }else if (dictTable[textFieldTag]["title"]!) == "Location"
+            DispatchQueue.main.async { [self] in
+                
+                pickerArray = JobLocation.allCases.map { $0.rawValue }
+            }
+            
+        }
+            else if (dictTable[textFieldTag]["title"]!) == "Location"
         {
             pickerArray = ["Mohali","Noida"]
         }
@@ -318,6 +319,13 @@ extension AddNewJobAndVideoVC : UITextFieldDelegate
             {
                 pickerArray = ["50000 - 100000","100000 - 200000"]
             }
+            
+            pickerViewTf = textField
+            textField.inputView = myPickerView
+            textField.inputAccessoryView = toolBar
+            index = 0
+            self.myPickerView.selectRow(0, inComponent: 0, animated: false)
+
         }
         
         else if (dictTable[textFieldTag]["type"]!) == "btn"

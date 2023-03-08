@@ -37,8 +37,8 @@ class CandidateSearchDetailVC: UIViewController {
                   DispatchQueue.main.async {
                       self.mainDict = dataJson["data"] as? NSDictionary ?? [:]
                       self.dictTable[0]["value"] = self.mainDict["position"] as? String ?? ""
-                      self.dictTable[1]["value"] = "Entry Level"
-                      self.dictTable[2]["value"] = String(describing: self.mainDict["jobType"] as AnyObject) == "2" ? "HR" : "IT"
+                      self.dictTable[1]["value"] = experienceArray[( self.mainDict["experienceLevel"] as? Int) ?? 0]
+                      self.dictTable[2]["value"] = jobArray[( self.mainDict["jobType"] as? Int) ?? 0]
                       self.dictTable[3]["value"] = self.mainDict["location"] as? String ?? ""
                       self.matchCandidateArray = self.mainDict["machedCandidates"] as? [NSDictionary] ?? []
                       self.tblCandidateSearch.reloadData()
@@ -181,6 +181,7 @@ extension CandidateSearchDetailVC : UITableViewDelegate,UITableViewDataSource
                 cell.seperatorView.isHidden = false
             }
             cell.companyTitle.text = matchCandidateArray[indexPath.row]["name"] as? String ?? "N/A"
+            cell.noOfEmployeesLbl.text = matchCandidateArray[indexPath.row]["position"] as? String ?? "N/A"
             cell.imgThumb.sd_setImage(with: URL(string: matchCandidateArray[indexPath.row]["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "placeholderImg"))
 
             cell.selectionStyle = .none

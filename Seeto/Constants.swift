@@ -21,7 +21,7 @@ let googleClientID = "72919610538-rhqe3h7lrovdsb254q3dg9kua4c6o0nm.apps.googleus
 let baseURL = "http://34.207.158.183/api/v1.0/"
 
 var experienceArray = ExperienceLevel.allCases.map { $0.rawValue }
-
+var jobArray = JobType.allCases.map { $0.rawValue }
 enum ExperienceLevel: String ,CaseIterable{
     case notSelected = "Not Selected"
     case entryLevel = "Entry Level"

@@ -12,14 +12,28 @@ class JobsVC: UIViewController,JobDelegate {
         getJobsApi()
     }
     
+    @IBOutlet var oopsView: UIView!
     var mainArray = [NSDictionary].init()
     @IBOutlet var tblJob: UITableView!
+   
+    @IBOutlet var btnJob: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        btnJob.layer.cornerRadius = 10
+        self.oopsView.isHidden = true
+        self.tblJob.isHidden = true
+
         getJobsApi()
+        
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func btnAddNewJob(_ sender: UIButton) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddNewJobAndVideoVC") as! AddNewJobAndVideoVC
+        vc.jobDelegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
     @IBAction func btnBackAct(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -41,6 +55,16 @@ class JobsVC: UIViewController,JobDelegate {
                 {
                   DispatchQueue.main.async {
                       self.mainArray = dataJson["data"] as? [NSDictionary] ?? []
+                      if self.mainArray.count == 0
+                      {
+                          self.oopsView.isHidden = false
+                          self.tblJob.isHidden = true
+                      }
+                      else
+                      {
+                          self.oopsView.isHidden = true
+                          self.tblJob.isHidden = false
+                      }
                       self.tblJob.reloadData()
                   }
                 }
@@ -85,7 +109,7 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
         cell.widthPic.constant = 45
         cell.imgMain.sd_setImage(with: URL(string: mainArray[indexPath.row]["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "placeholderImg"))
         cell.imgMain.layer.cornerRadius = cell.imgMain.frame.height / 2
-        cell.lblSkillLevel.text = "Fresher"
+        cell.lblSkillLevel.text = experienceArray[( mainArray[indexPath.row]["experienceLevel"] as? Int) ?? 0]
         cell.lblDesignation.text = mainArray[indexPath.row]["position"] as? String ?? ""
         cell.lblLikes.text = String(describing:  mainArray[indexPath.row]["matchCount"] as AnyObject)
         cell.btnPlayVideo.tag = indexPath.row
@@ -138,13 +162,13 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 70))
         view.backgroundColor = backGroundColor
-        let button = UIButton(frame: CGRect(x: 20, y: 35, width: self.view.frame.width - 40, height: 50))
-        button.layer.cornerRadius = 10
-        button.setTitle("Add New Job", for: .normal)
-        button.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
-        button.addTarget(self, action: #selector(btnNewSearchAct), for: .touchUpInside)
-        button.backgroundColor = blueButtonColor
-        view.addSubview(button)
+            let button = UIButton(frame: CGRect(x: 20, y: 35, width: self.view.frame.width - 40, height: 50))
+            button.layer.cornerRadius = 10
+            button.setTitle("Add New Job", for: .normal)
+            button.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
+            button.addTarget(self, action: #selector(btnNewSearchAct), for: .touchUpInside)
+            button.backgroundColor = blueButtonColor
+            view.addSubview(button)
         return view
     }
     @objc func btnNewSearchAct()

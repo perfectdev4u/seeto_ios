@@ -87,17 +87,20 @@ class ThumbnailVideoVC: UIViewController {
     }
     @objc func playPauseBtn(_ sender : UIButton)
     {
-        if sender.image(for: .normal) == UIImage(named: "pause")
-        {
-            sender.setImage( UIImage(named: "play"), for: .normal)
+        DispatchQueue.main.async {
+            if sender.image(for: .normal) == UIImage(named: "pause")
+            {
+                sender.setImage( UIImage(named: "play"), for: .normal)
 
-            playerViewAV.player?.pause()
+                self.playerViewAV.player?.pause()
+            }
+            else
+            {
+                sender.setImage( UIImage(named: "pause"), for: .normal)
+                self.playerViewAV.player?.play()
+            }
         }
-        else
-        {
-            sender.setImage( UIImage(named: "pause"), for: .normal)
-            playerViewAV.player?.play()
-        }
+ 
     }
     var thumbImg = false
     func screenshot() {

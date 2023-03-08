@@ -74,6 +74,13 @@ class HomeScreenVC: UIViewController {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobsVC") as! JobsVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }
+            let cells = collViewVideos.visibleCells.compactMap({ $0 as? VideoPlayerCollViewCell })
+            cells.forEach { videoCell in
+
+                if videoCell.isPlaying {
+                    videoCell.stopPlaying()
+                }
+            }
         }
      //   self.navigationController?.popViewController(animated: true)
     }

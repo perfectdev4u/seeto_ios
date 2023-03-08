@@ -164,13 +164,15 @@ extension LoginViewController: GIDSignInDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             // Create an account in your system.
-//            let userIdentifier = appleIDCredential.user
+            let userIdentifier = appleIDCredential.user ?? ""
 //            let userFirstName = appleIDCredential.fullName?.givenName
 //            let userLastName = appleIDCredential.fullName?.familyName
-//            let userEmail = appleIDCredential.email
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
-            vc.appleLogin = true
-            self.navigationController?.pushViewController(vc, animated: true)
+            let userEmail = appleIDCredential.email ?? ""
+            self.verifyApi(grantType: "apple", externalLogin: userIdentifier , email: userEmail)
+
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
+//            vc.appleLogin = true
+//            self.navigationController?.pushViewController(vc, animated: true)
 
             //Navigate to other view controller
         }
@@ -186,9 +188,6 @@ extension LoginViewController: GIDSignInDelegate {
             }
             return
         }
-        
-        
-        
         self.verifyApi(grantType: "google", externalLogin: user.userID ?? "", email: user.profile.email ?? "")
 
        
