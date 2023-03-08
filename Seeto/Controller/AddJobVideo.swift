@@ -112,11 +112,10 @@ class AddJobVideo: UIViewController {
             imageGenerator.appliesPreferredTrackTransform = true
             if let thumb: CGImage = try? imageGenerator.copyCGImage(at: (playerViewAV.player?.currentTime())!,actualTime: nil) {
                 //print("video img successful")
-                SwiftLoader.hide()
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
                     print("done")
-                    self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: UIImage(cgImage: thumb))
+                    self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: UIImage(cgImage: thumb).resizeWithPercent(percentage: 0.5)!)
                    // self.thumbImg = true
                  //   self.imgThumbnail.image = UIImage(cgImage: thumb)
 //                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC

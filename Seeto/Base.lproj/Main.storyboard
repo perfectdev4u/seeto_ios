@@ -2446,7 +2446,7 @@
                                     <action selector="btnClickVideoPic:" destination="cT8-Of-c6M" eventType="touchUpInside" id="mNO-VO-7MN"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Low-aQ-WbD">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Low-aQ-WbD">
                                 <rect key="frame" x="334" y="797" width="30" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="S91-Sw-AHE"/>
@@ -2579,7 +2579,7 @@
                                     <action selector="btnClickVideoPic:" destination="3Kd-um-Qda" eventType="touchUpInside" id="gqg-8E-bsZ"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="gfy-Am-Ah2">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="gfy-Am-Ah2">
                                 <rect key="frame" x="334" y="797" width="30" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="HpU-w4-Ghx"/>

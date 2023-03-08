@@ -683,14 +683,34 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
                 return
         }
     urlVideo = url
-        do {
-                        let data = try Data(contentsOf: url, options: .mappedIfSafe)
-                        print(data)
-            
-            uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: data,url: url)
-        //  here you can see data bytes of selected video, this data object is upload to server by multipartFormData upload
-                    } catch  {
-                    }
+        let dataVideo = NSData(contentsOf: url as URL)!
+        print("File size before compression: \(Double(dataVideo.length / 1048576)) mb")
+              let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
+    compressVideo(inputURL: url , outputURL: compressedURL) { (exportSession) in
+                      guard let session = exportSession else {
+                          return
+                      }
+
+                      switch session.status {
+                      case .unknown:
+                          break
+                      case .waiting:
+                          break
+                      case .exporting:
+                          break
+                      case .completed:
+                          guard let compressedData = NSData(contentsOf: compressedURL) else {
+                              return
+                          }
+                         print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
+                          self.uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: compressedData as Data,url: compressedURL)
+
+                      case .failed:
+                          break
+                      case .cancelled:
+                          break
+                      }
+                  }
         // Handle a movie capture
       
     }
@@ -754,6 +774,21 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
             }
         }).resume()
     }
+    func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
+           let urlAsset = AVURLAsset(url: inputURL, options: nil)
+           guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPreset960x540) else {
+               handler(nil)
+
+               return
+           }
+
+           exportSession.outputURL = outputURL
+        exportSession.outputFileType = AVFileType.mov
+           exportSession.shouldOptimizeForNetworkUse = true
+           exportSession.exportAsynchronously { () -> Void in
+               handler(exportSession)
+           }
+       }
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
         SwiftLoader.show(animated: true)
         let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")

@@ -417,7 +417,7 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
             let dataVideo = NSData(contentsOf: url as URL)!
             print("File size before compression: \(Double(dataVideo.length / 1048576)) mb")
                   let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
-                  compressVideo(inputURL: url as! URL, outputURL: compressedURL) { (exportSession) in
+        compressVideo(inputURL: url , outputURL: compressedURL) { (exportSession) in
                           guard let session = exportSession else {
                               return
                           }
@@ -449,7 +449,7 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
     }
     func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
            let urlAsset = AVURLAsset(url: inputURL, options: nil)
-           guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetLowQuality) else {
+           guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPreset960x540) else {
                handler(nil)
 
                return
@@ -463,7 +463,9 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
            }
        }
     func uploadVideo(paramName: String, fileName: String, dataVideo: Data,url : URL) {
-        SwiftLoader.show(animated: true)
+        DispatchQueue.main.async {
+            SwiftLoader.show(animated: true)
+        }
 
         let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
 
@@ -497,7 +499,9 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
                 if let json = jsonData as? [String: Any] {
                     if let dict = json["data"] as? NSDictionary{
-                        SwiftLoader.hide()
+                        DispatchQueue.main.async {
+                            SwiftLoader.hide()
+                        }
 
                         self.videoUrlString = (dict["url"] as? String) ?? ""
                         DispatchQueue.main.async {

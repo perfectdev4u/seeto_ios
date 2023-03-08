@@ -291,10 +291,6 @@ extension ModifyJobSearchVC : UITextFieldDelegate
         textFieldTag = textField.tag
         if (dictTable[textFieldTag]["type"]!) == "drop"
         {
-           
-
-            
-
       
         if (dictTable[textFieldTag]["title"]!) == "Experience Level"
         {

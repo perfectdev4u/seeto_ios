@@ -175,6 +175,31 @@ extension AddNewJobAndVideoVC
     
     @objc func btnCreateVideoAct()
     {
+        
+        if dictTable[0]["value"] == ""
+        {
+            Toast.show(message:"Please add Position", controller: self)
+            return
+        }
+        else if dictTable[1]["value"] == ""
+        {
+            Toast.show(message:"Please add Experience Level", controller: self)
+            return
+        }
+         else if dictTable[2]["value"] == ""
+        {
+            Toast.show(message:"Please add Job Type", controller: self)
+            return
+        }  else if dictTable[3]["value"] == ""
+        {
+            Toast.show(message:"Please add On-Site/Remote", controller: self)
+            return
+        }
+        else if dictTable[6]["value"] == ""
+        {
+            Toast.show(message:"Please add Job Description", controller: self)
+            return
+        }
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
                    print("Camera Available")
 
@@ -187,8 +212,6 @@ extension AddNewJobAndVideoVC
                } else {
                    print("Camera UnAvaialable")
                }
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-//        self.navigationController?.pushViewController(vc, animated: true)
 
         
     }
@@ -313,11 +336,17 @@ extension AddNewJobAndVideoVC : UITextFieldDelegate
         }
             else if (dictTable[textFieldTag]["title"]!) == "Location"
         {
-            pickerArray = ["Mohali","Noida"]
+                DispatchQueue.main.async { [self] in
+                    
+                    pickerArray = ["Mohali","Noida"]
+                }
         }
             else if (dictTable[textFieldTag]["title"]!) == "Salary Range"
             {
-                pickerArray = ["50000 - 100000","100000 - 200000"]
+                DispatchQueue.main.async { [self] in
+                    
+                    pickerArray = ["50000 - 100000","100000 - 200000"]
+                }
             }
             
             pickerViewTf = textField
@@ -386,14 +415,35 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
                 return
         }
     urlVideo = url
-        do {
-                        let data = try Data(contentsOf: url, options: .mappedIfSafe)
-                        print(data)
-            
-            uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: data,url: url)
-        //  here you can see data bytes of selected video, this data object is upload to server by multipartFormData upload
-                    } catch  {
-                    }
+        let dataVideo = NSData(contentsOf: url as URL)!
+        print("File size before compression: \(Double(dataVideo.length / 1048576)) mb")
+              let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
+    compressVideo(inputURL: url , outputURL: compressedURL) { (exportSession) in
+                      guard let session = exportSession else {
+                          return
+                      }
+
+                      switch session.status {
+                      case .unknown:
+                          break
+                      case .waiting:
+                          break
+                      case .exporting:
+                          break
+                      case .completed:
+                          guard let compressedData = NSData(contentsOf: compressedURL) else {
+                              return
+                          }
+                         print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
+                          self.uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: compressedData as Data,url: compressedURL)
+
+                      case .failed:
+                          break
+                      case .cancelled:
+                          break
+                      }
+                  }
+
     }
     func uploadVideo(paramName: String, fileName: String, dataVideo: Data,url : URL) {
         SwiftLoader.show(animated: true)
@@ -455,7 +505,21 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
             }
         }).resume()
     }
+    func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
+           let urlAsset = AVURLAsset(url: inputURL, options: nil)
+           guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPreset960x540) else {
+               handler(nil)
 
+               return
+           }
+
+           exportSession.outputURL = outputURL
+        exportSession.outputFileType = AVFileType.mov
+           exportSession.shouldOptimizeForNetworkUse = true
+           exportSession.exportAsynchronously { () -> Void in
+               handler(exportSession)
+           }
+       }
     @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo info: AnyObject) {
       let title =  "Success"
       let message =  "Video was saved"

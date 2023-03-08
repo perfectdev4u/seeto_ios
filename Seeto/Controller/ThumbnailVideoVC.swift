@@ -112,17 +112,15 @@ class ThumbnailVideoVC: UIViewController {
             imageGenerator.appliesPreferredTrackTransform = true
             if let thumb: CGImage = try? imageGenerator.copyCGImage(at: (playerViewAV.player?.currentTime())!,actualTime: nil) {
                 //print("video img successful")
-                SwiftLoader.hide()
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
                     print("done")
-                    self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: UIImage(cgImage: thumb))
+                  
+                    self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: UIImage(cgImage: thumb).resizeWithPercent(percentage: 0.5)!)
                    // self.thumbImg = true
                  //   self.imgThumbnail.image = UIImage(cgImage: thumb)
 //                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
 //                    self.navigationController?.pushViewController(vc, animated: true)
-
-                    
                 }
             }
             else
@@ -191,7 +189,6 @@ class ThumbnailVideoVC: UIViewController {
     
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
         let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
-        SwiftLoader.show(animated: true)
 
         // generate boundary string using a unique per-app string
         let boundary = UUID().uuidString
@@ -224,27 +221,29 @@ class ThumbnailVideoVC: UIViewController {
                 if let json = jsonData as? [String: Any] {
                     if let dict = json["data"] as? NSDictionary{
                         self.dictParam["thumbnailUrl"] = (dict["url"] as? String) ?? ""
-                        SwiftLoader.hide()
+                        DispatchQueue.main.async {
+                            
+                            SwiftLoader.hide()
+                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             self.updateCandidateProfileApi()
-
-//                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ThumbnailVideoVC") as! ThumbnailVideoVC
-//                            vc.urlVideo = URL(string: self.videoUrlString)
-//                            vc.dictParam = self.updateCandidateProfileData()
-//                            self.navigationController?.pushViewController(vc, animated: true)
-
                         }
                       }
                     print(json)
 
                 }
-                SwiftLoader.hide()
+                DispatchQueue.main.async {
+                    
+                    SwiftLoader.hide()
+                }
 
             }
             else
             {
-                SwiftLoader.hide()
-
+                DispatchQueue.main.async {
+                    
+                    SwiftLoader.hide()
+                }
                 print(error?.localizedDescription)
             }
         }).resume()
