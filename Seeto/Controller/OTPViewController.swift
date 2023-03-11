@@ -78,6 +78,15 @@ class OTPViewController: UIViewController ,MyTextFieldDelegate{
                 if let dict = dataJson["data"] as? NSDictionary{
                     UserDefaults.standard.set((dict["access_token"] as? String) ?? "", forKey: "accessToken")
                     UserDefaults.standard.set((dict["userType"] as? Int) ?? "", forKey: "userType")
+                    if self.email == true
+                    {
+                        UserDefaults.standard.set( self.phoneNumber, forKey: "email")
+
+                    }
+                    else
+                    {
+                        UserDefaults.standard.set( self.phoneNumber, forKey: "phone")
+                    }
                     DispatchQueue.main.async {
                         if let userType = (dict["userType"] as? Int)
                         {

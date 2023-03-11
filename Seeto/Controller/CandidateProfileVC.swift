@@ -10,19 +10,32 @@ import AVKit
 import MobileCoreServices
 import SwiftLoader
 
-class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate{
+class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchAddressProtocol{
+    func adressMap(address: String) {
+        for i in 0...dictTable.count - 1
+        {
+            if dictTable[i]["title"] == "Current Location"
+            {
+                dictTable[i]["value"] = address
+            }
+        }
+        tblCandidateProfile.reloadData()
+    }
+    
     @IBOutlet var topLbl: NSLayoutConstraint!
     @IBOutlet var lblMain: UILabel!
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
     var updateScreen = false
+    var task = URLSessionDataTask.init()
+    var sizeItem = CGFloat.init()
 
     var urlVideo = URL(string: "")
     var dataJson = NSDictionary.init()
 
     var videoUrlString = ""
     var langList = [NSDictionary].init()
-    var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Date of Birth","type":"drop","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"false","value":""],["title":"Email Address","type":"text","required":"true","value":""],["title":"Linkedin Profile","type":"text","required":"true","value":""],["title":"Current Location","type":"drop","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
+    var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Date of Birth","type":"drop","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"true","value":UserDefaults.standard.value(forKey: "phone") as? String ?? ""],["title":"Email Address","type":"text","required":"true","value": UserDefaults.standard.value(forKey: "email") as? String ?? ""],["title":"Linkedin Profile","type":"text","required":"true","value":""],["title":"Current Location","type":"btn","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
     let toolBar = UIToolbar()
@@ -51,7 +64,11 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         // Do any additional setup after loading the view.
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        self.navigationController?.isNavigationBarHidden = true
+    }
+
     func setUpUpdateScreen()
     {
         dictTable.remove(at: 0)
@@ -63,7 +80,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["lastName"] as? String) ?? ""
         dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["dateOfBirth"] as? String) ?? ""
         dictTable[3]["value"] = ((dataJson["data"] as! NSDictionary)["phoneNumber"] as? String) ?? ""
-        dictTable[4]["value"] = ""
+        dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["email"] as? String) ?? ""
         dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as? String) ?? ""
         dictTable[6]["value"] = ((dataJson["data"] as! NSDictionary)["currentLocation"] as? String) ?? ""
         dictTable[7]["value"] = ((dataJson["data"] as! NSDictionary)["currentPosition"] as? String) ?? ""
@@ -142,11 +159,12 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "profileImage" : dictTable[0]["value"] ?? "",
             "linkedInProfile" : dictTable[6]["value"]!,
             "phoneNumber" :  dictTable[4]["value"]!,
-            "experienceLevel" :   ExperienceLevel(rawValue: dictTable[9]["value"]!)?.id ?? "",
-            "desiredMonthlyIncome" : dictTable[10]["value"]!,
+            "email" :  dictTable[5]["value"]!,
+            "experienceLevel" :   ExperienceLevel(rawValue: dictTable[9]["value"]!)?.id ?? 0,
+            "desiredMonthlyIncome" : dictTable[10]["value"]! == "" ? "0" : dictTable[10]["value"]!,
             "education" : dictTable[12]["value"]!,
             "workExperience" : dictTable[13]["value"]!,
-            "gender" : dictTable[14]["value"]! == "Male" ? 1 : 2,
+            "gender" : dictTable[13]["value"]! == "" ? nil : dictTable[13]["value"]! == "Male" ? 1 : 2,
             "disability" : dictTable[15]["value"]!,
             "veteranStatus" : dictTable[16]["value"]!,
             "country" : "America",
@@ -179,12 +197,13 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "lastName" : dictTable[1]["value"]!,
             "dateOfBirth" : dictTable[2]["value"]!,
             "phoneNumber" :  dictTable[3]["value"]!,
+            "email" :  dictTable[4]["value"]!,
             "linkedInProfile" : dictTable[5]["value"]!,
-            "experienceLevel" :   ExperienceLevel(rawValue: dictTable[8]["value"]!)?.id ?? "",
-            "desiredMonthlyIncome" : dictTable[9]["value"]!,
+            "experienceLevel" :   ExperienceLevel(rawValue: dictTable[8]["value"]!)?.id ?? 0,
+            "desiredMonthlyIncome" : dictTable[9]["value"]! == "" ? "0" : dictTable[9]["value"]!,
             "education" : dictTable[11]["value"]!,
             "workExperience" : dictTable[12]["value"]!,
-            "gender" : dictTable[13]["value"]! == "Male" ? 1 : 2,
+            "gender" : dictTable[13]["value"]! == "" ? 0 : dictTable[13]["value"]! ==  "Male" ? 1 : 2,
             "disability" : dictTable[14]["value"]!,
             "veteranStatus" : dictTable[15]["value"]!,
             "country" : "America",
@@ -387,6 +406,17 @@ extension CandidateProfileVC
     {
         if updateScreen == false
         {
+            for i in dictTable
+            {
+                if i["required"] == "true"
+                {
+                    if i["value"] == ""
+                    {
+                        Toast.show(message: "Please enter \(i["title"] ?? "value")", controller: self)
+                        return
+                    }
+                }
+            }
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
                 print("Camera Available")
                 
@@ -443,7 +473,6 @@ extension CandidateProfileVC
         )
         if (dictTable[indexPath.row]["required"]!) == "true"
         {
-            
             let attributedMark = NSMutableAttributedString(
                 string: "*",
                 attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]
@@ -515,7 +544,7 @@ extension CandidateProfileVC
         }
         if ((dictTable[indexPath.row]["type"]!) == "btn")
         {
-            if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture"
+            if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture" || (dictTable[indexPath.row]["title"]!) == "Current Location"
             {
                 cell.tfMain.isUserInteractionEnabled = false
             }
@@ -556,7 +585,13 @@ extension CandidateProfileVC
             {
                 cameraGallery()
             }
-          
+             else if (dictTable[indexPath.row]["title"]!) == "Current Location"
+            {
+                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as! SearchVC
+                 vc.searchAdressDelegate = self
+                 self.navigationController?.pushViewController(vc, animated: true)
+
+             }
            
         }
     }
@@ -565,15 +600,16 @@ extension CandidateProfileVC
 extension CandidateProfileVC : UIPickerViewDelegate, UIPickerViewDataSource
 {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return  (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? 2 : 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerArray.count
+        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray.count : languageArray.count   : pickerArray.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerArray[row]
+        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray[row] : languageArray[row]   : pickerArray[row]
+        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray[row] : languageArray[row]   : pickerArray[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         index = row
@@ -702,8 +738,12 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
                           guard let compressedData = NSData(contentsOf: compressedURL) else {
                               return
                           }
-                         print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
-                          self.uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: compressedData as Data,url: compressedURL)
+                          self.sizeItem = CGFloat(compressedData.length)
+//                          DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+//                          {
+                              print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
+                              self.uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: compressedData as Data,url: compressedURL)
+                      //    }
 
                       case .failed:
                           break
@@ -715,7 +755,6 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
       
     }
     func uploadVideo(paramName: String, fileName: String, dataVideo: Data,url : URL) {
-        SwiftLoader.show(animated: true)
 
         let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
 
@@ -743,16 +782,17 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
 
         // Send a POST request to the URL, with the data we created earlier
-        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+        self.task = session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
             if error == nil {
                 
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
                 if let json = jsonData as? [String: Any] {
                     if let dict = json["data"] as? NSDictionary{
-                        SwiftLoader.hide()
-
-                        self.videoUrlString = (dict["url"] as? String) ?? ""
                         DispatchQueue.main.async {
+                            SwiftLoader.hide()
+
+                            self.videoUrlString = (dict["url"] as? String) ?? ""
+
                             UISaveVideoAtPathToSavedPhotosAlbum(
                                 url!.path,
                                 self,
@@ -772,7 +812,22 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
 
                 print(error?.localizedDescription)
             }
-        }).resume()
+        })
+        task.progress.addObserver(self, forKeyPath: #keyPath(Progress.fractionCompleted), options: .new, context: nil)
+
+        task.resume()
+    }
+    // observe progress and update progress view
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == #keyPath(Progress.fractionCompleted) {
+            let uploadedBytes = task.countOfBytesSent
+            let percentageUploaded = Double(uploadedBytes) / Double(sizeItem) * 100
+            let roundedOffValue = Int(percentageUploaded)
+            // update progress view
+            DispatchQueue.main.async {
+                SwiftLoader.show(title: "\(roundedOffValue)%", animated: true)
+            }
+        }
     }
     func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
            let urlAsset = AVURLAsset(url: inputURL, options: nil)

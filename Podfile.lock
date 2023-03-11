@@ -5,6 +5,16 @@ PODS:
   - AppAuth/Core (1.6.0)
   - AppAuth/ExternalUserAgent (1.6.0):
     - AppAuth/Core
+  - GoogleMaps (3.1.0):
+    - GoogleMaps/Maps (= 3.1.0)
+  - GoogleMaps/Base (3.1.0)
+  - GoogleMaps/Maps (3.1.0):
+    - GoogleMaps/Base
+  - GooglePlacePicker (3.1.0):
+    - GoogleMaps (= 3.1.0)
+    - GooglePlaces (= 3.1.0)
+  - GooglePlaces (3.1.0):
+    - GoogleMaps/Base (= 3.1.0)
   - GoogleSignIn (5.0.2):
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
@@ -21,6 +31,9 @@ PODS:
   - SwiftLoader (1.0.0)
 
 DEPENDENCIES:
+  - GoogleMaps
+  - GooglePlacePicker
+  - GooglePlaces
   - GoogleSignIn
   - IQKeyboardManager
   - SDWebImage (~> 4.0)
@@ -30,6 +43,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AppAuth
+    - GoogleMaps
+    - GooglePlacePicker
+    - GooglePlaces
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
@@ -40,6 +56,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
+  GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
+  GooglePlacePicker: fa975116ac202ac29822c0a79758ea1c4db5a95f
+  GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
@@ -48,6 +67,6 @@ SPEC CHECKSUMS:
   SkyFloatingLabelTextField: 79ddc40e4ad59707fedbb48d605417aee48bb78a
   SwiftLoader: f12f3a6fb42576862a3a5eb80c7e59fc881b6982
 
-PODFILE CHECKSUM: b22c2e11feff5a0527b0d1abff3ffbf3739f49b2
+PODFILE CHECKSUM: 5133d81cba8c6fe8e697935656a3cf91ed687caa
 
 COCOAPODS: 1.11.2

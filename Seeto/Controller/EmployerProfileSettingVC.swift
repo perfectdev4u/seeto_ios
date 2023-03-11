@@ -52,7 +52,7 @@ class EmployerProfileSettingVC: UIViewController, UINavigationControllerDelegate
                       self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["webSite"] as! String)
                       self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as AnyObject))
                       self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["foundationDate"] as! String)
-                      self.dictTable[5]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["companySize"] as AnyObject))  == "1000" ? "1000" : "> 1000"
+                      self.dictTable[5]["value"] = companyArray[((dataJson["data"] as! NSDictionary)["companySize"] as? Int) ?? 0]
 //                      self.profileUrl = ((dataJson["data"] as! NSDictionary)["profileImage"] as! String)
 //                      self.videoUrlString = ((dataJson["data"] as! NSDictionary)["videoUrl"] as! String)
                       self.tblProfileSettings.reloadData()
@@ -249,12 +249,42 @@ extension EmployerProfileSettingVC : UITableViewDelegate,UITableViewDataSource
     }
    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: .leastNormalMagnitude))
-      
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: section == 1 ? 110 : 0))
+        if section == 1
+        {
+            view.backgroundColor = backGroundColor
+            let button = UIButton(frame: CGRect(x: 20, y: 40, width: self.view.frame.width - 40, height: 50))
+            button.layer.cornerRadius = 10
+            button.setTitle("Log out", for: .normal)
+            button.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
+            button.addTarget(self, action: #selector(logOut), for: .touchUpInside)
+            button.backgroundColor = blueButtonColor
+            view.addSubview(button)
+        }
         return view
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return .leastNormalMagnitude
+        return section == 1 ? 110 : .leastNormalMagnitude
+    }
+    @objc func logOut()
+    {
+        let refreshAlert = UIAlertController(title: "Logout", message: "Are you sure?", preferredStyle: UIAlertController.Style.alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action: UIAlertAction!) in
+            UserDefaults.standard.removeObject(forKey: "accessToken")
+            UserDefaults.standard.removeObject(forKey: "userType")
+            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+            let window = UIApplication.shared.windows.first
+            // Embed loginVC in Navigation Controller and assign the Navigation Controller as windows root
+            let nav = UINavigationController(rootViewController: loginVC!)
+            window?.rootViewController = nav
+        }))
+
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .default, handler: { (action: UIAlertAction!) in
+        }))
+
+        present(refreshAlert, animated: true, completion: nil)
+
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         

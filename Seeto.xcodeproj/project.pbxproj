@@ -42,6 +42,7 @@
 		1B2DF9102979E0800073D6A0 /* CongratsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF90F2979E0800073D6A0 /* CongratsVC.swift */; };
 		1B2DF9122979E3DB0073D6A0 /* SelectResumeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF9112979E3DB0073D6A0 /* SelectResumeVC.swift */; };
 		1B59FD2029A1123A002F159A /* AddJobVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B59FD1F29A1123A002F159A /* AddJobVideo.swift */; };
+		1B6F5C3D29BBF1F40020C58D /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6F5C3C29BBF1F30020C58D /* SearchVC.swift */; };
 		1B7F71CA2965EE6000D74132 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F71C92965EE6000D74132 /* AppDelegate.swift */; };
 		1B7F71CC2965EE6000D74132 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F71CB2965EE6000D74132 /* SceneDelegate.swift */; };
 		1B7F71D12965EE6000D74132 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B7F71CF2965EE6000D74132 /* Main.storyboard */; };
@@ -140,6 +141,7 @@
 		1B2DF90F2979E0800073D6A0 /* CongratsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsVC.swift; sourceTree = "<group>"; };
 		1B2DF9112979E3DB0073D6A0 /* SelectResumeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectResumeVC.swift; sourceTree = "<group>"; };
 		1B59FD1F29A1123A002F159A /* AddJobVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJobVideo.swift; sourceTree = "<group>"; };
+		1B6F5C3C29BBF1F30020C58D /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		1B7F71C62965EE6000D74132 /* Seeto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seeto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B7F71C92965EE6000D74132 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B7F71CB2965EE6000D74132 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				1B7F72232969EC1700D74132 /* JobSearchDetailsVC.swift */,
 				1B08D5FC296A1C1F00458A46 /* EmployerDetailVC.swift */,
 				1B2424CF296B10D5003A363F /* HomeScreenVC.swift */,
+				1B6F5C3C29BBF1F30020C58D /* SearchVC.swift */,
 				1B2424DA296CA5DF003A363F /* ProfileSettingView.swift */,
 				1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */,
 				1B59FD1F29A1123A002F159A /* AddJobVideo.swift */,
@@ -741,6 +744,7 @@
 				1B7F72012966B30300D74132 /* LoginViewController.swift in Sources */,
 				1BD66B7129B1C31100C11B9D /* EmployerMatchesModel.swift in Sources */,
 				1B7F71CC2965EE6000D74132 /* SceneDelegate.swift in Sources */,
+				1B6F5C3D29BBF1F40020C58D /* SearchVC.swift in Sources */,
 				1B2424D3296B13BE003A363F /* VideoPlayerCell.swift in Sources */,
 				1BCE9B79296DFC32005E40BB /* ShowImageVC.swift in Sources */,
 				1B1DDEE0298439BF008F7680 /* AddNewJobAndVideoVC.swift in Sources */,

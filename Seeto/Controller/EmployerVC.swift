@@ -10,7 +10,7 @@ import AVKit
 import MobileCoreServices
 import SwiftLoader
 class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate{
-    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"false","value":""],["title":"Industry","type":"text","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"false","value":""],["title":"Company Foundation Date","type":"drop","required":"false","value":""],["title":"Company Location","type":"text","required":"false","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
+    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"true","value":""],["title":"Industry","type":"text","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"true","value":""],["title":"Company Foundation Date","type":"drop","required":"true","value":""],["title":"Company Location","type":"text","required":"true","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
     @IBOutlet var lblMain: UILabel!
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
@@ -48,7 +48,6 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
     {
         lblMain.isHidden = true
         topLbl.constant = 10
-
         dictTable.remove(at: 0)
         btnNext.isHidden = true
         self.dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["companyName"] as! String)
@@ -57,9 +56,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as AnyObject))
         self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["foundationDate"] as! String)
         self.dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["companyLocation"] as? String) ?? ""
-
-        self.dictTable[6]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["companySize"] as AnyObject))  == "1000" ? "1000" : "> 1000"
-
+        self.dictTable[6]["value"] = companyArray[((dataJson["data"] as! NSDictionary)["companySize"] as? Int) ?? 0]
     }
 
     func updateEmployerProfileData() -> [String : Any]
@@ -73,7 +70,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         "linkedInProfile": dictTable[4]["value"]!,
         "foundationDate": dictTable[5]["value"]!,
         "companyLocation" : dictTable[6]["value"]!,
-        "companySize": dictTable[7]["value"]! == "1000" ? 1000 : 2000
+        "companySize": CompanySize(rawValue: dictTable[7]["value"]!)?.id ?? ""
         // int company size
         ] as [String : Any]
     }
@@ -88,7 +85,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         "linkedInProfile": dictTable[3]["value"]!,
         "foundationDate": dictTable[4]["value"]!,
         "companyLocation" : dictTable[5]["value"]!,
-        "companySize": dictTable[6]["value"]! == "1000" ? 1000 : 2000
+        "companySize": CompanySize(rawValue: dictTable[6]["value"]!)?.id ?? ""
         // int company size
         ] as [String : Any]
     }
@@ -168,8 +165,9 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
     
     func showDatePicker(){
       //Formate Date
-      datePicker.datePickerMode = .date
-            datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = UIDatePicker.Mode.date
         //ToolBar
         toolbar.barStyle = .default
         toolbar.isTranslucent = true
@@ -184,14 +182,12 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         cancelButton.tintColor = UIColor.black
 
    toolbar.setItems([cancelButton,spaceButton,doneButton], animated: false)
-
-
    }
 
     @objc func donedatePicker(){
 
      let formatter = DateFormatter()
-     formatter.dateFormat = "dd/MM/yyyy"
+     formatter.dateFormat = "MM/yyyy"
      dictTable[textFieldTag]["value"] = formatter.string(from: datePicker.date)
      self.view.endEditing(true)
    }
@@ -284,6 +280,17 @@ extension EmployerVC
     
     @objc func btnCreateAct()
     {
+        for i in dictTable
+        {
+            if i["required"] == "true"
+            {
+                if i["value"] == ""
+                {
+                    Toast.show(message: "Please enter \(i["title"] ?? "value")", controller: self)
+                    return
+                }
+            }
+        }
         updateEmployerProfileApi()
     }
     
@@ -466,7 +473,7 @@ extension EmployerVC : UITextFieldDelegate
             pickerArray = ["Eng","Hindi"]
         }else if (dictTable[textFieldTag]["title"]!) == "Company Size"
         {
-            pickerArray = ["1000","> 1000"]
+            pickerArray = ["1-4 workers","5 – 19 workers","20 – 99 workers","100 and more workers"]
         }
         }
         else if (dictTable[textFieldTag]["type"]!) == "btn"

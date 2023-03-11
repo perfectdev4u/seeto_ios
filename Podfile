@@ -7,6 +7,9 @@ target 'Seeto' do
  
 
   # Pods for Seeto
+  pod 'GoogleMaps'
+  pod 'GooglePlacePicker'
+  pod 'GooglePlaces'
   pod 'IQKeyboardManager'
   pod 'SwiftLoader'
   pod 'GoogleSignIn'

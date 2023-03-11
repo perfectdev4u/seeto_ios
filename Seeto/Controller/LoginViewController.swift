@@ -109,6 +109,8 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, 
                 if let dict = dataJson["data"] as? NSDictionary{
                     UserDefaults.standard.set((dict["access_token"] as? String) ?? "", forKey: "accessToken")
                     UserDefaults.standard.set((dict["userType"] as? Int) ?? "", forKey: "userType")
+                    UserDefaults.standard.set(email, forKey: "email")
+
                     DispatchQueue.main.async {
                         if let userType = (dict["userType"] as? Int)
                         {
@@ -131,7 +133,6 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, 
                 else
                 {
                     DispatchQueue.main.async {
-
                       //  self.showToast(message: ()
                   Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
                     }

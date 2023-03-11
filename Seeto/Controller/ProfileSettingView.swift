@@ -15,20 +15,29 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
     var mainDataJson = NSDictionary.init()
     var urlVideo = URL(string: "")
     var videoUrlString = ""
+    var task = URLSessionDataTask.init()
     var langList = [NSDictionary].init()
     var langArray = [] as! [String]
-
+    var sizeItem = CGFloat.init()
     let imagePicker = UIImagePickerController()
 
     @IBOutlet var tblProfileSettings: UITableView!
     var profileUrl = ""
     var firstTime = true
+    let progressView = UIProgressView(progressViewStyle: .default)
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        progressView.frame = CGRect(x: 0, y: 0, width: 200, height: 20)
+        view.addSubview(progressView)
+        progressView.isHidden = true
         imagePicker.delegate = self
+
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+
         getCandidateProfileApi()
     }
     
@@ -125,7 +134,7 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
                       self.dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["firstName"] as! String) + " " +  ((dataJson["data"] as! NSDictionary)["lastName"] as! String)
                       self.dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["dateOfBirth"] as! String)
                       self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as! String)
-                      self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : "Female"
+                      self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "2" ? "Female" : ""
                       self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["currentLocation"] as! String)
                       self.dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["currentPosition"] as! String)
                       self.dictTable[6]["value"] = experienceArray[((dataJson["data"] as! NSDictionary)["experienceLevel"] as? Int) ?? 0]
@@ -227,7 +236,7 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-  
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 :  dictTable.count + 1
     }
@@ -363,7 +372,7 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
     }
    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height:section == 1 ? 80 : .leastNormalMagnitude))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height:section == 1 ? 150 : .leastNormalMagnitude))
         if section == 1
         {
             view.backgroundColor = backGroundColor
@@ -378,16 +387,44 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
             buttonEdit.setImage(UIImage(named: "edit"), for: .normal)
             button.addTarget(self, action: #selector(btnResumePreview), for: .touchUpInside)
             buttonEdit.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
+            let btnLogout = UIButton(frame: CGRect(x: 20, y: 90, width: self.view.frame.width - 40, height: 50))
+            btnLogout.layer.cornerRadius = 10
+            btnLogout.setTitle("Log out", for: .normal)
+            btnLogout.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
+            btnLogout.addTarget(self, action: #selector(logOut), for: .touchUpInside)
+            btnLogout.backgroundColor = blueButtonColor
 
-            
+            view.addSubview(btnLogout)
+
             view.addSubview(button)
             view.addSubview(buttonEdit)
         }
         return view
     }
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return section == 0 ? .leastNormalMagnitude : 80
+    @objc func logOut()
+    {
+        let refreshAlert = UIAlertController(title: "Logout", message: "Are you sure?", preferredStyle: UIAlertController.Style.alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action: UIAlertAction!) in
+            UserDefaults.standard.removeObject(forKey: "accessToken")
+            UserDefaults.standard.removeObject(forKey: "userType")
+            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+            let window = UIApplication.shared.windows.first
+            // Embed loginVC in Navigation Controller and assign the Navigation Controller as windows root
+            let nav = UINavigationController(rootViewController: loginVC!)
+            window?.rootViewController = nav
+        }))
+
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .default, handler: { (action: UIAlertAction!) in
+        }))
+
+        present(refreshAlert, animated: true, completion: nil)
+
     }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return section == 0 ? .leastNormalMagnitude : 150
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0))
@@ -434,6 +471,7 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
                                   return
                               }
                              print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
+                              self.sizeItem = CGFloat(compressedData.length)
                               self.uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: compressedData as Data,url: compressedURL)
 
                           case .failed:
@@ -463,9 +501,9 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
            }
        }
     func uploadVideo(paramName: String, fileName: String, dataVideo: Data,url : URL) {
-        DispatchQueue.main.async {
-            SwiftLoader.show(animated: true)
-        }
+//        DispatchQueue.main.async {
+//            SwiftLoader.show(animated: true)
+//        }
 
         let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
 
@@ -493,7 +531,7 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
 
         // Send a POST request to the URL, with the data we created earlier
-        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+        task = session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
             if error == nil {
                 
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
@@ -515,17 +553,36 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
                       }
                     print(json)
                 }
-                SwiftLoader.hide()
+                self.progressView.isHidden = true
+
+              //  SwiftLoader.hide()
 
             }
             else
             {
                 SwiftLoader.hide()
 
-                print(error?.localizedDescription)
             }
-        }).resume()
+        })
+        task.progress.addObserver(self, forKeyPath: #keyPath(Progress.fractionCompleted), options: .new, context: nil)
+
+        task.resume()
     }
+    
+    // observe progress and update progress view
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == #keyPath(Progress.fractionCompleted) {
+            let uploadedBytes = task.countOfBytesSent
+            let percentageUploaded = Double(uploadedBytes) / Double(sizeItem) * 100
+            let roundedOffValue = Int(percentageUploaded)
+            // update progress view
+            DispatchQueue.main.async {
+                SwiftLoader.show(title: "\(roundedOffValue)%", animated: true)
+            }
+        }
+    }
+
+    
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
         SwiftLoader.show(animated: true)
         let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")

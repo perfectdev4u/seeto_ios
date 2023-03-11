@@ -70,8 +70,12 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
                         }
                         else
                         {
-                            self.searchDetailDelegate.dataFromSearch(data: dictArray)
-                            self.navigationController?.popViewController(animated: true)
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+//                            vc.arraySearch = dictArray
+                            self.navigationController?.pushViewController(vc, animated: true)
+
+//                            self.searchDetailDelegate.dataFromSearch(data: dictArray)
+//                            self.navigationController?.popViewController(animated: true)
                         }
                         
                     }

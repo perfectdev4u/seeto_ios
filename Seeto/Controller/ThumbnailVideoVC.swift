@@ -164,7 +164,8 @@ class ThumbnailVideoVC: UIViewController {
                       }
                       else
                       {
-                          let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                          let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobSearchesVC") as! MyJobSearchesVC
+                          vc.fromHome = true
                           self.navigationController?.pushViewController(vc, animated: true)
                       }
                   }

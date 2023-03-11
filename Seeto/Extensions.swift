@@ -8,7 +8,18 @@
 import Foundation
 import UIKit
 import AVFoundation
-
+extension UISearchBar {
+    func setSearchImage(color: UIColor) {
+        guard let imageView = self.searchTextField.leftView as? UIImageView else { return }
+           imageView.tintColor = color
+           imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+       }
+    public func setTextColor(color: UIColor) {
+        let svs = subviews.flatMap { $0.subviews }
+        guard let tf = (svs.filter { $0 is UITextField }).first as? UITextField else { return }
+        tf.textColor = color
+    }
+}
 extension UIView {
     func setShadowButton()
     {
