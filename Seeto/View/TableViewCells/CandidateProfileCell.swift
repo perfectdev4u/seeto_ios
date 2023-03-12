@@ -9,6 +9,7 @@ import UIKit
 import SkyFloatingLabelTextField
 class CandidateProfileCell: UITableViewCell {
 
+    @IBOutlet var btnPlus: UIButton!
     @IBOutlet var colllV: UICollectionView!
     @IBOutlet var phoneCountryView: UIView!
     @IBOutlet var topImage: NSLayoutConstraint!

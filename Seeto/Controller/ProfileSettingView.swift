@@ -69,7 +69,7 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
                     DispatchQueue.main.async {
 
                       //  self.showToast(message: ()
-               //   Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                        Toast.show(message:(dataJson["title"] as? String) ?? errorMessage , controller: self)
                     }
 
                 }
@@ -91,8 +91,8 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
             "linkedInProfile" : ((mainDataJson["data"] as! NSDictionary)["linkedInProfile"] as! String),
             "experienceLevel" :  ((mainDataJson["data"] as! NSDictionary)["experienceLevel"] as! Int),
             "desiredMonthlyIncome" : ((mainDataJson["data"] as! NSDictionary)["desiredMonthlyIncome"] as! Int),
-            "education" : ((mainDataJson["data"] as! NSDictionary)["education"] as! String),
-            "workExperience" :((mainDataJson["data"] as! NSDictionary)["workExperience"] as! String),
+            "educationList" : ((mainDataJson["data"] as! NSDictionary)["educationList"] as? [NSDictionary]) ?? [NSDictionary].init(),
+            "experienceList" :((mainDataJson["data"] as! NSDictionary)["desiredMonthlyIncome"] as? [NSDictionary]) ?? [NSDictionary].init(),
             "gender" : ((mainDataJson["data"] as! NSDictionary)["gender"] as! Int),
             "disability" : ((mainDataJson["data"] as! NSDictionary)["disability"] as! String),
             "veteranStatus" : ((mainDataJson["data"] as! NSDictionary)["veteranStatus"] as! String),
@@ -132,7 +132,7 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
          print(dataJson)
                       self.mainDataJson = dataJson as NSDictionary
                       self.dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["firstName"] as! String) + " " +  ((dataJson["data"] as! NSDictionary)["lastName"] as! String)
-                      self.dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["dateOfBirth"] as! String)
+                      self.dictTable[1]["value"] = converrDateFormat(string: ((dataJson["data"] as! NSDictionary)["dateOfBirth"] as! String))
                       self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as! String)
                       self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "2" ? "Female" : ""
                       self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["currentLocation"] as! String)
@@ -389,7 +389,7 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
             buttonEdit.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
             let btnLogout = UIButton(frame: CGRect(x: 20, y: 90, width: self.view.frame.width - 40, height: 50))
             btnLogout.layer.cornerRadius = 10
-            btnLogout.setTitle("Log out", for: .normal)
+            btnLogout.setTitle("Logout", for: .normal)
             btnLogout.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
             btnLogout.addTarget(self, action: #selector(logOut), for: .touchUpInside)
             btnLogout.backgroundColor = blueButtonColor
@@ -561,7 +561,7 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
             else
             {
                 SwiftLoader.hide()
-
+                Toast.show(message:error.debugDescription, controller: self)
             }
         })
         task.progress.addObserver(self, forKeyPath: #keyPath(Progress.fractionCompleted), options: .new, context: nil)

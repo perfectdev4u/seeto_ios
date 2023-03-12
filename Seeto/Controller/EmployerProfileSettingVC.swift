@@ -51,7 +51,7 @@ class EmployerProfileSettingVC: UIViewController, UINavigationControllerDelegate
                       self.dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["industry"] as! String)
                       self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["webSite"] as! String)
                       self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as AnyObject))
-                      self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["foundationDate"] as! String)
+                      self.dictTable[4]["value"] = converrDateFormat(string: ((dataJson["data"] as! NSDictionary)["foundationDate"] as! String),monthFormat: true)
                       self.dictTable[5]["value"] = companyArray[((dataJson["data"] as! NSDictionary)["companySize"] as? Int) ?? 0]
 //                      self.profileUrl = ((dataJson["data"] as! NSDictionary)["profileImage"] as! String)
 //                      self.videoUrlString = ((dataJson["data"] as! NSDictionary)["videoUrl"] as! String)
@@ -255,7 +255,7 @@ extension EmployerProfileSettingVC : UITableViewDelegate,UITableViewDataSource
             view.backgroundColor = backGroundColor
             let button = UIButton(frame: CGRect(x: 20, y: 40, width: self.view.frame.width - 40, height: 50))
             button.layer.cornerRadius = 10
-            button.setTitle("Log out", for: .normal)
+            button.setTitle("Logout", for: .normal)
             button.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
             button.addTarget(self, action: #selector(logOut), for: .touchUpInside)
             button.backgroundColor = blueButtonColor

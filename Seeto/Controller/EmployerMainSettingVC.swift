@@ -35,7 +35,7 @@ class EmployerMainSettingVC: UIViewController {
                 {
                   DispatchQueue.main.async {
                       self.mainDict = dataJson["data"] as? NSDictionary ?? [:]
-                      self.dictTable[0]["value"] = self.mainDict["dateOfBirth"] as? String ?? ""
+                      self.dictTable[0]["value"] = converrDateFormat(string: self.mainDict["dateOfBirth"] as? String ?? "")
                       self.dictTable[1]["value"] = self.mainDict["linkedInProfile"] as? String ?? ""
                       self.dictTable[2]["value"] = String(describing: self.mainDict["gender"] as AnyObject) == "2" ? "Female" : "Male"
                       self.dictTable[3]["value"] = self.mainDict["currentLocation"] as? String ?? ""

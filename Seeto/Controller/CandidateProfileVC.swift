@@ -47,6 +47,8 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     let toolbar = UIToolbar();
     var countryCode = "USA"
     var langArray = [] as! [String]
+    var langFluencyArray = [] as! [Int]
+
     @IBOutlet var tblCandidateProfile: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +80,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
       //  + " " +  ((dataJson["data"] as! NSDictionary)["lastName"] as! String)
         dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["firstName"] as? String) ?? ""
         dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["lastName"] as? String) ?? ""
-        dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["dateOfBirth"] as? String) ?? ""
+        dictTable[2]["value"] = converrDateFormat(string: ((dataJson["data"] as! NSDictionary)["dateOfBirth"] as? String) ?? "")
         dictTable[3]["value"] = ((dataJson["data"] as! NSDictionary)["phoneNumber"] as? String) ?? ""
         dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["email"] as? String) ?? ""
         dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as? String) ?? ""
@@ -87,17 +89,58 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         dictTable[8]["value"] = experienceArray[((dataJson["data"] as! NSDictionary)["experienceLevel"] as? Int) ?? 0]
         dictTable[9]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["desiredMonthlyIncome"] as AnyObject))
         dictTable[10]["value"] = ""
-        dictTable[11]["value"] = ((dataJson["data"] as! NSDictionary)["education"] as? String) ?? ""
-        dictTable[12]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["workExperience"] as AnyObject))
-        dictTable[13]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : "Female"
-        dictTable[14]["value"] = ((dataJson["data"] as! NSDictionary)["disability"] as! String)
-        dictTable[15]["value"] = ((dataJson["data"] as! NSDictionary)["veteranStatus"] as! String)
-        dictTable[16]["value"] = ((dataJson["data"] as! NSDictionary)["militaryStatus"] as? String) ?? ""
+//        educationList
+//
+        var count = 1
+        if let array = ((dataJson["data"] as! NSDictionary)["educationList"] as? [NSDictionary])
+        {
+            if array.count > 0
+            {
+                for i in 0...array.count - 1
+                {
+                    if i == 0
+                    {
+                        dictTable[11]["value"] = (array[0]["education"] as? String) ?? ""
+                    }
+                    else
+                    {
+                        count += 1
+                        dictTable[11 + i - 1]["type"] = "text"
+
+                        dictTable.insert(["title":"Education" + " \(i + 1)","type":"btn","required":"false","value":(array[i]["education"] as? String) ?? ""], at: 11 + i)
+                    }
+                }
+            }
+        }
+        if let array = ((dataJson["data"] as! NSDictionary)["experienceList"] as? [NSDictionary])
+        {
+            if array.count > 0
+            {
+                for i in 0...array.count - 1
+                {
+                    if i == 0
+                    {
+                        dictTable[11 + count]["value"] = (array[0]["experience"] as? String) ?? ""
+                    }
+                    else
+                    {
+                        dictTable[11 + count + i - 1]["type"] = "text"
+                        dictTable.insert(["title":"Working Experience" + " \(i + 1)","type":"btn","required":"false","value":(array[i]["experience"] as? String) ?? ""], at: 11 + count + i)
+                    }
+                }
+            }
+        }
+        setValueForTitle(title: "Gender", value: String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : "Female")
+        setValueForTitle(title: "Disabilities", value: ((dataJson["data"] as! NSDictionary)["disability"] as! String))
+        setValueForTitle(title: "Veteran Status", value: ((dataJson["data"] as! NSDictionary)["veteranStatus"] as! String))
+        setValueForTitle(title: "Military Status", value: ((dataJson["data"] as! NSDictionary)["militaryStatus"] as? String) ?? "")
+
         
         langList = ((dataJson["data"] as! NSDictionary)["languageList"] as! [NSDictionary])
         for i in langList
         {
             langArray.append(i["language"] as! String)
+            langFluencyArray.append(i["fluencyLevel"] as! Int)
         }
     }
     
@@ -132,7 +175,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
                     DispatchQueue.main.async {
 
                       //  self.showToast(message: ()
-               //   Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                        Toast.show(message:(dataJson["title"] as? String) ?? errorMessage , controller: self)
                     }
 
                 }
@@ -147,9 +190,10 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     func updateCandidateProfileData() -> [String : Any]
     {
         langList.removeAll()
-        for i in langArray
+        for i in 0...langArray.count - 1
         {
-            langList.append(["language" : i,"fluencyLevel" : 0])
+            langList.append(["language" : langArray[i],"fluencyLevel" : langFluencyArray[i]])
+            
         }
        return [
             "userType" : 2,
@@ -162,11 +206,11 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "email" :  dictTable[5]["value"]!,
             "experienceLevel" :   ExperienceLevel(rawValue: dictTable[9]["value"]!)?.id ?? 0,
             "desiredMonthlyIncome" : dictTable[10]["value"]! == "" ? "0" : dictTable[10]["value"]!,
-            "education" : dictTable[12]["value"]!,
-            "workExperience" : dictTable[13]["value"]!,
-            "gender" : dictTable[13]["value"]! == "" ? nil : dictTable[13]["value"]! == "Male" ? 1 : 2,
-            "disability" : dictTable[15]["value"]!,
-            "veteranStatus" : dictTable[16]["value"]!,
+            "educationList" : getArrayFromTitleEdu(title: "Education",key: "education"),
+            "experienceList" : getArrayFromTitleWork(title: "Working Experience",key: "experience"),
+            "gender" : getValueFromTitle(title: "Gender") == "" ? nil : getValueFromTitle(title: "Gender") == "Male" ? 1 : 2,
+            "disability" : getValueFromTitle(title: "Disabilities"),
+            "veteranStatus" : getValueFromTitle(title: "Veteran Status"),
             "country" : "America",
             "region" : "California",
             "city" : "Cali",
@@ -177,7 +221,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "jobType" : 0,
             "videoUrl": videoUrlString,
             "bio" : "",
-            "militaryStatus":dictTable[17]["value"]!,
+            "militaryStatus":getValueFromTitle(title: "Military Status"),
             "languageList" : langList
         ] as [String : Any]
     }
@@ -187,9 +231,10 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     {
         langList.removeAll()
 
-        for i in langArray
+        for i in 0...langArray.count - 1
         {
-            langList.append(["language" : i,"fluencyLevel" : 0])
+            langList.append(["language" : langArray[i],"fluencyLevel" : langFluencyArray[i]])
+            
         }
        return [
             "userType" : 2,
@@ -201,11 +246,11 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "linkedInProfile" : dictTable[5]["value"]!,
             "experienceLevel" :   ExperienceLevel(rawValue: dictTable[8]["value"]!)?.id ?? 0,
             "desiredMonthlyIncome" : dictTable[9]["value"]! == "" ? "0" : dictTable[9]["value"]!,
-            "education" : dictTable[11]["value"]!,
-            "workExperience" : dictTable[12]["value"]!,
-            "gender" : dictTable[13]["value"]! == "" ? 0 : dictTable[13]["value"]! ==  "Male" ? 1 : 2,
-            "disability" : dictTable[14]["value"]!,
-            "veteranStatus" : dictTable[15]["value"]!,
+            "educationList" : getArrayFromTitleEdu(title: "Education",key: "education"),
+            "experienceList" : getArrayFromTitleWork(title: "Working Experience",key: "experience"),
+            "gender" : getValueFromTitle(title: "Gender") == "" ? nil : getValueFromTitle(title: "Gender") == "Male" ? 1 : 2,
+            "disability" : getValueFromTitle(title: "Disabilities"),
+            "veteranStatus" : getValueFromTitle(title: "Veteran Status"),
             "country" : "America",
             "region" : "California",
             "city" : "Cali",
@@ -215,7 +260,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "currentPosition" : dictTable[7]["value"]!,
             "jobType" : 0,
             "bio" :"",
-            "militaryStatus":dictTable[16]["value"]!,
+            "militaryStatus":getValueFromTitle(title: "Military Status"),
             "languageList" : langList
         ] as [String : Any]
     }
@@ -278,28 +323,32 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
    @objc func cancelDatePicker(){
       self.view.endEditing(true)
     }
+    var indexLang = 0
     @objc func doneClick() {
-        dictTable[textFieldTag]["value"] = pickerArray[index]
+       
+            dictTable[textFieldTag]["value"] = pickerArray[index]
+            pickerViewTf.resignFirstResponder()
+            if updateScreen == true
+            {
+                if textFieldTag == 10
+                {
+                    langArray.append(pickerArray[index])
+                    langFluencyArray.append(indexLang)
+                    tblCandidateProfile.reloadData()
+                    
+                }
+            }
+            else
+            {
+                if textFieldTag == 11
+                {
+                    langArray.append(pickerArray[index])
+                    langFluencyArray.append(indexLang)
+                    tblCandidateProfile.reloadData()
+                    
+                }
+            }
         
-        pickerViewTf.resignFirstResponder()
-        if updateScreen == true
-        {
-            if textFieldTag == 10
-            {
-                langArray.append(pickerArray[index])
-                tblCandidateProfile.reloadData()
-
-            }
-        }
-        else
-        {
-            if textFieldTag == 11
-            {
-                langArray.append(pickerArray[index])
-                tblCandidateProfile.reloadData()
-
-            }
-        }
        
      }
     @objc func cancelClick() {
@@ -496,7 +545,7 @@ extension CandidateProfileVC
             cell.topImage.constant = 30
             
         }
-        else if (dictTable[indexPath.row]["title"]!) == "Education" || (dictTable[indexPath.row]["title"]!) == "Working Experience"
+        else if (dictTable[indexPath.row]["title"]!).contains("Education")  || (dictTable[indexPath.row]["title"]!).contains("Working Experience")
         {
             cell.imgVector.image = UIImage(imageLiteralResourceName: "plus")
             cell.heightImg.constant = 20
@@ -525,6 +574,9 @@ extension CandidateProfileVC
             cell.leadingTf.constant = 27
             cell.phoneCountryView.isHidden = true
         }
+       
+        cell.btnPlus.tag = indexPath.row
+        cell.btnPlus.addTarget(self, action: #selector(btnPlusAct), for: .touchUpInside)
         cell.tfMain.attributedPlaceholder = attributedString
         if (dictTable[indexPath.row]["title"]!) == "Spoken Language"
         {
@@ -544,6 +596,15 @@ extension CandidateProfileVC
         }
         if ((dictTable[indexPath.row]["type"]!) == "btn")
         {
+            if (dictTable[indexPath.row]["title"]!).contains("Education") == true || (dictTable[indexPath.row]["title"]!).contains("Working Experience")
+            {
+                cell.btnPlus.isHidden = false
+            }
+            else
+            {
+                cell.btnPlus.isHidden = true
+                
+            }
             if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture" || (dictTable[indexPath.row]["title"]!) == "Current Location"
             {
                 cell.tfMain.isUserInteractionEnabled = false
@@ -556,6 +617,8 @@ extension CandidateProfileVC
         }
         else
         {
+            cell.btnPlus.isHidden = true
+
             cell.tfMain.isUserInteractionEnabled = true
 
         }
@@ -577,6 +640,37 @@ extension CandidateProfileVC
         cell.tfMain.delegate = self
         cell.selectionStyle = .none
         return cell
+    }
+    @objc func btnPlusAct(_ sender : UIButton)
+    {
+        if (dictTable[sender.tag]["title"]!).contains("Education")
+        {
+            var count = 0
+            for i in dictTable
+            {
+                if (i["title"]!).contains("Education") == true
+                {
+                    count += 1
+                }
+            }
+            (dictTable[sender.tag]["type"]!) = "text"
+            dictTable.insert(["title":"Education" + " \(count + 1)","type":"btn","required":"false","value":""], at: sender.tag + 1)
+            tblCandidateProfile.reloadData()
+        }
+        if (dictTable[sender.tag]["title"]!).contains("Working Experience")
+        {
+            var count = 0
+            for i in dictTable
+            {
+                if (i["title"]!).contains("Working Experience") == true
+                {
+                    count += 1
+                }
+            }
+            (dictTable[sender.tag]["type"]!) = "text"
+            dictTable.insert(["title":"Working Experience" + " \(count + 1)","type":"btn","required":"false","value":""], at: sender.tag + 1)
+            tblCandidateProfile.reloadData()
+        }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (dictTable[indexPath.row]["type"]!) == "btn"
@@ -609,10 +703,16 @@ extension CandidateProfileVC : UIPickerViewDelegate, UIPickerViewDataSource
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray[row] : languageArray[row]   : pickerArray[row]
-        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray[row] : languageArray[row]   : pickerArray[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        index = row
+        if component == 0
+        {
+            index = row
+        }
+        else
+        {
+            indexLang = row
+        }
     }}
 extension CandidateProfileVC : UITextFieldDelegate
 {
@@ -635,7 +735,7 @@ extension CandidateProfileVC : UITextFieldDelegate
             }        }
         else if (dictTable[textFieldTag]["title"]!) == "Spoken Language"
         {
-            pickerArray = ["Eng","Hin"]
+            pickerArray = ["Eng","Hin","Jap","Fre","Spa"]
         }else if (dictTable[textFieldTag]["title"]!) == "Gender"
         {
             pickerArray = ["Male","Female"]
@@ -833,10 +933,8 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
            let urlAsset = AVURLAsset(url: inputURL, options: nil)
            guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPreset960x540) else {
                handler(nil)
-
                return
            }
-
            exportSession.outputURL = outputURL
         exportSession.outputFileType = AVFileType.mov
            exportSession.shouldOptimizeForNetworkUse = true
@@ -937,11 +1035,64 @@ extension CandidateProfileVC: UICollectionViewDelegate, UICollectionViewDataSour
     @objc func btnCross(_ sender : UIButton)
     {
         langArray.remove(at: sender.tag)
+        langFluencyArray.remove(at: sender.tag)
         DispatchQueue.main.async {
             self.tblCandidateProfile.reloadData()
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 80, height: 50)
+    }
+}
+
+extension CandidateProfileVC
+{
+    func getValueFromTitle(title : String) -> String
+    {
+        var value = ""
+        for i in dictTable
+        {
+            if (i["title"]!) == (title)
+            {
+                value = i["value"] ?? ""
+            }
+        }
+        return value
+    }
+    func setValueForTitle(title : String ,value : String)
+    {
+        for i in 0...dictTable.count - 1
+        {
+            if (dictTable[i]["title"]!) == (title)
+            {
+                dictTable[i]["value"] = value
+            }
+        }
+    }
+    func getArrayFromTitleEdu(title : String,key : String) -> [NSDictionary]
+    {
+        var value = [NSDictionary].init()
+        for i in dictTable
+        {
+            if (i["title"]!).contains(title) == true
+            {
+                value.append([key : (i["value"]!)])
+            }
+          
+        }
+        return value
+    }
+    func getArrayFromTitleWork(title : String,key : String) -> [NSDictionary]
+    {
+        var value = [NSDictionary].init()
+        for i in dictTable
+        {
+            if (i["title"]!).contains(title) == true
+            {
+                value.append([key : (i["value"]!)])
+            }
+          
+        }
+        return value
     }
 }

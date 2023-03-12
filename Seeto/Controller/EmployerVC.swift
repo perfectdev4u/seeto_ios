@@ -10,14 +10,14 @@ import AVKit
 import MobileCoreServices
 import SwiftLoader
 class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate{
-    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"true","value":""],["title":"Industry","type":"text","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"true","value":""],["title":"Company Foundation Date","type":"drop","required":"true","value":""],["title":"Company Location","type":"text","required":"true","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
+    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"true","value":""],["title":"Industry","type":"text","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"true","value":""],["title":"Company Foundation Date","type":"btn","required":"false","value":""],["title":"Company Location","type":"text","required":"true","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
     @IBOutlet var lblMain: UILabel!
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
     @IBOutlet var topLbl: NSLayoutConstraint!
     var updateScreen = false
     var dataJson = NSDictionary.init()
-
+    private var selectedDate = MonthYear()
     var urlVideo = URL(string: "")
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
@@ -26,7 +26,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
     var pickerViewTf = UITextField()
     var pickerString = ""
     var textFieldTag = 0
-    var datePicker = UIDatePicker()
+    var datePicker = MonthYearPickerView()
     let toolbar = UIToolbar();
     var countryCode = "USA"
     
@@ -35,7 +35,6 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         super.viewDidLoad()
         tblEmployer.backgroundColor = backGroundColor
         PickerView()
-        showDatePicker()
         imagePicker.delegate = self
         if updateScreen == true
         {
@@ -54,7 +53,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         self.dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["industry"] as! String)
         self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["webSite"] as! String)
         self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as AnyObject))
-        self.dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["foundationDate"] as! String)
+        self.dictTable[4]["value"] = converrDateFormat(string: ((dataJson["data"] as! NSDictionary)["foundationDate"] as! String),monthFormat: true)
         self.dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["companyLocation"] as? String) ?? ""
         self.dictTable[6]["value"] = companyArray[((dataJson["data"] as! NSDictionary)["companySize"] as? Int) ?? 0]
     }
@@ -70,7 +69,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         "linkedInProfile": dictTable[4]["value"]!,
         "foundationDate": dictTable[5]["value"]!,
         "companyLocation" : dictTable[6]["value"]!,
-        "companySize": CompanySize(rawValue: dictTable[7]["value"]!)?.id ?? ""
+        "companySize": CompanySize(rawValue: dictTable[7]["value"]!)?.id ?? nil
         // int company size
         ] as [String : Any]
     }
@@ -85,7 +84,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         "linkedInProfile": dictTable[3]["value"]!,
         "foundationDate": dictTable[4]["value"]!,
         "companyLocation" : dictTable[5]["value"]!,
-        "companySize": CompanySize(rawValue: dictTable[6]["value"]!)?.id ?? ""
+        "companySize": CompanySize(rawValue: dictTable[6]["value"]!)?.id ?? nil
         // int company size
         ] as [String : Any]
     }
@@ -125,10 +124,13 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
                 }
                 else
                 {
-                    DispatchQueue.main.async {
+                    if String(describing: (dataJson["statusCode"] as AnyObject)) == "400"
+                    {
+                        DispatchQueue.main.async {
+                            Toast.show(message:(dataJson["title"] as? String) ?? errorMessage , controller: self)
 
-                      //  self.showToast(message: ()
-                //  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                            //  Toast.show(message:(dataJson["errors"] as! [NSDictionary])[0], controller: self)
+                        }
                     }
 
                 }
@@ -162,35 +164,46 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
        toolBar.isUserInteractionEnabled = true
     }
+    @objc private func showDatePicker() {
+          let minDate = MonthYear()
+          minDate.year -= 100
+        minDate.month -= 100
+          let maxDate = MonthYear()
+          maxDate.year += 100
+        minDate.month += 100
+
+          MonthYearPickerViewController.present(vc: self, minDate: minDate, maxDate: maxDate, selectedDate: selectedDate, onDateSelected: onDateSelected)
+      }
+      
+      private func onDateSelected(month: Int, year: Int) {
+          selectedDate = MonthYear(month: month, year: year)
+          dictTable[textFieldTag]["value"] = formatMonthYear(date: selectedDate)
+          tblEmployer.reloadData()
+      }
+      
+      private func formatMonthYear(date: MonthYear) -> String {
+          return date.month < 10 ? "0\(date.month)-\(date.year)" : "\(date.month)-\(date.year)"
+      }
     
-    func showDatePicker(){
-      //Formate Date
-        datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.datePickerMode = UIDatePicker.Mode.date
-        //ToolBar
-        toolbar.barStyle = .default
-        toolbar.isTranslucent = true
-        toolbar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
-        toolbar.sizeToFit()
+//    func showDatePicker(){
+//      //Formate Date
+//        //ToolBar
+//        toolbar.barStyle = .default
+//        toolbar.isTranslucent = true
+//        toolbar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
+//        toolbar.sizeToFit()
+//
+//     let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
+//        doneButton.tintColor = UIColor.black
+//
+//        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+//    let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
+//        cancelButton.tintColor = UIColor.black
+//
+//   toolbar.setItems([cancelButton,spaceButton,doneButton], animated: false)
+//   }
 
-     let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
-        doneButton.tintColor = UIColor.black
-
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-    let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
-        cancelButton.tintColor = UIColor.black
-
-   toolbar.setItems([cancelButton,spaceButton,doneButton], animated: false)
-   }
-
-    @objc func donedatePicker(){
-
-     let formatter = DateFormatter()
-     formatter.dateFormat = "MM/yyyy"
-     dictTable[textFieldTag]["value"] = formatter.string(from: datePicker.date)
-     self.view.endEditing(true)
-   }
+   
 
    @objc func cancelDatePicker(){
       self.view.endEditing(true)
@@ -415,6 +428,12 @@ extension EmployerVC
             {
                 cameraGallery()
             }
+            if (dictTable[indexPath.row]["title"]!) == "Company Foundation Date"
+            {
+                textFieldTag = indexPath.row
+                showDatePicker()
+            }
+            
         }
     }
 }

@@ -19,7 +19,7 @@ let likeButtonBackGroundColor = UIColor.init(red: 0.145, green:0.212, blue: 0.23
 let googleClientID = "72919610538-rhqe3h7lrovdsb254q3dg9kua4c6o0nm.apps.googleusercontent.com"
 let googleApiKey = "AIzaSyAsJukxWTJLy-q1CD2DJmeDNOCejHp8xuk"
 let baseURL = "http://34.207.158.183/api/v1.0/"
-
+let errorMessage = "Error occurer"
 var experienceArray = ExperienceLevel.allCases.map { $0.rawValue }
 var jobArray = JobType.allCases.map { $0.rawValue }
 var companyArray = CompanySize.allCases.map { $0.rawValue }

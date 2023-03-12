@@ -75,6 +75,11 @@
 		1B7F722A296A081900D74132 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F7229296A081900D74132 /* Extensions.swift */; };
 		1B7F722D296A0D5900D74132 /* MatchedEmployerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F722B296A0D5900D74132 /* MatchedEmployerCell.swift */; };
 		1B7F722E296A0D5900D74132 /* MatchedEmployerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7F722C296A0D5900D74132 /* MatchedEmployerCell.xib */; };
+		1B959DE929BE5E1400598BB3 /* MonthYearModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B959DE829BE5E1400598BB3 /* MonthYearModel.swift */; };
+		1B959DEF29BE614F00598BB3 /* CustomVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B959DEB29BE614E00598BB3 /* CustomVisualEffectView.swift */; };
+		1B959DF029BE614F00598BB3 /* MonthYearPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B959DEC29BE614E00598BB3 /* MonthYearPickerViewController.swift */; };
+		1B959DF129BE614F00598BB3 /* MonthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B959DED29BE614F00598BB3 /* MonthYearPickerView.swift */; };
+		1B959DF229BE614F00598BB3 /* MonthYearPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B959DEE29BE614F00598BB3 /* MonthYearPickerViewController.xib */; };
 		1BCE9B77296DB7DD005E40BB /* ThumbnailVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */; };
 		1BCE9B79296DFC32005E40BB /* ShowImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE9B78296DFC32005E40BB /* ShowImageVC.swift */; };
 		1BCE9B7C297013AC005E40BB /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B7B297013AC005E40BB /* FacebookCore */; };
@@ -178,6 +183,11 @@
 		1B7F7229296A081900D74132 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1B7F722B296A0D5900D74132 /* MatchedEmployerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchedEmployerCell.swift; sourceTree = "<group>"; };
 		1B7F722C296A0D5900D74132 /* MatchedEmployerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatchedEmployerCell.xib; sourceTree = "<group>"; };
+		1B959DE829BE5E1400598BB3 /* MonthYearModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthYearModel.swift; sourceTree = "<group>"; };
+		1B959DEB29BE614E00598BB3 /* CustomVisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomVisualEffectView.swift; sourceTree = "<group>"; };
+		1B959DEC29BE614E00598BB3 /* MonthYearPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYearPickerViewController.swift; sourceTree = "<group>"; };
+		1B959DED29BE614F00598BB3 /* MonthYearPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYearPickerView.swift; sourceTree = "<group>"; };
+		1B959DEE29BE614F00598BB3 /* MonthYearPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonthYearPickerViewController.xib; sourceTree = "<group>"; };
 		1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailVideoVC.swift; sourceTree = "<group>"; };
 		1BCE9B78296DFC32005E40BB /* ShowImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageVC.swift; sourceTree = "<group>"; };
 		1BD66B7029B1C31100C11B9D /* EmployerMatchesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerMatchesModel.swift; sourceTree = "<group>"; };
@@ -266,7 +276,7 @@
 				1B7F720F296949EA00D74132 /* Constants.swift */,
 				1B1D5AFA297077F6006CC084 /* ApiMAnager.swift */,
 				1B7F7229296A081900D74132 /* Extensions.swift */,
-				1B1D5AFC29709374006CC084 /* Helpers.swift */,
+				1B959DE329BE5D4000598BB3 /* Helpers */,
 				1B1D5AF829706737006CC084 /* credentials.plist */,
 				1B7F71FD2966B01E00D74132 /* Controller */,
 				1B7F71FC2966B01300D74132 /* View */,
@@ -302,6 +312,7 @@
 			children = (
 				1B07BD6029AFD11F00F075C9 /* CandidateDataModel.swift */,
 				1BD66B7029B1C31100C11B9D /* EmployerMatchesModel.swift */,
+				1B959DE829BE5E1400598BB3 /* MonthYearModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -379,6 +390,26 @@
 				1B2424D2296B13BE003A363F /* VideoPlayerCell.xib */,
 			);
 			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		1B959DE329BE5D4000598BB3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1B959DEA29BE612900598BB3 /* MonthYearPickerView */,
+				1B1D5AFC29709374006CC084 /* Helpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		1B959DEA29BE612900598BB3 /* MonthYearPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				1B959DEB29BE614E00598BB3 /* CustomVisualEffectView.swift */,
+				1B959DED29BE614F00598BB3 /* MonthYearPickerView.swift */,
+				1B959DEC29BE614E00598BB3 /* MonthYearPickerViewController.swift */,
+				1B959DEE29BE614F00598BB3 /* MonthYearPickerViewController.xib */,
+			);
+			path = MonthYearPickerView;
 			sourceTree = "<group>";
 		};
 		69253F4472D9C00EAA7CCB65 /* Pods */ = {
@@ -538,6 +569,7 @@
 				1B2424D4296B13BE003A363F /* VideoPlayerCell.xib in Resources */,
 				1B7F71D32965EE6100D74132 /* Assets.xcassets in Resources */,
 				1B2DF90E2979D9470073D6A0 /* LikeDislikeBtnCell.xib in Resources */,
+				1B959DF229BE614F00598BB3 /* MonthYearPickerViewController.xib in Resources */,
 				1B2424D9296B2386003A363F /* VideoPlayerCollViewCell.xib in Resources */,
 				1B7F71D12965EE6000D74132 /* Main.storyboard in Resources */,
 				1B7F722E296A0D5900D74132 /* MatchedEmployerCell.xib in Resources */,
@@ -722,12 +754,15 @@
 				1B7F72242969EC1700D74132 /* JobSearchDetailsVC.swift in Sources */,
 				1B2424DB296CA5E0003A363F /* ProfileSettingView.swift in Sources */,
 				1B7F721C2969B01600D74132 /* MyJobSearchesVC.swift in Sources */,
+				1B959DF129BE614F00598BB3 /* MonthYearPickerView.swift in Sources */,
+				1B959DF029BE614F00598BB3 /* MonthYearPickerViewController.swift in Sources */,
 				1B2424D8296B2386003A363F /* VideoPlayerCollViewCell.swift in Sources */,
 				1B7F721229698F1900D74132 /* VideoRecordingVC.swift in Sources */,
 				1B06194A29804F0F00E096C3 /* CandidateSearchDetailVC.swift in Sources */,
 				1B7F71FF2966B0D900D74132 /* PhonenumberScreenVC.swift in Sources */,
 				1B7F72142969A3DF00D74132 /* MyJobDetailVC.swift in Sources */,
 				1B7F71CA2965EE6000D74132 /* AppDelegate.swift in Sources */,
+				1B959DEF29BE614F00598BB3 /* CustomVisualEffectView.swift in Sources */,
 				1B7F72222969BDEB00D74132 /* DeleteSearchVC.swift in Sources */,
 				1B1D5AFB297077F6006CC084 /* ApiMAnager.swift in Sources */,
 				1B7F72172969A58500D74132 /* MyJobDetailCell.swift in Sources */,
@@ -738,6 +773,7 @@
 				1B07BD6129AFD12000F075C9 /* CandidateDataModel.swift in Sources */,
 				1B7F7210296949EA00D74132 /* Constants.swift in Sources */,
 				1B7F722A296A081900D74132 /* Extensions.swift in Sources */,
+				1B959DE929BE5E1400598BB3 /* MonthYearModel.swift in Sources */,
 				1B2DF9122979E3DB0073D6A0 /* SelectResumeVC.swift in Sources */,
 				1B08D5FD296A1C1F00458A46 /* EmployerDetailVC.swift in Sources */,
 				1B59FD2029A1123A002F159A /* AddJobVideo.swift in Sources */,
