@@ -13,6 +13,7 @@ target 'Seeto' do
   pod 'IQKeyboardManager'
   pod 'SwiftLoader'
   pod 'GoogleSignIn'
+  pod 'CountryPickerView'
   pod 'SDWebImage', '~> 4.0'
   pod "SkyFloatingLabelTextField"
   target 'SeetoTests' do

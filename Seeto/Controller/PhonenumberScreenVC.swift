@@ -6,26 +6,30 @@
 //
 
 import UIKit
+import CountryPickerView
 
-class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    
+class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, CountryPickerViewDelegate, CountryPickerViewDataSource{
+   
     @IBOutlet weak var lblLeading: NSLayoutConstraint!
     @IBOutlet weak var lblPhoneNum: UILabel!
+    @IBOutlet var lblCode: UILabel!
+    @IBOutlet var imgFlag: UIImageView!
     
     @IBOutlet weak var underLineViewLeading: NSLayoutConstraint!
     @IBOutlet weak var btnPicker: UIButton!
     @IBOutlet weak var viewUnderline: UIView!
     var index = 0
-    var myPickerView : UIPickerView!
     var email = false
     @IBOutlet var tfCountryCode: UITextField!
     @IBOutlet var tfPhone: UITextField!
     @IBOutlet var btnPhone: UIButton!
     var pickerView : UIPickerView!
     var mobileCode = ["USA","UKR"]
+     var myPickerView: CountryPickerView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
         btnPhone.layer.cornerRadius = 15
         tfPhone.attributedPlaceholder = NSAttributedString(
             string: "Enter your mobile number",
@@ -42,6 +46,8 @@ class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     func setUpEmailView()
     {
+        lblCode.isHidden = true
+        imgFlag.isHidden = true
         lblLeading.constant = 25
         underLineViewLeading.constant = 20
         lblPhoneNum.text = "What's your email Id?"
@@ -59,12 +65,11 @@ class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     func PickerView(){
        // UIPickerView
-       self.myPickerView = UIPickerView(frame:CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216))
+       self.myPickerView = CountryPickerView(frame:CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216))
        self.myPickerView.delegate = self
        self.myPickerView.dataSource = self
        self.myPickerView.backgroundColor = UIColor.white
        tfCountryCode.inputView = self.myPickerView
-
        // ToolBar
        let toolBar = UIToolbar()
        toolBar.barStyle = .default
@@ -85,7 +90,7 @@ class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewD
        tfCountryCode.delegate = self
     }
     @objc func doneClick() {
-        tfCountryCode.text = mobileCode[index] + " ▼"
+        tfCountryCode.text = myPickerView.selectedCountry.name + " ▼"
         tfCountryCode.resignFirstResponder()
      }
     @objc func cancelClick() {
@@ -168,7 +173,8 @@ class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewD
     }
     
     @IBAction func btnActCountryCode(_ sender: UIButton) {
-        PickerView()
+      //  PickerView()
+        myPickerView.showCountriesList(from: self)
     }
 }
 
@@ -191,3 +197,19 @@ extension PhonenumberScreenVC : UITextFieldDelegate
 
 }
 
+extension PhonenumberScreenVC
+{
+    func countryPickerView(_ countryPickerView: CountryPickerView, didSelectCountry country: Country) {
+        self.tfCountryCode.text = country.code + " ▼"
+        self.imgFlag.image = country.flag
+        self.lblCode.text = country.phoneCode
+    }
+    func getWidth(text: String) -> CGFloat
+   {
+       let txtField = UITextField(frame: .zero)
+       txtField.text = text
+       txtField.sizeToFit()
+       return txtField.frame.size.width
+   }
+
+}

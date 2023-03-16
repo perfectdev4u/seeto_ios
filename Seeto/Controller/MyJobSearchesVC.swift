@@ -25,7 +25,10 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
     @IBAction func btnNewSearch(_ sender: UIButton) {
         if fromHome == false
         {
-            self.navigationController?.popViewController(animated: true)
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
+            vc.fromHome = fromHome
+            vc.searchDetailDelegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         else
         {
@@ -41,6 +44,7 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
     @IBOutlet var tblJobSearches: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         btnNewSearch.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
     }
@@ -145,7 +149,10 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
     {
         if fromHome == false
         {
-            self.navigationController?.popViewController(animated: true)
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
+            vc.fromHome = fromHome
+            vc.searchDetailDelegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         else
         {

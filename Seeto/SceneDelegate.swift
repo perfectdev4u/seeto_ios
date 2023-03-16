@@ -36,14 +36,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     }
                     else
                     {
-                        let window = UIWindow(windowScene: windowScene)
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        
-                        let initialViewController = storyboard.instantiateViewController(withIdentifier: "NavHomeScreenVC")
-                        
-                        window.rootViewController =  initialViewController// Your RootViewController in here
-                        self.window = window
-                        window.makeKeyAndVisible()
+                        if userType == 1
+                        {
+                            
+                            let window = UIWindow(windowScene: windowScene)
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            
+                            let initialViewController = storyboard.instantiateViewController(withIdentifier: "NavJobsVC")
+                            
+                            window.rootViewController =  initialViewController// Your RootViewController in here
+                            self.window = window
+                            window.makeKeyAndVisible()
+
+                        }
+                        else
+                        {
+                            let window = UIWindow(windowScene: windowScene)
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            
+                            let initialViewController = storyboard.instantiateViewController(withIdentifier: "NavMyJobSearchesVC")
+                            
+                            window.rootViewController =  initialViewController// Your RootViewController in here
+                            self.window = window
+                            window.makeKeyAndVisible()
+
+                            
+                        }
                     }
 
                     

@@ -10,6 +10,7 @@ import UIKit
 class MyJobSearchesCell: UITableViewCell {
     @IBOutlet var seperatorView: UIView!
     
+    @IBOutlet var btnLike: UIButton!
     @IBOutlet var imgMain: UIImageView!
     @IBOutlet var viewPlay: UIView!
     @IBOutlet var widthPic: NSLayoutConstraint!

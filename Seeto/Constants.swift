@@ -22,6 +22,7 @@ let baseURL = "http://34.207.158.183/api/v1.0/"
 let errorMessage = "Error occurer"
 var experienceArray = ExperienceLevel.allCases.map { $0.rawValue }
 var jobArray = JobType.allCases.map { $0.rawValue }
+var JobLocationArray = JobLocation.allCases.map { $0.rawValue }
 var companyArray = CompanySize.allCases.map { $0.rawValue }
 var languageArray = LanguageLevel.allCases.map { $0.rawValue }
 enum ExperienceLevel: String ,CaseIterable{

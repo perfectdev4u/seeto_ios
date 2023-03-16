@@ -10,6 +10,10 @@ import AVFoundation
 import SwiftLoader
 
 class AddJobVideo: UIViewController {
+    @IBOutlet var sliderMain: UISlider!
+    @IBOutlet var imgMain: UIImageView!
+    @IBOutlet var collView: UICollectionView!
+
     @IBOutlet var viewMain: UIView!
     var urlVideo = URL.init(string: "")
     @IBOutlet var btnCheck: UIButton!
@@ -26,45 +30,136 @@ class AddJobVideo: UIViewController {
     var updateVideo = false
     var dictParam = [:] as [String : Any]
     var jobDelegate : JobDelegate!
+    var asset: AVAsset?
+    var playerItem: AVPlayerItem?
+    var player: AVPlayer?
+    var imageGenerator: AVAssetImageGenerator?
+    var images = [UIImage]()
+    var timer: Timer?
+    let scrollView = UIScrollView()
+    var imageViews = [UIImageView]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         btnCheck.layer.cornerRadius = btnCheck.frame.height / 2
         btnDone.layer.cornerRadius = 12
+        collView.backgroundColor = .clear
+        collView.showsHorizontalScrollIndicator = false
+        collView.contentInsetAdjustmentBehavior = .never
+        collView.delegate = self
+        collView.dataSource = self
+        collView.layer.cornerRadius = 8
+        collView.layer.borderWidth = 2
+        collView.layer.borderColor = blueButtonColor.cgColor
         if let url = urlVideo
         {
-            avPlayer = AVPlayer(url: url)
-            playerViewAV.player = avPlayer
-            playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height:viewMain.frame.height)
-            btnPlayPause.frame = CGRect(x: ((screenSize.width - 20) / 2) - 40, y: ((viewMain.frame.height) / 2) - 40, width: 80, height: 80)
-            btnPlayPause.layer.cornerRadius = btnPlayPause.frame.height / 2
-            btnPlayPause.setImage(UIImage(named: "pause"), for: .normal)
-            btnPlayPause.setShadowButton()
-            btnPlayPause.addTarget(self, action: #selector(playPauseBtn), for: .touchUpInside)
-            
-            btnBackward.frame = CGRect(x: 15, y: ((viewMain.frame.height) / 2) - 40, width: 80, height: 80)
-            btnBackward.layer.cornerRadius = btnPlayPause.frame.height / 2
-            btnBackward.setImage(UIImage(named: "backward"), for: .normal)
-            btnBackward.addTarget(self, action: #selector(btnBackwardAction), for: .touchUpInside)
+            asset = AVAsset(url: url)
+            // Set the frame and content mode of the image view
+            scrollView.frame = CGRect(x: 10, y: 100, width: view.bounds.width - 20, height: 70)
+            scrollView.showsHorizontalScrollIndicator = false
+            scrollView.contentInsetAdjustmentBehavior = .never
+            view.addSubview(scrollView)
+        // Create the player item and player
+        playerItem = AVPlayerItem(asset: asset!)
+        player = AVPlayer(playerItem: playerItem!)
+        
+        // Create the image generator
+        imageGenerator = AVAssetImageGenerator(asset: asset!)
+        imageGenerator?.appliesPreferredTrackTransform = true
+        
+        // Generate the thumbnail images at 1 second intervals
+        let durationSeconds = CMTimeGetSeconds(asset!.duration)
+            print("Duration: \(durationSeconds) seconds")
 
-            btnForward.frame = CGRect(x: ((screenSize.width - 10)) - 100, y: ((viewMain.frame.height) / 2) - 40, width: 80, height: 80)
-            btnForward.layer.cornerRadius = btnPlayPause.frame.height / 2
-            btnForward.setImage(UIImage(named: "forward"), for: .normal)
-            btnForward.addTarget(self, action: #selector(btnForwardAction), for: .touchUpInside)
+        let intervalSeconds = 1.0
+        var time = CMTime.zero
+        while (CMTimeGetSeconds(time) < durationSeconds) {
+            print("Time: \(CMTimeGetSeconds(time)) seconds")
 
-            playerViewAV.videoGravity = AVLayerVideoGravity.resize
-            viewMain.layer.addSublayer(playerViewAV)
-          //  viewMain.layer.cornerRadius = 40
-            viewMain.addSubview(btnPlayPause)
-            viewMain.addSubview(btnBackward)
-            viewMain.addSubview(btnForward)
-            playerViewAV.player?.play()
-
-            NotificationCenter.default.addObserver(self, selector: #selector(ThumbnailVideoVC.didfinishplaying),name:NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerViewAV.player?.currentItem)
+            if let image = generateThumbnailImage(time: time) {
+                images.append(image)
+            }
+            time = CMTimeMakeWithSeconds(CMTimeGetSeconds(time) + intervalSeconds, preferredTimescale: 1000)
         }
+            for image in images {
+                      let imageView = UIImageView(image: image)
+                      imageView.contentMode = .scaleAspectFit
+                      scrollView.addSubview(imageView)
+                      imageViews.append(imageView)
+                  }
+            for i in 0..<imageViews.count {
+                       imageViews[i].translatesAutoresizingMaskIntoConstraints = false
+                       imageViews[i].topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+                       imageViews[i].bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+                       imageViews[i].widthAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+                       if i == 0 {
+                           imageViews[i].leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+                       } else {
+                           imageViews[i].leadingAnchor.constraint(equalTo: imageViews[i-1].trailingAnchor).isActive = true
+                       }
+                       if i == imageViews.count - 1 {
+                           imageViews[i].trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+                       }
+                   }
+        // Configure the image slider
+       sliderMain.maximumValue = Float(images.count - 1)
+            sliderMain.value = 0
+        imgMain.image = images[0]
+            print("Number of images: \(images.count)")
+            DispatchQueue.main.async {
+                self.collView.reloadData()
+
+            }
+                }
+
+      //  if let url = urlVideo
+//        {
+//            avPlayer = AVPlayer(url: url)
+//            playerViewAV.player = avPlayer
+//            playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height:viewMain.frame.height)
+//            btnPlayPause.frame = CGRect(x: ((screenSize.width - 20) / 2) - 40, y: ((viewMain.frame.height) / 2) - 40, width: 80, height: 80)
+//            btnPlayPause.layer.cornerRadius = btnPlayPause.frame.height / 2
+//            btnPlayPause.setImage(UIImage(named: "pause"), for: .normal)
+//            btnPlayPause.setShadowButton()
+//            btnPlayPause.addTarget(self, action: #selector(playPauseBtn), for: .touchUpInside)
+//
+//            btnBackward.frame = CGRect(x: 15, y: ((viewMain.frame.height) / 2) - 40, width: 80, height: 80)
+//            btnBackward.layer.cornerRadius = btnPlayPause.frame.height / 2
+//            btnBackward.setImage(UIImage(named: "backward"), for: .normal)
+//            btnBackward.addTarget(self, action: #selector(btnBackwardAction), for: .touchUpInside)
+//
+//            btnForward.frame = CGRect(x: ((screenSize.width - 10)) - 100, y: ((viewMain.frame.height) / 2) - 40, width: 80, height: 80)
+//            btnForward.layer.cornerRadius = btnPlayPause.frame.height / 2
+//            btnForward.setImage(UIImage(named: "forward"), for: .normal)
+//            btnForward.addTarget(self, action: #selector(btnForwardAction), for: .touchUpInside)
+//
+//            playerViewAV.videoGravity = AVLayerVideoGravity.resize
+//            viewMain.layer.addSublayer(playerViewAV)
+//          //  viewMain.layer.cornerRadius = 40
+//            viewMain.addSubview(btnPlayPause)
+//            viewMain.addSubview(btnBackward)
+//            viewMain.addSubview(btnForward)
+//            playerViewAV.player?.play()
+//
+//            NotificationCenter.default.addObserver(self, selector: #selector(ThumbnailVideoVC.didfinishplaying),name:NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerViewAV.player?.currentItem)
+//        }
         // Do any additional setup after loading the view.
     }
-    
+    func generateThumbnailImage(time: CMTime) -> UIImage? {
+        do {
+            let imageGenerator = AVAssetImageGenerator(asset: asset!)
+            imageGenerator.appliesPreferredTrackTransform = true
+            imageGenerator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: 15)
+            imageGenerator.requestedTimeToleranceAfter = CMTimeMake(value: 1, timescale: 15)
+
+            let cgImage = try imageGenerator.copyCGImage(at: time, actualTime: nil)
+            print(cgImage) // print the CGImage to see if it's the same image
+            return UIImage(cgImage: cgImage)
+        } catch let error as NSError {
+            print("Error generating thumbnail: \(error)")
+            return nil
+        }
+    }
     @IBAction func btnFbAct(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
         self.navigationController?.pushViewController(vc, animated: true)
@@ -258,8 +353,10 @@ class AddJobVideo: UIViewController {
         SwiftLoader.show(animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1)
         {
-            self.screenshot()
+            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: self.imgMain.image!.resizeWithPercent(percentage: 0.5)!)
+
         }
+
     }
     
     @objc func btnForwardAction(_ sender: UIButton) {
@@ -288,4 +385,38 @@ class AddJobVideo: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func sliderValueChanged(_ sender: Any) {
+        let selectedIndex = Int(sliderMain.value)
+        print(selectedIndex)
+        imgMain.image = images[selectedIndex]
+        let offset = CGPoint(x: CGFloat(sliderMain.value) * scrollView.contentSize.width / CGFloat(images.count - 1), y: 0)
+        scrollView.setContentOffset(offset, animated: true)
+
+    }
+}
+
+extension AddJobVideo : UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource
+{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+        let imageView = UIImageView(image: images[indexPath.row])
+        imageView.contentMode = .scaleAspectFill
+        imageView.frame = CGRect(x: 0, y: 0, width: (screenSize.width - CGFloat(20)) / CGFloat(images.count), height: collectionView.frame.height)
+        cell.contentView.addSubview(imageView)
+        cell.backgroundColor = .red
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: ((screenSize.width - CGFloat(20)) / CGFloat(images.count)) , height: collectionView.frame.height)
+    }
 }

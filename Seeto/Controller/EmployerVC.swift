@@ -124,14 +124,13 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
                 }
                 else
                 {
-                    if String(describing: (dataJson["statusCode"] as AnyObject)) == "400"
-                    {
+                  
                         DispatchQueue.main.async {
                             Toast.show(message:(dataJson["title"] as? String) ?? errorMessage , controller: self)
 
                             //  Toast.show(message:(dataJson["errors"] as! [NSDictionary])[0], controller: self)
                         }
-                    }
+                    
 
                 }
                 

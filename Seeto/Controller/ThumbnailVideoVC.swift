@@ -155,8 +155,8 @@ class ThumbnailVideoVC: UIViewController {
             vc.image = imgThumbnail.image!
             self.present(vc, animated: true)
         }
-        
     }
+    
     @objc func didfinishplaying()
     {
         print("Finished")
@@ -255,7 +255,7 @@ class ThumbnailVideoVC: UIViewController {
                     DispatchQueue.main.async {
 
                       //  self.showToast(message: ()
-                  Toast.show(message:"Erro", controller: self)
+                        Toast.show(message:(dataJson["title"] as? String) ?? errorMessage , controller: self)
                     }
 
                 }

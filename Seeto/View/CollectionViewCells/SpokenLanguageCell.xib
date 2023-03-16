@@ -21,9 +21,8 @@
                         <rect key="frame" x="0.0" y="10" width="70" height="30"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eng" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIw-8q-qD2">
-                                <rect key="frame" x="14" y="5" width="25" height="20.333333333333332"/>
+                                <rect key="frame" x="14.000000000000002" y="5" width="21.666666666666671" height="20.333333333333332"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="Abu-wy-Gne"/>
                                     <constraint firstAttribute="height" constant="20.329999999999998" id="tBc-xk-tSU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -31,7 +30,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOJ-y5-yR3">
-                                <rect key="frame" x="44" y="5" width="20" height="20"/>
+                                <rect key="frame" x="40.666666666666664" y="5" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="O6o-Gw-B77"/>
                                     <constraint firstAttribute="width" constant="20" id="g6f-AG-tka"/>
@@ -40,7 +39,7 @@
                                 <buttonConfiguration key="configuration" style="plain"/>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crosswhite" translatesAutoresizingMaskIntoConstraints="NO" id="TGs-aV-ZnB">
-                                <rect key="frame" x="50.666666666666664" y="11.666666666666668" width="7" height="7"/>
+                                <rect key="frame" x="47.333333333333336" y="11.666666666666668" width="7" height="7"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="7" id="QwX-vE-hyz"/>
                                     <constraint firstAttribute="width" constant="7" id="UQw-hs-zn9"/>
@@ -55,8 +54,8 @@
                             <constraint firstItem="TGs-aV-ZnB" firstAttribute="centerX" secondItem="vOJ-y5-yR3" secondAttribute="centerX" id="cWw-6W-luE"/>
                             <constraint firstItem="zIw-8q-qD2" firstAttribute="centerY" secondItem="khx-oD-iaI" secondAttribute="centerY" id="cdy-Hi-evo"/>
                             <constraint firstItem="zIw-8q-qD2" firstAttribute="leading" secondItem="khx-oD-iaI" secondAttribute="leading" constant="14" id="eW8-QW-yxo"/>
-                            <constraint firstAttribute="width" constant="70" id="sda-Ky-Ug4"/>
                             <constraint firstItem="TGs-aV-ZnB" firstAttribute="centerY" secondItem="vOJ-y5-yR3" secondAttribute="centerY" id="sqc-PO-iEW"/>
+                            <constraint firstAttribute="trailing" secondItem="vOJ-y5-yR3" secondAttribute="trailing" constant="9.3300000000000001" id="uvO-F1-dXz"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -91,6 +91,15 @@
                                     <constraint firstAttribute="trailing" secondItem="L5Q-rd-8hc" secondAttribute="trailing" id="wt7-Yh-QqQ"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2tR-wQ-STV">
+                                <rect key="frame" x="240" y="20.666666666666671" width="60" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="I9c-Y6-VfQ"/>
+                                    <constraint firstAttribute="width" constant="60" id="qEC-bq-Cb2"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
@@ -101,11 +110,13 @@
                             <constraint firstItem="leS-77-Vb2" firstAttribute="leading" secondItem="a5N-ZX-SAD" secondAttribute="leading" constant="25" id="InO-bl-Nsa"/>
                             <constraint firstItem="rU9-JW-meA" firstAttribute="top" secondItem="leS-77-Vb2" secondAttribute="bottom" constant="-22" id="JYF-Rx-C18"/>
                             <constraint firstItem="ve2-1Z-gzU" firstAttribute="leading" secondItem="IPo-82-2bH" secondAttribute="trailing" id="NEL-UR-kvG"/>
+                            <constraint firstItem="2tR-wQ-STV" firstAttribute="centerY" secondItem="IPo-82-2bH" secondAttribute="centerY" id="Q8W-WQ-9XI"/>
                             <constraint firstItem="IPo-82-2bH" firstAttribute="centerY" secondItem="a5N-ZX-SAD" secondAttribute="centerY" id="ZF6-ui-Ebp"/>
                             <constraint firstItem="IPo-82-2bH" firstAttribute="leading" secondItem="PhI-dg-FHq" secondAttribute="trailing" constant="8" symbolic="YES" id="hfQ-Tf-w36"/>
                             <constraint firstItem="PhI-dg-FHq" firstAttribute="leading" secondItem="leS-77-Vb2" secondAttribute="trailing" constant="20" id="iCM-3p-0AN"/>
                             <constraint firstItem="Rvs-TN-mko" firstAttribute="leading" secondItem="leS-77-Vb2" secondAttribute="trailing" constant="20" id="lBV-xv-8Hb"/>
                             <constraint firstItem="rU9-JW-meA" firstAttribute="leading" secondItem="leS-77-Vb2" secondAttribute="trailing" constant="-18" id="m7H-cK-KdC"/>
+                            <constraint firstAttribute="trailing" secondItem="2tR-wQ-STV" secondAttribute="trailing" constant="20" symbolic="YES" id="mGT-K7-qcp"/>
                             <constraint firstItem="PhI-dg-FHq" firstAttribute="top" secondItem="a5N-ZX-SAD" secondAttribute="top" constant="15" id="oma-Wx-4fk"/>
                             <constraint firstAttribute="bottom" secondItem="jV9-0n-qGD" secondAttribute="bottom" id="pNo-pt-fSd"/>
                             <constraint firstItem="jV9-0n-qGD" firstAttribute="top" secondItem="Rvs-TN-mko" secondAttribute="bottom" constant="16" id="skN-4b-QqM"/>
@@ -124,6 +135,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnLike" destination="2tR-wQ-STV" id="nAu-T9-YUf"/>
                 <outlet property="btnPlayVideo" destination="L5Q-rd-8hc" id="mHJ-Q4-E05"/>
                 <outlet property="heightPic" destination="qRk-aq-iqU" id="dGN-D1-2dB"/>
                 <outlet property="imgMain" destination="leS-77-Vb2" id="9oF-X1-4Ju"/>

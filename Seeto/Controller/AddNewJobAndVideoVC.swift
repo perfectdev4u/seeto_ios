@@ -19,6 +19,10 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
         }
         
     }
+    var task = URLSessionDataTask.init()
+
+    var sizeItem = CGFloat.init()
+
     var jobDelegate : JobDelegate!
     var videoUrlString = ""
     @IBOutlet var tblJob: UITableView!
@@ -310,50 +314,47 @@ extension AddNewJobAndVideoVC : UITextFieldDelegate
 {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textFieldTag = textField.tag
+        
         if (dictTable[textFieldTag]["type"]!) == "drop"
         {
-         
+
       
         if (dictTable[textFieldTag]["title"]!) == "Experience Level"
         {
-            DispatchQueue.main.async { [self] in
-                pickerArray = ExperienceLevel.allCases.map { $0.rawValue }
+                pickerArray = ["Not Selected","Entry Level","Internship","Associate","Mid Senior","Director","Executive"]
 
-            }        }
+    }
         else if (dictTable[textFieldTag]["title"]!) == "Job Type"
         {
-            DispatchQueue.main.async { [self] in
                 
-                pickerArray = JobType.allCases.map { $0.rawValue }
-            }        }
+                pickerArray = ["Not Selected","Full Time","Part Time","Contract","Temporary","Volunteer","Internship","Other"]
+                   }
         else if (dictTable[textFieldTag]["title"]!) == "On-Site/Remote"
         {
-            DispatchQueue.main.async { [self] in
                 
-                pickerArray = JobLocation.allCases.map { $0.rawValue }
-            }
+                pickerArray = ["Not Selected","On-Site","Remote","Hybrid"]
+            
             
         }
             else if (dictTable[textFieldTag]["title"]!) == "Location"
         {
-                DispatchQueue.main.async { [self] in
                     
                     pickerArray = ["Mohali","Noida"]
-                }
+                
         }
             else if (dictTable[textFieldTag]["title"]!) == "Salary Range"
             {
-                DispatchQueue.main.async { [self] in
                     
                     pickerArray = ["50000 - 100000","100000 - 200000"]
-                }
+                
             }
-            
             pickerViewTf = textField
             textField.inputView = myPickerView
             textField.inputAccessoryView = toolBar
             index = 0
+            myPickerView.reloadAllComponents()
             self.myPickerView.selectRow(0, inComponent: 0, animated: false)
+
 
         }
         
@@ -434,8 +435,12 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
                           guard let compressedData = NSData(contentsOf: compressedURL) else {
                               return
                           }
-                         print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
-                          self.uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: compressedData as Data,url: compressedURL)
+                          self.sizeItem = CGFloat(compressedData.length)
+//                          DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+//                          {
+                              print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
+                              self.uploadVideo(paramName: "file", fileName: "ProfileVideo.mp4", dataVideo: compressedData as Data,url: compressedURL)
+                      //    }
 
                       case .failed:
                           break
@@ -443,11 +448,11 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
                           break
                       }
                   }
-
+        // Handle a movie capture
+      
     }
     func uploadVideo(paramName: String, fileName: String, dataVideo: Data,url : URL) {
-        SwiftLoader.show(animated: true)
-
+        
         let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
 
         // generate boundary string using a unique per-app string
@@ -474,16 +479,17 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
 
         // Send a POST request to the URL, with the data we created earlier
-        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+        self.task = session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
             if error == nil {
                 
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
                 if let json = jsonData as? [String: Any] {
                     if let dict = json["data"] as? NSDictionary{
-                        SwiftLoader.hide()
-
-                        self.videoUrlString = (dict["url"] as? String) ?? ""
                         DispatchQueue.main.async {
+                            SwiftLoader.hide()
+
+                            self.videoUrlString = (dict["url"] as? String) ?? ""
+
                             UISaveVideoAtPathToSavedPhotosAlbum(
                                 url!.path,
                                 self,
@@ -503,7 +509,22 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
 
                 print(error?.localizedDescription)
             }
-        }).resume()
+        })
+        task.progress.addObserver(self, forKeyPath: #keyPath(Progress.fractionCompleted), options: .new, context: nil)
+
+        task.resume()
+    }
+    // observe progress and update progress view
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == #keyPath(Progress.fractionCompleted) {
+            let uploadedBytes = task.countOfBytesSent
+            let percentageUploaded = Double(uploadedBytes) / Double(sizeItem) * 100
+            let roundedOffValue = Int(percentageUploaded)
+            // update progress view
+            DispatchQueue.main.async {
+                SwiftLoader.show(title: "\(roundedOffValue)%", animated: true)
+            }
+        }
     }
     func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
            let urlAsset = AVURLAsset(url: inputURL, options: nil)

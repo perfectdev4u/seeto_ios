@@ -9,8 +9,10 @@ import UIKit
 import AVKit
 import MobileCoreServices
 import SwiftLoader
+import CountryPickerView
+class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchAddressProtocol, CountryPickerViewDelegate, CountryPickerViewDataSource{
 
-class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchAddressProtocol{
+    var flagImage = UIImage(named: "usa")
     func adressMap(address: String) {
         for i in 0...dictTable.count - 1
         {
@@ -21,7 +23,8 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         tblCandidateProfile.reloadData()
     }
-    
+    var countryPickerView: CountryPickerView!
+
     @IBOutlet var topLbl: NSLayoutConstraint!
     @IBOutlet var lblMain: UILabel!
     let imagePicker = UIImagePickerController()
@@ -64,8 +67,18 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         {
             setUpUpdateScreen()
         }
+        setCountryPickerView()
         // Do any additional setup after loading the view.
     }
+    func setCountryPickerView(){
+       // UIPickerView
+       self.countryPickerView = CountryPickerView(frame:CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216))
+       self.countryPickerView.delegate = self
+       self.countryPickerView.dataSource = self
+       self.countryPickerView.backgroundColor = UIColor.white
+       // ToolBar
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.isNavigationBarHidden = true
@@ -190,10 +203,13 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     func updateCandidateProfileData() -> [String : Any]
     {
         langList.removeAll()
-        for i in 0...langArray.count - 1
+        if langArray.count > 0
         {
-            langList.append(["language" : langArray[i],"fluencyLevel" : langFluencyArray[i]])
-            
+            for i in 0...langArray.count - 1
+            {
+                langList.append(["language" : langArray[i],"fluencyLevel" : langFluencyArray[i]])
+                
+            }
         }
        return [
             "userType" : 2,
@@ -230,11 +246,13 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     func updateCandidateDict() -> [String : Any]
     {
         langList.removeAll()
-
-        for i in 0...langArray.count - 1
+        if langArray.count > 0
         {
-            langList.append(["language" : langArray[i],"fluencyLevel" : langFluencyArray[i]])
-            
+            for i in 0...langArray.count - 1
+            {
+                langList.append(["language" : langArray[i],"fluencyLevel" : langFluencyArray[i]])
+                
+            }
         }
        return [
             "userType" : 2,
@@ -315,7 +333,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     @objc func donedatePicker(){
 
      let formatter = DateFormatter()
-     formatter.dateFormat = "dd/MM/yyyy"
+     formatter.dateFormat = "dd-MM-yyyy"
      dictTable[textFieldTag]["value"] = formatter.string(from: datePicker.date)
      self.view.endEditing(true)
    }
@@ -487,17 +505,19 @@ extension CandidateProfileVC
     }
     @objc func btnShowNumberPicker(_ sender : UIButton)
     {
-        let alert = UIAlertController(title: "", message: "Select Country Code", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "United States", style: .default, handler: { action in
-            self.countryCode = "USA"
-            self.tblCandidateProfile.reloadData()
-        }))
-        alert.addAction(UIAlertAction(title: "Ukraine", style: .default, handler: { action in
-            self.countryCode = "Ukraine"
-            self.tblCandidateProfile.reloadData()
+        countryPickerView.showCountriesList(from: self)
 
-        }))
-        self.present(alert, animated: true, completion: nil)
+//        let alert = UIAlertController(title: "", message: "Select Country Code", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "United States", style: .default, handler: { action in
+//            self.countryCode = "USA"
+//            self.tblCandidateProfile.reloadData()
+//        }))
+//        alert.addAction(UIAlertAction(title: "Ukraine", style: .default, handler: { action in
+//            self.countryCode = "Ukraine"
+//            self.tblCandidateProfile.reloadData()
+//
+//        }))
+//        self.present(alert, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -553,6 +573,14 @@ extension CandidateProfileVC
             cell.topImage.constant = 30
             
         }
+        else if (dictTable[indexPath.row]["title"]!).contains("Current Location")
+        {
+            cell.imgVector.image = UIImage(named: "")
+            cell.heightImg.constant = 20
+            cell.widthImg.constant = 15
+            cell.topImage.constant = 30
+            
+        }
         else
         {
             cell.imgVector.image = UIImage(imageLiteralResourceName: "Vector")
@@ -561,10 +589,10 @@ extension CandidateProfileVC
             cell.topImage.constant = 30
 
         }
-        if (dictTable[indexPath.row]["title"]!) == "+1 0000000000"
+        if (dictTable[indexPath.row]["title"]!).contains("0000000000")
         {
             cell.leadingTf.constant = 100
-            cell.flagPicView.image = countryCode == "USA" ? UIImage(named: "usa") : UIImage(named: "ukr")
+            cell.flagPicView.image =  flagImage
             cell.phoneCountryView.isHidden = false
             cell.btnSelectCountryView.tag = indexPath.row
             cell.btnSelectCountryView.addTarget(self, action: #selector(btnShowNumberPicker), for: .touchUpInside)
@@ -735,7 +763,7 @@ extension CandidateProfileVC : UITextFieldDelegate
             }        }
         else if (dictTable[textFieldTag]["title"]!) == "Spoken Language"
         {
-            pickerArray = ["Eng","Hin","Jap","Fre","Spa"]
+            pickerArray = ["English","Russian","Ukranian"]
         }else if (dictTable[textFieldTag]["title"]!) == "Gender"
         {
             pickerArray = ["Male","Female"]
@@ -1041,7 +1069,8 @@ extension CandidateProfileVC: UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 80, height: 50)
+        
+        return CGSize(width:  langArray[indexPath.row].size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12,weight: .regular)]).width + 60, height: 50)
     }
 }
 
@@ -1094,5 +1123,21 @@ extension CandidateProfileVC
           
         }
         return value
+    }
+}
+
+extension CandidateProfileVC
+{
+    func countryPickerView(_ countryPickerView: CountryPickerView, didSelectCountry country: Country) {
+//        self.tfCountryCode.text = country.code + " ▼"
+        flagImage = country.flag
+        for index in 0...dictTable.count - 1
+        {
+           if (dictTable[index]["title"]!).contains("0000000000")
+            {
+               dictTable[index]["title"] = country.phoneCode + " 0000000000"
+           }
+        }
+        tblCandidateProfile.reloadData()
     }
 }

@@ -19,6 +19,8 @@ class JobsVC: UIViewController,JobDelegate {
     @IBOutlet var btnJob: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
+
         btnJob.layer.cornerRadius = 10
         self.oopsView.isHidden = true
         self.tblJob.isHidden = true
@@ -114,6 +116,8 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
         cell.lblLikes.text = String(describing:  mainArray[indexPath.row]["matchCount"] as AnyObject)
         cell.btnPlayVideo.tag = indexPath.row
         cell.btnPlayVideo.addTarget(self, action: #selector(playVideo), for: .touchUpInside)
+        cell.btnLike.tag = indexPath.row
+        cell.btnLike.addTarget(self, action:  #selector(btnLikeAct), for: .touchUpInside)
         if indexPath.row == (tableView.numberOfRows(inSection: 0) - 1)
         {
             cell.seperatorView.isHidden = true
@@ -127,6 +131,13 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
 
     }
     //MARK:-
+    @objc func btnLikeAct(_ sender : UIButton)
+    {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "CandidateSearchDetailVC") as! CandidateSearchDetailVC
+        vc.jobId = self.mainArray[sender.tag]["jobId"] as? Int ?? -1
+                self.navigationController?.pushViewController(vc, animated: true)
+
+    }
     @objc func playVideo(_ sender : UIButton)
     {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResumeVideoPreviewVC") as! ResumeVideoPreviewVC
@@ -154,10 +165,9 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "CandidateSearchDetailVC") as! CandidateSearchDetailVC
-        vc.jobId = self.mainArray[indexPath.row]["jobId"] as? Int ?? -1
-        self.navigationController?.pushViewController(vc, animated: true)
-  
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                self.navigationController?.pushViewController(vc, animated: true)
+
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 70))

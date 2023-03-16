@@ -17,6 +17,7 @@ class HomeScreenVC: UIViewController {
    // var videoUrlArray = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //collViewVideos.layer.cornerRadius = 40
         collViewVideos.delegate = self
         collViewVideos.dataSource = self

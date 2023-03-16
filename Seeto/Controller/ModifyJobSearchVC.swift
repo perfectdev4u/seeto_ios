@@ -121,9 +121,13 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
                        
                         if self.fromHome == false
                         {
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobSearchesVC") as! MyJobSearchesVC
-                            vc.arraySearch = dictArray
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+//                            vc.arraySearch = dictArray
                             self.navigationController?.pushViewController(vc, animated: true)
+
+//                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobSearchesVC") as! MyJobSearchesVC
+//                            vc.arraySearch = dictArray
+//                            self.navigationController?.pushViewController(vc, animated: true)
                         }
                         else
                         {
@@ -303,37 +307,32 @@ extension ModifyJobSearchVC : UITextFieldDelegate
         if (dictTable[textFieldTag]["title"]!) == "Experience Level"
         {
 
-            DispatchQueue.main.async { [self] in
-                pickerArray = ExperienceLevel.allCases.map { $0.rawValue }
+                pickerArray = ["Not Selected","Entry Level","Internship","Associate","Mid Senior","Director","Executive"]
 
-            }
+            
         }
         else if (dictTable[textFieldTag]["title"]!) == "Job Type"
         {
-            DispatchQueue.main.async { [self] in
                 
-                pickerArray = JobType.allCases.map { $0.rawValue }
-            }
+                pickerArray = ["Not Selected","Full Time","Part Time","Contract","Temporary","Volunteer","Internship","Other"]
+            
         }
         else if (dictTable[textFieldTag]["title"]!) == "On-Site/Remote"
         {
-            DispatchQueue.main.async { [self] in
                 
-                pickerArray = JobLocation.allCases.map { $0.rawValue }
-            }
+                pickerArray = ["Not Selected","On-Site","Remote","Hybrid"]
+            
         }else if (dictTable[textFieldTag]["title"]!) == "Location"
         {
-            DispatchQueue.main.async { [self] in
                 
                 pickerArray = ["Mohali","Noida"]
-            }
+            
         }
             else if (dictTable[textFieldTag]["title"]!) == "Industry"
             {
-                DispatchQueue.main.async { [self] in
                     
                     pickerArray = ["Intel","Mechanical"]
-                }
+                
             }
             pickerViewTf = textField
             textField.inputView = myPickerView
