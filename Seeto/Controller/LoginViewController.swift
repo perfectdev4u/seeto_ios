@@ -119,10 +119,16 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, 
                                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
                                 self.navigationController?.pushViewController(vc, animated: true)
                             }
-                            else
+                            else if userType == 1
                             {
-                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobsVC") as! JobsVC
                                 self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                            else if userType == 2
+                            {
+                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobSearchesVC") as! MyJobSearchesVC
+                                self.navigationController?.pushViewController(vc, animated: true)
+
                             }
                         }
                       //  self.showToast(message: ()

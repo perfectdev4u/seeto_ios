@@ -54,11 +54,15 @@ class Toast {
 
 func converrDateFormat(string : String,monthFormat : Bool? = false) -> String
 {
+    if string == ""
+    {
+        return ""
+    }
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
     let date = dateFormatter.date(from: string)
     let dateFormatterMain = DateFormatter()
-    dateFormatterMain.dateFormat = monthFormat == false ? "dd-MM-yyyy" : "MM-yyyy"
-
+    dateFormatterMain.dateFormat = monthFormat == false ? "yyyy-MM-dd" : "MM-yyyy"
+    
     return dateFormatterMain.string(from: date ?? Date())
 }

@@ -53,7 +53,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         self.dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["industry"] as! String)
         self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["webSite"] as! String)
         self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as AnyObject))
-        self.dictTable[4]["value"] = converrDateFormat(string: ((dataJson["data"] as! NSDictionary)["foundationDate"] as! String),monthFormat: true)
+        self.dictTable[4]["value"] = converrDateFormat(string: (((dataJson["data"] as! NSDictionary)["foundationDate"] as? String)) ?? "",monthFormat: true)
         self.dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["companyLocation"] as? String) ?? ""
         self.dictTable[6]["value"] = companyArray[((dataJson["data"] as! NSDictionary)["companySize"] as? Int) ?? 0]
     }
@@ -67,9 +67,9 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         "industry":dictTable[2]["value"]!,
         "webSite": dictTable[3]["value"]!,
         "linkedInProfile": dictTable[4]["value"]!,
-        "foundationDate": dictTable[5]["value"]!,
+        "foundationDate": dictTable[5]["value"]! == "" ? nil : dictTable[5]["value"]!,
         "companyLocation" : dictTable[6]["value"]!,
-        "companySize": CompanySize(rawValue: dictTable[7]["value"]!)?.id ?? nil
+        "companySize": CompanySize(rawValue: dictTable[7]["value"]!)?.id ?? 0
         // int company size
         ] as [String : Any]
     }
@@ -82,9 +82,9 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         "industry":dictTable[1]["value"]!,
         "webSite": dictTable[2]["value"]!,
         "linkedInProfile": dictTable[3]["value"]!,
-        "foundationDate": dictTable[4]["value"]!,
+        "foundationDate": dictTable[4]["value"]! == "" ? nil : dictTable[4]["value"]!,
         "companyLocation" : dictTable[5]["value"]!,
-        "companySize": CompanySize(rawValue: dictTable[6]["value"]!)?.id ?? nil
+        "companySize": CompanySize(rawValue: dictTable[6]["value"]!)?.id ?? 0
         // int company size
         ] as [String : Any]
     }
@@ -112,7 +112,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
                       {
                           UserDefaults.standard.set(1, forKey: "userType")
                           
-                          let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                          let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobsVC") as! JobsVC
                           self.navigationController?.pushViewController(vc, animated: true)
                       }
                       else
@@ -491,7 +491,7 @@ extension EmployerVC : UITextFieldDelegate
             pickerArray = ["Eng","Hindi"]
         }else if (dictTable[textFieldTag]["title"]!) == "Company Size"
         {
-            pickerArray = ["1-4 workers","5 – 19 workers","20 – 99 workers","100 and more workers"]
+            pickerArray = ["Not Selected","1-4 workers","5 – 19 workers","20 – 99 workers","100 and more workers"]
         }
         }
         else if (dictTable[textFieldTag]["type"]!) == "btn"

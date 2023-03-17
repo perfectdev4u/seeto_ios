@@ -19,7 +19,7 @@ let likeButtonBackGroundColor = UIColor.init(red: 0.145, green:0.212, blue: 0.23
 let googleClientID = "72919610538-rhqe3h7lrovdsb254q3dg9kua4c6o0nm.apps.googleusercontent.com"
 let googleApiKey = "AIzaSyAsJukxWTJLy-q1CD2DJmeDNOCejHp8xuk"
 let baseURL = "http://34.207.158.183/api/v1.0/"
-let errorMessage = "Error occurer"
+let errorMessage = "Unknown error occured"
 var experienceArray = ExperienceLevel.allCases.map { $0.rawValue }
 var jobArray = JobType.allCases.map { $0.rawValue }
 var JobLocationArray = JobLocation.allCases.map { $0.rawValue }
@@ -49,6 +49,7 @@ enum ExperienceLevel: String ,CaseIterable{
 }
 
 enum CompanySize: String ,CaseIterable{
+    case notSelected = "Not Selected"
     case micro = "1-4 workers"
     case small = "5 – 19 workers"
     case medium = "20 – 99 workers"
@@ -56,10 +57,11 @@ enum CompanySize: String ,CaseIterable{
 
     var id: Int {
         switch self{
-        case .micro : return 0
-        case .small : return 1
-        case .medium  : return 2
-        case .large : return 3
+        case .notSelected: return 0
+        case .micro : return 1
+        case .small : return 2
+        case .medium  : return 3
+        case .large : return 4
         }
     }
 }

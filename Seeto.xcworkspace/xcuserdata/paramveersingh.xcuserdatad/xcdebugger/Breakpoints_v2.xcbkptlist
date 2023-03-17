@@ -701,8 +701,8 @@
             filePath = "Seeto/Controller/CandidateProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1108"
-            endingLineNumber = "1108"
+            startingLineNumber = "1110"
+            endingLineNumber = "1110"
             landmarkName = "getArrayFromTitleEdu(title:key:)"
             landmarkType = "7">
          </BreakpointContent>

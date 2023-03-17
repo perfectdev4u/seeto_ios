@@ -143,7 +143,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
                 }
             }
         }
-        setValueForTitle(title: "Gender", value: String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : "Female")
+        setValueForTitle(title: "Gender", value: String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "0" ?  "" : String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : "Female")
         setValueForTitle(title: "Disabilities", value: ((dataJson["data"] as! NSDictionary)["disability"] as! String))
         setValueForTitle(title: "Veteran Status", value: ((dataJson["data"] as! NSDictionary)["veteranStatus"] as! String))
         setValueForTitle(title: "Military Status", value: ((dataJson["data"] as! NSDictionary)["militaryStatus"] as? String) ?? "")
@@ -224,7 +224,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "desiredMonthlyIncome" : dictTable[10]["value"]! == "" ? "0" : dictTable[10]["value"]!,
             "educationList" : getArrayFromTitleEdu(title: "Education",key: "education"),
             "experienceList" : getArrayFromTitleWork(title: "Working Experience",key: "experience"),
-            "gender" : getValueFromTitle(title: "Gender") == "" ? nil : getValueFromTitle(title: "Gender") == "Male" ? 1 : 2,
+            "gender" : getValueFromTitle(title: "Gender") == "" ? 0 : getValueFromTitle(title: "Gender") == "Male" ? 1 : 2,
             "disability" : getValueFromTitle(title: "Disabilities"),
             "veteranStatus" : getValueFromTitle(title: "Veteran Status"),
             "country" : "America",
@@ -266,7 +266,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "desiredMonthlyIncome" : dictTable[9]["value"]! == "" ? "0" : dictTable[9]["value"]!,
             "educationList" : getArrayFromTitleEdu(title: "Education",key: "education"),
             "experienceList" : getArrayFromTitleWork(title: "Working Experience",key: "experience"),
-            "gender" : getValueFromTitle(title: "Gender") == "" ? nil : getValueFromTitle(title: "Gender") == "Male" ? 1 : 2,
+            "gender" : getValueFromTitle(title: "Gender") == "" ? 0 : getValueFromTitle(title: "Gender") == "Male" ? 1 : 2,
             "disability" : getValueFromTitle(title: "Disabilities"),
             "veteranStatus" : getValueFromTitle(title: "Veteran Status"),
             "country" : "America",
@@ -333,7 +333,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     @objc func donedatePicker(){
 
      let formatter = DateFormatter()
-     formatter.dateFormat = "dd-MM-yyyy"
+     formatter.dateFormat = "yyyy-MM-dd"
      dictTable[textFieldTag]["value"] = formatter.string(from: datePicker.date)
      self.view.endEditing(true)
    }
@@ -375,7 +375,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
 
     func localToUTC(dateStr: String) -> String? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.calendar = Calendar.current
         dateFormatter.timeZone = TimeZone.current
         
@@ -1105,7 +1105,10 @@ extension CandidateProfileVC
         {
             if (i["title"]!).contains(title) == true
             {
-                value.append([key : (i["value"]!)])
+                if (i["value"]!) != ""
+                {
+                    value.append([key : (i["value"]!)])
+                }
             }
           
         }
@@ -1118,7 +1121,10 @@ extension CandidateProfileVC
         {
             if (i["title"]!).contains(title) == true
             {
-                value.append([key : (i["value"]!)])
+                if (i["value"]!) != ""
+                {
+                    value.append([key : (i["value"]!)])
+                }
             }
           
         }

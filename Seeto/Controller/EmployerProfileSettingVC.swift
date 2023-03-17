@@ -51,7 +51,7 @@ class EmployerProfileSettingVC: UIViewController, UINavigationControllerDelegate
                       self.dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["industry"] as! String)
                       self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["webSite"] as! String)
                       self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as AnyObject))
-                      self.dictTable[4]["value"] = converrDateFormat(string: ((dataJson["data"] as! NSDictionary)["foundationDate"] as! String),monthFormat: true)
+                      self.dictTable[4]["value"] = converrDateFormat(string: (((dataJson["data"] as! NSDictionary)["foundationDate"] as? String)) ?? "",monthFormat: true)
                       self.dictTable[5]["value"] = companyArray[((dataJson["data"] as! NSDictionary)["companySize"] as? Int) ?? 0]
 //                      self.profileUrl = ((dataJson["data"] as! NSDictionary)["profileImage"] as! String)
 //                      self.videoUrlString = ((dataJson["data"] as! NSDictionary)["videoUrl"] as! String)
