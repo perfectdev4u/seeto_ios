@@ -302,7 +302,7 @@ extension EmployerProfileSettingVC: UIImagePickerControllerDelegate {
         dismiss(animated: true, completion: nil)
 
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-            uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image)
+        uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image.resizeWithPercent(percentage: 0.5)!)
                 return
     }
     
