@@ -13,11 +13,17 @@ class HomeScreenVC: UIViewController {
     @IBOutlet var collViewVideos: UICollectionView!
     let screenSize: CGRect = UIScreen.main.bounds
 
-    var videoUrlArray = ["http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v","http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v","http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v"]
+    var videoUrlArray = ["https://seetoapp.s3.us-east-1.amazonaws.com/7993d069-cb7e-4757-b15f-5d0d8684249e_IMG_0232.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/b7d23127-881e-43d9-b05e-9beaeec7ae97_IMG_0240.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/1b099973-730d-4346-bcd1-acb4487c878e_IMG_0226.MP4"]
    // var videoUrlArray = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
+        {
+            if userType == 2
+            {
+                videoUrlArray = ["https://seetoapp.s3.us-east-1.amazonaws.com/6309cf17-1c9f-4ca4-83a6-3274e1506c17_IMG_0205.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/934cc68e-594c-4129-9c77-a696cca99837_IMG_0206.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/6577df53-b518-4599-b491-631799e631d2_IMG_0219.MP4"]
+            }
+        }
         //collViewVideos.layer.cornerRadius = 40
         collViewVideos.delegate = self
         collViewVideos.dataSource = self

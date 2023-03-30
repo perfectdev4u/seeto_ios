@@ -132,3 +132,12 @@ enum LanguageLevel: String ,CaseIterable{
         }
     }
 }
+
+class StoryboardId
+{
+    static let standard = StoryboardId()
+    var appCategoryVC = "AppCategoryVC"
+    var jobsVC = "JobsVC"
+    var myJobSearchesVC = "MyJobSearchesVC"
+
+}

@@ -145,3 +145,12 @@ extension UIImage {
 }
 
 
+extension UIViewController
+{
+    func navigateToController(storyboardId : String)
+    {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let secondViewController = storyboard.instantiateViewController(withIdentifier: storyboardId) as UIViewController
+        navigationController?.pushViewController(secondViewController, animated: true)
+    }
+}

@@ -15,18 +15,24 @@ var g_address: String!
 protocol SearchAddressProtocol {
     func adressMap(address: String)
 }
+protocol SearchIndustryProtocol {
+    func industryString(string: String)
+}
 class SearchVC: UIViewController{
     @IBOutlet var topBtnConst: NSLayoutConstraint!
     
     @IBOutlet var btnBack: UIButton!
     let searchController = UISearchController(searchResultsController: nil)
     var searchAdressDelegate : SearchAddressProtocol!
+    var searchIndustryDelegate : SearchIndustryProtocol!
     var placeIDArray = [String]()
     var resultsArray = [String]()
     var primaryAddressArray = [String]()
     var searchResults = [String]()
     var searhPlacesName = [String]()
     @IBOutlet var tableV: UITableView!
+    var forIndustry = false
+    var mainArray =  [String]()
     @IBOutlet var tfSearch: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +43,7 @@ class SearchVC: UIViewController{
         let backButton = UIBarButtonItem()
         backButton.title = ""
         self.searchController.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
-
+        
         tableViewSetup()
         setSearchController()
         // Do any additional setup after loading the view.
@@ -46,7 +52,6 @@ class SearchVC: UIViewController{
     @objc func goBack()
     {
         self.navigationController?.popViewController(animated: true)
-
     }
     
     func tableViewSetup(){
@@ -56,6 +61,10 @@ class SearchVC: UIViewController{
         self.tableV.backgroundColor = backGroundColor
     }
     func setSearchController() {
+        if forIndustry == true
+        {
+            searchResults = self.mainArray
+        }
         let attributes:[NSAttributedString.Key: Any] = [
             .foregroundColor:blueButtonColor,
             .font: UIFont.systemFont(ofSize: 17)
@@ -64,13 +73,13 @@ class SearchVC: UIViewController{
 
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Location"
+        searchController.searchBar.placeholder = forIndustry == false ? "Search Location" : "Search Industry"
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchBar.backgroundColor = backGroundColor
         searchController.searchBar.barTintColor = .white
         searchController.searchBar.searchTextField.textColor = .white
         searchController.searchBar.searchTextField.tintColor = .white
-        searchController.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search Location", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        searchController.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: forIndustry == false ? "Search Location" : "Search Industry", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         searchController.searchBar.setSearchImage(color: UIColor.lightGray)
 
 
@@ -83,7 +92,22 @@ class SearchVC: UIViewController{
       }
       
       func filterContentForTextSearch(searchText: String){
-          placeAutocomplete(text_input: searchText)
+          if forIndustry == false
+          {
+              placeAutocomplete(text_input: searchText)
+          }
+          else
+          {
+              if searchText == ""
+              {
+                  self.searchResults = mainArray
+              }
+              else
+              {
+                  self.searchResults = mainArray.filter { $0.contains(searchText) }
+              }
+
+          }
           self.tableV.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
       }
       
@@ -109,8 +133,19 @@ class SearchVC: UIViewController{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
            if(searchBarIsEmpty()){
                searchBar.text = ""
+               if forIndustry == true
+               {
+                   self.searchResults = mainArray
+               }
            }else{
-               placeAutocomplete(text_input: searchText)
+               if forIndustry == false
+               {
+                   placeAutocomplete(text_input: searchText)
+               }
+               else
+               {
+                   self.searchResults = mainArray.filter { $0.contains(searchText) }
+               }
            }
        }
     //function for autocomplete
@@ -178,11 +213,18 @@ extension SearchVC :  UITableViewDelegate, UITableViewDataSource
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-       
-        self.searchController.isActive = false
-        searchAdressDelegate.adressMap(address: searchResults[indexPath.row])
-        self.navigationController?.popViewController(animated: true)
+        if forIndustry == false
+        {
+            self.searchController.isActive = false
+            searchAdressDelegate.adressMap(address: searchResults[indexPath.row])
+            self.navigationController?.popViewController(animated: true)
+        }
+        else
+        {
+            searchIndustryDelegate.industryString(string: searchResults[indexPath.row])
+            self.searchController.isActive = false
+            self.navigationController?.popViewController(animated: true)
+        }
         }
         
     

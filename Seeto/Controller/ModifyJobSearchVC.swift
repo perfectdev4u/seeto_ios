@@ -11,12 +11,39 @@ protocol SearchDetailDelegate
 {
     func dataFromSearch(data : [NSDictionary] )
 }
-class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
+class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, SearchAddressProtocol,SearchIndustryProtocol{
+    func industryString(string: String) {
+        for i in 0...dictTable.count - 1
+        {
+            if dictTable[i]["title"] == "Industry"
+            {
+                dictTable[i]["value"] = string
+            }
+        }
+        DispatchQueue.main.async {
+            self.tblModifySearch.reloadData()
+        }
+    }
+    
+    func adressMap(address: String) {
+        for i in 0...dictTable.count - 1
+        {
+            if dictTable[i]["title"] == "Location"
+            {
+                dictTable[i]["value"] = address
+            }
+        }
+        DispatchQueue.main.async {
+            self.tblModifySearch.reloadData()
+        }
+    }
+    
     var fromHome = false
 
-    var dictTable = [["title":"Position","type":"text","value":""],["title":"Experience Level","type":"drop","value":""],["title":"Industry","type":"drop","value":""],["title":"Job Type","type":"drop","value":""],["title":"On-Site/Remote","type":"drop","value":""],["title":"Location","type":"drop","value":""],["title":"Desired Salary","type":"text","value":""]]
+    var dictTable = [["title":"Position","type":"text","value":""],["title":"Experience Level","type":"drop","value":""],["title":"Industry","type":"btn","value":""],["title":"Job Type","type":"drop","value":""],["title":"On-Site/Remote","type":"drop","value":""],["title":"Location","type":"btn","value":""],["title":"Desired Salary","type":"text","value":""]]
     var pickerArray = [""]
-    
+    var mainIndustryArray = [String]()
+//    ["title":"Current Location","type":"btn","required":"false","value":""]
     var searchDetailDelegate : SearchDetailDelegate!
     let toolBar = UIToolbar()
     var index = 0
@@ -29,7 +56,11 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         PickerView()
+        getIndustryApi()
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
     }
     func addNewSearchData() -> [String : Any]
     {
@@ -45,7 +76,7 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
     }
     func getIndustryApi()
     {
-        ApiManager().postRequest(parameters: [:],api:  ApiManager.shared.GetAllIndustries) { dataJson, error in
+        ApiManager().postRequest(parameters: ["page": 1,"pageSize": 1000],api:  ApiManager.shared.GetAllIndustries) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {
@@ -61,22 +92,10 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
                 {
                 if let dictArray = dataJson["data"] as? [NSDictionary]{
                     DispatchQueue.main.async {
-                       
-                        if self.fromHome == false
+                       for item in dictArray
                         {
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobSearchesVC") as! MyJobSearchesVC
-                            vc.arraySearch = dictArray
-                            self.navigationController?.pushViewController(vc, animated: true)
-                        }
-                        else
-                        {
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-//                            vc.arraySearch = dictArray
-                            self.navigationController?.pushViewController(vc, animated: true)
-
-//                            self.searchDetailDelegate.dataFromSearch(data: dictArray)
-//                            self.navigationController?.popViewController(animated: true)
-                        }
+                           self.mainIndustryArray.append((item["industryName"] as? String) ?? "")
+                       }
                         
                     }
                   }
@@ -99,7 +118,55 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
             }
         }
     }
+    
+    func AddJobSearchApi()
+    {
+        ApiManager().postRequest(parameters: addNewSearchData(),api:  ApiManager.shared.AddJobSearch) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                    DispatchQueue.main.async {
+                       
+                        if self.fromHome == false
+                        {
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                        else
+                        {
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                            self.navigationController?.pushViewController(vc, animated: true)
 
+                        }
+                        
+                    
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:"Erro", controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
     func AddSearchApi()
     {
         ApiManager().postRequest(parameters: addNewSearchData(),api:  ApiManager.shared.SearchJob) { dataJson, error in
@@ -116,34 +183,26 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate{
                 {
               if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
                 {
-                if let dictArray = dataJson["data"] as? [NSDictionary]{
-                    DispatchQueue.main.async {
-                       
-                        if self.fromHome == false
-                        {
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-//                            vc.arraySearch = dictArray
-                            self.navigationController?.pushViewController(vc, animated: true)
-
-//                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobSearchesVC") as! MyJobSearchesVC
-//                            vc.arraySearch = dictArray
-//                            self.navigationController?.pushViewController(vc, animated: true)
-                        }
-                        else
-                        {
-//                            self.searchDetailDelegate.dataFromSearch(data: dictArray)
-//                            self.navigationController?.popViewController(animated: true)
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-//                            vc.arraySearch = dictArray
-                            self.navigationController?.pushViewController(vc, animated: true)
-
-                        }
-                        
-                    }
+                  DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                      self.AddJobSearchApi()
                   }
-
-
-
+//                if let dictArray = dataJson["data"] as? [NSDictionary]{
+//                    DispatchQueue.main.async {
+//
+//                        if self.fromHome == false
+//                        {
+//                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+//                            self.navigationController?.pushViewController(vc, animated: true)
+//                        }
+//                        else
+//                        {
+//                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+//                            self.navigationController?.pushViewController(vc, animated: true)
+//
+//                        }
+//
+//                    }
+//                  }
                 }
                 else
                 {
@@ -210,7 +269,7 @@ extension ModifyJobSearchVC : UITableViewDelegate,UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! CandidateProfileCell
         cell.phoneCountryView.isHidden = true
 
-        if (dictTable[indexPath.row]["type"]!) == "text"
+        if (dictTable[indexPath.row]["type"]!) == "text" || (dictTable[indexPath.row]["type"]!) == "btn"
         {
             cell.imgVector.isHidden = true
         }
@@ -218,6 +277,15 @@ extension ModifyJobSearchVC : UITableViewDelegate,UITableViewDataSource
         {
             cell.imgVector.isHidden = false
         }
+        if  (dictTable[indexPath.row]["type"]!) == "btn"
+        {
+            cell.tfMain.isUserInteractionEnabled = false
+        }
+        else
+        {
+            cell.tfMain.isUserInteractionEnabled = true
+        }
+
         cell.topImage.constant = 32
         cell.tfMain.tag = indexPath.row
         cell.tfMain.delegate = self
@@ -228,7 +296,26 @@ extension ModifyJobSearchVC : UITableViewDelegate,UITableViewDataSource
         return cell
 
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (dictTable[indexPath.row]["type"]!) == "btn"
+        {
+           if (dictTable[indexPath.row]["title"]!) == "Location"
+            {
+                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as! SearchVC
+                 vc.searchAdressDelegate = self
+                 self.navigationController?.pushViewController(vc, animated: true)
+             }
+            if (dictTable[indexPath.row]["title"]!) == "Industry"
+             {
+                  let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as! SearchVC
+                  vc.searchIndustryDelegate = self
+                vc.mainArray = mainIndustryArray
+                vc.forIndustry = true
+                  self.navigationController?.pushViewController(vc, animated: true)
+              }
+            
+        }
+    }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 70))
         view.backgroundColor = backGroundColor

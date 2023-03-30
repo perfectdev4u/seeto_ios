@@ -20,7 +20,11 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, 
     @IBOutlet var btnApple: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setUpScreen()
+    }
+   
+    func setUpScreen()
+    {
         btnFacebook.layer.cornerRadius = 10
         btnEmail.layer.cornerRadius = 10
         btnGmail.layer.cornerRadius = 10
@@ -31,9 +35,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, 
                 // User is logged in, do work such as go to next view controller.
             }
         GIDSignIn.sharedInstance().delegate = self
-
     }
-   
     @IBAction func btnAppleLogin(_ sender: UIButton) {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
@@ -92,7 +94,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, 
     func verifyApi(grantType : String,externalLogin : String,email : String)
     {
        
-        var params = ["grantType" : grantType,"extrenalLoginToken" : externalLogin,  "email": email
+        let params = ["grantType" : grantType,"extrenalLoginToken" : externalLogin,  "email": email
 ] as [String : Any]
         
         ApiManager().postRequest(parameters: params,api:  ApiManager.shared.LoginPhoneApi) { dataJson, error in
@@ -116,19 +118,15 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, 
                         {
                             if userType == 0
                             {
-                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC
-                                self.navigationController?.pushViewController(vc, animated: true)
+                                super.navigateToController(storyboardId: StoryboardId.standard.appCategoryVC)
                             }
                             else if userType == 1
                             {
-                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobsVC") as! JobsVC
-                                self.navigationController?.pushViewController(vc, animated: true)
+                                super.navigateToController(storyboardId: StoryboardId.standard.jobsVC)
                             }
                             else if userType == 2
                             {
-                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobSearchesVC") as! MyJobSearchesVC
-                                self.navigationController?.pushViewController(vc, animated: true)
-
+                                super.navigateToController(storyboardId: StoryboardId.standard.myJobSearchesVC)
                             }
                         }
                       //  self.showToast(message: ()

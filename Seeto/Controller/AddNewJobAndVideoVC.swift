@@ -10,7 +10,20 @@ import AVKit
 import MobileCoreServices
 import SwiftLoader
 
-class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate,JobDelegate {
+class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate,JobDelegate, SearchAddressProtocol {
+    func adressMap(address: String) {
+        for i in 0...dictTable.count - 1
+        {
+            if dictTable[i]["title"] == "Location"
+            {
+                dictTable[i]["value"] = address
+            }
+        }
+        DispatchQueue.main.async {
+            self.tblJob.reloadData()
+        }
+    }
+    
     func JobDone() {
         
         jobDelegate.JobDone()
@@ -29,7 +42,7 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
     var urlVideo = URL(string: "")
-    var dictTable = [["title":"Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Job Type","type":"drop","required":"false","value":""],["title":"On-Site/Remote","type":"drop","required":"false","value":""],["title":"Location","type":"drop","required":"false","value":""],["title":"Salary Range","type":"drop","required":"false","value":""],["title":"Job Description","type":"text","required":"true","value":""]]
+    var dictTable = [["title":"Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Job Type","type":"drop","required":"false","value":""],["title":"On-Site/Remote","type":"drop","required":"false","value":""],["title":"Location","type":"btn","required":"false","value":""],["title":"Salary Range","type":"drop","required":"false","value":""],["title":"Job Description","type":"text","required":"true","value":""]]
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
     let toolBar = UIToolbar()
@@ -267,13 +280,21 @@ extension AddNewJobAndVideoVC
         }
         cell.tfMain.attributedPlaceholder = attributedString
         cell.tfMain.text = (dictTable[indexPath.row]["value"]!)
-        if (dictTable[indexPath.row]["type"]!) == "text"
+        if (dictTable[indexPath.row]["type"]!) == "text" || (dictTable[indexPath.row]["type"]!) == "btn"
         {
             cell.imgVector.isHidden = true
         }
         else
         {
             cell.imgVector.isHidden = false
+        }
+        if  (dictTable[indexPath.row]["type"]!) == "btn"
+        {
+            cell.tfMain.isUserInteractionEnabled = false
+        }
+        else
+        {
+            cell.tfMain.isUserInteractionEnabled = true
         }
         cell.leadingTf.constant = 27
         cell.phoneCountryView.isHidden = true
@@ -290,7 +311,14 @@ extension AddNewJobAndVideoVC
             {
                 cameraGallery()
             }
+            if (dictTable[indexPath.row]["title"]!) == "Location"
+             {
+                  let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as! SearchVC
+                  vc.searchAdressDelegate = self
+                  self.navigationController?.pushViewController(vc, animated: true)
+              }
         }
+        
     }
 }
 

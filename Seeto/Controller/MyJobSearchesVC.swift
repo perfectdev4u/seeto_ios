@@ -16,7 +16,7 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
     
     @IBOutlet var viewOops: UIView!
     @IBOutlet var btnNewSearch: UIButton!
-
+    
     func dataFromSearch(data: [NSDictionary]) {
         arraySearch = data
         self.tblJobSearches.reloadData()
@@ -36,7 +36,7 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
             vc.fromHome = fromHome
             vc.searchDetailDelegate = self
             self.navigationController?.pushViewController(vc, animated: true)
-
+            
         }
     }
     var arraySearch = [NSDictionary].init()
@@ -46,36 +46,84 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         btnNewSearch.layer.cornerRadius = 10
+        getJobSearchesApi()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
-        setUpView()
     }
-   func setUpView()
-    {
-        if arraySearch.count == 0
+       func setUpView()
         {
-            viewOops.isHidden = false
-            tblJobSearches.isHidden = true
+    
+            if arraySearch.count == 0
+            {
+                viewOops.isHidden = false
+                tblJobSearches.isHidden = true
+            }
+            else
+            {
+                viewOops.isHidden = true
+                tblJobSearches.isHidden = false
+    
+            }
         }
-        else
-        {
-            viewOops.isHidden = true
-            tblJobSearches.isHidden = false
-
-        }
-    }
     @IBAction func btnSettingsAct(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileSettingView") as! ProfileSettingView
         self.navigationController?.pushViewController(vc, animated: true)
-
+        
+    }
+    func getJobSearchesApi()
+    {
+        ApiManager().postRequest(parameters: ["page": 1,"pageSize": 1000], api: ApiManager.shared.GetAllJobSearch) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+                }
+            }
+            else
+            {
+                if let dataJson = dataJson
+                {
+                    if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                    {
+                        DispatchQueue.main.async {
+                            self.arraySearch = dataJson["data"] as? [NSDictionary] ?? []
+                            if self.arraySearch.count == 0
+                            {
+                                self.viewOops.isHidden = false
+                                self.viewOops.isHidden = false
+                                self.tblJobSearches.isHidden = true
+                            }
+                            else
+                            {
+                                self.viewOops.isHidden = true
+                                self.tblJobSearches.isHidden = false
+                                
+                            }
+                            self.tblJobSearches.reloadData()
+                        }
+                    }
+                    else
+                    {
+                        DispatchQueue.main.async {
+                            
+                            //  self.showToast(message: ()
+                            Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+        }
     }
     
     @IBAction func btnBackAct(_ sender: Any) {
-       
-            self.navigationController?.popViewController(animated: true)
-    
-       
+        
+        self.navigationController?.popViewController(animated: true)
+        
+        
     }
     
 }
@@ -91,7 +139,7 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
         let identifier = "MyJobSearchesCell"
         tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! MyJobSearchesCell
-        cell.lblLikes.text = arraySearch[indexPath.row]["mutualMatchCount"] as? String ?? ""
+        cell.lblLikes.text = arraySearch[indexPath.row]["mutualMatchCount"] as? String ?? "0"
         cell.lblDesignation.text = arraySearch[indexPath.row]["position"] as? String ?? ""
         cell.lblSkillLevel.text = experienceArray[(arraySearch[indexPath.row]["experienceLevel"] as? Int) ?? 0]
         if indexPath.row == (tableView.numberOfRows(inSection: 0) - 1)
@@ -102,17 +150,25 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
         {
             cell.seperatorView.isHidden = false
         }
+        cell.btnLike.tag = indexPath.row
+        cell.btnLike.addTarget(self, action:  #selector(btnLikeAct), for: .touchUpInside)
+
         cell.selectionStyle = .none
         return cell
+        
+    }
+    @objc func btnLikeAct(_ sender : UIButton)
+    {
+//                let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobSearchDetailsVC") as! JobSearchDetailsVC
+//               vc.jobId = self.arraySearch[sender.tag]["jobId"] as? Int ?? -1
+//                self.navigationController?.pushViewController(vc, animated: true)
 
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobSearchDetailsVC") as! JobSearchDetailsVC
-        vc.jobId = self.arraySearch[indexPath.row]["jobId"] as? Int ?? -1
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
         self.navigationController?.pushViewController(vc, animated: true)
 
+        
     }
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
@@ -122,15 +178,15 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
             vc.index = indexPath.row
             vc.deleteIndexDelegate = self
             self.present(vc, animated: true)
-
+            
             
         })
         let theImage: UIImage? = UIImage(named:"delete")?.withRenderingMode(.alwaysOriginal)
-
+        
         deleteAction.image = theImage
-
+        
         deleteAction.backgroundColor = grayShadeColor
-
+        
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -160,7 +216,7 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
             vc.fromHome = fromHome
             vc.searchDetailDelegate = self
             self.navigationController?.pushViewController(vc, animated: true)
-
+            
         }
         
     }
@@ -175,5 +231,5 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return .leastNormalMagnitude
     }
-
+    
 }
