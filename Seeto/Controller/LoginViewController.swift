@@ -16,7 +16,8 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, 
     @IBOutlet var btnEmail: UIButton!
     @IBOutlet var btnGmail: UIButton!
     @IBOutlet var btnPhone: UIButton!
-    
+   
+
     @IBOutlet var btnApple: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -43,6 +43,7 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
     var dictTable = [["title":"Position","type":"text","value":""],["title":"Experience Level","type":"drop","value":""],["title":"Industry","type":"btn","value":""],["title":"Job Type","type":"drop","value":""],["title":"On-Site/Remote","type":"drop","value":""],["title":"Location","type":"btn","value":""],["title":"Desired Salary","type":"text","value":""]]
     var pickerArray = [""]
     var mainIndustryArray = [String]()
+    var mainDataArray = [NSDictionary].init()
 //    ["title":"Current Location","type":"btn","required":"false","value":""]
     var searchDetailDelegate : SearchDetailDelegate!
     let toolBar = UIToolbar()
@@ -133,23 +134,14 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
             {
             if let dataJson = dataJson
                 {
+                print(dataJson)
               if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
                 {
                     DispatchQueue.main.async {
-                       
-                        if self.fromHome == false
-                        {
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                            vc.mainDataArray = self.mainDataArray
+                            vc.searchId = (dataJson["data"] as? NSDictionary)?["searchId"] as? String ?? ""
                             self.navigationController?.pushViewController(vc, animated: true)
-                        }
-                        else
-                        {
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-                            self.navigationController?.pushViewController(vc, animated: true)
-
-                        }
-                        
-                    
                   }
                 }
                 else
@@ -169,7 +161,7 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
     }
     func AddSearchApi()
     {
-        ApiManager().postRequest(parameters: addNewSearchData(),api:  ApiManager.shared.SearchJob) { dataJson, error in
+        ApiManager().postRequest(parameters: addNewSearchData(),api:  ApiManager.shared.SearchJobs) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {
@@ -183,26 +175,13 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
                 {
               if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
                 {
-                  DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                      self.AddJobSearchApi()
+                 
+                if let dictArray = dataJson["data"] as? [NSDictionary]{
+                    self.mainDataArray = dictArray
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.AddJobSearchApi()
+                    }
                   }
-//                if let dictArray = dataJson["data"] as? [NSDictionary]{
-//                    DispatchQueue.main.async {
-//
-//                        if self.fromHome == false
-//                        {
-//                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-//                            self.navigationController?.pushViewController(vc, animated: true)
-//                        }
-//                        else
-//                        {
-//                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-//                            self.navigationController?.pushViewController(vc, animated: true)
-//
-//                        }
-//
-//                    }
-//                  }
                 }
                 else
                 {

@@ -122,10 +122,70 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
     @IBAction func btnBackAct(_ sender: Any) {
         
         self.navigationController?.popViewController(animated: true)
-        
-        
     }
     
+   
+    
+    func AddSearchApi(dictTable : NSDictionary)
+    {
+        
+        var param = [
+            "position" : dictTable["position"] as? String ?? "",
+            "experienceLevel" : dictTable["experienceLevel"] as? Int ?? 0,
+            "industryId":  dictTable["industryId"] as? Int ?? 0,
+            "jobType" : dictTable["jobType"] as? Int ?? 0,
+            "jobLocation" : dictTable["jobLocation"] as? Int ?? 0,
+            "page" : 1,
+            "pageSize" : 10,
+        ] as [String : Any]
+        
+        ApiManager().postRequest(parameters: param,api:  ApiManager.shared.SearchJobs) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                 
+                if let dictArray = dataJson["data"] as? [NSDictionary]{
+                    DispatchQueue.main.async {
+                        if dictArray.count == 0
+                        {
+                            Toast.show(message: "No match found for your search", controller: self)
+
+                        }
+                        else
+                        {
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                            vc.mainDataArray = dictArray
+                            vc.searchId = String(describing: dictTable["searchId"] as AnyObject)
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    }
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message: errorMessage, controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
 }
 
 extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
@@ -159,14 +219,13 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
     }
     @objc func btnLikeAct(_ sender : UIButton)
     {
-//                let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobSearchDetailsVC") as! JobSearchDetailsVC
-//               vc.jobId = self.arraySearch[sender.tag]["jobId"] as? Int ?? -1
-//                self.navigationController?.pushViewController(vc, animated: true)
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobSearchDetailsVC") as! JobSearchDetailsVC
+               vc.searchId = self.arraySearch[sender.tag]["searchId"] as? Int ?? -1
+                self.navigationController?.pushViewController(vc, animated: true)
 
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        AddSearchApi(dictTable: arraySearch[indexPath.row])
 
         
     }

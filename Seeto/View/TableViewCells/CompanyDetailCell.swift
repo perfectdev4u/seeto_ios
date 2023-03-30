@@ -9,10 +9,14 @@ import UIKit
 
 class CompanyDetailCell: UITableViewCell {
 
+    @IBOutlet var lblPosition: UILabel!
+    @IBOutlet var lblTitle: UILabel!
+    @IBOutlet var imgLogo: UIImageView!
     @IBOutlet var viewBack: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         viewBack.layer.cornerRadius = 10
+        imgLogo.layer.cornerRadius = imgLogo.frame.height / 2
         // Initialization code
     }
 

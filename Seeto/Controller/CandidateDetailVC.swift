@@ -15,17 +15,60 @@
 import UIKit
 
 class CandidateDetailVC: UIViewController {
-    var dictTable = [["title":"DOB","value":"23-11-1999"],["title":"Gender","value":"Female"],["title":"Current location","value":"India"],["title":"Current Position","value":"Nodejs Developer"],["title":"Experience Level","value":"Entry level"],["title":"Spoken Language","value":"English"]]
-    
+    var dictTable = [["title":"DOB","value":"Loading..."],["title":"Gender","value":"Loading..."],["title":"Current location","value":"Loading..."],["title":"Current Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Spoken Language","value":"Loading..."]]
+    var candidateId = ""
     @IBOutlet var tblCandidateDetail: UITableView!
     let screenSize: CGRect = UIScreen.main.bounds
+    var mainDict = NSDictionary.init()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getCandidateApi()
         // Do any additional setup after loading the view.
     }
-    
+    func getCandidateApi()
+    {
+        ApiManager().postRequest(parameters: ["candidateId": candidateId], api: ApiManager.shared.GetCandidateById) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                  DispatchQueue.main.async {
+                      self.mainDict = dataJson["data"] as? NSDictionary ?? [:]
+                      self.dictTable[0]["value"] = converrDateFormat(string: self.mainDict["dateOfBirth"] as? String ?? "")
+                      self.dictTable[1]["value"] = String(describing: self.mainDict["gender"] as AnyObject) == "2" ? "Female" : "Male"
+                      self.dictTable[2]["value"] = self.mainDict["currentLocation"] as? String ?? ""
+                      self.dictTable[3]["value"] = self.mainDict["currentPosition"] as? String ?? ""
+                      self.dictTable[4]["value"] = experienceArray[( self.mainDict["experienceLevel"] as? Int) ?? 0]
+                      self.dictTable[5]["value"] = self.mainDict["language"] as? String ?? "English"
+
+                      
+                      self.tblCandidateDetail.reloadData()
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
     @IBAction func btnBackAct(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -46,6 +89,13 @@ extension CandidateDetailVC : UITableViewDelegate,UITableViewDataSource
             let identifier = "CompanyDetailCell"
             tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! CompanyDetailCell
+            cell.lblTitle.text = mainDict["fullName"] as? String ?? ""
+            cell.lblPosition.text = mainDict["currentPosition"] as? String ?? ""
+            if let string = self.mainDict["profileImage"] as? String
+            {
+                cell.imgLogo.layer.cornerRadius = cell.imgLogo.frame.height / 2
+                cell.imgLogo.sd_setImage(with: URL(string: string), placeholderImage: UIImage(named: "placeholderImg"))
+            }
             cell.selectionStyle = .none
             return cell
         }

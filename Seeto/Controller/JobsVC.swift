@@ -91,7 +91,59 @@ class JobsVC: UIViewController,JobDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
 
     }
-    
+    func GetAllCandidateByJobApi(dictTable : NSDictionary)
+    {
+        
+        var param = [
+            "jobId":  dictTable["jobId"] as? Int ?? 0,
+        ] as [String : Any]
+        
+        ApiManager().postRequest(parameters: param,api:  ApiManager.shared.GetAllCandidateByJob) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                 
+                if let dictArray = dataJson["data"] as? [NSDictionary]{
+                    DispatchQueue.main.async {
+                        if dictArray.count == 0
+                        {
+                            Toast.show(message: "No match found for your job", controller: self)
+
+                        }
+                        else
+                        {
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                            vc.mainDataArray = dictArray
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    }
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:errorMessage, controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
     
 }
 
@@ -165,9 +217,7 @@ extension JobsVC : UITableViewDelegate,UITableViewDataSource
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-                self.navigationController?.pushViewController(vc, animated: true)
-
+        GetAllCandidateByJobApi(dictTable: self.mainArray[indexPath.row])
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 70))

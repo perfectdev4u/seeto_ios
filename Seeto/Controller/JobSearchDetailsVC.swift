@@ -9,7 +9,7 @@ import UIKit
 
 class JobSearchDetailsVC: UIViewController {
     var dictTable = [["title":"Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Job Type","value":"Loading..."],["title":"Location","value":"Loading..."]]
-    var jobId = -1
+    var searchId = -1
     var jobTypeArray = JobType.allCases.map { $0.rawValue }
 
     var mainDict = NSDictionary.init()
@@ -24,7 +24,7 @@ class JobSearchDetailsVC: UIViewController {
     }
     func getJobWithEmployerApi()
     {
-        ApiManager().postRequest(parameters: ["jobId": jobId], api: ApiManager.shared.GetJobWithEmployer) { dataJson, error in
+        ApiManager().postRequest(parameters: ["searchId": searchId], api: ApiManager.shared.GetJobWithEmployers) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {

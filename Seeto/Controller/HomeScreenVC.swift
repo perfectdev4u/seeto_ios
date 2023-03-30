@@ -12,7 +12,8 @@ class HomeScreenVC: UIViewController {
     
     @IBOutlet var collViewVideos: UICollectionView!
     let screenSize: CGRect = UIScreen.main.bounds
-
+    var mainDataArray = [NSDictionary].init()
+    var searchId = ""
     var videoUrlArray = ["https://seetoapp.s3.us-east-1.amazonaws.com/7993d069-cb7e-4757-b15f-5d0d8684249e_IMG_0232.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/b7d23127-881e-43d9-b05e-9beaeec7ae97_IMG_0240.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/1b099973-730d-4346-bcd1-acb4487c878e_IMG_0226.MP4"]
    // var videoUrlArray = [String]()
     override func viewDidLoad() {
@@ -99,7 +100,7 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // TODO: need to implement
         
-        return videoUrlArray.count
+        return mainDataArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -108,7 +109,7 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
         collectionView.register(VideoPlayerCollViewCell.self, forCellWithReuseIdentifier: "VideoPlayerCollViewCell")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoPlayerCollViewCell", for: indexPath) as! VideoPlayerCollViewCell
             //Video player
-        if let url = URL(string: videoUrlArray[indexPath.row])
+        if let url = URL(string: (mainDataArray[indexPath.row]["videoUrl"] as? String ?? ""))
         {
             let avPlayer = AVPlayer(url: url)
             cell.playerViewAV.player = avPlayer
@@ -141,11 +142,43 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
             cell.contentView.addSubview(btnLike)
             cell.contentView.addSubview(imageLike)
             cell.contentView.addSubview(imageDislike)
+            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(HomeScreenVC.leftSwiped))
+            swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+            cell.addGestureRecognizer(swipeLeft)
+            swipeLeft.view?.tag = indexPath.row
+
+            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(HomeScreenVC.rightSwiped))
+            swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+            cell.addGestureRecognizer(swipeRight)
+            swipeRight.view?.tag = indexPath.row
+
                  //Setting cell's player
              }
           return cell
     }
- 
+    @objc func leftSwiped(_ sender : UISwipeGestureRecognizer)
+    {
+        if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
+        {
+            if userType == 2
+            {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobDetailVC") as! MyJobDetailVC
+                vc.jobId = String(describing: (mainDataArray[sender.view?.tag ?? 0]["jobId"] as AnyObject))
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else
+            {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "CandidateDetailVC") as! CandidateDetailVC
+                vc.candidateId = String(describing: (mainDataArray[sender.view?.tag ?? 0]["candidateId"] as AnyObject))
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+    @objc func rightSwiped(_ sender : UISwipeGestureRecognizer)
+    {
+       // self.navigationController?.popToRootViewController(animated: true)
+      //  Toast.show(message:"Right", controller: self)
+    }
     @objc func likeAct(_ sender : UIButton)
     {
         Toast.show(message:"Done", controller: self)

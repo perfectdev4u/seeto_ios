@@ -27,13 +27,13 @@
                                     <constraint firstAttribute="height" constant="60" id="ZhK-iU-Wbn"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKc-M1-U1k">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKc-M1-U1k">
                                 <rect key="frame" x="105" y="27" width="175" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UI UX Designer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twy-vp-ATw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twy-vp-ATw">
                                 <rect key="frame" x="105" y="52" width="175" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" name="BlueMain"/>
@@ -64,13 +64,16 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="imgLogo" destination="Y2S-JR-QAm" id="LII-JD-umu"/>
+                <outlet property="lblPosition" destination="twy-vp-ATw" id="g7y-Gn-Ugt"/>
+                <outlet property="lblTitle" destination="QKc-M1-U1k" id="JBF-3t-jRj"/>
                 <outlet property="viewBack" destination="Vy4-mZ-puf" id="IUW-yZ-Nu6"/>
             </connections>
             <point key="canvasLocation" x="100.76335877862596" y="17.605633802816904"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="video" width="66" height="66"/>
+        <image name="video" width="96" height="96"/>
         <namedColor name="BlueMain">
             <color red="0.0039215686274509803" green="0.7686274509803922" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

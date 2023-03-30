@@ -10,10 +10,10 @@ import FBSDKCoreKit
 import GoogleSignIn
 import GoogleMaps
 import GooglePlaces
+var windowMain = UIWindow(frame: UIScreen.main.bounds)
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

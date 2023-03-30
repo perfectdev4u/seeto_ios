@@ -8,16 +8,65 @@
 import UIKit
 
 class MyJobDetailVC: UIViewController {
-    var dictTable = [["title":"Position","value":"UI UX Designer"],["title":"Experience Level","value":"Entry Level"],["title":"Job Type","value":"Internship"],["title":"Location","value":"India"],["title":"Industry","value":"IT"],["title":"Website","value":"www.Apple.com"],["title":"Linkedin Profile","value":"www.Apple.com"],["title":"Company Foundation Date","value":"23-11-1999"],["title":"Company Size","value":"100000"]]
+    var dictTable = [["title":"Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Job Type","value":"Loading..."],["title":"Location","value":"Loading..."],["title":"Industry","value":"Loading..."],["title":"Website","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Company Foundation Date","value":"Loading..."],["title":"Company Size","value":"Loading..."]]
     @IBOutlet var tblMyJobDetail: UITableView!
     let screenSize: CGRect = UIScreen.main.bounds
+     var jobId = ""
+    var mainDict = NSDictionary.init()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        GetJobByIdApi()
         // Do any additional setup after loading the view.
     }
-    
+    func GetJobByIdApi()
+    {
+        ApiManager().postRequest(parameters: ["jobId": jobId], api: ApiManager.shared.GetJobById) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                  DispatchQueue.main.async {
+                      self.mainDict = dataJson["data"] as? NSDictionary ?? [:]
+                      self.dictTable[0]["value"] = self.mainDict["position"] as? String ?? ""
+                      self.dictTable[1]["value"] = experienceArray[( self.mainDict["experienceLevel"] as? Int) ?? 0]
+                      self.dictTable[2]["value"] = jobArray[( self.mainDict["jobType"] as? Int) ?? 0]
+                      self.dictTable[3]["value"] = JobLocationArray[( self.mainDict["jobLocation"] as? Int) ?? 0]
+                      self.dictTable[4]["value"] = ""
+                      self.dictTable[5]["value"] = self.mainDict["webSite"] as? String ?? ""
+                      self.dictTable[6]["value"] = self.mainDict["linkedInProfile"] as? String ?? ""
+                      self.dictTable[7]["value"] = converrDateFormat(string: self.mainDict["foundationDate"] as? String ?? "")
+                      self.dictTable[8]["value"] = companyArray[(self.mainDict["companySize"] as? Int) ?? 0]
+
+                      DispatchQueue.main.async {
+                          
+                          self.tblMyJobDetail.reloadData()
+                      }
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
     @IBAction func btnBackAct(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -40,6 +89,13 @@ extension MyJobDetailVC : UITableViewDelegate,UITableViewDataSource
             let identifier = "CompanyDetailCell"
             tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! CompanyDetailCell
+            cell.lblTitle.text = self.mainDict["companyName"] as? String ?? "Loading..."
+            if let string = self.mainDict["companyLogo"] as? String
+            {
+                cell.imgLogo.layer.cornerRadius = cell.imgLogo.frame.height / 2
+                cell.imgLogo.sd_setImage(with: URL(string: string), placeholderImage: UIImage(named: "placeholderImg"))
+            }
+            cell.lblPosition.text = self.mainDict["position"] as? String ?? ""
             cell.selectionStyle = .none
             return cell
         }
@@ -62,12 +118,11 @@ extension MyJobDetailVC : UITableViewDelegate,UITableViewDataSource
                 let tapgesture = UITapGestureRecognizer(target: self, action: #selector(tappedOnLabel(_ :)))
                 tapgesture.numberOfTapsRequired = 1
                 cell.myJobDataLbl.addGestureRecognizer(tapgesture)
-
             }
             else
             {
-                cell.myJobDataLbl.text = dictTable[indexPath.row]["value"]
-
+                let underlineAttriString = NSAttributedString(string: dictTable[indexPath.row]["value"]!)
+                cell.myJobDataLbl.attributedText = underlineAttriString
                 cell.myJobDataLbl.textColor = UIColor.white
             }
             if indexPath.row == (tableView.numberOfRows(inSection: 1) - 1)

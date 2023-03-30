@@ -32,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         
                         window.rootViewController =  initialViewController// Your RootViewController in here
                         self.window = window
+                        windowMain = window
                         window.makeKeyAndVisible()
                     }
                     else
@@ -46,6 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                             
                             window.rootViewController =  initialViewController// Your RootViewController in here
                             self.window = window
+                            
                             window.makeKeyAndVisible()
 
                         }
@@ -78,6 +80,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     window.makeKeyAndVisible()
 
                 }
+                
             }
           }
     }
