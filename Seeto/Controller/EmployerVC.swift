@@ -9,8 +9,21 @@ import UIKit
 import AVKit
 import MobileCoreServices
 import SwiftLoader
-class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate{
-    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"true","value":""],["title":"Industry","type":"text","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"true","value":""],["title":"Company Foundation Date","type":"btn","required":"false","value":""],["title":"Company Location","type":"text","required":"true","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
+class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchIndustryProtocol{
+    func industryString(string: String) {
+        for i in 0...dictTable.count - 1
+        {
+            if dictTable[i]["title"] == "Industry"
+            {
+                dictTable[i]["value"] = string
+            }
+        }
+        DispatchQueue.main.async {
+            self.tblEmployer.reloadData()
+        }
+    }
+    
+    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"true","value":""],["title":"Industry","type":"btn","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"true","value":""],["title":"Company Foundation Date","type":"btn","required":"false","value":""],["title":"Company Location","type":"text","required":"true","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
     @IBOutlet var lblMain: UILabel!
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
@@ -29,13 +42,15 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
     var datePicker = MonthYearPickerView()
     let toolbar = UIToolbar();
     var countryCode = "USA"
-    
+    var mainIndustryArray = [String]()
+
     @IBOutlet var tblEmployer: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         tblEmployer.backgroundColor = backGroundColor
         PickerView()
         imagePicker.delegate = self
+        getIndustryApi()
         if updateScreen == true
         {
             setUpUpdateScreen()
@@ -43,6 +58,54 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         btnNext.addTarget(self, action: #selector(btnCreateAct), for: .touchUpInside)
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    func getIndustryApi()
+    {
+        ApiManager().postRequest(parameters: ["page": 1,"pageSize": 1000],api:  ApiManager.shared.GetAllIndustries) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                if let dictArray = dataJson["data"] as? [NSDictionary]{
+                    DispatchQueue.main.async {
+                       for item in dictArray
+                        {
+                           self.mainIndustryArray.append((item["industryName"] as? String) ?? "")
+                       }
+                        
+                    }
+                  }
+
+
+
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:"Erro", controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
     func setUpUpdateScreen()
     {
         lblMain.isHidden = true
@@ -432,7 +495,14 @@ extension EmployerVC
                 textFieldTag = indexPath.row
                 showDatePicker()
             }
-            
+            if (dictTable[indexPath.row]["title"]!) == "Industry"
+             {
+                  let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as! SearchVC
+                  vc.searchIndustryDelegate = self
+                vc.mainArray = mainIndustryArray
+                vc.forIndustry = true
+                  self.navigationController?.pushViewController(vc, animated: true)
+              }
         }
     }
 }

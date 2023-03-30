@@ -61,7 +61,9 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
         btnNext.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
         // Do any additional setup after loading the view.
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
     func PickerView(){
        // UIPickerView
        self.myPickerView = UIPickerView(frame:CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216))

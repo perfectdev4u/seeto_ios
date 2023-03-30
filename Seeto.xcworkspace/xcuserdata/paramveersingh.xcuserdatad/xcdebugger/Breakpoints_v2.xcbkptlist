@@ -222,8 +222,8 @@
             filePath = "Seeto/Controller/EmployerVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "cameraGallery()"
             landmarkType = "7">
          </BreakpointContent>
@@ -797,8 +797,8 @@
             filePath = "Seeto/Controller/EmployerVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "updateEmployerProfileApi()"
             landmarkType = "7">
             <Locations>
@@ -845,8 +845,8 @@
             filePath = "Seeto/Controller/EmployerVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -861,8 +861,8 @@
             filePath = "Seeto/Controller/EmployerVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "updateEmployerProfileApi()"
             landmarkType = "7">
             <Locations>
@@ -909,8 +909,8 @@
             filePath = "Seeto/Controller/EmployerVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "updateEmployerProfileApi()"
             landmarkType = "7">
          </BreakpointContent>
@@ -925,8 +925,8 @@
             filePath = "Seeto/Controller/EmployerVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "updateEmployerProfileApi()"
             landmarkType = "7">
          </BreakpointContent>
