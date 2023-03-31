@@ -138,10 +138,13 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
               if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
                 {
                     DispatchQueue.main.async {
+                       
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
                             vc.mainDataArray = self.mainDataArray
                             vc.searchId = (dataJson["data"] as? NSDictionary)?["searchId"] as? String ?? ""
                             self.navigationController?.pushViewController(vc, animated: true)
+                        
+                        
                   }
                 }
                 else
@@ -178,8 +181,17 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
                  
                 if let dictArray = dataJson["data"] as? [NSDictionary]{
                     self.mainDataArray = dictArray
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.AddJobSearchApi()
+                    if self.mainDataArray.count > 0
+                    {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                self.AddJobSearchApi()
+                        }
+                    }
+                    else
+                    {
+                        DispatchQueue.main.async {
+                        Toast.show(message:"No match found for your search", controller: self)
+                    }
                     }
                   }
                 }

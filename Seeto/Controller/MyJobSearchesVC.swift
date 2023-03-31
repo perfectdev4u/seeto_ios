@@ -7,7 +7,12 @@
 
 import UIKit
 
-class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelegate {
+class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelegate, JobDelegate {
+    func JobDone() {
+        getJobSearchesApi()
+
+    }
+    
     func deleteIndex(index: Int) {
         arraySearch.remove(at: index)
         setUpView()
@@ -235,7 +240,8 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
         let deleteAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "DeleteSearchVC") as! DeleteSearchVC
             vc.index = indexPath.row
-            vc.deleteIndexDelegate = self
+            vc.searchId = self.arraySearch[indexPath.row]["searchId"] as? Int ?? -1
+            vc.deleteDelegate = self
             self.present(vc, animated: true)
             
             

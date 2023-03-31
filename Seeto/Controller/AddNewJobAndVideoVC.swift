@@ -225,7 +225,7 @@ extension AddNewJobAndVideoVC
                    imagePicker.sourceType = .camera
                    imagePicker.mediaTypes = [kUTTypeMovie as String]
                    imagePicker.allowsEditing = false
-                   imagePicker.videoQuality = .typeHigh
+                   imagePicker.videoQuality = .typeMedium
 
                    self.present(imagePicker, animated: true, completion: nil)
                } else {

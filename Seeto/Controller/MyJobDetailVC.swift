@@ -13,6 +13,8 @@ class MyJobDetailVC: UIViewController {
     let screenSize: CGRect = UIScreen.main.bounds
      var jobId = ""
     var mainDict = NSDictionary.init()
+    var likeDislikeDelegate : LikeDislikeDelegate!
+    var index : Int = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -184,12 +186,14 @@ extension MyJobDetailVC : UITableViewDelegate,UITableViewDataSource
     }
     @objc func likeAct(_ sender : UIButton)
     {
-        print("Liked")
+        likeDislikeDelegate.dataLikeDislike(id: Int(jobId) ?? -1, isMatch: true, index: index)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func dislikeAct(_ sender : UIButton)
     {
-        print("Disliked")
+        likeDislikeDelegate.dataLikeDislike(id: Int(jobId) ?? -1, isMatch: false, index: index)
+        self.navigationController?.popViewController(animated: true)
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return section == 0 ? 10 : 160

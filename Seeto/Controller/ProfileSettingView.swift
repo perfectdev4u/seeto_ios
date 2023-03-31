@@ -88,11 +88,13 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
             "firstName" : ((mainDataJson["data"] as! NSDictionary)["firstName"] as! String),
             "lastName" : ((mainDataJson["data"] as! NSDictionary)["lastName"] as! String),
             "dateOfBirth" : ((mainDataJson["data"] as! NSDictionary)["dateOfBirth"] as! String),
+            "phoneNumber" : ((mainDataJson["data"] as! NSDictionary)["phoneNumber"] as? String) ?? "",
+            "email" :  ((mainDataJson["data"] as! NSDictionary)["email"] as? String) ?? "",
             "linkedInProfile" : ((mainDataJson["data"] as! NSDictionary)["linkedInProfile"] as! String),
             "experienceLevel" :  ((mainDataJson["data"] as! NSDictionary)["experienceLevel"] as! Int),
             "desiredMonthlyIncome" : ((mainDataJson["data"] as! NSDictionary)["desiredMonthlyIncome"] as! Int),
             "educationList" : ((mainDataJson["data"] as! NSDictionary)["educationList"] as? [NSDictionary]) ?? [NSDictionary].init(),
-            "experienceList" :((mainDataJson["data"] as! NSDictionary)["desiredMonthlyIncome"] as? [NSDictionary]) ?? [NSDictionary].init(),
+            "experienceList" :((mainDataJson["data"] as! NSDictionary)["experienceList"] as? [NSDictionary]) ?? [NSDictionary].init(),
             "gender" : ((mainDataJson["data"] as! NSDictionary)["gender"] as! Int),
             "disability" : ((mainDataJson["data"] as! NSDictionary)["disability"] as! String),
             "veteranStatus" : ((mainDataJson["data"] as! NSDictionary)["veteranStatus"] as! String),
@@ -331,7 +333,7 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
                 imagePicker.sourceType = .camera
                 imagePicker.mediaTypes = [kUTTypeMovie as String]
                 imagePicker.allowsEditing = false
-                imagePicker.videoQuality = .typeHigh
+                imagePicker.videoQuality = .typeMedium
                 
                 self.present(imagePicker, animated: true, completion: nil)
             } else {

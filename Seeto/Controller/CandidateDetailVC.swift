@@ -13,14 +13,19 @@
 //
 
 import UIKit
-
+protocol LikeDislikeDelegate
+{
+    func dataLikeDislike(id : Int,isMatch : Bool,index : Int)
+    
+}
 class CandidateDetailVC: UIViewController {
     var dictTable = [["title":"DOB","value":"Loading..."],["title":"Gender","value":"Loading..."],["title":"Current location","value":"Loading..."],["title":"Current Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Spoken Language","value":"Loading..."]]
     var candidateId = ""
     @IBOutlet var tblCandidateDetail: UITableView!
     let screenSize: CGRect = UIScreen.main.bounds
     var mainDict = NSDictionary.init()
-
+    var index : Int = -1
+    var likeDislikeDelegate : LikeDislikeDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
         getCandidateApi()
@@ -185,12 +190,14 @@ extension CandidateDetailVC : UITableViewDelegate,UITableViewDataSource
     }
     @objc func likeAct(_ sender : UIButton)
     {
-        print("Liked")
+        likeDislikeDelegate.dataLikeDislike(id: Int(candidateId) ?? -1, isMatch: true, index: index)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func dislikeAct(_ sender : UIButton)
     {
-        print("Disliked")
+        likeDislikeDelegate.dataLikeDislike(id: Int(candidateId) ?? -1, isMatch: false, index: index)
+        self.navigationController?.popViewController(animated: true)
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return section == 0 ? 10 : 160

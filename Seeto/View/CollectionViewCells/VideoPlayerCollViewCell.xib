@@ -15,10 +15,35 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="427" height="353"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AF.png" translatesAutoresizingMaskIntoConstraints="NO" id="2Fz-DC-hBP">
+                        <rect key="frame" x="0.0" y="0.0" width="427" height="353"/>
+                    </imageView>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="p7j-eo-dLI">
+                        <rect key="frame" x="0.0" y="0.0" width="427" height="353"/>
+                    </activityIndicatorView>
+                </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="2Fz-DC-hBP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="2MW-9B-pV3"/>
+                <constraint firstItem="2Fz-DC-hBP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Dig-TD-2n7"/>
+                <constraint firstItem="p7j-eo-dLI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="RX8-G8-Q84"/>
+                <constraint firstAttribute="trailing" secondItem="2Fz-DC-hBP" secondAttribute="trailing" id="bjU-eG-vAD"/>
+                <constraint firstItem="p7j-eo-dLI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="tPN-cv-VsZ"/>
+                <constraint firstAttribute="bottom" secondItem="p7j-eo-dLI" secondAttribute="bottom" id="tV8-02-knZ"/>
+                <constraint firstAttribute="trailing" secondItem="p7j-eo-dLI" secondAttribute="trailing" id="uzH-SC-KIz"/>
+                <constraint firstAttribute="bottom" secondItem="2Fz-DC-hBP" secondAttribute="bottom" id="zmB-cR-wUU"/>
+            </constraints>
             <size key="customSize" width="427" height="353"/>
+            <connections>
+                <outlet property="activityIndicator" destination="p7j-eo-dLI" id="jll-3P-wUp"/>
+                <outlet property="imgThumb" destination="2Fz-DC-hBP" id="Lt8-3m-xDp"/>
+            </connections>
             <point key="canvasLocation" x="86.25954198473282" y="29.929577464788736"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="AF.png" width="40" height="30"/>
+    </resources>
 </document>

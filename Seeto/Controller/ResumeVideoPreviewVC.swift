@@ -70,7 +70,7 @@ class ResumeVideoPreviewVC: UIViewController {
         print("Finished")
         finished = true
         playerViewAV.player?.seek(to: CMTime.zero)
-
+    //    playerViewAV.player?.play()
         btnPlayPause.setImage( UIImage(named: "play"), for: .normal)
 
     }

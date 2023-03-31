@@ -8,7 +8,14 @@
 import UIKit
 import AVFoundation
 
-class HomeScreenVC: UIViewController {
+class HomeScreenVC: UIViewController, LikeDislikeDelegate {
+    func dataLikeDislike(id: Int, isMatch: Bool, index: Int) {
+        matchOrPassUser(Id: id, isMatch: isMatch, index: index)
+
+    }
+    
+  
+    
     
     @IBOutlet var collViewVideos: UICollectionView!
     let screenSize: CGRect = UIScreen.main.bounds
@@ -32,11 +39,77 @@ class HomeScreenVC: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
-        let cells = collViewVideos.visibleCells.compactMap({ $0 as? VideoPlayerCollViewCell })
-        cells.forEach { videoCell in
+        collViewVideos.reloadData()
+//        let cells = collViewVideos.visibleCells.compactMap({ $0 as? VideoPlayerCollViewCell })
+//        cells.forEach { videoCell in
+//
+//            if videoCell.isPlaying {
+//                videoCell.startPlaying()
+//            }
+//        }
+    }
+    
+    func matchOrPassUser(Id: Int,isMatch : Bool,index : Int)
+    {
+        var params = [:] as [String:Any]
+        if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
+        {
+            if userType == 2
+            {
+                params = ["searchId" :searchId,"jobId" : Id,"isMatch": isMatch]
+            }
+            else
+            {
+                params = ["candidateId" : Id,"isMatch": isMatch]
+            }
+        }
+        ApiManager().postRequest(parameters: params, api: ApiManager.shared.MatchOrPassUser) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                  DispatchQueue.main.async {
+                      Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                      DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                          let indexPathMain = IndexPath(item: index, section: 0)
+                          let cell = self.collViewVideos!.cellForItem(at: indexPathMain)
+                                          UIView.animate(withDuration: 0.5, animations: {
+                                              cell?.center.y -= 500 // Move up 500 pixels
+                                              cell?.alpha = 0.0 //the cell will come back from top so I set al[ha to 0.0
+                                          }, completion: { (_) in
+                                              self.collViewVideos.performBatchUpdates({
+                                                  self.mainDataArray.remove(at: indexPathMain.item)
+                                                  self.collViewVideos.deleteItems(at:[indexPathMain])
+                                              }, completion: { [unowned self] (_) in
 
-            if videoCell.isPlaying {
-                videoCell.stopPlaying()
+                                              })
+                                          })
+                      }
+                   
+
+                  }
+
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
             }
         }
     }
@@ -109,8 +182,16 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
         collectionView.register(VideoPlayerCollViewCell.self, forCellWithReuseIdentifier: "VideoPlayerCollViewCell")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoPlayerCollViewCell", for: indexPath) as! VideoPlayerCollViewCell
             //Video player
+       
+        
         if let url = URL(string: (mainDataArray[indexPath.row]["videoUrl"] as? String ?? ""))
         {
+            cell.imgThumb = UIImageView()
+            cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height:collectionView.frame.height)
+            cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
+            cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width - 20,height:collectionView.frame.height))
+            cell.activityIndicator.style = .large
+            cell.activityIndicator.startAnimating()
             let avPlayer = AVPlayer(url: url)
             cell.playerViewAV.player = avPlayer
             cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height:collectionView.frame.height)
@@ -137,11 +218,19 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
             blackView.frame = CGRect(x: 0, y: 0, width: cell.playerViewAV.frame.width, height: cell.playerViewAV.frame.height)
             blackView.setGradientBackground()
             cell.contentView.layer.addSublayer(cell.playerViewAV)
+            cell.addObserverNotification()
+//            cell.contentView.layer.addSublayer()
+            cell.contentView.addSubview(cell.imgThumb)
+            cell.contentView.addSubview(cell.activityIndicator)
+
             cell.contentView.addSubview(blackView)
             cell.contentView.addSubview(btnDislike)
             cell.contentView.addSubview(btnLike)
             cell.contentView.addSubview(imageLike)
             cell.contentView.addSubview(imageDislike)
+            btnLike.tag = indexPath.row
+            btnDislike.tag = indexPath.row
+
             let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(HomeScreenVC.leftSwiped))
             swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
             cell.addGestureRecognizer(swipeLeft)
@@ -156,6 +245,7 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
              }
           return cell
     }
+   
     @objc func leftSwiped(_ sender : UISwipeGestureRecognizer)
     {
         if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
@@ -164,13 +254,25 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
             {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyJobDetailVC") as! MyJobDetailVC
                 vc.jobId = String(describing: (mainDataArray[sender.view?.tag ?? 0]["jobId"] as AnyObject))
+                vc.likeDislikeDelegate = self
+                vc.index = sender.view?.tag ?? 0
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else
             {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "CandidateDetailVC") as! CandidateDetailVC
                 vc.candidateId = String(describing: (mainDataArray[sender.view?.tag ?? 0]["candidateId"] as AnyObject))
+                vc.likeDislikeDelegate = self
+                vc.index = sender.view?.tag ?? 0
+
                 self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        let cells = collViewVideos.visibleCells.compactMap({ $0 as? VideoPlayerCollViewCell })
+        cells.forEach { videoCell in
+
+            if videoCell.isPlaying {
+                videoCell.stopPlaying()
             }
         }
     }
@@ -181,15 +283,34 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
     }
     @objc func likeAct(_ sender : UIButton)
     {
-        Toast.show(message:"Done", controller: self)
-
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelectResumeVC") as! SelectResumeVC
-//        self.present(vc, animated: true)
+        if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
+        {
+            if userType == 2
+            {
+                matchOrPassUser(Id: mainDataArray[sender.tag]["jobId"] as? Int ?? -1, isMatch: true,index : sender.tag)
+            }
+            else
+            {
+                matchOrPassUser(Id: mainDataArray[sender.tag]["candidateId"] as? Int ?? -1, isMatch: true,index : sender.tag)
+            }
+            
+        }
     }
     
     @objc func dislikeAct(_ sender : UIButton)
     {
-        Toast.show(message:"Done", controller: self)
+        if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
+        {
+            if userType == 2
+            {
+                matchOrPassUser(Id: mainDataArray[sender.tag]["jobId"] as? Int ?? -1, isMatch: false,index : sender.tag)
+            }
+            else
+            {
+                matchOrPassUser(Id: mainDataArray[sender.tag]["candidateId"] as? Int ?? -1, isMatch: false,index : sender.tag)
+            }
+        }
+        
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0

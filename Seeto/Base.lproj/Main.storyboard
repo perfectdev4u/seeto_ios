@@ -1183,9 +1183,7 @@
                                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="btnActConfirm:" destination="qaw-aE-GMA" eventType="touchUpInside" id="uon-qA-o2Y"/>
                                             <action selector="btnCancelAct:" destination="T4l-wd-D45" eventType="touchUpInside" id="wwH-wD-eFk"/>
-                                            <action selector="btnConfirmAct:" destination="T4l-wd-D45" eventType="touchUpInside" id="aKo-b3-azP"/>
                                         </connections>
                                     </button>
                                 </subviews>
