@@ -23,8 +23,6 @@ var appleLogin = false
         btnJustExploring.layer.cornerRadius = 6
 //        btnJustExploring.layer.borderColor = UIColor.white.cgColor
 //        btnJustExploring.layer.borderWidth = 1
-
-
     }
     
     @IBAction func btnHireTalentAct(_ sender: UIButton) {

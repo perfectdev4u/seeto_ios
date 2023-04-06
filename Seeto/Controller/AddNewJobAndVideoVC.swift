@@ -572,11 +572,6 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
            }
        }
     @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo info: AnyObject) {
-      let title =  "Success"
-      let message =  "Video was saved"
-
-      let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler:{_ in
           let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddJobVideo") as! AddJobVideo
           vc.urlVideo = self.urlVideo
           vc.dictParam = self.addNewJobData()
@@ -584,9 +579,6 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
           self.navigationController?.pushViewController(vc, animated: true)
 
           
-      }
-                                   ))
-      present(alert, animated: true, completion: nil)
   }
 }
 

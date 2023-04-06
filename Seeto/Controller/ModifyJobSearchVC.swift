@@ -312,7 +312,7 @@ extension ModifyJobSearchVC : UITableViewDelegate,UITableViewDataSource
         view.backgroundColor = backGroundColor
         let button = UIButton(frame: CGRect(x: 20, y: 25, width: self.view.frame.width - 60, height: 50))
         button.layer.cornerRadius = 10
-        button.setTitle("Apply", for: .normal)
+        button.setTitle("Search", for: .normal)
         button.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
         button.addTarget(self, action: #selector(btnApplyAct), for: .touchUpInside)
         button.backgroundColor = blueButtonColor

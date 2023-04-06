@@ -50,12 +50,12 @@ class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewD
         imgFlag.isHidden = true
         lblLeading.constant = 25
         underLineViewLeading.constant = 20
-        lblPhoneNum.text = "What's your email Id?"
+        lblPhoneNum.text = "What's your email address?"
         btnPicker.isHidden = true
         viewUnderline.isHidden = true
         tfCountryCode.isHidden = true
         tfPhone.attributedPlaceholder = NSAttributedString(
-            string: "Enter your email Id",
+            string: "Enter your email address",
             attributes: [NSAttributedString.Key.foregroundColor: grayColor]
         )
         tfPhone.keyboardType = .emailAddress
@@ -100,7 +100,7 @@ class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBAction func btnNextAct(_ sender: UIButton) {
         if tfPhone.text == ""
         {
-            Toast.show(message: email == true ? "Enter Email Id" : "Enter Phone Number", controller: self)
+            Toast.show(message: email == true ? "Enter email address" : "Enter Phone Number", controller: self)
 
         }
         else

@@ -52,7 +52,7 @@ class OTPViewController: UIViewController ,MyTextFieldDelegate{
         btnConfirm.layer.cornerRadius = 15
         if email == true
         {
-            lblMain.text = "verify your email id with OTP?"
+            lblMain.text = "verify your email address with OTP?"
         }
         // Do any additional setup after loading the view.
     }
@@ -210,6 +210,18 @@ extension OTPViewController: UITextFieldDelegate {
        textField.text = ""
     }
     
+    @objc func textFieldDidChange(_ textField: UITextField) {
+          if textField.textContentType == UITextContentType.oneTimeCode{
+              //here split the text to your four text fields
+              if let otpCode = textField.text, otpCode.count > 3{
+                  firstTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 0)])
+                  secondTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 1)])
+                  thirdTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 2)])
+                  fourthTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 3)])
+              }
+          }
+       
+    }
     @objc func textFieldDidChange(textField: UITextField){
 
         let text = textField.text

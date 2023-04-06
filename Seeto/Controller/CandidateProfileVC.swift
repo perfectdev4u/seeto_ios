@@ -38,7 +38,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
 
     var videoUrlString = ""
     var langList = [NSDictionary].init()
-    var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Date of Birth","type":"drop","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"true","value":UserDefaults.standard.value(forKey: "phone") as? String ?? ""],["title":"Email Address","type":"text","required":"true","value": UserDefaults.standard.value(forKey: "email") as? String ?? ""],["title":"Linkedin Profile","type":"text","required":"true","value":""],["title":"Current Location","type":"btn","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
+    var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"First Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Date of Birth","type":"drop","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"true","value":UserDefaults.standard.value(forKey: "phone") as? String ?? ""],["title":"Email Address","type":"text","required":"true","value": UserDefaults.standard.value(forKey: "email") as? String ?? ""],["title":"Linkedin Profile","type":"text","required":"false","value":""],["title":"Current Location","type":"btn","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
     let toolBar = UIToolbar()
@@ -51,7 +51,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     var countryCode = "USA"
     var langArray = [] as! [String]
     var langFluencyArray = [] as! [Int]
-
+    var profilePicUrl = ""
     @IBOutlet var tblCandidateProfile: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -216,7 +216,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "firstName" : dictTable[1]["value"]!,
             "lastName" : dictTable[2]["value"]!,
             "dateOfBirth" : dictTable[3]["value"]!,
-            "profileImage" : dictTable[0]["value"] ?? "",
+            "profileImage" : self.profilePicUrl,
             "linkedInProfile" : dictTable[6]["value"]!,
             "phoneNumber" :  dictTable[4]["value"]!,
             "email" :  dictTable[5]["value"]!,
@@ -1004,6 +1004,7 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
                 if let json = jsonData as? [String: Any] {
                     if let dict = json["data"] as? NSDictionary{
+                        self.profilePicUrl = (dict["url"] as? String) ?? ""
                         self.dictTable[0]["value"] = (dict["url"] as? String) ?? ""
                         SwiftLoader.hide()
                         DispatchQueue.main.async {
@@ -1025,18 +1026,11 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
         }).resume()
     }
     @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo info: AnyObject) {
-      let title = "Success"
-      let message = "Video was saved"
 
-      let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler:{_ in  print("Foo")
           let vc = self.storyboard?.instantiateViewController(withIdentifier: "ThumbnailVideoVC") as! ThumbnailVideoVC
           vc.urlVideo = self.urlVideo
           vc.dictParam = self.updateCandidateProfileData()
           self.navigationController?.pushViewController(vc, animated: true)
-      }
-                                   ))
-      present(alert, animated: true, completion: nil)
   }
 }
 

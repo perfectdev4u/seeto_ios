@@ -38,8 +38,8 @@ class ResumeVideoPreviewVC: UIViewController {
             playerViewAV.player?.play()
             SwiftLoader.show(animated: true);
             playerViewAV.player?.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(didfinishplaying(_:)), name: .AVPlayerItemDidPlayToEndTime, object: playerViewAV.player?.currentItem)
 
-            NotificationCenter.default.addObserver(self, selector: #selector(ThumbnailVideoVC.didfinishplaying),name:NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerViewAV.player?.currentItem)
         }
         // Do any additional setup after loading the view.
     }
@@ -65,12 +65,12 @@ class ResumeVideoPreviewVC: UIViewController {
             }
         }
     
-    @objc func didfinishplaying()
+    @objc func didfinishplaying(_ sender : UIButton)
     {
         print("Finished")
         finished = true
         playerViewAV.player?.seek(to: CMTime.zero)
-    //    playerViewAV.player?.play()
+        playerViewAV.player?.play()
         btnPlayPause.setImage( UIImage(named: "play"), for: .normal)
 
     }

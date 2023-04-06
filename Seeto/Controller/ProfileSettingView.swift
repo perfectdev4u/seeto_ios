@@ -10,6 +10,7 @@ import SDWebImage
 import AVKit
 import MobileCoreServices
 import SwiftLoader
+import Photos
 class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
     var dictTable = [["title":"Name","value":"Loading..."],["title":"DOB","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Gender","value":"Loading..."],["title":"Current Location","value":"Loading..."],["title":"Current Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Spoken Language","value":"Loading..."]]
     var mainDataJson = NSDictionary.init()
@@ -449,6 +450,13 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
             UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path)
             else {
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
+                        // got asset and imageURL
+                print(asset.value(forKey: "filename") ?? "")
+
+                    } else {
+                        // show error
+                    }
             uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image.resizeWithPercent(percentage: 0.5)!)
                 return
         }
@@ -640,19 +648,12 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
         }).resume()
     }
     @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo info: AnyObject) {
-      let title = "Success"
-      let message = "Video was saved"
-
-      let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler:{_ in  print("Foo")
+      
           let vc = self.storyboard?.instantiateViewController(withIdentifier: "ThumbnailVideoVC") as! ThumbnailVideoVC
           vc.urlVideo = self.urlVideo
           vc.dictParam = self.updateCandidateDict()
           vc.updateVideo = true
           self.navigationController?.pushViewController(vc, animated: true)
-      }
-                                   ))
-      present(alert, animated: true, completion: nil)
   }
 }
 
