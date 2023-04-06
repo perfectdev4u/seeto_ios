@@ -10,7 +10,20 @@ import AVKit
 import MobileCoreServices
 import SwiftLoader
 
-class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate,JobDelegate, SearchAddressProtocol {
+class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate,JobDelegate, SearchAddressProtocol, MinMaxSalaryDelegate, UITextViewDelegate {
+    func addMinMaxSalary(minSal: String, maxSal: String) {
+        for i in 0...dictTable.count - 1
+        {
+            if dictTable[i]["title"] == "Salary Range in U.S. Dollars"
+            {
+                dictTable[i]["value"] = minSal + " - " + maxSal
+            }
+        }
+        DispatchQueue.main.async {
+            self.tblJob.reloadData()
+        }
+    }
+    
     func adressMap(address: String) {
         for i in 0...dictTable.count - 1
         {
@@ -42,7 +55,7 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
     var urlVideo = URL(string: "")
-    var dictTable = [["title":"Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Job Type","type":"drop","required":"false","value":""],["title":"On-Site/Remote","type":"drop","required":"false","value":""],["title":"Location","type":"btn","required":"false","value":""],["title":"Salary Range","type":"drop","required":"false","value":""],["title":"Job Description","type":"text","required":"true","value":""]]
+    var dictTable = [["title":"Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Job Type","type":"drop","required":"false","value":""],["title":"On-Site/Remote","type":"drop","required":"false","value":""],["title":"Location","type":"btn","required":"false","value":""],["title":"Salary Range in U.S. Dollars","type":"btn","required":"false","value":""],["title":"Job Description","type":"text","required":"true","value":""]]
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
     let toolBar = UIToolbar()
@@ -263,6 +276,20 @@ extension AddNewJobAndVideoVC
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        if indexPath.row == tableView.numberOfRows(inSection: 0) - 1
+        {
+            let identifier = "TextViewCell"
+            tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! TextViewCell
+            let attributedString = NSMutableAttributedString(
+                string: (dictTable[indexPath.row]["title"]!),
+                attributes: [NSAttributedString.Key.foregroundColor: grayColor]
+            )
+            cell.adjustUITextViewHeight(arg: cell.textView)
+            cell.textView.text = (dictTable[indexPath.row]["value"]!)
+            cell.textView.delegate = self
+            return cell
+        }
         let identifier = "CandidateProfileCell"
         tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! CandidateProfileCell
@@ -298,6 +325,7 @@ extension AddNewJobAndVideoVC
         {
             cell.tfMain.isUserInteractionEnabled = true
         }
+        
         cell.leadingTf.constant = 27
         cell.phoneCountryView.isHidden = true
 
@@ -318,6 +346,12 @@ extension AddNewJobAndVideoVC
                   let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as! SearchVC
                   vc.searchAdressDelegate = self
                   self.navigationController?.pushViewController(vc, animated: true)
+              }
+            if (dictTable[indexPath.row]["title"]!) == "Salary Range in U.S. Dollars"
+             {
+                  let vc = self.storyboard?.instantiateViewController(withIdentifier: "MinMaxSalaryVC") as! MinMaxSalaryVC
+                  vc.minMaxSalDelegate = self
+                self.present(vc, animated: true)
               }
         }
         
@@ -372,7 +406,7 @@ extension AddNewJobAndVideoVC : UITextFieldDelegate
                     pickerArray = ["Mohali","Noida"]
                 
         }
-            else if (dictTable[textFieldTag]["title"]!) == "Salary Range"
+            else if (dictTable[textFieldTag]["title"]!) == "Salary Range in U.S. Dollars"
             {
                     
                     pickerArray = ["50000 - 100000","100000 - 200000"]
@@ -582,3 +616,36 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
   }
 }
 
+extension AddNewJobAndVideoVC
+{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if let text = textView.text,
+                  let textRange = Range(range, in: text) {
+                  let updatedText = text.replacingCharacters(in: textRange,
+                                                              with: text)
+            for i in 0...dictTable.count - 1
+            {
+                if dictTable[i]["title"] == "Job Description"
+                {
+                    dictTable[i]["value"] = updatedText
+                }
+            }
+
+            
+        }
+        let index = NSIndexPath(item: 6, section: 0)
+        let refCell = tblJob.cellForRow(at: index as IndexPath) as! TextViewCell
+        if let numLines = (refCell.textView.contentSize.height / refCell.textView.font!.lineHeight) as? CGFloat
+        {
+            if numLines > 1
+            {
+                refCell.heightTextV.constant = refCell.textView.contentSize.height
+            }
+       }
+        return true
+
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        tblJob.reloadData()
+    }
+}
