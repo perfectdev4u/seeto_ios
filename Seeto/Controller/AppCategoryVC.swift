@@ -52,7 +52,9 @@ var appleLogin = false
     }
     
     @IBAction func btnJustExploring(_ sender: UIButton) {
-        Toast.show(message:"Under Development", controller: self)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "InstructionsVC") as! InstructionsVC
+        vc.justExploring = true
+        self.navigationController?.pushViewController(vc, animated: true)
 
     }
     

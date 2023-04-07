@@ -66,3 +66,12 @@ func converrDateFormat(string : String,monthFormat : Bool? = false) -> String
     
     return dateFormatterMain.string(from: date ?? Date())
 }
+
+func verifyUrl(urlString: String?) -> Bool {
+    if let urlString = urlString {
+        if let url = NSURL(string: urlString) {
+            return UIApplication.shared.canOpenURL(url as URL)
+        }
+    }
+    return false
+}

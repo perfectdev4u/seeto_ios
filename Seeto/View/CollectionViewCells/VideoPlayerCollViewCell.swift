@@ -44,7 +44,7 @@ class VideoPlayerCollViewCell: UICollectionViewCell {
            
            if let accessLog = playerItem.accessLog(), let event = accessLog.events.last {
                if event.indicatedBitrate > 0 {
-                   imgThumb.isHidden = true
+                   imgThumb?.isHidden = true
                    activityIndicator.stopAnimating()
                }
            }

@@ -10,6 +10,7 @@ import AVKit
 import MobileCoreServices
 import SwiftLoader
 import CountryPickerView
+import Photos
 class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchAddressProtocol, CountryPickerViewDelegate, CountryPickerViewDataSource{
 
     var flagImage = UIImage(named: "usa")
@@ -350,6 +351,8 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             {
                 if textFieldTag == 10
                 {
+                    dictTable[textFieldTag]["value"] = pickerArray[index] + " (" +  languageArray[indexLang] + ")"
+ 
                     langArray.append(pickerArray[index])
                     langFluencyArray.append(indexLang)
                     tblCandidateProfile.reloadData()
@@ -360,6 +363,8 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             {
                 if textFieldTag == 11
                 {
+                    dictTable[textFieldTag]["value"] = pickerArray[index] + " (" +  languageArray[indexLang] + ")"
+
                     langArray.append(pickerArray[index])
                     langFluencyArray.append(indexLang)
                     tblCandidateProfile.reloadData()
@@ -484,6 +489,32 @@ extension CandidateProfileVC
                     }
                 }
             }
+            for i in dictTable
+            {
+                if i["title"] == "Linkedin Profile"
+                {
+                    if i["value"]! != ""
+                    {
+                        if i["value"]!.contains("https://")
+                        {
+                            if i["value"]?.isValidURL() == false
+                            {
+                                Toast.show(message: "Please enter valid Linkedin Profile url", controller: self)
+                                return
+                            }
+                        }
+                        else
+                        {
+                            if  ("https://" + i["value"]!).isValidURL() == false
+                            {
+                                Toast.show(message: "Please enter valid Linkedin Profile url", controller: self)
+                                return
+                            }
+                        }
+                    }
+                }
+            }
+          
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
                 print("Camera Available")
                 
@@ -540,6 +571,7 @@ extension CandidateProfileVC
             string: (dictTable[indexPath.row]["title"]!),
             attributes: [NSAttributedString.Key.foregroundColor: grayColor]
         )
+      
         if (dictTable[indexPath.row]["required"]!) == "true"
         {
             let attributedMark = NSMutableAttributedString(
@@ -612,7 +644,15 @@ extension CandidateProfileVC
         }
         else
         {
-            cell.tfMain.text = (dictTable[indexPath.row]["value"]!)
+            if (dictTable[indexPath.row]["title"]!) == "Desired Monthly Income (U.S. Dollars)" || (dictTable[indexPath.row]["title"]!) == "Linkedin Profile" || (dictTable[indexPath.row]["title"]!) == "+1 0000000000" || (dictTable[indexPath.row]["title"]!) == "+1 0000000000" || (dictTable[indexPath.row]["title"]!) == "Date of Birth" || (dictTable[indexPath.row]["title"]!) == "Email Address"
+            {
+                cell.tfMain.text = (dictTable[indexPath.row]["value"]!)
+
+            }
+            else
+            {
+                cell.tfMain.text = (dictTable[indexPath.row]["value"]!).capitalizingFirstLetter()
+            }
         }
         if (dictTable[indexPath.row]["type"]!) == "text"
         {
@@ -840,10 +880,15 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
             mediaType == (kUTTypeMovie as String),
             let url = info[UIImagePickerController.InfoKey(rawValue: UIImagePickerController.InfoKey.mediaURL.rawValue) ] as? URL,
             UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path)
-            else {
+        else {
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-           
-            uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image)
+//            let photo = info[.phAsset] as? PHAsset
+
+                uploadImage(paramName: "file", fileName: "Profile.png", image: image)
+
+            
+            
+
                 return
         }
     urlVideo = url
@@ -1005,7 +1050,7 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
                 if let json = jsonData as? [String: Any] {
                     if let dict = json["data"] as? NSDictionary{
                         self.profilePicUrl = (dict["url"] as? String) ?? ""
-                        self.dictTable[0]["value"] = (dict["url"] as? String) ?? ""
+                        self.dictTable[0]["value"] = fileName
                         SwiftLoader.hide()
                         DispatchQueue.main.async {
                             self.tblCandidateProfile.reloadData()
@@ -1047,7 +1092,7 @@ extension CandidateProfileVC: UICollectionViewDelegate, UICollectionViewDataSour
         collectionView.register(UINib(nibName: "SpokenLanguageCell", bundle: nil), forCellWithReuseIdentifier: "SpokenLanguageCell")
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SpokenLanguageCell", for: indexPath) as! SpokenLanguageCell
-        cell.lblLang.text = langArray[indexPath.row]
+        cell.lblLang.text = langArray[indexPath.row] + " (" +  languageArray[langFluencyArray[indexPath.row]] + ")"
         cell.btnCross.tag = indexPath.row
         cell.btnCross.addTarget(self, action: #selector(self.btnCross(_:)), for: .touchUpInside)
           return cell
@@ -1064,7 +1109,7 @@ extension CandidateProfileVC: UICollectionViewDelegate, UICollectionViewDataSour
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width:  langArray[indexPath.row].size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12,weight: .regular)]).width + 60, height: 50)
+        return CGSize(width:  (langArray[indexPath.row] + " (" +  languageArray[langFluencyArray[indexPath.row]] + ")").size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12,weight: .regular)]).width + 60, height: 50)
     }
 }
 

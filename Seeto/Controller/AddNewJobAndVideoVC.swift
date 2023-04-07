@@ -9,8 +9,10 @@ import UIKit
 import AVKit
 import MobileCoreServices
 import SwiftLoader
+import GrowingTextView
 
 class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate,JobDelegate, SearchAddressProtocol, MinMaxSalaryDelegate, UITextViewDelegate {
+    var heightTxtV = 40.0
     func addMinMaxSalary(minSal: String, maxSal: String) {
         for i in 0...dictTable.count - 1
         {
@@ -72,6 +74,8 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
         tblJob.backgroundColor = backGroundColor
         imagePicker.delegate = self
         btnNext.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
+        automaticallyAdjustsScrollViewInsets = false
+
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -274,6 +278,14 @@ extension AddNewJobAndVideoVC
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return .leastNormalMagnitude
     }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if indexPath.row == tableView.numberOfRows(inSection: 0) - 1
+//        {
+//            return heightTxtV + 41
+//        }// Add some padding for aesthetics
+//       // CGFloat(indexPath.row == tableView.numberOfRows(inSection: 0) - 1 ? CGFloat(41 + heightTxtV) :
+//        return UITableView.automaticDimension
+//    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         if indexPath.row == tableView.numberOfRows(inSection: 0) - 1
@@ -283,10 +295,16 @@ extension AddNewJobAndVideoVC
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! TextViewCell
             let attributedString = NSMutableAttributedString(
                 string: (dictTable[indexPath.row]["title"]!),
-                attributes: [NSAttributedString.Key.foregroundColor: grayColor]
+                attributes: [NSAttributedString.Key.foregroundColor: grayColor,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]
             )
-            cell.adjustUITextViewHeight(arg: cell.textView)
+            let attributedMark = NSMutableAttributedString(
+                string: "*",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]
+            )
+            attributedString.append(attributedMark)
+
             cell.textView.text = (dictTable[indexPath.row]["value"]!)
+            cell.textView.attributedPlaceholder = attributedString
             cell.textView.delegate = self
             return cell
         }
@@ -462,8 +480,9 @@ extension AddNewJobAndVideoVC : UITextFieldDelegate
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        tblJob.reloadData()
+        DispatchQueue.main.async {
+            self.tblJob.reloadData()
+        }
     }
 }
 // MARK: - UIImagePickerControllerDelegate
@@ -618,34 +637,30 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
 
 extension AddNewJobAndVideoVC
 {
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if let text = textView.text,
-                  let textRange = Range(range, in: text) {
-                  let updatedText = text.replacingCharacters(in: textRange,
-                                                              with: text)
+        let  text = textView.text
+                 
             for i in 0...dictTable.count - 1
             {
                 if dictTable[i]["title"] == "Job Description"
                 {
-                    dictTable[i]["value"] = updatedText
+                    dictTable[i]["value"] = text
                 }
             }
 
             
-        }
-        let index = NSIndexPath(item: 6, section: 0)
-        let refCell = tblJob.cellForRow(at: index as IndexPath) as! TextViewCell
-        if let numLines = (refCell.textView.contentSize.height / refCell.textView.font!.lineHeight) as? CGFloat
-        {
-            if numLines > 1
-            {
-                refCell.heightTextV.constant = refCell.textView.contentSize.height
-            }
-       }
+        
+
         return true
 
     }
     func textViewDidEndEditing(_ textView: UITextView) {
-        tblJob.reloadData()
+        DispatchQueue.main.async
+        {
+            self.tblJob.reloadData()
+        }
     }
 }
+
+

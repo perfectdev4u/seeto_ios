@@ -15,6 +15,8 @@ class OTPViewController: UIViewController ,MyTextFieldDelegate{
     @IBOutlet var fourthTf: MyTextField!
     @IBOutlet weak var lblMain: UILabel!
     @IBOutlet var btnConfirm: UIButton!
+    
+    var copyData = false
     var email = false
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -203,59 +205,79 @@ class OTPViewController: UIViewController ,MyTextFieldDelegate{
         self.navigationController?.popViewController(animated: true)
 
     }
-    
+//    @IBAction func pasteOTP(_ sender: Any) {
+//
+////        guard let otp = UIPasteboard.general.string else {
+////            return
+////        }
+////
+////        let otpDigits = otp.map { String($0) }
+////
+////        if otpDigits.count >= 4  {
+////            copyData = true
+////            firstTf.text = otpDigits[0]
+////            secondTf.text = otpDigits[1]
+////            thirdTf.text = otpDigits[2]
+////            fourthTf.text = otpDigits[3]
+////        }
+////        copyData = false
+//    }
 }
 extension OTPViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
        textField.text = ""
     }
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-          if textField.textContentType == UITextContentType.oneTimeCode{
-              //here split the text to your four text fields
-              if let otpCode = textField.text, otpCode.count > 3{
-                  firstTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 0)])
-                  secondTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 1)])
-                  thirdTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 2)])
-                  fourthTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 3)])
-              }
-          }
-       
-    }
+ 
     @objc func textFieldDidChange(textField: UITextField){
-
-        let text = textField.text
-
-        if text?.utf16.count ?? 0 >= 1{
-            switch textField{
-            case firstTf:
-                secondTf.becomeFirstResponder()
-            case secondTf:
-                thirdTf.becomeFirstResponder()
-            case thirdTf:
-                fourthTf.becomeFirstResponder()
-            case fourthTf:
-                fourthTf.resignFirstResponder()
-            default:
-                break
+if copyData == false
+        {
+    if textField.textContentType == UITextContentType.oneTimeCode{
+        //here split the text to your four text fields
+        if let otpCode = textField.text, otpCode.count > 3{
+            firstTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 0)])
+            secondTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 1)])
+            thirdTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 2)])
+            fourthTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 3)])
+            firstTf.resignFirstResponder()
+        }
+        else{
+            let text = textField.text
+            
+            if text?.utf16.count ?? 0 >= 1{
+                switch textField{
+                case firstTf:
+                    secondTf.becomeFirstResponder()
+                case secondTf:
+                    thirdTf.becomeFirstResponder()
+                case thirdTf:
+                    fourthTf.becomeFirstResponder()
+                case fourthTf:
+                    fourthTf.resignFirstResponder()
+                default:
+                    break
+                }
+            }
+            else if  text?.utf16.count == 0 {
+                switch textField{
+                case firstTf:
+                    firstTf.becomeFirstResponder()
+                case secondTf:
+                    firstTf.becomeFirstResponder()
+                case thirdTf:
+                    secondTf.becomeFirstResponder()
+                case fourthTf:
+                    thirdTf.becomeFirstResponder()
+                default:
+                    break
+                }
+            }else{
+                
             }
         }
-        else if  text?.utf16.count == 0 {
-                 switch textField{
-                 case firstTf:
-                     firstTf.becomeFirstResponder()
-                 case secondTf:
-                     firstTf.becomeFirstResponder()
-                 case thirdTf:
-                     secondTf.becomeFirstResponder()
-                 case fourthTf:
-                     thirdTf.becomeFirstResponder()
-                 default:
-                     break
-                 }
-             }else{
-
-        }
+    }
+    
+    
+}
     }
     func textFieldDidDelete(textField: MyTextField){
         switch textField{

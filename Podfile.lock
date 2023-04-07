@@ -20,6 +20,7 @@ PODS:
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
+  - GrowingTextView (0.7.2)
   - GTMAppAuth (1.3.1):
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 3.0, >= 1.5)
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - GooglePlacePicker
   - GooglePlaces
   - GoogleSignIn
+  - GrowingTextView
   - IQKeyboardManager
   - SDWebImage (~> 4.0)
   - SkyFloatingLabelTextField
@@ -50,6 +52,7 @@ SPEC REPOS:
     - GooglePlacePicker
     - GooglePlaces
     - GoogleSignIn
+    - GrowingTextView
     - GTMAppAuth
     - GTMSessionFetcher
     - IQKeyboardManager
@@ -64,6 +67,7 @@ SPEC CHECKSUMS:
   GooglePlacePicker: fa975116ac202ac29822c0a79758ea1c4db5a95f
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
+  GrowingTextView: 876bf42005b5e4a4fd740597db12caaf41f0fe6c
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
@@ -71,6 +75,6 @@ SPEC CHECKSUMS:
   SkyFloatingLabelTextField: 79ddc40e4ad59707fedbb48d605417aee48bb78a
   SwiftLoader: f12f3a6fb42576862a3a5eb80c7e59fc881b6982
 
-PODFILE CHECKSUM: 2e42237789c5bd32f6d820ff9000cd488de711f8
+PODFILE CHECKSUM: 13d96640a4fe273aa224e2bad1cde30f34fba908
 
 COCOAPODS: 1.11.2

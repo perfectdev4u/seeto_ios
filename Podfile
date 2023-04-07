@@ -16,6 +16,7 @@ target 'Seeto' do
   pod 'CountryPickerView'
   pod 'SDWebImage', '~> 4.0'
   pod "SkyFloatingLabelTextField"
+  pod 'GrowingTextView'
   target 'SeetoTests' do
     inherit! :search_paths
     # Pods for testing

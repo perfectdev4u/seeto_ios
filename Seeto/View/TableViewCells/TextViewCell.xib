@@ -19,14 +19,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SJY-eK-NV9">
-                        <rect key="frame" x="24" y="15" width="269" height="46"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SJY-eK-NV9" customClass="GrowingTextView" customModule="GrowingTextView">
+                        <rect key="frame" x="24" y="25" width="269" height="41"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="46" id="amS-8d-h68"/>
+                            <constraint firstAttribute="height" constant="41" id="B8W-s5-IjW"/>
                         </constraints>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nBG-72-aHf">
@@ -40,18 +40,18 @@
                 <color key="backgroundColor" name="backgroundColor"/>
                 <constraints>
                     <constraint firstItem="nBG-72-aHf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="0xY-7j-HAr"/>
-                    <constraint firstItem="nBG-72-aHf" firstAttribute="top" secondItem="SJY-eK-NV9" secondAttribute="bottom" constant="5" id="A95-gm-A1l"/>
+                    <constraint firstItem="nBG-72-aHf" firstAttribute="top" secondItem="SJY-eK-NV9" secondAttribute="bottom" id="A95-gm-A1l"/>
                     <constraint firstAttribute="trailing" secondItem="nBG-72-aHf" secondAttribute="trailing" constant="20" id="C2F-cl-9r9"/>
                     <constraint firstItem="SJY-eK-NV9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="CPu-Ho-EOh"/>
                     <constraint firstAttribute="bottom" secondItem="nBG-72-aHf" secondAttribute="bottom" constant="15" id="QAg-Ct-wuq"/>
-                    <constraint firstItem="SJY-eK-NV9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="nkk-u1-tnP"/>
+                    <constraint firstItem="SJY-eK-NV9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="nkk-u1-tnP"/>
                     <constraint firstAttribute="trailing" secondItem="SJY-eK-NV9" secondAttribute="trailing" constant="27" id="tVV-tg-ynn"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="heightTextV" destination="amS-8d-h68" id="IKg-O2-2pU"/>
-                <outlet property="textView" destination="SJY-eK-NV9" id="bzt-VV-QpM"/>
+                <outlet property="heightTextV" destination="B8W-s5-IjW" id="ucy-8j-oJU"/>
+                <outlet property="textView" destination="SJY-eK-NV9" id="aZ2-lf-KKg"/>
             </connections>
             <point key="canvasLocation" x="-29.007633587786259" y="12.323943661971832"/>
         </tableViewCell>
