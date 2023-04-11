@@ -152,9 +152,14 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
     
     @objc func dislikeAct(_ sender : UIButton)
     {
-        likeDislikeAct(index: sender.tag)
+       // likeDislikeAct(index: sender.tag)
+        scrollToIndex(index: sender.tag == collView.numberOfItems(inSection: 0) - 1 ? 0 : sender.tag + 1)
 
     }
+    func scrollToIndex(index:Int) {
+         let rect = self.collView.layoutAttributesForItem(at: IndexPath(row: index, section: 0))?.frame
+         self.collView.scrollRectToVisible(rect!, animated: true)
+       }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
