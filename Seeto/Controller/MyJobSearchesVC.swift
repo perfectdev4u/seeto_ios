@@ -8,6 +8,10 @@
 import UIKit
 
 class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelegate, JobDelegate {
+//    func dataFromSearch(data: [NSDictionary], searchId: String) {
+//        <#code#>
+//    }
+    
     func JobDone() {
         getJobSearchesApi()
 
@@ -22,7 +26,7 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
     @IBOutlet var viewOops: UIView!
     @IBOutlet var btnNewSearch: UIButton!
     
-    func dataFromSearch(data: [NSDictionary]) {
+    func dataFromSearch(data: [NSDictionary], searchId: String) {
         arraySearch = data
         self.tblJobSearches.reloadData()
     }
@@ -169,6 +173,7 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
                         {
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
                             vc.mainDataArray = dictArray
+                            vc.inputArray = dictTable
                             vc.searchId = String(describing: dictTable["searchId"] as AnyObject)
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
@@ -267,21 +272,11 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
     }
     @objc func btnNewSearchAct()
     {
-        if fromHome == false
-        {
+       
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
-            vc.fromHome = fromHome
+            vc.fromHome = false
             vc.searchDetailDelegate = self
             self.navigationController?.pushViewController(vc, animated: true)
-        }
-        else
-        {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
-            vc.fromHome = fromHome
-            vc.searchDetailDelegate = self
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-        }
         
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

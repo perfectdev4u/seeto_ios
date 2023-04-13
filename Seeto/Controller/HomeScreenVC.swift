@@ -8,7 +8,17 @@
 import UIKit
 import AVFoundation
 
-class HomeScreenVC: UIViewController, LikeDislikeDelegate {
+class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate {
+    func dataFromSearch(data: [NSDictionary], searchId: String) {
+        mainDataArray = data
+        self.searchId = searchId
+        DispatchQueue.main.async {
+            self.collViewVideos.reloadData()
+        }
+    }
+    
+   
+    
     func dataLikeDislike(id: Int, isMatch: Bool, index: Int) {
         matchOrPassUser(Id: id, isMatch: isMatch, index: index)
 
@@ -20,6 +30,8 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate {
     @IBOutlet var collViewVideos: UICollectionView!
     let screenSize: CGRect = UIScreen.main.bounds
     var mainDataArray = [NSDictionary].init()
+    var inputArray = NSDictionary.init()
+
     var searchId = ""
     var videoUrlArray = ["https://seetoapp.s3.us-east-1.amazonaws.com/7993d069-cb7e-4757-b15f-5d0d8684249e_IMG_0232.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/b7d23127-881e-43d9-b05e-9beaeec7ae97_IMG_0240.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/1b099973-730d-4346-bcd1-acb4487c878e_IMG_0226.MP4"]
    // var videoUrlArray = [String]()
@@ -122,6 +134,9 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate {
             if userType == 2
             {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
+                vc.inputArray = inputArray
+                vc.fromHome = true
+                vc.searchDetailDelegate = self
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else{

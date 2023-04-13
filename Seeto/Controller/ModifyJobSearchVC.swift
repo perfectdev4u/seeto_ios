@@ -9,7 +9,7 @@ import UIKit
  
 protocol SearchDetailDelegate
 {
-    func dataFromSearch(data : [NSDictionary] )
+    func dataFromSearch(data : [NSDictionary] ,searchId : String)
 }
 class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, SearchAddressProtocol,SearchIndustryProtocol{
     func industryString(string: String) {
@@ -39,11 +39,12 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
     }
     
     var fromHome = false
-
+   
     var dictTable = [["title":"Position","type":"text","value":"","required": "true"],["title":"Experience Level","type":"drop","value":"","required": "true"],["title":"Industry","type":"btn","value":"","required": "true"],["title":"Job Type","type":"drop","value":"","required": "true"],["title":"On-Site/Remote","type":"drop","value":"","required": "true"],["title":"Location","type":"btn","value":"","required": "false"],["title":"Desired Salary","type":"text","value":"","required": "false"]]
     var pickerArray = [""]
     var mainIndustryArray = [String]()
     var mainDataArray = [NSDictionary].init()
+    var inputArray = NSDictionary.init()
 //    ["title":"Current Location","type":"btn","required":"false","value":""]
     var searchDetailDelegate : SearchDetailDelegate!
     let toolBar = UIToolbar()
@@ -56,6 +57,7 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
 
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         PickerView()
         getIndustryApi()
         // Do any additional setup after loading the view.
@@ -97,7 +99,18 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
                         {
                            self.mainIndustryArray.append((item["industryName"] as? String) ?? "")
                        }
-                        
+                        if self.fromHome == true
+                        {
+                            print(self.inputArray)
+                            self.dictTable[0]["value"]! = self.inputArray["position"] as? String ?? ""
+                            self.dictTable[1]["value"]! = experienceArray[self.inputArray["experienceLevel"] as? Int ?? 0]
+                            self.dictTable[2]["value"]! = self.mainIndustryArray[self.inputArray["industryId"] as? Int ?? 0]
+                            self.dictTable[3]["value"]! = jobArray[self.inputArray["jobType"] as? Int ?? 0]
+                            self.dictTable[4]["value"]! = JobLocationArray[self.inputArray["jobLocation"] as? Int ?? 0]
+                            self.dictTable[5]["value"]! = self.inputArray["location"] as? String ?? ""
+                            self.dictTable[6]["value"]! = self.inputArray["desiredSalary"] as? String ?? ""
+                            self.tblModifySearch.reloadData()
+                        }
                     }
                   }
 
@@ -138,11 +151,18 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
               if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
                 {
                     DispatchQueue.main.async {
-                       
+                        if self.fromHome == true
+                        {
+                            self.searchDetailDelegate.dataFromSearch(data: self.mainDataArray,searchId: (dataJson["data"] as? NSDictionary)?["searchId"] as? String ?? "")
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                        else
+                        {
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
                             vc.mainDataArray = self.mainDataArray
                             vc.searchId = (dataJson["data"] as? NSDictionary)?["searchId"] as? String ?? ""
                             self.navigationController?.pushViewController(vc, animated: true)
+                        }
                         
                         
                   }
