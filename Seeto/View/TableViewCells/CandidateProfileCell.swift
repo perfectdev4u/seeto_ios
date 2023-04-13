@@ -19,6 +19,7 @@ class CandidateProfileCell: UITableViewCell {
     @IBOutlet var btnSelectCountryView: UIButton!
     @IBOutlet var leadingTf: NSLayoutConstraint!
     @IBOutlet var widthImg: NSLayoutConstraint!
+    @IBOutlet var imgProfile: UIImageView!
     @IBOutlet var imgVector: UIImageView!
     @IBOutlet var tfMain: SkyFloatingLabelTextField!
     override func awakeFromNib() {

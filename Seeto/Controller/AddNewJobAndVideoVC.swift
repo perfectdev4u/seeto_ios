@@ -57,7 +57,7 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
     var urlVideo = URL(string: "")
-    var dictTable = [["title":"Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Job Type","type":"drop","required":"false","value":""],["title":"On-Site/Remote","type":"drop","required":"false","value":""],["title":"Location","type":"btn","required":"false","value":""],["title":"Salary Range in U.S. Dollars","type":"btn","required":"false","value":""],["title":"Job Description","type":"text","required":"true","value":""]]
+    var dictTable = [["title":"Position","type":"text","required":"true","value":""],["title":"Experience Level","type":"drop","required":"true","value":""],["title":"Job Type","type":"drop","required":"true","value":""],["title":"On-Site/Remote","type":"drop","required":"true","value":""],["title":"Location","type":"btn","required":"false","value":""],["title":"Salary Range in U.S. Dollars","type":"btn","required":"false","value":""],["title":"Job Description","type":"text","required":"true","value":""]]
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
     let toolBar = UIToolbar()
@@ -172,7 +172,7 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
             if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
             {
                 imagePicker.sourceType = UIImagePickerController.SourceType.camera
-                imagePicker.allowsEditing = true
+           //     imagePicker.allowsEditing = true
                 self.present(imagePicker, animated: true, completion: nil)
             }
             else
@@ -243,7 +243,7 @@ extension AddNewJobAndVideoVC
                    imagePicker.mediaTypes = [kUTTypeMovie as String]
                    imagePicker.allowsEditing = false
                    imagePicker.videoQuality = .typeMedium
-
+                   imagePicker.cameraDevice = .front
                    self.present(imagePicker, animated: true, completion: nil)
                } else {
                    print("Camera UnAvaialable")

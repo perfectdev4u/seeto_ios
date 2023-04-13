@@ -40,7 +40,7 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
     
     var fromHome = false
 
-    var dictTable = [["title":"Position","type":"text","value":""],["title":"Experience Level","type":"drop","value":""],["title":"Industry","type":"btn","value":""],["title":"Job Type","type":"drop","value":""],["title":"On-Site/Remote","type":"drop","value":""],["title":"Location","type":"btn","value":""],["title":"Desired Salary","type":"text","value":""]]
+    var dictTable = [["title":"Position","type":"text","value":"","required": "true"],["title":"Experience Level","type":"drop","value":"","required": "true"],["title":"Industry","type":"btn","value":"","required": "true"],["title":"Job Type","type":"drop","value":"","required": "true"],["title":"On-Site/Remote","type":"drop","value":"","required": "true"],["title":"Location","type":"btn","value":"","required": "false"],["title":"Desired Salary","type":"text","value":"","required": "false"]]
     var pickerArray = [""]
     var mainIndustryArray = [String]()
     var mainDataArray = [NSDictionary].init()
@@ -276,12 +276,27 @@ extension ModifyJobSearchVC : UITableViewDelegate,UITableViewDataSource
         {
             cell.tfMain.isUserInteractionEnabled = true
         }
+        let attributedString = NSMutableAttributedString(
+            string: (dictTable[indexPath.row]["title"]!),
+            attributes: [NSAttributedString.Key.foregroundColor: grayColor]
+        )
+      
+        if (dictTable[indexPath.row]["required"]!) == "true"
+        {
+            let attributedMark = NSMutableAttributedString(
+                string: "*",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]
+            )
+            attributedString.append(attributedMark)
+
+        }
+        cell.tfMain.attributedPlaceholder = attributedString
 
         cell.topImage.constant = 32
         cell.tfMain.tag = indexPath.row
         cell.tfMain.delegate = self
         cell.tfMain.text = dictTable[indexPath.row]["value"]!
-        cell.tfMain.placeholder =  (dictTable[indexPath.row]["title"]!)
+//        cell.tfMain.placeholder =  (dictTable[indexPath.row]["title"]!)
 
         cell.selectionStyle = .none
         return cell

@@ -9,7 +9,20 @@ import UIKit
 import AVKit
 import MobileCoreServices
 import SwiftLoader
-class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchIndustryProtocol{
+class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchIndustryProtocol, SearchAddressProtocol{
+    func adressMap(address: String) {
+        for i in 0...dictTable.count - 1
+        {
+            if dictTable[i]["title"] == "Company Location"
+            {
+                dictTable[i]["value"] = address
+            }
+        }
+        DispatchQueue.main.async {
+            self.tblEmployer.reloadData()
+        }
+    }
+    
     func industryString(string: String) {
         for i in 0...dictTable.count - 1
         {
@@ -22,8 +35,9 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
             self.tblEmployer.reloadData()
         }
     }
-    
-    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"true","value":""],["title":"Industry","type":"btn","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"true","value":""],["title":"Company Foundation Date","type":"btn","required":"false","value":""],["title":"Company Location","type":"text","required":"true","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
+    var companyImage = UIImage(named: "")
+
+    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"true","value":""],["title":"Industry","type":"btn","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"true","value":""],["title":"Company Foundation Date","type":"btn","required":"false","value":""],["title":"Company Location","type":"btn","required":"true","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
     @IBOutlet var lblMain: UILabel!
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
@@ -316,7 +330,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
             if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
             {
                 imagePicker.sourceType = UIImagePickerController.SourceType.camera
-                imagePicker.allowsEditing = true
+           //     imagePicker.allowsEditing = true
                 self.present(imagePicker, animated: true, completion: nil)
             }
             else
@@ -468,7 +482,14 @@ extension EmployerVC
         }
         else
         {
-            cell.imgVector.isHidden = false
+            if (dictTable[indexPath.row]["title"]!) == "Company Location"
+            {
+                cell.imgVector.isHidden = true
+            }
+            else
+            {
+                cell.imgVector.isHidden = false
+            }
         }
         if (dictTable[indexPath.row]["type"]!) == "btn"
         {
@@ -477,6 +498,16 @@ extension EmployerVC
         else
         {
             cell.tfMain.isUserInteractionEnabled = true
+        }
+        if (dictTable[indexPath.row]["title"]!) == "Upload Company Logo"
+        {
+            cell.imgProfile.image = companyImage
+
+        }
+        else
+        {
+            cell.imgProfile.image = UIImage(named: "")
+
         }
         cell.tfMain.tag = indexPath.row
         cell.tfMain.delegate = self
@@ -494,6 +525,13 @@ extension EmployerVC
             {
                 textFieldTag = indexPath.row
                 showDatePicker()
+            }
+            if (dictTable[indexPath.row]["title"]!) == "Company Location"
+            {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as! SearchVC
+                vc.searchAdressDelegate = self
+                self.navigationController?.pushViewController(vc, animated: true)
+
             }
             if (dictTable[indexPath.row]["title"]!) == "Industry"
              {
@@ -609,11 +647,12 @@ extension EmployerVC : UITextFieldDelegate
 extension EmployerVC: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image)
+        companyImage = image
+        uploadImage(paramName: "file", fileName: "        CompanyImage.png", image: image)
         dismiss(animated: true, completion: nil)
     }
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
-        SwiftLoader.show(animated: true)
+     //   SwiftLoader.show(animated: true)
         let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
 
         // generate boundary string using a unique per-app string
@@ -649,20 +688,20 @@ extension EmployerVC: UIImagePickerControllerDelegate {
                         DispatchQueue.main.async {
                             self.tblEmployer.reloadData()
                         }
-                        self.dictTable[0]["value"] = (dict["url"] as? String) ?? ""
-                        SwiftLoader.hide()
+                        self.dictTable[0]["value"] = fileName
+                      //  SwiftLoader.hide()
 
                       
                       }
                     print(json)
 
                 }
-                SwiftLoader.hide()
+            //    SwiftLoader.hide()
 
             }
             else
             {
-                SwiftLoader.hide()
+             //   SwiftLoader.hide()
                 print(error?.localizedDescription)
             }
         }).resume()

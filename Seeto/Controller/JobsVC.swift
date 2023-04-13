@@ -37,7 +37,8 @@ class JobsVC: UIViewController,JobDelegate {
 
     }
     @IBAction func btnBackAct(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        exit(1)
+       // self.navigationController?.popViewController(animated: true)
     }
     
     func getJobsApi()

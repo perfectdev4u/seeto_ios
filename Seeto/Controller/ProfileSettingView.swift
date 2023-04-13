@@ -134,7 +134,7 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
                   DispatchQueue.main.async {
          print(dataJson)
                       self.mainDataJson = dataJson as NSDictionary
-                      self.dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["firstName"] as! String) + " " +  ((dataJson["data"] as! NSDictionary)["lastName"] as! String)
+                      self.dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["firstName"] as! String) 
                       self.dictTable[1]["value"] = converrDateFormat(string: ((dataJson["data"] as! NSDictionary)["dateOfBirth"] as! String))
                       self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as! String)
                       self.dictTable[3]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "2" ? "Female" : ""
@@ -211,7 +211,8 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
            if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
            {
                imagePicker.sourceType = UIImagePickerController.SourceType.camera
-               imagePicker.allowsEditing = true
+//               imagePicker.allowsEditing = true
+               self.modalPresentationStyle = .fullScreen
                self.present(imagePicker, animated: true, completion: nil)
            }
            else
@@ -335,7 +336,7 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
                 imagePicker.mediaTypes = [kUTTypeMovie as String]
                 imagePicker.allowsEditing = false
                 imagePicker.videoQuality = .typeMedium
-                
+                imagePicker.cameraDevice = .front
                 self.present(imagePicker, animated: true, completion: nil)
             } else {
                 print("Camera UnAvaialable")

@@ -84,7 +84,7 @@ class EmployerProfileSettingVC: UIViewController, UINavigationControllerDelegate
              if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
              {
                  imagePicker.sourceType = UIImagePickerController.SourceType.camera
-                 imagePicker.allowsEditing = true
+          //       imagePicker.allowsEditing = true
                  self.present(imagePicker, animated: true, completion: nil)
              }
              else

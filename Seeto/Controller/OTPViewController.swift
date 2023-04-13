@@ -239,6 +239,7 @@ if copyData == false
             thirdTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 2)])
             fourthTf.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 3)])
             firstTf.resignFirstResponder()
+            verifyApi()
         }
         else{
             let text = textField.text

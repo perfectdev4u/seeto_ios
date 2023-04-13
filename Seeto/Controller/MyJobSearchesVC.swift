@@ -125,8 +125,7 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
     }
     
     @IBAction func btnBackAct(_ sender: Any) {
-        
-        self.navigationController?.popViewController(animated: true)
+        exit(1)
     }
     
    

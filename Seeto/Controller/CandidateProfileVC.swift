@@ -12,8 +12,10 @@ import SwiftLoader
 import CountryPickerView
 import Photos
 class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchAddressProtocol, CountryPickerViewDelegate, CountryPickerViewDataSource{
-
+    
     var flagImage = UIImage(named: "usa")
+    var profileImage = UIImage(named: "")
+    var langLevelArray = ["Not Selected","Beginner","Pre Intermediate","Intermediate","Upper Intermediate", "Advanced","Fluent"]
     func adressMap(address: String) {
         for i in 0...dictTable.count - 1
         {
@@ -351,27 +353,26 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             {
                 if textFieldTag == 10
                 {
-                    dictTable[textFieldTag]["value"] = pickerArray[index] + " (" +  languageArray[indexLang] + ")"
+                //    dictTable[textFieldTag]["value"] = pickerArray[index] + " (" +  languageArray[indexLang] + ")"
  
                     langArray.append(pickerArray[index])
                     langFluencyArray.append(indexLang)
-                    tblCandidateProfile.reloadData()
-                    
                 }
             }
             else
             {
                 if textFieldTag == 11
                 {
-                    dictTable[textFieldTag]["value"] = pickerArray[index] + " (" +  languageArray[indexLang] + ")"
+             //       dictTable[textFieldTag]["value"] = pickerArray[index] + " (" +  languageArray[indexLang] + ")"
 
                     langArray.append(pickerArray[index])
                     langFluencyArray.append(indexLang)
-                    tblCandidateProfile.reloadData()
-                    
                 }
             }
-        
+        DispatchQueue.main.async {
+            self.tblCandidateProfile.reloadData()
+
+        }
        
      }
     @objc func cancelClick() {
@@ -431,7 +432,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
             {
                 imagePicker.sourceType = UIImagePickerController.SourceType.camera
-                imagePicker.allowsEditing = true
+               // imagePicker.allowsEditing = true
                 self.present(imagePicker, animated: true, completion: nil)
             }
             else
@@ -522,7 +523,7 @@ extension CandidateProfileVC
                 imagePicker.mediaTypes = [kUTTypeMovie as String]
                 imagePicker.allowsEditing = false
                 imagePicker.videoQuality = .typeMedium
-                
+                imagePicker.cameraDevice = .front
                 self.present(imagePicker, animated: true, completion: nil)
             } else {
                 print("Camera UnAvaialable")
@@ -582,6 +583,7 @@ extension CandidateProfileVC
 
             cell.tfMain.attributedPlaceholder = attributedString
         }
+      
         if (dictTable[indexPath.row]["title"]!) == "Date of Birth"
         {
             cell.imgVector.image = UIImage(named: "")
@@ -702,7 +704,19 @@ extension CandidateProfileVC
         else
         {
             cell.colllV.isHidden = true
+            cell.colllV.delegate = nil
+            cell.colllV.dataSource = nil
             cell.heightCollV.constant = 0
+        }
+        if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture"
+        {
+            cell.imgProfile.image = profileImage
+
+        }
+        else
+        {
+            cell.imgProfile.image = UIImage(named: "")
+
         }
         cell.tfMain.tag = indexPath.row
         cell.tfMain.delegate = self
@@ -883,8 +897,8 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
         else {
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
 //            let photo = info[.phAsset] as? PHAsset
-
-                uploadImage(paramName: "file", fileName: "Profile.png", image: image)
+                profileImage = image
+                uploadImage(paramName: "file", fileName: "        Profile.png", image: image)
 
             
             
@@ -1016,7 +1030,7 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
            }
        }
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
-        SwiftLoader.show(animated: true)
+    //    SwiftLoader.show(animated: true)
         let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
 
         // generate boundary string using a unique per-app string
@@ -1051,7 +1065,7 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
                     if let dict = json["data"] as? NSDictionary{
                         self.profilePicUrl = (dict["url"] as? String) ?? ""
                         self.dictTable[0]["value"] = fileName
-                        SwiftLoader.hide()
+               //         SwiftLoader.hide()
                         DispatchQueue.main.async {
                             self.tblCandidateProfile.reloadData()
                         }
@@ -1060,12 +1074,12 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
                     print(json)
 
                 }
-                SwiftLoader.hide()
+         //       SwiftLoader.hide()
 
             }
             else
             {
-                SwiftLoader.hide()
+          //      SwiftLoader.hide()
                 print(error?.localizedDescription)
             }
         }).resume()
@@ -1092,8 +1106,9 @@ extension CandidateProfileVC: UICollectionViewDelegate, UICollectionViewDataSour
         collectionView.register(UINib(nibName: "SpokenLanguageCell", bundle: nil), forCellWithReuseIdentifier: "SpokenLanguageCell")
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SpokenLanguageCell", for: indexPath) as! SpokenLanguageCell
-        cell.lblLang.text = langArray[indexPath.row] + " (" +  languageArray[langFluencyArray[indexPath.row]] + ")"
+        cell.lblLang.text = langArray[indexPath.row] + " (" +  langLevelArray[langFluencyArray[indexPath.row]] + ")"
         cell.btnCross.tag = indexPath.row
+//        cell.lblWidth.constant = cell.lblLang.intrinsicContentSize.width
         cell.btnCross.addTarget(self, action: #selector(self.btnCross(_:)), for: .touchUpInside)
           return cell
         
@@ -1101,6 +1116,8 @@ extension CandidateProfileVC: UICollectionViewDelegate, UICollectionViewDataSour
  
     @objc func btnCross(_ sender : UIButton)
     {
+        print(langArray)
+        print(langFluencyArray)
         langArray.remove(at: sender.tag)
         langFluencyArray.remove(at: sender.tag)
         DispatchQueue.main.async {
@@ -1108,9 +1125,13 @@ extension CandidateProfileVC: UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return CGSize(width:  (langArray[indexPath.row] + " (" +  languageArray[langFluencyArray[indexPath.row]] + ")").size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12,weight: .regular)]).width + 60, height: 50)
+                return CGSize(width:  (langArray[indexPath.row] + " (" +  langLevelArray[langFluencyArray[indexPath.row]] + ")").size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12,weight: .regular)]).width + 60, height: 50)
+
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//    }
 }
 
 extension CandidateProfileVC
