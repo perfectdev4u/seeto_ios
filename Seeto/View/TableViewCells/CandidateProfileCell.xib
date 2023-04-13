@@ -89,22 +89,31 @@
                                     <constraint firstAttribute="height" constant="25" id="bcN-Fo-3YH"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ec9-Vb-ZXS">
+                                <rect key="frame" x="277" y="32" width="24" height="14"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="AVt-Wk-Vvc" firstAttribute="top" secondItem="nrL-8y-b5D" secondAttribute="top" constant="10" id="3MM-Ur-ngu"/>
                             <constraint firstItem="vSA-Ly-NJF" firstAttribute="top" secondItem="AVt-Wk-Vvc" secondAttribute="bottom" id="7eJ-7N-eVu"/>
+                            <constraint firstItem="Ec9-Vb-ZXS" firstAttribute="centerX" secondItem="cyY-Nx-Czq" secondAttribute="centerX" id="CUq-2N-l4Q"/>
                             <constraint firstItem="Kzl-dU-2MI" firstAttribute="leading" secondItem="nrL-8y-b5D" secondAttribute="leading" constant="25" id="EBM-eE-Uj8"/>
+                            <constraint firstItem="Ec9-Vb-ZXS" firstAttribute="height" secondItem="cyY-Nx-Czq" secondAttribute="height" multiplier="0.7" id="R0s-Mc-zSm"/>
                             <constraint firstAttribute="trailing" secondItem="AVt-Wk-Vvc" secondAttribute="trailing" constant="27" id="WgZ-ox-tMt"/>
                             <constraint firstAttribute="height" constant="65" id="Xgi-zp-eTJ"/>
                             <constraint firstItem="Kzl-dU-2MI" firstAttribute="centerY" secondItem="nrL-8y-b5D" secondAttribute="centerY" constant="8" id="aqU-iP-FNn"/>
                             <constraint firstItem="cyY-Nx-Czq" firstAttribute="top" secondItem="nrL-8y-b5D" secondAttribute="top" constant="30" id="dKR-Bw-FAy"/>
                             <constraint firstAttribute="trailing" secondItem="vSA-Ly-NJF" secondAttribute="trailing" constant="20" id="fjy-Gu-MPc"/>
+                            <constraint firstItem="Ec9-Vb-ZXS" firstAttribute="centerY" secondItem="cyY-Nx-Czq" secondAttribute="centerY" id="mAt-hk-yXK"/>
                             <constraint firstItem="vSA-Ly-NJF" firstAttribute="leading" secondItem="nrL-8y-b5D" secondAttribute="leading" constant="20" id="mhm-dR-0K0"/>
                             <constraint firstItem="hrm-ln-Ynp" firstAttribute="top" secondItem="nrL-8y-b5D" secondAttribute="top" constant="24" id="n5E-jh-Z2l"/>
                             <constraint firstItem="hrm-ln-Ynp" firstAttribute="leading" secondItem="nrL-8y-b5D" secondAttribute="leading" constant="27" id="nqK-Bb-e9V"/>
                             <constraint firstAttribute="trailing" secondItem="cyY-Nx-Czq" secondAttribute="trailing" constant="30" id="tX4-Wk-8u9"/>
                             <constraint firstItem="AVt-Wk-Vvc" firstAttribute="leading" secondItem="nrL-8y-b5D" secondAttribute="leading" constant="27" id="waV-IY-sNw"/>
+                            <constraint firstItem="Ec9-Vb-ZXS" firstAttribute="width" secondItem="cyY-Nx-Czq" secondAttribute="width" multiplier="1.6" id="zgc-Eb-Yhn"/>
                         </constraints>
                     </view>
                     <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Tuy-u4-0ot">
@@ -135,6 +144,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnPlus" destination="Ec9-Vb-ZXS" id="CpN-0v-R9B"/>
                 <outlet property="btnSelectCountryView" destination="wSz-H0-IYi" id="HLN-dJ-qd6"/>
                 <outlet property="colllV" destination="Tuy-u4-0ot" id="RLh-l9-9xE"/>
                 <outlet property="flagPicView" destination="YYc-vK-XRR" id="htp-XA-vSf"/>

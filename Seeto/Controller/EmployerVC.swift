@@ -35,7 +35,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
             self.tblEmployer.reloadData()
         }
     }
-    var companyImage = UIImage(named: "")
+    var companyImage = UIImage(named: "placeholderImg")
 
     var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"true","value":""],["title":"Industry","type":"btn","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"true","value":""],["title":"Company Foundation Date","type":"btn","required":"false","value":""],["title":"Company Location","type":"btn","required":"true","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
     @IBOutlet var lblMain: UILabel!
@@ -366,7 +366,10 @@ extension EmployerVC
         view.addSubview(button)
         return view
     }
-    
+    @objc func btnEditImageAct(_ sender : UIButton)
+    {
+        cameraGallery()
+    }
     @objc func btnCreateAct()
     {
         for i in dictTable
@@ -411,6 +414,16 @@ extension EmployerVC
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+         if (dictTable[indexPath.row]["title"]!) == "Upload Company Logo"
+        {
+             let identifier = "LogoViewCell"
+             tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
+             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! LogoViewCell
+             cell.imgMain.image = companyImage
+             cell.btnEdit.addTarget(self, action: #selector(btnEditImageAct), for: .touchUpInside)
+             return cell
+
+        }
         let identifier = "CandidateProfileCell"
         tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! CandidateProfileCell
@@ -418,7 +431,7 @@ extension EmployerVC
             string: (dictTable[indexPath.row]["title"]!),
             attributes: [NSAttributedString.Key.foregroundColor: grayColor]
         )
-        
+        cell.btnPlus.isHidden = true
         if (dictTable[indexPath.row]["required"]!) == "true"
         {
             

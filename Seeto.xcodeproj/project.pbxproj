@@ -90,6 +90,8 @@
 		1BD5E1FD29DEA76E001EEF8F /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5E1FB29DEA76E001EEF8F /* TextViewCell.swift */; };
 		1BD5E1FE29DEA76E001EEF8F /* TextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BD5E1FC29DEA76E001EEF8F /* TextViewCell.xib */; };
 		1BD66B7129B1C31100C11B9D /* EmployerMatchesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD66B7029B1C31100C11B9D /* EmployerMatchesModel.swift */; };
+		1BFEC3F229E8071800D5F89E /* LogoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFEC3F029E8071800D5F89E /* LogoViewCell.swift */; };
+		1BFEC3F329E8071800D5F89E /* LogoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFEC3F129E8071800D5F89E /* LogoViewCell.xib */; };
 		455BB3BC457C7CAE0D567FBD /* Pods_Seeto_SeetoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A655284114DEE154FB46A1B9 /* Pods_Seeto_SeetoUITests.framework */; };
 		78E6A7288BA00D26DE8E2886 /* Pods_Seeto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A038E224422560FFEDE1F1 /* Pods_Seeto.framework */; };
 		BAEC80B79DBCF5DF0D2D7B54 /* Pods_SeetoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85E46AC810AB87103CA2F00F /* Pods_SeetoTests.framework */; };
@@ -198,6 +200,8 @@
 		1BD5E1FC29DEA76E001EEF8F /* TextViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewCell.xib; sourceTree = "<group>"; };
 		1BD66B7029B1C31100C11B9D /* EmployerMatchesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployerMatchesModel.swift; sourceTree = "<group>"; };
 		1BD6BEF1297047A900B8903A /* Seeto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Seeto.entitlements; sourceTree = "<group>"; };
+		1BFEC3F029E8071800D5F89E /* LogoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoViewCell.swift; sourceTree = "<group>"; };
+		1BFEC3F129E8071800D5F89E /* LogoViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoViewCell.xib; sourceTree = "<group>"; };
 		36F3AA0FD62ACE204D677DD2 /* Pods-SeetoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.release.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.release.xcconfig"; sourceTree = "<group>"; };
 		50857CA5FC8AD8607476CD7E /* Pods-Seeto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeto.release.xcconfig"; path = "Target Support Files/Pods-Seeto/Pods-Seeto.release.xcconfig"; sourceTree = "<group>"; };
 		72D37960576CA2160C5CAF31 /* Pods-SeetoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeetoTests.debug.xcconfig"; path = "Target Support Files/Pods-SeetoTests/Pods-SeetoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -397,6 +401,8 @@
 				1B2DF90B2979D9470073D6A0 /* LikeDislikeBtnCell.swift */,
 				1B2DF90C2979D9470073D6A0 /* LikeDislikeBtnCell.xib */,
 				1B2424D2296B13BE003A363F /* VideoPlayerCell.xib */,
+				1BFEC3F029E8071800D5F89E /* LogoViewCell.swift */,
+				1BFEC3F129E8071800D5F89E /* LogoViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -576,6 +582,7 @@
 				1B1D5AF929706737006CC084 /* credentials.plist in Resources */,
 				1B08D601296A1D1400458A46 /* CongratsCell.xib in Resources */,
 				1B2424D4296B13BE003A363F /* VideoPlayerCell.xib in Resources */,
+				1BFEC3F329E8071800D5F89E /* LogoViewCell.xib in Resources */,
 				1B7F71D32965EE6100D74132 /* Assets.xcassets in Resources */,
 				1B2DF90E2979D9470073D6A0 /* LikeDislikeBtnCell.xib in Resources */,
 				1B959DF229BE614F00598BB3 /* MonthYearPickerViewController.xib in Resources */,
@@ -782,6 +789,7 @@
 				1B1DDEDE2984369A008F7680 /* AddNewJobScreen.swift in Sources */,
 				1B7F72072967564200D74132 /* AppCategoryVC.swift in Sources */,
 				1B07BD6129AFD12000F075C9 /* CandidateDataModel.swift in Sources */,
+				1BFEC3F229E8071800D5F89E /* LogoViewCell.swift in Sources */,
 				1B7F7210296949EA00D74132 /* Constants.swift in Sources */,
 				1B7F722A296A081900D74132 /* Extensions.swift in Sources */,
 				1B959DE929BE5E1400598BB3 /* MonthYearModel.swift in Sources */,
@@ -987,7 +995,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1027,7 +1035,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;

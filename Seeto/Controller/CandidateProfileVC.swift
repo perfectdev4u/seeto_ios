@@ -14,7 +14,7 @@ import Photos
 class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchAddressProtocol, CountryPickerViewDelegate, CountryPickerViewDataSource{
     
     var flagImage = UIImage(named: "usa")
-    var profileImage = UIImage(named: "")
+    var profileImage = UIImage(named: "placeholderImg")
     var langLevelArray = ["Not Selected","Beginner","Pre Intermediate","Intermediate","Upper Intermediate", "Advanced","Fluent"]
     func adressMap(address: String) {
         for i in 0...dictTable.count - 1
@@ -565,6 +565,16 @@ extension CandidateProfileVC
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture"
+        {
+            let identifier = "LogoViewCell"
+            tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! LogoViewCell
+            cell.imgMain.image = profileImage
+            cell.btnEdit.addTarget(self, action: #selector(btnEditImageAct), for: .touchUpInside)
+            return cell
+
+        }
         let identifier = "CandidateProfileCell"
         tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! CandidateProfileCell
@@ -722,6 +732,11 @@ extension CandidateProfileVC
         cell.tfMain.delegate = self
         cell.selectionStyle = .none
         return cell
+    }
+   
+    @objc func btnEditImageAct(_ sender : UIButton)
+    {
+        cameraGallery()
     }
     @objc func btnPlusAct(_ sender : UIButton)
     {
@@ -898,11 +913,10 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
 //            let photo = info[.phAsset] as? PHAsset
                 profileImage = image
+//            DispatchQueue.main.async {
+//                self.tblCandidateProfile.reloadData()
+//            }
                 uploadImage(paramName: "file", fileName: "        Profile.png", image: image)
-
-            
-            
-
                 return
         }
     urlVideo = url
