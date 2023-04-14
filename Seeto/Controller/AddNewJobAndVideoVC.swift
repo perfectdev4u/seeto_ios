@@ -70,6 +70,12 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
     var jobsDelegate : JobDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        }
+        catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+        }
         PickerView()
         tblJob.backgroundColor = backGroundColor
         imagePicker.delegate = self

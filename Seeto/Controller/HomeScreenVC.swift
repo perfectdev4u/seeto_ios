@@ -133,8 +133,10 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
         {
             if userType == 2
             {
+                print(inputArray)
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
                 vc.inputArray = inputArray
+                vc.industryId = inputArray["industryId"] as? Int ?? 0
                 vc.fromHome = true
                 vc.searchDetailDelegate = self
                 self.navigationController?.pushViewController(vc, animated: true)

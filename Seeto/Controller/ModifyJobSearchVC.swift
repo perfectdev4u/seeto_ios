@@ -12,7 +12,10 @@ protocol SearchDetailDelegate
     func dataFromSearch(data : [NSDictionary] ,searchId : String)
 }
 class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, SearchAddressProtocol,SearchIndustryProtocol{
-    func industryString(string: String) {
+  
+    var industryId = 0
+
+    func industryString(string: String, id: Int) {
         for i in 0...dictTable.count - 1
         {
             if dictTable[i]["title"] == "Industry"
@@ -20,6 +23,7 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
                 dictTable[i]["value"] = string
             }
         }
+        industryId = id
         DispatchQueue.main.async {
             self.tblModifySearch.reloadData()
         }
@@ -40,11 +44,13 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
     
     var fromHome = false
    
-    var dictTable = [["title":"Position","type":"text","value":"","required": "true"],["title":"Experience Level","type":"drop","value":"","required": "true"],["title":"Industry","type":"btn","value":"","required": "true"],["title":"Job Type","type":"drop","value":"","required": "true"],["title":"On-Site/Remote","type":"drop","value":"","required": "true"],["title":"Location","type":"btn","value":"","required": "false"],["title":"Desired Salary","type":"text","value":"","required": "false"]]
+    var dictTable = [["title":"Position","type":"text","value":"","required": "true"],["title":"Experience Level","type":"drop","value":"","required": "true"],["title":"Industry","type":"btn","value":"","required": "true"],["title":"Job Type","type":"drop","value":"","required": "true"],["title":"On-Site/Remote","type":"drop","value":"","required": "true"],["title":"Location","type":"btn","value":"","required": "false"],["title":"Desired Salary (USD dollars)","type":"text","value":"","required": "false"]]
     var pickerArray = [""]
     var mainIndustryArray = [String]()
     var mainDataArray = [NSDictionary].init()
     var inputArray = NSDictionary.init()
+    var mainIndustryIdArray = [Int]()
+
 //    ["title":"Current Location","type":"btn","required":"false","value":""]
     var searchDetailDelegate : SearchDetailDelegate!
     let toolBar = UIToolbar()
@@ -71,6 +77,7 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
             "position" : dictTable[0]["value"]!,
             "experienceLevel" : ExperienceLevel(rawValue: dictTable[1]["value"]!)?.id ?? "",
             "industry":  dictTable[2]["value"]!,
+            "industryId": industryId,
             "jobType" : JobType(rawValue: dictTable[3]["value"]!)?.id ?? "",
             "jobLocation" : JobLocation(rawValue: dictTable[4]["value"]!)?.id ?? "",
             "page" : 1,
@@ -98,6 +105,8 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
                        for item in dictArray
                         {
                            self.mainIndustryArray.append((item["industryName"] as? String) ?? "")
+                           self.mainIndustryIdArray.append((item["industryId"] as? Int) ?? 0)
+
                        }
                         if self.fromHome == true
                         {
@@ -311,11 +320,19 @@ extension ModifyJobSearchVC : UITableViewDelegate,UITableViewDataSource
 
         }
         cell.tfMain.attributedPlaceholder = attributedString
+        if (dictTable[indexPath.row]["title"]!) == "Position"
+        {
+            cell.tfMain.text = dictTable[indexPath.row]["value"]!.capitalizingFirstLetter()
 
+        }
+        else
+        {
+            cell.tfMain.text = dictTable[indexPath.row]["value"]!
+
+        }
         cell.topImage.constant = 32
         cell.tfMain.tag = indexPath.row
         cell.tfMain.delegate = self
-        cell.tfMain.text = dictTable[indexPath.row]["value"]!
 //        cell.tfMain.placeholder =  (dictTable[indexPath.row]["title"]!)
 
         cell.selectionStyle = .none
@@ -336,6 +353,7 @@ extension ModifyJobSearchVC : UITableViewDelegate,UITableViewDataSource
                   let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as! SearchVC
                   vc.searchIndustryDelegate = self
                 vc.mainArray = mainIndustryArray
+                vc.industryIdArray = mainIndustryIdArray
                 vc.forIndustry = true
                   self.navigationController?.pushViewController(vc, animated: true)
               }

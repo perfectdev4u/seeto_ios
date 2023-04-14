@@ -16,7 +16,7 @@ protocol SearchAddressProtocol {
     func adressMap(address: String)
 }
 protocol SearchIndustryProtocol {
-    func industryString(string: String)
+    func industryString(string: String,id : Int)
 }
 class SearchVC: UIViewController{
     @IBOutlet var topBtnConst: NSLayoutConstraint!
@@ -33,6 +33,7 @@ class SearchVC: UIViewController{
     @IBOutlet var tableV: UITableView!
     var forIndustry = false
     var mainArray =  [String]()
+    var industryIdArray = [Int?]()
     @IBOutlet var tfSearch: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -221,7 +222,7 @@ extension SearchVC :  UITableViewDelegate, UITableViewDataSource
         }
         else
         {
-            searchIndustryDelegate.industryString(string: searchResults[indexPath.row])
+            searchIndustryDelegate.industryString(string: searchResults[indexPath.row], id: industryIdArray[indexPath.row] ?? 0)
             self.searchController.isActive = false
             self.navigationController?.popViewController(animated: true)
         }

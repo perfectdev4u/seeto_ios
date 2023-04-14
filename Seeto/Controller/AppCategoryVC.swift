@@ -48,7 +48,7 @@ var appleLogin = false
     }
     
     @IBAction func btnActBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+      exit(1)
     }
     
     @IBAction func btnJustExploring(_ sender: UIButton) {

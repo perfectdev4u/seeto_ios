@@ -197,7 +197,7 @@ class ThumbnailVideoVC: UIViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
                     print("done")
                   
-                    self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: UIImage(cgImage: thumb).resizeWithPercent(percentage: 0.5)!)
+                    self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: UIImage(cgImage: thumb).convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
                    // self.thumbImg = true
                  //   self.imgThumbnail.image = UIImage(cgImage: thumb)
 //                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
@@ -335,7 +335,7 @@ class ThumbnailVideoVC: UIViewController {
         SwiftLoader.show(animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1)
         {
-            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: self.imgMain.image!.resizeWithPercent(percentage: 0.5)!)
+            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: self.imgMain.image!.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
 
         }
     }

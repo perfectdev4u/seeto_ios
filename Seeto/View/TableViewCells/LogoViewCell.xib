@@ -56,11 +56,20 @@
                                     <constraint firstAttribute="height" constant="30" id="vXT-gG-82d"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="I6Q-Lg-47D">
+                                <rect key="frame" x="108.66666666666669" y="12" width="103" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="103" id="McO-Sw-qPB"/>
+                                    <constraint firstAttribute="height" constant="100" id="ZMK-Lk-miq"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
+                            <constraint firstItem="I6Q-Lg-47D" firstAttribute="centerY" secondItem="7l7-fM-A6M" secondAttribute="centerY" constant="1" id="3jQ-Fa-6HA"/>
                             <constraint firstItem="7l7-fM-A6M" firstAttribute="centerY" secondItem="Vx6-21-83M" secondAttribute="centerY" id="AGc-G0-zdn"/>
                             <constraint firstAttribute="height" constant="122" id="ccL-4i-6zq"/>
+                            <constraint firstItem="I6Q-Lg-47D" firstAttribute="centerX" secondItem="7l7-fM-A6M" secondAttribute="centerX" id="fbI-HV-3Ya"/>
                             <constraint firstAttribute="bottom" secondItem="Ntf-CV-7yt" secondAttribute="bottom" constant="11" id="l5M-jP-fDD"/>
                             <constraint firstItem="Ntf-CV-7yt" firstAttribute="trailing" secondItem="7l7-fM-A6M" secondAttribute="trailing" constant="3" id="vKM-SH-MXG"/>
                             <constraint firstItem="7l7-fM-A6M" firstAttribute="centerX" secondItem="Vx6-21-83M" secondAttribute="centerX" id="ymb-nQ-eMz"/>
@@ -76,6 +85,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="activityIndicator" destination="I6Q-Lg-47D" id="2HF-y1-3RB"/>
                 <outlet property="btnEdit" destination="QYq-CW-QqU" id="tVI-Mm-SPc"/>
                 <outlet property="imgMain" destination="7l7-fM-A6M" id="2tU-Gu-1vD"/>
                 <outlet property="viewEdit" destination="Ntf-CV-7yt" id="h2o-QJ-QhL"/>

@@ -9,6 +9,7 @@ import UIKit
 
 class LogoViewCell: UITableViewCell {
 
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var viewEdit: UIView!
     @IBOutlet var btnEdit: UIButton!
     @IBOutlet var imgMain: UIImageView!
@@ -16,6 +17,7 @@ class LogoViewCell: UITableViewCell {
         super.awakeFromNib()
         imgMain.layer.cornerRadius = imgMain.frame.height / 2
         viewEdit.layer.cornerRadius = viewEdit.frame.height / 2
+        
         // Initialization code
     }
 

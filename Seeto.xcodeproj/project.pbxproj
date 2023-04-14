@@ -80,6 +80,12 @@
 		1B959DF029BE614F00598BB3 /* MonthYearPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B959DEC29BE614E00598BB3 /* MonthYearPickerViewController.swift */; };
 		1B959DF129BE614F00598BB3 /* MonthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B959DED29BE614F00598BB3 /* MonthYearPickerView.swift */; };
 		1B959DF229BE614F00598BB3 /* MonthYearPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B959DEE29BE614F00598BB3 /* MonthYearPickerViewController.xib */; };
+		1BB84E6E29E95B24005438ED /* IMG_0232.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E6B29E95AB2005438ED /* IMG_0232.MP4 */; };
+		1BB84E6F29E95B28005438ED /* IMG_0240.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E6C29E95ABC005438ED /* IMG_0240.MP4 */; };
+		1BB84E7029E95B2C005438ED /* IMG_0238.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E6D29E95B03005438ED /* IMG_0238.MP4 */; };
+		1BB84E7429E96CC3005438ED /* IMG_0216.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E7129E96B5D005438ED /* IMG_0216.MP4 */; };
+		1BB84E7529E96CC6005438ED /* IMG_0233.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E7229E96B77005438ED /* IMG_0233.MP4 */; };
+		1BB84E7629E96CCA005438ED /* IMG_0221.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E7329E96B94005438ED /* IMG_0221.MP4 */; };
 		1BCE9B77296DB7DD005E40BB /* ThumbnailVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */; };
 		1BCE9B79296DFC32005E40BB /* ShowImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE9B78296DFC32005E40BB /* ShowImageVC.swift */; };
 		1BCE9B7C297013AC005E40BB /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE9B7B297013AC005E40BB /* FacebookCore */; };
@@ -193,6 +199,12 @@
 		1B959DEC29BE614E00598BB3 /* MonthYearPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYearPickerViewController.swift; sourceTree = "<group>"; };
 		1B959DED29BE614F00598BB3 /* MonthYearPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYearPickerView.swift; sourceTree = "<group>"; };
 		1B959DEE29BE614F00598BB3 /* MonthYearPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonthYearPickerViewController.xib; sourceTree = "<group>"; };
+		1BB84E6B29E95AB2005438ED /* IMG_0232.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0232.MP4; sourceTree = "<group>"; };
+		1BB84E6C29E95ABC005438ED /* IMG_0240.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0240.MP4; sourceTree = "<group>"; };
+		1BB84E6D29E95B03005438ED /* IMG_0238.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0238.MP4; sourceTree = "<group>"; };
+		1BB84E7129E96B5D005438ED /* IMG_0216.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0216.MP4; sourceTree = "<group>"; };
+		1BB84E7229E96B77005438ED /* IMG_0233.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0233.MP4; sourceTree = "<group>"; };
+		1BB84E7329E96B94005438ED /* IMG_0221.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0221.MP4; sourceTree = "<group>"; };
 		1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailVideoVC.swift; sourceTree = "<group>"; };
 		1BCE9B78296DFC32005E40BB /* ShowImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageVC.swift; sourceTree = "<group>"; };
 		1BD5E1F929DE9600001EEF8F /* MinMaxSalaryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinMaxSalaryVC.swift; sourceTree = "<group>"; };
@@ -258,6 +270,12 @@
 		1B7F71BD2965EE6000D74132 = {
 			isa = PBXGroup;
 			children = (
+				1BB84E6B29E95AB2005438ED /* IMG_0232.MP4 */,
+				1BB84E6C29E95ABC005438ED /* IMG_0240.MP4 */,
+				1BB84E6D29E95B03005438ED /* IMG_0238.MP4 */,
+				1BB84E7129E96B5D005438ED /* IMG_0216.MP4 */,
+				1BB84E7229E96B77005438ED /* IMG_0233.MP4 */,
+				1BB84E7329E96B94005438ED /* IMG_0221.MP4 */,
 				1B7F71C82965EE6000D74132 /* Seeto */,
 				1B7F71DF2965EE6100D74132 /* SeetoTests */,
 				1B7F71E92965EE6100D74132 /* SeetoUITests */,
@@ -577,6 +595,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BB84E7629E96CCA005438ED /* IMG_0221.MP4 in Resources */,
+				1BB84E7529E96CC6005438ED /* IMG_0233.MP4 in Resources */,
+				1BB84E7429E96CC3005438ED /* IMG_0216.MP4 in Resources */,
+				1BB84E7029E95B2C005438ED /* IMG_0238.MP4 in Resources */,
+				1BB84E6F29E95B28005438ED /* IMG_0240.MP4 in Resources */,
+				1BB84E6E29E95B24005438ED /* IMG_0232.MP4 in Resources */,
 				1B2DF9062979C8780073D6A0 /* CompanyDetailCell.xib in Resources */,
 				1B7F71D62965EE6100D74132 /* LaunchScreen.storyboard in Resources */,
 				1B1D5AF929706737006CC084 /* credentials.plist in Resources */,
@@ -995,7 +1019,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1006,8 +1030,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1035,7 +1059,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1046,8 +1070,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -10,6 +10,7 @@ import SwiftLoader
 
 class EmployerProfileSettingVC: UIViewController, UINavigationControllerDelegate {
    var companyLogoUrl = ""
+    
     var dictTable = [["title":"Company name","value":"Loading..."],["title":"Industry","value":"Loading..."],["title":"Website","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Company Foundation Date","value":"Loading..."],["title":"Company Size","value":"Loading..."]]
     var mainDataJson = NSDictionary.init()
     let imagePicker = UIImagePickerController()
@@ -85,6 +86,7 @@ class EmployerProfileSettingVC: UIViewController, UINavigationControllerDelegate
              {
                  imagePicker.sourceType = UIImagePickerController.SourceType.camera
           //       imagePicker.allowsEditing = true
+                 
                  self.present(imagePicker, animated: true, completion: nil)
              }
              else
@@ -302,7 +304,8 @@ extension EmployerProfileSettingVC: UIImagePickerControllerDelegate {
         dismiss(animated: true, completion: nil)
 
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image.resizeWithPercent(percentage: 0.5)!)
+        
+        uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale) )
                 return
     }
     
@@ -313,11 +316,12 @@ extension EmployerProfileSettingVC: UIImagePickerControllerDelegate {
         "userType": 1,
         "companyName": dictTable[0]["value"]!,
         "industry":dictTable[1]["value"]!,
+        "industryId" : ((mainDataJson["data"] as! NSDictionary)["industryId"] as? Int) ?? 0,
         "webSite": dictTable[2]["value"]!,
         "linkedInProfile": dictTable[3]["value"]!,
         "foundationDate": dictTable[4]["value"]!,
         "companyLocation" : ((mainDataJson["data"] as! NSDictionary)["companyLocation"] as! String),
-        "companySize": dictTable[5]["value"]! == "1000" ? 1000 : 2000
+        "companySize": ((mainDataJson["data"] as! NSDictionary)["companySize"] as? Int) ?? 0
         // int company size
         ] as [String : Any]
     }

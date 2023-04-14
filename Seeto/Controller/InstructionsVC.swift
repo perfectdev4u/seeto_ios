@@ -15,17 +15,23 @@ class InstructionsVC: UIViewController {
     @IBOutlet var collView: UICollectionView!
     let screenSize: CGRect = UIScreen.main.bounds
 
-    var videoUrlArray = ["https://seetoapp.s3.us-east-1.amazonaws.com/7993d069-cb7e-4757-b15f-5d0d8684249e_IMG_0232.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/b7d23127-881e-43d9-b05e-9beaeec7ae97_IMG_0240.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/1b099973-730d-4346-bcd1-acb4487c878e_IMG_0226.MP4"]
+    var videoUrlArray = [Bundle.main.path(forResource: "IMG_0232", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0240", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0238", ofType:"MP4")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        }
+        catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+        }
         if findJob == true
         {
-            videoUrlArray = ["https://seetoapp.s3.us-east-1.amazonaws.com/6309cf17-1c9f-4ca4-83a6-3274e1506c17_IMG_0205.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/934cc68e-594c-4129-9c77-a696cca99837_IMG_0206.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/6577df53-b518-4599-b491-631799e631d2_IMG_0219.MP4"]
+            videoUrlArray = [Bundle.main.path(forResource: "IMG_0216", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0233", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0221", ofType:"MP4")]
         }
         if justExploring == true
         {
-            videoUrlArray = ["https://seetoapp.s3.us-east-1.amazonaws.com/6309cf17-1c9f-4ca4-83a6-3274e1506c17_IMG_0205.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/7993d069-cb7e-4757-b15f-5d0d8684249e_IMG_0232.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/934cc68e-594c-4129-9c77-a696cca99837_IMG_0206.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/b7d23127-881e-43d9-b05e-9beaeec7ae97_IMG_0240.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/6577df53-b518-4599-b491-631799e631d2_IMG_0219.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/1b099973-730d-4346-bcd1-acb4487c878e_IMG_0226.MP4"]
+            videoUrlArray = [Bundle.main.path(forResource: "IMG_0216", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0232", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0233", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0240", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0221", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0238", ofType:"MP4")]
 
         }
         self.navigationController?.isNavigationBarHidden = true
@@ -59,12 +65,12 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
         collectionView.register(VideoPlayerCollViewCell.self, forCellWithReuseIdentifier: "VideoPlayerCollViewCell")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoPlayerCollViewCell", for: indexPath) as! VideoPlayerCollViewCell
             //Video player
-        if let url = URL(string: videoUrlArray[indexPath.row])
-        {
+       
+         let url = URL(fileURLWithPath: videoUrlArray[indexPath.row] ?? "" )
+        
             cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width - 20,height:collectionView.frame.height))
             cell.activityIndicator.style = .large
-            cell.activityIndicator.startAnimating()
-
+//            cell.activityIndicator.startAnimating()
             let avPlayer = AVPlayer(url: url)
             cell.playerViewAV.player = avPlayer
             cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height:collectionView.frame.height)
@@ -102,7 +108,7 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
             cell.contentView.addSubview(imageLike)
             cell.contentView.addSubview(imageDislike)
                  //Setting cell's player
-             }
+             
           return cell
     }
     func likeDislikeAct(index : Int)

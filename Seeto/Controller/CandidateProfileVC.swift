@@ -27,7 +27,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         tblCandidateProfile.reloadData()
     }
     var countryPickerView: CountryPickerView!
-
+     var startAnimation = false
     @IBOutlet var topLbl: NSLayoutConstraint!
     @IBOutlet var lblMain: UILabel!
     let imagePicker = UIImagePickerController()
@@ -58,7 +58,12 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBOutlet var tblCandidateProfile: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        }
+        catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+        }
         self.navigationController?.isNavigationBarHidden = true
         tblCandidateProfile.backgroundColor = backGroundColor
         PickerView()
@@ -572,6 +577,16 @@ extension CandidateProfileVC
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! LogoViewCell
             cell.imgMain.image = profileImage
             cell.btnEdit.addTarget(self, action: #selector(btnEditImageAct), for: .touchUpInside)
+            if startAnimation == false
+            {
+                cell.activityIndicator.isHidden = true
+                cell.activityIndicator.stopAnimating()
+            }
+            else
+            {
+                cell.activityIndicator.isHidden = false
+                cell.activityIndicator.startAnimating()
+            }
             return cell
 
         }
@@ -912,11 +927,15 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
         else {
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
 //            let photo = info[.phAsset] as? PHAsset
-                profileImage = image
 //            DispatchQueue.main.async {
 //                self.tblCandidateProfile.reloadData()
 //            }
-                uploadImage(paramName: "file", fileName: "        Profile.png", image: image)
+            startAnimation = true
+            DispatchQueue.main.async {
+                
+                self.tblCandidateProfile.reloadData()
+            }
+            uploadImage(paramName: "file", fileName: "        Profile.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
                 return
         }
     urlVideo = url
@@ -1079,7 +1098,11 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
                     if let dict = json["data"] as? NSDictionary{
                         self.profilePicUrl = (dict["url"] as? String) ?? ""
                         self.dictTable[0]["value"] = fileName
+                        self.profileImage = image
+
                //         SwiftLoader.hide()
+                        self.startAnimation = false
+
                         DispatchQueue.main.async {
                             self.tblCandidateProfile.reloadData()
                         }

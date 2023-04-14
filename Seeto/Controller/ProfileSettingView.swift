@@ -29,6 +29,12 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        }
+        catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+        }
         progressView.frame = CGRect(x: 0, y: 0, width: 200, height: 20)
         view.addSubview(progressView)
         progressView.isHidden = true
@@ -458,7 +464,7 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
                     } else {
                         // show error
                     }
-            uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image.resizeWithPercent(percentage: 0.5)!)
+            uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
                 return
         }
     urlVideo = url

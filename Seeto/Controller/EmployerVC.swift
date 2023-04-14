@@ -22,8 +22,10 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
             self.tblEmployer.reloadData()
         }
     }
-    
-    func industryString(string: String) {
+    var industryId = 0
+   var companyLogoUrl = ""
+    var startAnimation = false
+    func industryString(string: String,id : Int) {
         for i in 0...dictTable.count - 1
         {
             if dictTable[i]["title"] == "Industry"
@@ -31,6 +33,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
                 dictTable[i]["value"] = string
             }
         }
+        industryId = id
         DispatchQueue.main.async {
             self.tblEmployer.reloadData()
         }
@@ -57,10 +60,17 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
     let toolbar = UIToolbar();
     var countryCode = "USA"
     var mainIndustryArray = [String]()
+    var mainIndustryIdArray = [Int]()
 
     @IBOutlet var tblEmployer: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        }
+        catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+        }
         tblEmployer.backgroundColor = backGroundColor
         PickerView()
         imagePicker.delegate = self
@@ -96,6 +106,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
                        for item in dictArray
                         {
                            self.mainIndustryArray.append((item["industryName"] as? String) ?? "")
+                           self.mainIndustryIdArray.append((item["industryId"] as? Int) ?? 0)
                        }
                         
                     }
@@ -126,6 +137,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         topLbl.constant = 10
         dictTable.remove(at: 0)
         btnNext.isHidden = true
+        industryId = ((dataJson["data"] as! NSDictionary)["industryId"] as? Int) ?? 0
         self.dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["companyName"] as? String) ?? ""
         self.dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["industry"] as? String) ?? ""
         self.dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["webSite"] as? String) ?? ""
@@ -138,9 +150,10 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
     func updateEmployerProfileData() -> [String : Any]
     {
        return [
-        "companyLogo":dictTable[0]["value"]!,
+        "companyLogo":companyLogoUrl,
         "userType": 1,
         "companyName": dictTable[1]["value"]!,
+        "industryId": industryId,
         "industry":dictTable[2]["value"]!,
         "webSite": dictTable[3]["value"]!,
         "linkedInProfile": dictTable[4]["value"]!,
@@ -157,6 +170,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         "userType": 1,
         "companyName": dictTable[0]["value"]!,
         "industry":dictTable[1]["value"]!,
+        "industryId": industryId,
         "webSite": dictTable[2]["value"]!,
         "linkedInProfile": dictTable[3]["value"]!,
         "foundationDate": dictTable[4]["value"]! == "" ? nil : dictTable[4]["value"]!,
@@ -421,6 +435,16 @@ extension EmployerVC
              let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! LogoViewCell
              cell.imgMain.image = companyImage
              cell.btnEdit.addTarget(self, action: #selector(btnEditImageAct), for: .touchUpInside)
+             if startAnimation == false
+             {
+                 cell.activityIndicator.isHidden = true
+                 cell.activityIndicator.stopAnimating()
+             }
+             else
+             {
+                 cell.activityIndicator.isHidden = false
+                 cell.activityIndicator.startAnimating()
+             }
              return cell
 
         }
@@ -488,7 +512,16 @@ extension EmployerVC
             cell.phoneCountryView.isHidden = true
         }
         cell.tfMain.attributedPlaceholder = attributedString
-        cell.tfMain.text = (dictTable[indexPath.row]["value"]!)
+        if (dictTable[indexPath.row]["title"]!) == "Company Name"
+        {
+            cell.tfMain.text = dictTable[indexPath.row]["value"]!.capitalizingFirstLetter()
+
+        }
+        else
+        {
+            cell.tfMain.text = dictTable[indexPath.row]["value"]!
+
+        }
         if (dictTable[indexPath.row]["type"]!) == "text"
         {
             cell.imgVector.isHidden = true
@@ -551,6 +584,7 @@ extension EmployerVC
                   let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as! SearchVC
                   vc.searchIndustryDelegate = self
                 vc.mainArray = mainIndustryArray
+                vc.industryIdArray = mainIndustryIdArray
                 vc.forIndustry = true
                   self.navigationController?.pushViewController(vc, animated: true)
               }
@@ -660,8 +694,12 @@ extension EmployerVC : UITextFieldDelegate
 extension EmployerVC: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        companyImage = image
-        uploadImage(paramName: "file", fileName: "        CompanyImage.png", image: image)
+        startAnimation = true
+        DispatchQueue.main.async {
+            self.tblEmployer.reloadData()
+
+        }
+        uploadImage(paramName: "file", fileName: "        CompanyImage.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
         dismiss(animated: true, completion: nil)
     }
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
@@ -698,10 +736,13 @@ extension EmployerVC: UIImagePickerControllerDelegate {
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .mutableContainers)
                 if let json = jsonData as? [String: Any] {
                     if let dict = json["data"] as? NSDictionary{
+                        self.companyImage = image
+                        self.startAnimation = false
+
                         DispatchQueue.main.async {
                             self.tblEmployer.reloadData()
                         }
-                        self.dictTable[0]["value"] = fileName
+                        self.companyLogoUrl = dict["url"] as? String ?? ""
                       //  SwiftLoader.hide()
 
                       
