@@ -359,9 +359,15 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
                 if textFieldTag == 10
                 {
                 //    dictTable[textFieldTag]["value"] = pickerArray[index] + " (" +  languageArray[indexLang] + ")"
- 
-                    langArray.append(pickerArray[index])
-                    langFluencyArray.append(indexLang)
+                    if langArray.contains(pickerArray[index])
+                    {
+                        Toast.show(message: "You can't add same language multiple times!", controller: self)
+                    }
+                    else
+                    {
+                        langArray.append(pickerArray[index])
+                        langFluencyArray.append(indexLang)
+                    }
                 }
             }
             else
@@ -369,9 +375,15 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
                 if textFieldTag == 11
                 {
              //       dictTable[textFieldTag]["value"] = pickerArray[index] + " (" +  languageArray[indexLang] + ")"
-
-                    langArray.append(pickerArray[index])
-                    langFluencyArray.append(indexLang)
+                    if langArray.contains(pickerArray[index])
+                    {
+                        Toast.show(message: "You can't add same language multiple times!", controller: self)
+                    }
+                    else
+                    {
+                        langArray.append(pickerArray[index])
+                        langFluencyArray.append(indexLang)
+                    }
                 }
             }
         DispatchQueue.main.async {
@@ -729,8 +741,6 @@ extension CandidateProfileVC
         else
         {
             cell.colllV.isHidden = true
-            cell.colllV.delegate = nil
-            cell.colllV.dataSource = nil
             cell.heightCollV.constant = 0
         }
         if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture"
@@ -1143,9 +1153,10 @@ extension CandidateProfileVC: UICollectionViewDelegate, UICollectionViewDataSour
         collectionView.register(UINib(nibName: "SpokenLanguageCell", bundle: nil), forCellWithReuseIdentifier: "SpokenLanguageCell")
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SpokenLanguageCell", for: indexPath) as! SpokenLanguageCell
+        //
         cell.lblLang.text = langArray[indexPath.row] + " (" +  langLevelArray[langFluencyArray[indexPath.row]] + ")"
         cell.btnCross.tag = indexPath.row
-//        cell.lblWidth.constant = cell.lblLang.intrinsicContentSize.width
+        cell.widthLbl.constant = cell.lblLang.intrinsicContentSize.width
         cell.btnCross.addTarget(self, action: #selector(self.btnCross(_:)), for: .touchUpInside)
           return cell
         
@@ -1161,11 +1172,17 @@ extension CandidateProfileVC: UICollectionViewDelegate, UICollectionViewDataSour
             self.tblCandidateProfile.reloadData()
         }
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-                return CGSize(width:  (langArray[indexPath.row] + " (" +  langLevelArray[langFluencyArray[indexPath.row]] + ")").size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12,weight: .regular)]).width + 60, height: 50)
-
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//                return CGSize(width:  (langArray[indexPath.row] + " (" +  langLevelArray[langFluencyArray[indexPath.row]] + ")").size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12,weight: .regular)]).width + 60, height: 50)
+////        return CGSize(width: 100, height: 50)
+//
+//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //
 //    }

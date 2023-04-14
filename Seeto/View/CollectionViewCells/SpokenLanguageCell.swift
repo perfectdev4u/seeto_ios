@@ -9,6 +9,7 @@ import UIKit
 
 class SpokenLanguageCell: UICollectionViewCell {
 
+    @IBOutlet var widthLbl: NSLayoutConstraint!
     @IBOutlet var lblLang: UILabel!
     @IBOutlet var btnCross: UIButton!
     override func awakeFromNib() {

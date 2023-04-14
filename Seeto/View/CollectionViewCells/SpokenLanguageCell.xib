@@ -24,6 +24,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eng" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIw-8q-qD2">
                                 <rect key="frame" x="14.000000000000002" y="5" width="21.666666666666671" height="20.333333333333332"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="21.670000000000002" id="VOS-OR-Ppu"/>
                                     <constraint firstAttribute="height" constant="20.329999999999998" id="tBc-xk-tSU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -72,6 +73,7 @@
             <connections>
                 <outlet property="btnCross" destination="vOJ-y5-yR3" id="QhK-zh-Mtd"/>
                 <outlet property="lblLang" destination="zIw-8q-qD2" id="hR5-xt-aix"/>
+                <outlet property="widthLbl" destination="VOS-OR-Ppu" id="UYN-My-qL8"/>
             </connections>
             <point key="canvasLocation" x="91.603053435114504" y="-1.4084507042253522"/>
         </collectionViewCell>
