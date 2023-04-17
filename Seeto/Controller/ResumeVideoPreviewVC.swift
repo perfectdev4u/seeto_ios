@@ -24,6 +24,12 @@ class ResumeVideoPreviewVC: UIViewController {
     var dictParam = [:] as [String : Any]
     override func viewDidLoad() {
         super.viewDidLoad()
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        }
+        catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+        }
         if let url = urlVideo
         {
             avPlayer = AVPlayer(url: url)

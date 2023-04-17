@@ -253,6 +253,10 @@ if copyData == false
                 case thirdTf:
                     fourthTf.becomeFirstResponder()
                 case fourthTf:
+                    if firstTf.text!.count + secondTf.text!.count + thirdTf.text!.count + fourthTf.text!.count > 3
+                    {
+                        verifyApi()
+                    }
                     fourthTf.resignFirstResponder()
                 default:
                     break
@@ -274,6 +278,7 @@ if copyData == false
             }else{
                 
             }
+           
         }
     }
     

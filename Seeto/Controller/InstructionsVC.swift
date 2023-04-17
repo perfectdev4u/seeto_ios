@@ -35,6 +35,7 @@ class InstructionsVC: UIViewController {
 
         }
         self.navigationController?.isNavigationBarHidden = true
+        collView.contentInsetAdjustmentBehavior = .never
 
         // Do any additional setup after loading the view.
     }
@@ -68,27 +69,27 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
        
          let url = URL(fileURLWithPath: videoUrlArray[indexPath.row] ?? "" )
         
-            cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width - 20,height:collectionView.frame.height))
+            cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height))
             cell.activityIndicator.style = .large
 //            cell.activityIndicator.startAnimating()
             let avPlayer = AVPlayer(url: url)
             cell.playerViewAV.player = avPlayer
-            cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height:collectionView.frame.height)
+            cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
             cell.playerViewAV.videoGravity = AVLayerVideoGravity.resize
             let btnLike = UIButton()
             let btnDislike = UIButton()
             let imageLike = UIImageView(image:  UIImage(named: "tick"))
-            imageLike.frame = CGRect(x: ((screenSize.width - 20) / 2) - 75, y: collectionView.frame.height - 82.5, width: 35, height: 35)
+            imageLike.frame = CGRect(x: ((screenSize.width) / 2) - 75, y: collectionView.frame.height - 82.5, width: 35, height: 35)
             imageLike.contentMode = .scaleAspectFill
             let imageDislike = UIImageView(image:  UIImage(named: "cross"))
-            imageDislike.frame = CGRect(x: ((screenSize.width - 20) / 2) + 40, y: collectionView.frame.height - 82.5, width: 35, height: 35)
+            imageDislike.frame = CGRect(x: ((screenSize.width) / 2) + 40, y: collectionView.frame.height - 82.5, width: 35, height: 35)
             imageDislike.contentMode = .scaleAspectFill
             btnLike.tag = indexPath.row
-            btnLike.frame = CGRect(x: ((screenSize.width - 20) / 2) - 97.5, y: collectionView.frame.height - 105, width: 80, height: 80)
+            btnLike.frame = CGRect(x: ((screenSize.width) / 2) - 97.5, y: collectionView.frame.height - 105, width: 80, height: 80)
             btnLike.backgroundColor = likeButtonBackGroundColor
             btnLike.layer.cornerRadius = btnLike.frame.height / 2
             btnDislike.tag = indexPath.row
-            btnDislike.frame = CGRect(x: ((screenSize.width - 20) / 2) + 17.5, y: collectionView.frame.height - 105, width: 80, height: 80)
+            btnDislike.frame = CGRect(x: ((screenSize.width) / 2) + 17.5, y: collectionView.frame.height - 105, width: 80, height: 80)
             btnDislike.layer.cornerRadius = btnLike.frame.height / 2
             btnDislike.backgroundColor = likeButtonBackGroundColor
             btnDislike.setShadowButton()
@@ -173,7 +174,7 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: screenSize.width - 20, height: collectionView.frame.height)
+        return CGSize(width: screenSize.width , height: collectionView.frame.height)
     }
     
     

@@ -37,12 +37,20 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
    // var videoUrlArray = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        collViewVideos.contentInsetAdjustmentBehavior = .never
+
         if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
         {
             if userType == 2
             {
                 videoUrlArray = ["https://seetoapp.s3.us-east-1.amazonaws.com/6309cf17-1c9f-4ca4-83a6-3274e1506c17_IMG_0205.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/934cc68e-594c-4129-9c77-a696cca99837_IMG_0206.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/6577df53-b518-4599-b491-631799e631d2_IMG_0219.MP4"]
             }
+        }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        }
+        catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
         }
         //collViewVideos.layer.cornerRadius = 40
         collViewVideos.delegate = self
@@ -142,7 +150,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else{
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobsVC") as! JobsVC
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddNewJobAndVideoVC") as! AddNewJobAndVideoVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             //        videoUrlArray = []
@@ -204,27 +212,27 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
         if let url = URL(string: (mainDataArray[indexPath.row]["videoUrl"] as? String ?? ""))
         {
             cell.imgThumb = UIImageView()
-            cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height:collectionView.frame.height)
+            cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
             cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
-            cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width - 20,height:collectionView.frame.height))
+            cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height))
             cell.activityIndicator.style = .large
             cell.activityIndicator.startAnimating()
             let avPlayer = AVPlayer(url: url)
             cell.playerViewAV.player = avPlayer
-            cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height:collectionView.frame.height)
+            cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width ,height:collectionView.frame.height)
             cell.playerViewAV.videoGravity = AVLayerVideoGravity.resize
             let btnLike = UIButton()
             let btnDislike = UIButton()
             let imageLike = UIImageView(image:  UIImage(named: "tick"))
-            imageLike.frame = CGRect(x: ((screenSize.width - 20) / 2) - 75, y: collectionView.frame.height - 82.5, width: 35, height: 35)
+            imageLike.frame = CGRect(x: ((screenSize.width) / 2) - 75, y: collectionView.frame.height - 82.5, width: 35, height: 35)
             imageLike.contentMode = .scaleAspectFill
             let imageDislike = UIImageView(image:  UIImage(named: "cross"))
-            imageDislike.frame = CGRect(x: ((screenSize.width - 20) / 2) + 40, y: collectionView.frame.height - 82.5, width: 35, height: 35)
+            imageDislike.frame = CGRect(x: ((screenSize.width) / 2) + 40, y: collectionView.frame.height - 82.5, width: 35, height: 35)
             imageDislike.contentMode = .scaleAspectFill
-            btnLike.frame = CGRect(x: ((screenSize.width - 20) / 2) - 97.5, y: collectionView.frame.height - 105, width: 80, height: 80)
+            btnLike.frame = CGRect(x: ((screenSize.width) / 2) - 97.5, y: collectionView.frame.height - 105, width: 80, height: 80)
             btnLike.backgroundColor = likeButtonBackGroundColor
             btnLike.layer.cornerRadius = btnLike.frame.height / 2
-            btnDislike.frame = CGRect(x: ((screenSize.width - 20) / 2) + 17.5, y: collectionView.frame.height - 105, width: 80, height: 80)
+            btnDislike.frame = CGRect(x: ((screenSize.width) / 2) + 17.5, y: collectionView.frame.height - 105, width: 80, height: 80)
             btnDislike.layer.cornerRadius = btnLike.frame.height / 2
             btnDislike.backgroundColor = likeButtonBackGroundColor
             btnDislike.setShadowButton()
@@ -335,8 +343,11 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: screenSize.width - 20, height: collectionView.frame.height)
+        let itemWidth = collectionView.bounds.width
+        let itemHeight = collectionView.bounds.height
+        return CGSize(width: itemWidth, height: itemHeight)
     }
     
     
