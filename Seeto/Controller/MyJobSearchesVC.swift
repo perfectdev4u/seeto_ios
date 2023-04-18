@@ -174,7 +174,7 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
                             vc.mainDataArray = dictArray
                             vc.inputArray = dictTable
-                            vc.searchId = String(describing: dictTable["searchId"] as AnyObject)
+                            vc.searchJobId = String(describing: dictTable["searchId"] as AnyObject)
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
                     }

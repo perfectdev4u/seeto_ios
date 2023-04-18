@@ -11,7 +11,7 @@ import AVFoundation
 class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate {
     func dataFromSearch(data: [NSDictionary], searchId: String) {
         mainDataArray = data
-        self.searchId = searchId
+        self.searchJobId = searchId
         DispatchQueue.main.async {
             self.collViewVideos.reloadData()
         }
@@ -31,8 +31,8 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
     let screenSize: CGRect = UIScreen.main.bounds
     var mainDataArray = [NSDictionary].init()
     var inputArray = NSDictionary.init()
-
-    var searchId = ""
+   
+    var searchJobId = ""
     var videoUrlArray = ["https://seetoapp.s3.us-east-1.amazonaws.com/7993d069-cb7e-4757-b15f-5d0d8684249e_IMG_0232.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/b7d23127-881e-43d9-b05e-9beaeec7ae97_IMG_0240.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/1b099973-730d-4346-bcd1-acb4487c878e_IMG_0226.MP4"]
    // var videoUrlArray = [String]()
     override func viewDidLoad() {
@@ -76,7 +76,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
         {
             if userType == 2
             {
-                params = ["searchId" :searchId,"jobId" : Id,"isMatch": isMatch]
+                params = ["searchId" :searchJobId,"jobId" : Id,"isMatch": isMatch]
             }
             else
             {
@@ -150,7 +150,11 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else{
+                print(inputArray)
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddNewJobAndVideoVC") as! AddNewJobAndVideoVC
+                vc.fromHome = true
+                vc.inputArray = inputArray
+                vc.searchDetailDelegate = self
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             //        videoUrlArray = []

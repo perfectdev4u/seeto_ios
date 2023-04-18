@@ -125,6 +125,8 @@ class JobsVC: UIViewController,JobDelegate {
                         {
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
                             vc.mainDataArray = dictArray
+                            vc.inputArray = dictTable
+                            vc.searchJobId = String(describing: dictTable["jobId"] as AnyObject)
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
                     }

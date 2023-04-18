@@ -48,9 +48,10 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
         
     }
     var task = URLSessionDataTask.init()
+    var searchDetailDelegate : SearchDetailDelegate!
 
     var sizeItem = CGFloat.init()
-
+    var fromHome = false
     var jobDelegate : JobDelegate!
     var videoUrlString = ""
     @IBOutlet var tblJob: UITableView!
@@ -68,6 +69,8 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
     let toolbar = UIToolbar();
     var countryCode = "USA"
     var jobsDelegate : JobDelegate!
+    var inputArray = NSDictionary.init()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         do {
@@ -81,7 +84,12 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
         imagePicker.delegate = self
         btnNext.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
         automaticallyAdjustsScrollViewInsets = false
-
+         if fromHome == true
+        {
+            
+            
+        }
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {

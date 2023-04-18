@@ -169,7 +169,7 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
                         {
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
                             vc.mainDataArray = self.mainDataArray
-                            vc.searchId = (dataJson["data"] as? NSDictionary)?["searchId"] as? String ?? ""
+                            vc.searchJobId = (dataJson["data"] as? NSDictionary)?["searchId"] as? String ?? ""
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
                         
