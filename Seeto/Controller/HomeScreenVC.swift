@@ -146,6 +146,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
                 vc.inputArray = inputArray
                 vc.industryId = inputArray["industryId"] as? Int ?? 0
                 vc.fromHome = true
+                vc.searchId = Int(searchJobId)!
                 vc.searchDetailDelegate = self
                 self.navigationController?.pushViewController(vc, animated: true)
             }
@@ -154,6 +155,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddNewJobAndVideoVC") as! AddNewJobAndVideoVC
                 vc.fromHome = true
                 vc.inputArray = inputArray
+                vc.jobId = Int(searchJobId)!
                 vc.searchDetailDelegate = self
                 self.navigationController?.pushViewController(vc, animated: true)
             }

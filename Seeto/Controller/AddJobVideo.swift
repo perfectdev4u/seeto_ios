@@ -13,7 +13,7 @@ class AddJobVideo: UIViewController {
     @IBOutlet var sliderMain: UISlider!
     @IBOutlet var imgMain: UIImageView!
     @IBOutlet var collView: UICollectionView!
-
+   var jobId = -1
     @IBOutlet var viewMain: UIView!
     var urlVideo = URL.init(string: "")
     @IBOutlet var btnCheck: UIButton!
@@ -38,7 +38,7 @@ class AddJobVideo: UIViewController {
     var timer: Timer?
     let scrollView = UIScrollView()
     var imageViews = [UIImageView]()
-
+   var fromHome = false
     override func viewDidLoad() {
         super.viewDidLoad()
         btnCheck.layer.cornerRadius = btnCheck.frame.height / 2
@@ -232,9 +232,13 @@ class AddJobVideo: UIViewController {
     
     func AddJobsApi()
     {
+    
+        if self.fromHome == true
+        {
+            dictParam["jobId"] = jobId
+        }
        
-       
-        ApiManager().postRequest(parameters: dictParam,api:  ApiManager.shared.AddJobs) { dataJson, error in
+        ApiManager().postRequest(parameters: dictParam,api: fromHome == false ?  ApiManager.shared.AddJobs : ApiManager.shared.UpdateJob  ) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {

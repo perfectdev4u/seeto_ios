@@ -14,6 +14,7 @@ protocol SearchDetailDelegate
 class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, SearchAddressProtocol,SearchIndustryProtocol{
   
     var industryId = 0
+    var searchId = -1
 
     func industryString(string: String, id: Int) {
         for i in 0...dictTable.count - 1
@@ -144,7 +145,12 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
     
     func AddJobSearchApi()
     {
-        ApiManager().postRequest(parameters: addNewSearchData(),api:  ApiManager.shared.AddJobSearch) { dataJson, error in
+        var param = addNewSearchData()
+        if self.fromHome == true
+        {
+            param["searchId"] = searchId
+        }
+        ApiManager().postRequest(parameters: param,api:  ApiManager.shared.AddJobSearch) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {
@@ -169,7 +175,8 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
                         {
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
                             vc.mainDataArray = self.mainDataArray
-                            vc.searchJobId = (dataJson["data"] as? NSDictionary)?["searchId"] as? String ?? ""
+                            vc.inputArray = param as NSDictionary
+                            vc.searchJobId = String(describing: (dataJson["data"] as? NSDictionary)?["searchId"] as AnyObject )
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
                         

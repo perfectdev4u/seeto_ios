@@ -40,16 +40,78 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
     }
     
     func JobDone() {
-        
-        jobDelegate.JobDone()
-        DispatchQueue.main.async {
-            self.navigationController?.popViewController(animated: true)
+        if fromHome == false
+        {
+            jobDelegate.JobDone()
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+            
         }
+        else
+        {
+          
+                
+                var param = [
+                    "jobId":  jobId,
+                ] as [String : Any]
+                
+                ApiManager().postRequest(parameters: param,api:  ApiManager.shared.GetAllCandidateByJob) { dataJson, error in
+                    if let error = error
+                    {
+                        DispatchQueue.main.async {
+                            
+                            self.showToast(message: error.localizedDescription)
+                        }
+                    }
+                    else
+                    {
+                    if let dataJson = dataJson
+                        {
+                      if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                        {
+                         
+                        if let dictArray = dataJson["data"] as? [NSDictionary]{
+                            DispatchQueue.main.async {
+                                if dictArray.count == 0
+                                {
+                                    Toast.show(message: "No match found for your job", controller: self)
+
+                                }
+                                else
+                                {
+                                    self.searchDetailDelegate.dataFromSearch(data: dictArray, searchId: String(self.jobId) )
+                                    DispatchQueue.main.async {
+                                        self.navigationController?.popViewController(animated: true)
+                                    }
+                                    
+                                }
+                            }
+                          }
+                        }
+                        else
+                        {
+                            DispatchQueue.main.async {
+
+                              //  self.showToast(message: ()
+                          Toast.show(message:errorMessage, controller: self)
+                            }
+
+                        }
+                        
+                    }
+
+                    }
+                
+            }
+
+        }
+     
         
     }
     var task = URLSessionDataTask.init()
     var searchDetailDelegate : SearchDetailDelegate!
-
+    var jobId = -1
     var sizeItem = CGFloat.init()
     var fromHome = false
     var jobDelegate : JobDelegate!
@@ -86,7 +148,13 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
         automaticallyAdjustsScrollViewInsets = false
          if fromHome == true
         {
-            
+             self.dictTable[0]["value"]! = self.inputArray["position"] as? String ?? ""
+             self.dictTable[1]["value"]! = experienceArray[self.inputArray["experienceLevel"] as? Int ?? 0]
+             self.dictTable[2]["value"]! = jobArray[self.inputArray["jobType"] as? Int ?? 0]
+             self.dictTable[3]["value"]! = JobLocationArray[self.inputArray["jobLocation"] as? Int ?? 0]
+             self.dictTable[4]["value"]! = self.inputArray["location"] as? String ?? ""
+             self.dictTable[6]["value"]! = self.inputArray["jobDescription"] as? String ?? ""
+
             
         }
         
@@ -643,6 +711,8 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
           vc.urlVideo = self.urlVideo
           vc.dictParam = self.addNewJobData()
           vc.jobDelegate = self
+          vc.jobId = jobId
+          vc.fromHome = fromHome
           self.navigationController?.pushViewController(vc, animated: true)
 
           

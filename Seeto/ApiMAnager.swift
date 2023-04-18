@@ -41,6 +41,7 @@ class ApiManager
     let GetJobWithEmployers = "Job/GetJobWithEmployers"
     let DeleteJobFormSearch = "Job/DeleteJobFormSearch"
     let MatchOrPassUser = "MatchOrPass/MatchOrPassUser"
+    let UpdateJob = "Job/UpdateJob"
 
     func postRequest(parameters : [String: Any] ,api : String , completion: @escaping ([String: Any]?, Error?) -> Void) {
         //declare parameter as a dictionary which contains string as key and value combination.
