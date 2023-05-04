@@ -11,7 +11,21 @@ import MobileCoreServices
 import SwiftLoader
 import CountryPickerView
 import Photos
-class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchAddressProtocol, CountryPickerViewDelegate, CountryPickerViewDataSource{
+class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchAddressProtocol, CountryPickerViewDelegate, CountryPickerViewDataSource, SearchIndustryProtocol{
+    func industryString(string: String, id: Int) {
+        for i in 0...dictTable.count - 1
+        {
+            if dictTable[i]["title"] == "Industry"
+            {
+                dictTable[i]["value"] = string
+            }
+        }
+        industryId = id
+        DispatchQueue.main.async {
+            self.tblCandidateProfile.reloadData()
+        }
+    }
+    
     
     var flagImage = UIImage(named: "usa")
     var profileImage = UIImage(named: "placeholderImg")
@@ -35,13 +49,16 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     var updateScreen = false
     var task = URLSessionDataTask.init()
     var sizeItem = CGFloat.init()
+    var industryId = 0
+    var mainIndustryArray = [String]()
+    var mainIndustryIdArray = [Int]()
 
     var urlVideo = URL(string: "")
     var dataJson = NSDictionary.init()
 
     var videoUrlString = ""
     var langList = [NSDictionary].init()
-    var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"First Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Date of Birth","type":"drop","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"true","value":UserDefaults.standard.value(forKey: "phone") as? String ?? ""],["title":"Email Address","type":"text","required":"true","value": UserDefaults.standard.value(forKey: "email") as? String ?? ""],["title":"Linkedin Profile","type":"text","required":"false","value":""],["title":"Current Location","type":"btn","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income (U.S. Dollars)","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
+    var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"First Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Industry","type":"btn","required":"false","value":""],["title":"Date of Birth","type":"drop","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"true","value":UserDefaults.standard.value(forKey: "phone") as? String ?? ""],["title":"Email Address","type":"text","required":"true","value": UserDefaults.standard.value(forKey: "email") as? String ?? ""],["title":"Linkedin Profile","type":"text","required":"false","value":""],["title":"Current Location","type":"btn","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income (U.S. Dollars)","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
     let toolBar = UIToolbar()
@@ -69,6 +86,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         PickerView()
         showDatePicker()
         imagePicker.delegate = self
+        getIndustryApi()
        // getCandidateProfileApi()
         btnNext.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
         if updateScreen == true
@@ -78,6 +96,52 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         setCountryPickerView()
         // Do any additional setup after loading the view.
     }
+    func getIndustryApi()
+    {
+        ApiManager().postRequest(parameters: ["page": 1,"pageSize": 1000],api:  ApiManager.shared.GetAllIndustries) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                if let dictArray = dataJson["data"] as? [NSDictionary]{
+                    DispatchQueue.main.async {
+                       for item in dictArray
+                        {
+                           self.mainIndustryArray.append((item["industryName"] as? String) ?? "")
+                           self.mainIndustryIdArray.append((item["industryId"] as? Int) ?? 0)
+                       }
+                        
+                    }
+                  }
+
+
+
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:"Error", controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
     func setCountryPickerView(){
        // UIPickerView
        self.countryPickerView = CountryPickerView(frame:CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216))
@@ -98,18 +162,21 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         lblMain.isHidden = true
         topLbl.constant = 10
         btnNext.isHidden = true
+        industryId = ((dataJson["data"] as! NSDictionary)["industryId"] as? Int) ?? 0
+
       //  + " " +  ((dataJson["data"] as! NSDictionary)["lastName"] as! String)
         dictTable[0]["value"] = ((dataJson["data"] as! NSDictionary)["firstName"] as? String) ?? ""
         dictTable[1]["value"] = ((dataJson["data"] as! NSDictionary)["lastName"] as? String) ?? ""
-        dictTable[2]["value"] = converrDateFormat(string: ((dataJson["data"] as! NSDictionary)["dateOfBirth"] as? String) ?? "")
-        dictTable[3]["value"] = ((dataJson["data"] as! NSDictionary)["phoneNumber"] as? String) ?? ""
-        dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["email"] as? String) ?? ""
-        dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as? String) ?? ""
-        dictTable[6]["value"] = ((dataJson["data"] as! NSDictionary)["currentLocation"] as? String) ?? ""
-        dictTable[7]["value"] = ((dataJson["data"] as! NSDictionary)["currentPosition"] as? String) ?? ""
-        dictTable[8]["value"] = experienceArray[((dataJson["data"] as! NSDictionary)["experienceLevel"] as? Int) ?? 0]
-        dictTable[9]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["desiredMonthlyIncome"] as AnyObject))
-        dictTable[10]["value"] = ""
+        dictTable[2]["value"] = ((dataJson["data"] as! NSDictionary)["industry"] as? String) ?? ""
+        dictTable[3]["value"] = converrDateFormat(string: ((dataJson["data"] as! NSDictionary)["dateOfBirth"] as? String) ?? "")
+        dictTable[4]["value"] = ((dataJson["data"] as! NSDictionary)["phoneNumber"] as? String) ?? ""
+        dictTable[5]["value"] = ((dataJson["data"] as! NSDictionary)["email"] as? String) ?? ""
+        dictTable[6]["value"] = ((dataJson["data"] as! NSDictionary)["linkedInProfile"] as? String) ?? ""
+        dictTable[7]["value"] = ((dataJson["data"] as! NSDictionary)["currentLocation"] as? String) ?? ""
+        dictTable[8]["value"] = ((dataJson["data"] as! NSDictionary)["currentPosition"] as? String) ?? ""
+        dictTable[9]["value"] = experienceArray[((dataJson["data"] as! NSDictionary)["experienceLevel"] as? Int) ?? 0]
+        dictTable[10]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["desiredMonthlyIncome"] as AnyObject))
+        dictTable[11]["value"] = ""
 //        educationList
 //
         var count = 1
@@ -121,14 +188,14 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
                 {
                     if i == 0
                     {
-                        dictTable[11]["value"] = (array[0]["education"] as? String) ?? ""
+                        dictTable[12]["value"] = (array[0]["education"] as? String) ?? ""
                     }
                     else
                     {
                         count += 1
-                        dictTable[11 + i - 1]["type"] = "text"
+                        dictTable[12 + i - 1]["type"] = "text"
 
-                        dictTable.insert(["title":"Education" + " \(i + 1)","type":"btn","required":"false","value":(array[i]["education"] as? String) ?? ""], at: 11 + i)
+                        dictTable.insert(["title":"Education" + " \(i + 1)","type":"btn","required":"false","value":(array[i]["education"] as? String) ?? ""], at: 12 + i)
                     }
                 }
             }
@@ -141,12 +208,12 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
                 {
                     if i == 0
                     {
-                        dictTable[11 + count]["value"] = (array[0]["experience"] as? String) ?? ""
+                        dictTable[12 + count]["value"] = (array[0]["experience"] as? String) ?? ""
                     }
                     else
                     {
-                        dictTable[11 + count + i - 1]["type"] = "text"
-                        dictTable.insert(["title":"Working Experience" + " \(i + 1)","type":"btn","required":"false","value":(array[i]["experience"] as? String) ?? ""], at: 11 + count + i)
+                        dictTable[12 + count + i - 1]["type"] = "text"
+                        dictTable.insert(["title":"Working Experience" + " \(i + 1)","type":"btn","required":"false","value":(array[i]["experience"] as? String) ?? ""], at: 12 + count + i)
                     }
                 }
             }
@@ -223,13 +290,15 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "userType" : 2,
             "firstName" : dictTable[1]["value"]!,
             "lastName" : dictTable[2]["value"]!,
-            "dateOfBirth" : dictTable[3]["value"]!,
+            "industry":dictTable[3]["value"]!,
+            "industryId": industryId,
+            "dateOfBirth" : dictTable[4]["value"]!,
             "profileImage" : self.profilePicUrl,
-            "linkedInProfile" : dictTable[6]["value"]!,
-            "phoneNumber" :  dictTable[4]["value"]!,
-            "email" :  dictTable[5]["value"]!,
-            "experienceLevel" :   ExperienceLevel(rawValue: dictTable[9]["value"]!)?.id ?? 0,
-            "desiredMonthlyIncome" : dictTable[10]["value"]! == "" ? "0" : dictTable[10]["value"]!,
+            "linkedInProfile" : dictTable[7]["value"]!,
+            "phoneNumber" :  dictTable[5]["value"]!,
+            "email" :  dictTable[6]["value"]!,
+            "experienceLevel" :   ExperienceLevel(rawValue: dictTable[10]["value"]!)?.id ?? 0,
+            "desiredMonthlyIncome" : dictTable[11]["value"]! == "" ? "0" : dictTable[11]["value"]!,
             "educationList" : getArrayFromTitleEdu(title: "Education",key: "education"),
             "experienceList" : getArrayFromTitleWork(title: "Working Experience",key: "experience"),
             "gender" : getValueFromTitle(title: "Gender") == "" ? 0 : getValueFromTitle(title: "Gender") == "Male" ? 1 : 2,
@@ -238,10 +307,10 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "country" : "America",
             "region" : "California",
             "city" : "Cali",
-            "currentLocation" : dictTable[7]["value"]!,
+            "currentLocation" : dictTable[8]["value"]!,
             "latitude" : 0,
             "longitude" : 0,
-            "currentPosition" : dictTable[8]["value"]!,
+            "currentPosition" : dictTable[9]["value"]!,
             "jobType" : 0,
             "videoUrl": videoUrlString,
             "bio" : "",
@@ -266,12 +335,14 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "userType" : 2,
             "firstName" : dictTable[0]["value"]!,
             "lastName" : dictTable[1]["value"]!,
-            "dateOfBirth" : dictTable[2]["value"]!,
-            "phoneNumber" :  dictTable[3]["value"]!,
-            "email" :  dictTable[4]["value"]!,
-            "linkedInProfile" : dictTable[5]["value"]!,
-            "experienceLevel" :   ExperienceLevel(rawValue: dictTable[8]["value"]!)?.id ?? 0,
-            "desiredMonthlyIncome" : dictTable[9]["value"]! == "" ? "0" : dictTable[9]["value"]!,
+            "industry":dictTable[2]["value"]!,
+            "industryId": industryId,
+            "dateOfBirth" : dictTable[3]["value"]!,
+            "phoneNumber" :  dictTable[4]["value"]!,
+            "email" :  dictTable[5]["value"]!,
+            "linkedInProfile" : dictTable[6]["value"]!,
+            "experienceLevel" :   ExperienceLevel(rawValue: dictTable[9]["value"]!)?.id ?? 0,
+            "desiredMonthlyIncome" : dictTable[10]["value"]! == "" ? "0" : dictTable[10]["value"]!,
             "educationList" : getArrayFromTitleEdu(title: "Education",key: "education"),
             "experienceList" : getArrayFromTitleWork(title: "Working Experience",key: "experience"),
             "gender" : getValueFromTitle(title: "Gender") == "" ? 0 : getValueFromTitle(title: "Gender") == "Male" ? 1 : 2,
@@ -280,10 +351,10 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "country" : "America",
             "region" : "California",
             "city" : "Cali",
-            "currentLocation" : dictTable[6]["value"]!,
+            "currentLocation" : dictTable[7]["value"]!,
             "latitude" : 0,
             "longitude" : 0,
-            "currentPosition" : dictTable[7]["value"]!,
+            "currentPosition" : dictTable[8]["value"]!,
             "jobType" : 0,
             "bio" :"",
             "militaryStatus":getValueFromTitle(title: "Military Status"),
@@ -356,7 +427,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             pickerViewTf.resignFirstResponder()
             if updateScreen == true
             {
-                if textFieldTag == 10
+                if textFieldTag == 11
                 {
                 //    dictTable[textFieldTag]["value"] = pickerArray[index] + " (" +  languageArray[indexLang] + ")"
                     if langArray.contains(pickerArray[index])
@@ -372,7 +443,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
             else
             {
-                if textFieldTag == 11
+                if textFieldTag == 12
                 {
              //       dictTable[textFieldTag]["value"] = pickerArray[index] + " (" +  languageArray[indexLang] + ")"
                     if langArray.contains(pickerArray[index])
@@ -712,7 +783,7 @@ extension CandidateProfileVC
                 cell.btnPlus.isHidden = true
                 
             }
-            if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture" || (dictTable[indexPath.row]["title"]!) == "Current Location"
+            if (dictTable[indexPath.row]["title"]!) == "Upload Profile Picture" || (dictTable[indexPath.row]["title"]!) == "Current Location" || (dictTable[indexPath.row]["title"]!) == "Industry"
             {
                 cell.tfMain.isUserInteractionEnabled = false
             }
@@ -808,7 +879,15 @@ extension CandidateProfileVC
                  self.navigationController?.pushViewController(vc, animated: true)
 
              }
-           
+            else if (dictTable[indexPath.row]["title"]!) == "Industry"
+             {
+                  let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as! SearchVC
+                  vc.searchIndustryDelegate = self
+                vc.mainArray = mainIndustryArray
+                vc.industryIdArray = mainIndustryIdArray
+                vc.forIndustry = true
+                  self.navigationController?.pushViewController(vc, animated: true)
+              }
         }
     }
 }

@@ -41,6 +41,7 @@ class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewD
         {
             setUpEmailView()
         }
+        tfPhone.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -212,4 +213,17 @@ extension PhonenumberScreenVC
        return txtField.frame.size.width
    }
 
+}
+extension PhonenumberScreenVC
+{
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == tfPhone
+        {
+            let prefix = "+1" // What ever you want may be an array and step thru it
+            guard tfPhone.text!.hasPrefix(prefix) else { return }
+            tfPhone.text  = String(tfPhone.text!.dropFirst(prefix.count).trimmingCharacters(in: .whitespacesAndNewlines))
+
+        }
+    }
+    
 }

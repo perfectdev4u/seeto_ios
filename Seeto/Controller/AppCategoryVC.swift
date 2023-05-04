@@ -48,7 +48,29 @@ var appleLogin = false
     }
     
     @IBAction func btnActBack(_ sender: UIButton) {
-      exit(1)
+        let alert = UIAlertController(title: "Are you sure to exit ?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+          exit(1)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: { _ in
+            print("no")
+        }))
+        /*If you want work actionsheet on ipad
+        then you have to use popoverPresentationController to present the actionsheet,
+        otherwise app will crash on iPad */
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            alert.popoverPresentationController?.sourceView = self.view
+            alert.popoverPresentationController?.sourceRect = self.view.bounds
+            alert.popoverPresentationController?.permittedArrowDirections = .up
+        default:
+            break
+        }
+        
+        self.present(alert, animated: true, completion: nil)
+
+      
     }
     
     @IBAction func btnJustExploring(_ sender: UIButton) {
