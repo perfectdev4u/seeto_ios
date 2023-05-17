@@ -116,17 +116,18 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
     {
         if justExploring == true
            {
-           if index % 2 == 0
-           {
-               let vc = self.storyboard?.instantiateViewController(withIdentifier: "CandidateProfileVC") as! CandidateProfileVC
-               self.navigationController?.pushViewController(vc, animated: true)
-               
-           }
-           else
-           {
-               let vc = self.storyboard?.instantiateViewController(withIdentifier: "EmployerVC") as! EmployerVC
-               self.navigationController?.pushViewController(vc, animated: true)
-           }
+//           if index % 2 == 0
+//           {
+//               let vc = self.storyboard?.instantiateViewController(withIdentifier: "CandidateProfileVC") as! CandidateProfileVC
+//               self.navigationController?.pushViewController(vc, animated: true)
+//
+//           }
+//           else
+//           {
+//               let vc = self.storyboard?.instantiateViewController(withIdentifier: "EmployerVC") as! EmployerVC
+//               self.navigationController?.pushViewController(vc, animated: true)
+//           }
+            self.navigationController?.popViewController(animated: true)
        }
            else
            {

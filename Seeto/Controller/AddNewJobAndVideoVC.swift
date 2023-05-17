@@ -222,7 +222,7 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
      func cameraGallery()
     {
         
-        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Choose", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
             self.openCamera()
         }))
@@ -251,12 +251,16 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
 
     func openCamera()
         {
-            if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
-            {
-                imagePicker.sourceType = UIImagePickerController.SourceType.camera
-           //     imagePicker.allowsEditing = true
-                self.present(imagePicker, animated: true, completion: nil)
-            }
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+                       print("Camera Available")
+
+                       imagePicker.sourceType = .camera
+                       imagePicker.mediaTypes = [kUTTypeMovie as String]
+                       imagePicker.allowsEditing = false
+                       imagePicker.videoQuality = .typeMedium
+                       imagePicker.cameraDevice = .front
+                       self.present(imagePicker, animated: true, completion: nil)
+                   }
             else
             {
                 let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
@@ -268,7 +272,9 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
         func openGallary()
         {
             imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.mediaTypes = ["public.movie"]
+            imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
         }
 }
@@ -318,18 +324,8 @@ extension AddNewJobAndVideoVC
             Toast.show(message:"Please add Job Description", controller: self)
             return
         }
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-                   print("Camera Available")
-
-                   imagePicker.sourceType = .camera
-                   imagePicker.mediaTypes = [kUTTypeMovie as String]
-                   imagePicker.allowsEditing = false
-                   imagePicker.videoQuality = .typeMedium
-                   imagePicker.cameraDevice = .front
-                   self.present(imagePicker, animated: true, completion: nil)
-               } else {
-                   print("Camera UnAvaialable")
-               }
+        cameraGallery()
+   
 
         
     }
@@ -723,7 +719,7 @@ extension AddNewJobAndVideoVC
 {
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let  text = textView.text
+        let text = textView.text
                  
             for i in 0...dictTable.count - 1
             {
@@ -732,13 +728,14 @@ extension AddNewJobAndVideoVC
                     dictTable[i]["value"] = text
                 }
             }
-
-            
-        
+        self.tblJob.beginUpdates()
+        self.tblJob.endUpdates()
 
         return true
 
     }
+   
+
     func textViewDidEndEditing(_ textView: UITextView) {
         DispatchQueue.main.async
         {

@@ -1519,6 +1519,7 @@
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="DWG-dd-AIS"/>
                     <connections>
+                        <outlet property="btnSearch" destination="3Dv-Gx-S0y" id="CTn-vd-lZw"/>
                         <outlet property="collViewVideos" destination="KPb-HY-Di1" id="pb2-j9-A1K"/>
                     </connections>
                 </viewController>

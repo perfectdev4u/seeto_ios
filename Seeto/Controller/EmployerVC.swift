@@ -40,7 +40,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
     }
     var companyImage = UIImage(named: "placeholderImg")
 
-    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"true","value":""],["title":"Industry","type":"btn","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"true","value":""],["title":"Company Foundation Date","type":"btn","required":"false","value":""],["title":"Company Location","type":"btn","required":"true","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
+    var dictTable = [["title":"Upload Company Logo","type":"btn","required":"false","value":""],["title":"Company Name","type":"text","required":"true","value":""],["title":"Industry","type":"btn","required":"false","value":""],["title":"Website","type":"text","required":"false","value":""],["title":"LinkedIn Profile","type":"text","required":"false","value":""],["title":"Company Foundation Date","type":"btn","required":"false","value":""],["title":"Company Location","type":"btn","required":"true","value":""],["title":"Company Size","type":"drop","required":"false","value":""]]
     @IBOutlet var lblMain: UILabel!
     let imagePicker = UIImagePickerController()
     @IBOutlet var btnNext: UIButton!
@@ -219,8 +219,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
                       if self.updateScreen == false
                       {
                           UserDefaults.standard.set(1, forKey: "userType")
-                          
-                          let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobsVC") as! JobsVC
+                          let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddNewJobAndVideoVC") as! AddNewJobAndVideoVC
                           self.navigationController?.pushViewController(vc, animated: true)
                       }
                       else

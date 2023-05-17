@@ -29,8 +29,18 @@ class CandidateDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getCandidateApi()
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(MyJobDetailVC.rightSwiped))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        view.addGestureRecognizer(swipeRight)
+
         // Do any additional setup after loading the view.
     }
+    @objc func rightSwiped(_ sender : UISwipeGestureRecognizer)
+    {
+        self.navigationController?.popViewController(animated: true)
+      //  Toast.show(message:"Right", controller: self)
+    }
+
     func getCandidateApi()
     {
         ApiManager().postRequest(parameters: ["candidateId": candidateId], api: ApiManager.shared.GetCandidateById) { dataJson, error in

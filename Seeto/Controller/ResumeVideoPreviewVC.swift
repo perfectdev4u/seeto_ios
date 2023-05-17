@@ -35,7 +35,7 @@ class ResumeVideoPreviewVC: UIViewController {
             avPlayer = AVPlayer(url: url)
             playerViewAV.player = avPlayer
             playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height:viewMain.frame.height)
-            playerViewAV.videoGravity = AVLayerVideoGravity.resize
+            playerViewAV.videoGravity = AVLayerVideoGravity.resizeAspectFill
             viewMain.layer.addSublayer(playerViewAV)
           //  viewMain.layer.cornerRadius = 40
             viewMain.addSubview(btnPlayPause)

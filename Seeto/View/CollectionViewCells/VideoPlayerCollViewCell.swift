@@ -57,7 +57,7 @@ class VideoPlayerCollViewCell: UICollectionViewCell {
             
             playerViewAV.player = avPlayer
             playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width - 20,height: screenSize.height - 172)
-            playerViewAV.videoGravity = AVLayerVideoGravity.resize
+            playerViewAV.videoGravity = AVLayerVideoGravity.resizeAspectFill
             contentView.layer.addSublayer( playerViewAV)
         }    }
     public func startPlaying() {

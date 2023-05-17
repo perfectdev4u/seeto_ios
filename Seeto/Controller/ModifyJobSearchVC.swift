@@ -45,7 +45,7 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
     
     var fromHome = false
    
-    var dictTable = [["title":"Position","type":"text","value":"","required": "true"],["title":"Experience Level","type":"drop","value":"","required": "true"],["title":"Industry","type":"btn","value":"","required": "true"],["title":"Job Type","type":"drop","value":"","required": "true"],["title":"On-Site/Remote","type":"drop","value":"","required": "true"],["title":"Location","type":"btn","value":"","required": "false"],["title":"Desired Salary (USD dollars)","type":"text","value":"","required": "false"]]
+    var dictTable = [["title":"Position","type":"text","value":"","required": "false"],["title":"Experience Level","type":"drop","value":"","required": "false"],["title":"Industry","type":"btn","value":"","required": "false"],["title":"Job Type","type":"drop","value":"","required": "false"],["title":"On-Site/Remote","type":"drop","value":"","required": "false"],["title":"Location","type":"btn","value":"","required": "false"],["title":"Desired Salary (USD dollars)","type":"text","value":"","required": "false"]]
     var pickerArray = [""]
     var mainIndustryArray = [String]()
     var mainDataArray = [NSDictionary].init()
@@ -76,11 +76,11 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
     {
        return [
             "position" : dictTable[0]["value"]!,
-            "experienceLevel" : ExperienceLevel(rawValue: dictTable[1]["value"]!)?.id ?? "",
+            "experienceLevel" : ExperienceLevel(rawValue: dictTable[1]["value"]!)?.id ?? 0,
             "industry":  dictTable[2]["value"]!,
             "industryId": industryId,
-            "jobType" : JobType(rawValue: dictTable[3]["value"]!)?.id ?? "",
-            "jobLocation" : JobLocation(rawValue: dictTable[4]["value"]!)?.id ?? "",
+            "jobType" : JobType(rawValue: dictTable[3]["value"]!)?.id ?? 0,
+            "jobLocation" : JobLocation(rawValue: dictTable[4]["value"]!)?.id ?? 0,
             "page" : 1,
             "pageSize" : 10,
         ] as [String : Any]
@@ -381,29 +381,29 @@ extension ModifyJobSearchVC : UITableViewDelegate,UITableViewDataSource
     }
     @objc func btnApplyAct()
     {
-        if dictTable[0]["value"] == ""
-        {
-            Toast.show(message:"Please add Position", controller: self)
-            return
-        }
-        else if dictTable[1]["value"] == ""
-        {
-            Toast.show(message:"Please add Experience Level", controller: self)
-            return
-        }
-        else if dictTable[2]["value"] == ""
-        {
-            Toast.show(message:"Please add Industry", controller: self)
-            return
-        }  else if dictTable[3]["value"] == ""
-        {
-            Toast.show(message:"Please add Job Type", controller: self)
-            return
-        }  else if dictTable[4]["value"] == ""
-        {
-            Toast.show(message:"Please add On-Site/Remote", controller: self)
-            return
-        }
+//        if dictTable[0]["value"] == ""
+//        {
+//            Toast.show(message:"Please add Position", controller: self)
+//            return
+//        }
+//        else if dictTable[1]["value"] == ""
+//        {
+//            Toast.show(message:"Please add Experience Level", controller: self)
+//            return
+//        }
+//        else if dictTable[2]["value"] == ""
+//        {
+//            Toast.show(message:"Please add Industry", controller: self)
+//            return
+//        }  else if dictTable[3]["value"] == ""
+//        {
+//            Toast.show(message:"Please add Job Type", controller: self)
+//            return
+//        }  else if dictTable[4]["value"] == ""
+//        {
+//            Toast.show(message:"Please add On-Site/Remote", controller: self)
+//            return
+//        }
         AddSearchApi()
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

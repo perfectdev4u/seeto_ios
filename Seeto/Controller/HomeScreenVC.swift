@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 
 class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate {
+    @IBOutlet var btnSearch: UIButton!
     func dataFromSearch(data: [NSDictionary], searchId: String) {
         mainDataArray = data
         self.searchJobId = searchId
@@ -44,6 +45,11 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
             if userType == 2
             {
                 videoUrlArray = ["https://seetoapp.s3.us-east-1.amazonaws.com/6309cf17-1c9f-4ca4-83a6-3274e1506c17_IMG_0205.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/934cc68e-594c-4129-9c77-a696cca99837_IMG_0206.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/6577df53-b518-4599-b491-631799e631d2_IMG_0219.MP4"]
+            }
+            else
+            {
+                btnSearch.isHidden = true
+
             }
         }
         do {
@@ -219,6 +225,7 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
         {
             cell.imgThumb = UIImageView()
             cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
+            cell.imgThumb.contentMode = .scaleAspectFill
             cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
             cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height))
             cell.activityIndicator.style = .large
@@ -226,7 +233,7 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
             let avPlayer = AVPlayer(url: url)
             cell.playerViewAV.player = avPlayer
             cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width ,height:collectionView.frame.height)
-            cell.playerViewAV.videoGravity = AVLayerVideoGravity.resize
+            cell.playerViewAV.videoGravity = AVLayerVideoGravity.resizeAspectFill
             let btnLike = UIButton()
             let btnDislike = UIButton()
             let imageLike = UIImageView(image:  UIImage(named: "tick"))

@@ -191,6 +191,7 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
                         }
                         else
                         {
+                            print(dictTable)
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
                             vc.mainDataArray = dictArray
                             vc.inputArray = dictTable
@@ -231,6 +232,7 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
         cell.lblLikes.text = arraySearch[indexPath.row]["mutualMatchCount"] as? String ?? "0"
         cell.lblDesignation.text = arraySearch[indexPath.row]["position"] as? String ?? ""
         cell.lblSkillLevel.text = experienceArray[(arraySearch[indexPath.row]["experienceLevel"] as? Int) ?? 0]
+        cell.lblLikes.text = String(describing: arraySearch[indexPath.row]["likeCount"] as AnyObject)
         if indexPath.row == (tableView.numberOfRows(inSection: 0) - 1)
         {
             cell.seperatorView.isHidden = true

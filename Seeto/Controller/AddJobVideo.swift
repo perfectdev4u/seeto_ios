@@ -252,23 +252,22 @@ class AddJobVideo: UIViewController {
                 {
               if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
                 {
-                if let dict = dataJson["data"] as? NSDictionary{
-                  }
+               
                   print(dataJson)
 //                  UserDefaults.standard.set(2, forKey: "userType")
                   DispatchQueue.main.async {
-                      self.jobDelegate.JobDone()
 
                       if self.updateVideo == true
                       {
+                          self.jobDelegate.JobDone()
+
                           self.navigationController?.popViewController(animated: true)
                       }
                       else
                       {
-                          self.navigationController?.popViewController(animated: true)
-
-//                          let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-//                          self.navigationController?.pushViewController(vc, animated: true)
+                          if let dict = dataJson["data"] as? NSDictionary{
+                              self.GetAllCandidateByJobApi(dictTable: dict)
+                            }
                       }
                   }
 
@@ -289,7 +288,62 @@ class AddJobVideo: UIViewController {
         }
     }
 
-    
+    func GetAllCandidateByJobApi(dictTable : NSDictionary)
+    {
+        
+        var param = [
+            "jobId":  dictTable["jobId"] as? Int ?? 0,
+        ] as [String : Any]
+        
+        ApiManager().postRequest(parameters: param,api:  ApiManager.shared.GetAllCandidateByJob) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                 
+                if let dictArray = dataJson["data"] as? [NSDictionary]{
+                    DispatchQueue.main.async {
+                        if dictArray.count == 0
+                        {
+                            Toast.show(message: "No match found for your job", controller: self)
+
+                        }
+                        else
+                        {
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                            vc.mainDataArray = dictArray
+                            vc.inputArray = dictTable
+                            vc.searchJobId = String(describing: dictTable["jobId"] as AnyObject)
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    }
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:errorMessage, controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
         let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
         SwiftLoader.show(animated: true)

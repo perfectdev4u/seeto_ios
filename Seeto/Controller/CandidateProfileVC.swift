@@ -514,13 +514,68 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.present(alert, animated: true, completion: nil)
     }
 
-
-    func openCamera()
+    func cameraGalleryVideo()
+   {
+       
+       let alert = UIAlertController(title: "Choose", message: nil, preferredStyle: .actionSheet)
+       alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+           self.openCameraVideo()
+       }))
+       
+       alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+           self.openGallaryVideo()
+       }))
+       
+       alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+       
+       /*If you want work actionsheet on ipad
+       then you have to use popoverPresentationController to present the actionsheet,
+       otherwise app will crash on iPad */
+       switch UIDevice.current.userInterfaceIdiom {
+       case .pad:
+           alert.popoverPresentationController?.sourceView = self.view
+           alert.popoverPresentationController?.sourceRect = self.view.bounds
+           alert.popoverPresentationController?.permittedArrowDirections = .up
+       default:
+           break
+       }
+       
+       self.present(alert, animated: true, completion: nil)
+   }
+    func openCameraVideo()
         {
             if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
             {
+                imagePicker.sourceType = .camera
+                imagePicker.mediaTypes = [kUTTypeMovie as String]
+                imagePicker.allowsEditing = false
+                imagePicker.videoQuality = .typeMedium
+                imagePicker.cameraDevice = .front
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            else
+            {
+                let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.modalPresentationStyle = .fullScreen
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+
+        func openGallaryVideo()
+        {
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.mediaTypes = ["public.movie"]
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    func openCamera()
+        {
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+                print("Camera Available")
+                
                 imagePicker.sourceType = UIImagePickerController.SourceType.camera
-               // imagePicker.allowsEditing = true
+           //     imagePicker.allowsEditing = true
                 self.present(imagePicker, animated: true, completion: nil)
             }
             else
@@ -603,19 +658,9 @@ extension CandidateProfileVC
                     }
                 }
             }
-          
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-                print("Camera Available")
-                
-                imagePicker.sourceType = .camera
-                imagePicker.mediaTypes = [kUTTypeMovie as String]
-                imagePicker.allowsEditing = false
-                imagePicker.videoQuality = .typeMedium
-                imagePicker.cameraDevice = .front
-                self.present(imagePicker, animated: true, completion: nil)
-            } else {
-                print("Camera UnAvaialable")
-            }
+            cameraGalleryVideo()
+
+            
             
         }
         else

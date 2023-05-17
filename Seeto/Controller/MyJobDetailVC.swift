@@ -19,7 +19,17 @@ class MyJobDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         GetJobByIdApi()
+
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(MyJobDetailVC.rightSwiped))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        view.addGestureRecognizer(swipeRight)
+
         // Do any additional setup after loading the view.
+    }
+    @objc func rightSwiped(_ sender : UISwipeGestureRecognizer)
+    {
+        self.navigationController?.popViewController(animated: true)
+      //  Toast.show(message:"Right", controller: self)
     }
     func GetJobByIdApi()
     {

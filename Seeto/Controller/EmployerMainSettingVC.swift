@@ -181,7 +181,7 @@ extension EmployerMainSettingVC : UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: section == 1 ? 95 : .leastNormalMagnitude))
         view.backgroundColor = backGroundColor
-        if section == 3
+        if section == 1
         {
             let button = UIButton(frame: CGRect(x: 20, y: 60, width: self.view.frame.width - 40, height: 50))
             button.layer.cornerRadius = 10
@@ -195,11 +195,48 @@ extension EmployerMainSettingVC : UITableViewDelegate,UITableViewDataSource
     }
     @objc func btnShowCandidateDetailAct()
     {
-
+        let alert = UIAlertController(title: "Contact Candidate", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Email", style: .default, handler: { _ in
+            let email = self.mainDict["email"] as? String ?? ""
+            if let url = URL(string: "mailto:\(email)") {
+              if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url)
+              } else {
+                UIApplication.shared.openURL(url)
+              }
+            }        }))
         
+        alert.addAction(UIAlertAction(title: "Phone Number", style: .default, handler: { _ in
+            if let url = URL(string: "tel://\(String(describing: self.mainDict["phoneNumber"] as AnyObject))"),
+               UIApplication.shared.canOpenURL(url) {
+                  if #available(iOS 10, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler:nil)
+                   } else {
+                       UIApplication.shared.openURL(url)
+                   }
+               } else {
+                        // add error message here
+               }        }))
+        
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        
+        /*If you want work actionsheet on ipad
+        then you have to use popoverPresentationController to present the actionsheet,
+        otherwise app will crash on iPad */
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            alert.popoverPresentationController?.sourceView = self.view
+            alert.popoverPresentationController?.sourceRect = self.view.bounds
+            alert.popoverPresentationController?.permittedArrowDirections = .up
+        default:
+            break
+        }
+        
+        self.present(alert, animated: true, completion: nil)
+
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return section == 3 ? 95 : .leastNormalMagnitude
+        return section == 1 ? 95 : .leastNormalMagnitude
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
