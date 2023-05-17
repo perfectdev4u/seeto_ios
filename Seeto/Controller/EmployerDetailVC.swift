@@ -8,15 +8,60 @@
 import UIKit
 
 class EmployerDetailVC: UIViewController {
-    var dictTable = [["title":"Industry","value":"IT"],["title":"Website","value":"www.Apple.com"],["title":"Linkedin Profile","value":"www.Apple.com"],["title":"Company Foundation Date","value":"23-11-1999"],["title":"Company Size","value":"100000"]]
-
+    var dictTable = [["title":"Industry","value":"Loading..."],["title":"Website","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Company Foundation Date","value":"Loading..."],["title":"Company Size","value":"100000"]]
+    var employerId = 0
+    var mainDict = NSDictionary.init()
+    var position = ""
     @IBOutlet var tblEmployerDetail: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getEmployerApi()
     }
-    
+    func getEmployerApi()
+    {
+        ApiManager().postRequest(parameters: ["employerId": employerId], api: ApiManager.shared.GetEmployerById) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    Toast.show(message:error.localizedDescription, controller: self)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                  DispatchQueue.main.async {
+                      self.mainDict = dataJson["data"] as? NSDictionary ?? [:]
+                      self.dictTable[0]["value"] = self.mainDict["industry"] as? String ?? ""
+                      self.dictTable[1]["value"] = self.mainDict["webSite"] as? String ?? ""
+                      self.dictTable[2]["value"] = String(describing: self.mainDict["linkedInProfile"] as AnyObject)
+                      self.dictTable[3]["value"] = converrDateFormat(string: self.mainDict["foundationDate"] as? String ?? "")
+                      self.dictTable[4]["value"] = companyArray[(self.mainDict["companySize"] as? Int) ?? 0]
+
+                      
+                      self.tblEmployerDetail.reloadData()
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
     @IBAction func btnBackAct(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
@@ -45,6 +90,10 @@ extension EmployerDetailVC : UITableViewDelegate,UITableViewDataSource
             let identifier = "CompanyDetailCell"
             tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! CompanyDetailCell
+            cell.lblTitle.text = self.mainDict["companyName"] as? String ?? ""
+            cell.lblPosition.text = position
+            let companyLogoUrl =  self.mainDict["companyLogo"] as? String ?? ""
+            cell.imgLogo.sd_setImage(with: URL(string: companyLogoUrl), placeholderImage: UIImage(named: "placeholderImg"))
             cell.selectionStyle = .none
             return cell
 
@@ -73,6 +122,9 @@ extension EmployerDetailVC : UITableViewDelegate,UITableViewDataSource
                 cell.mainView.backgroundColor = darkShadeColor
                 cell.leadingMainView.constant = 20
                 cell.trailingMainView.constant = 20
+                let tapgesture = UITapGestureRecognizer(target: self, action: #selector(tappedOnLabel(_ :)))
+                tapgesture.numberOfTapsRequired = 1
+                cell.myJobDataLbl.tag = indexPath.row
                 if (dictTable[indexPath.row - 1]["title"] ?? "") ==  "Website" || (dictTable[indexPath.row - 1]["title"] ?? "") ==  "Linkedin Profile"
                 {
                     cell.myJobDataLbl.textColor = blueButtonColor
@@ -80,17 +132,17 @@ extension EmployerDetailVC : UITableViewDelegate,UITableViewDataSource
                                                               attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
                     cell.myJobDataLbl.attributedText = underlineAttriString
                     cell.myJobDataLbl.isUserInteractionEnabled = true
-                    cell.myJobDataLbl.tag = indexPath.row
-                    let tapgesture = UITapGestureRecognizer(target: self, action: #selector(tappedOnLabel(_ :)))
-                    tapgesture.numberOfTapsRequired = 1
                     cell.myJobDataLbl.addGestureRecognizer(tapgesture)
 
                 }
                 else
                 {
-                    cell.myJobDataLbl.text = dictTable[indexPath.row - 1]["value"]
-
+                    let AttriString = NSAttributedString(string: dictTable[indexPath.row - 1]["value"]!)
+                    cell.myJobDataLbl.attributedText = AttriString
+                    cell.myJobDataLbl.removeGestureRecognizer(tapgesture)
                     cell.myJobDataLbl.textColor = UIColor.white
+                    cell.myJobDataLbl.isUserInteractionEnabled = false
+
                 }
                 if indexPath.row == (tableView.numberOfRows(inSection: 2) - 1)
                 {

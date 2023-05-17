@@ -36,13 +36,12 @@ class ApiManager
     let AddJobSearch = "Job/AddJobSearch"
     let SearchJobs = "Job/SearchJobs"
     let GetAllCandidateByJob = "Job/GetAllCandidateByJob"
-    let GetEmployerById = "Job/GetEmployerById"
     let GetJobById = "Job/GetJobById"
     let GetJobWithEmployers = "Job/GetJobWithEmployers"
     let DeleteJobFormSearch = "Job/DeleteJobFormSearch"
     let MatchOrPassUser = "MatchOrPass/MatchOrPassUser"
     let UpdateJob = "Job/UpdateJob"
-
+    let GetEmployerById = "User/GetEmployerById"
     func postRequest(parameters : [String: Any] ,api : String , completion: @escaping ([String: Any]?, Error?) -> Void) {
         //declare parameter as a dictionary which contains string as key and value combination.
         SwiftLoader.show(animated: true)

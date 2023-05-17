@@ -206,6 +206,18 @@ extension JobSearchDetailsVC : UITableViewDelegate,UITableViewDataSource
         }
 
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section != 0
+        {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "EmployerDetailVC") as! EmployerDetailVC
+            vc.employerId = matchEmployerArray[indexPath.row]["employerId"] as? Int ?? 0
+            vc.position = dictTable[0]["value"] ?? ""
+            self.navigationController?.pushViewController(vc, animated: true)
+
+            
+        }
+    }
    
 
     
