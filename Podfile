@@ -17,6 +17,7 @@ target 'Seeto' do
   pod 'SDWebImage', '~> 4.0'
   pod "SkyFloatingLabelTextField"
   pod 'GrowingTextView'
+  pod 'CropViewController'
   target 'SeetoTests' do
     inherit! :search_paths
     # Pods for testing

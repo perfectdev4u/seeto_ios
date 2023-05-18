@@ -6,6 +6,7 @@ PODS:
   - AppAuth/ExternalUserAgent (1.6.0):
     - AppAuth/Core
   - CountryPickerView (3.3.0)
+  - CropViewController (2.6.1)
   - GoogleMaps (3.1.0):
     - GoogleMaps/Maps (= 3.1.0)
   - GoogleMaps/Base (3.1.0)
@@ -34,6 +35,7 @@ PODS:
 
 DEPENDENCIES:
   - CountryPickerView
+  - CropViewController
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
@@ -48,6 +50,7 @@ SPEC REPOS:
   trunk:
     - AppAuth
     - CountryPickerView
+    - CropViewController
     - GoogleMaps
     - GooglePlacePicker
     - GooglePlaces
@@ -63,6 +66,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
   CountryPickerView: 6322ada32a80b0cd721b0267282a5c24f406f263
+  CropViewController: 58fb440f30dac788b129d2a1f24cffdcb102669c
   GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
   GooglePlacePicker: fa975116ac202ac29822c0a79758ea1c4db5a95f
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
@@ -75,6 +79,6 @@ SPEC CHECKSUMS:
   SkyFloatingLabelTextField: 79ddc40e4ad59707fedbb48d605417aee48bb78a
   SwiftLoader: f12f3a6fb42576862a3a5eb80c7e59fc881b6982
 
-PODFILE CHECKSUM: 13d96640a4fe273aa224e2bad1cde30f34fba908
+PODFILE CHECKSUM: 99b069d14360f3405482f893e6589d7e73f695c9
 
 COCOAPODS: 1.11.2

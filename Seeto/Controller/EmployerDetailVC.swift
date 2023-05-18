@@ -39,8 +39,6 @@ class EmployerDetailVC: UIViewController {
                       self.dictTable[2]["value"] = String(describing: self.mainDict["linkedInProfile"] as AnyObject)
                       self.dictTable[3]["value"] = converrDateFormat(string: self.mainDict["foundationDate"] as? String ?? "")
                       self.dictTable[4]["value"] = companyArray[(self.mainDict["companySize"] as? Int) ?? 0]
-
-                      
                       self.tblEmployerDetail.reloadData()
                   }
                 }

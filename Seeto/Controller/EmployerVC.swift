@@ -9,7 +9,8 @@ import UIKit
 import AVKit
 import MobileCoreServices
 import SwiftLoader
-class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchIndustryProtocol, SearchAddressProtocol{
+import CropViewController
+class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchIndustryProtocol, SearchAddressProtocol,CropViewControllerDelegate{
     func adressMap(address: String) {
         for i in 0...dictTable.count - 1
         {
@@ -84,6 +85,26 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+    }
+    func presentCropViewController(image : UIImage)
+    {
+        let cropViewController = CropViewController(croppingStyle: .circular, image: image)
+        cropViewController.delegate = self
+        self.present(cropViewController, animated: true, completion: nil)
+    }
+    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        cropViewController.dismiss(animated: true, completion: {
+            
+            self.uploadImage(paramName: "file", fileName: "        Profile.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
+        })
+
+    }
+                                   
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true, completion: {
+                self.startAnimation = false
+
+                })
     }
     func getIndustryApi()
     {
@@ -374,7 +395,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
         func openGallary()
         {
             imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
         }
 }
@@ -709,14 +730,15 @@ extension EmployerVC : UITextFieldDelegate
 // MARK: - UIImagePickerControllerDelegate
 extension EmployerVC: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true, completion: nil)
+
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         startAnimation = true
         DispatchQueue.main.async {
             self.tblEmployer.reloadData()
 
         }
-        uploadImage(paramName: "file", fileName: "        CompanyImage.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
-        dismiss(animated: true, completion: nil)
+        presentCropViewController(image: image)
     }
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
      //   SwiftLoader.show(animated: true)

@@ -11,7 +11,8 @@ import MobileCoreServices
 import SwiftLoader
 import CountryPickerView
 import Photos
-class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchAddressProtocol, CountryPickerViewDelegate, CountryPickerViewDataSource, SearchIndustryProtocol{
+import CropViewController
+class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, SearchAddressProtocol, CountryPickerViewDelegate, CountryPickerViewDataSource, SearchIndustryProtocol, CropViewControllerDelegate{
     func industryString(string: String, id: Int) {
         for i in 0...dictTable.count - 1
         {
@@ -561,6 +562,31 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.present(alert, animated: true, completion: nil)
             }
         }
+   
+        
+
+
+
+    func presentCropViewController(image : UIImage)
+    {
+        let cropViewController = CropViewController(croppingStyle: .circular, image: image)
+        cropViewController.delegate = self
+        self.present(cropViewController, animated: true, completion: nil)
+    }
+    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        cropViewController.dismiss(animated: true, completion: {
+            
+            self.uploadImage(paramName: "file", fileName: "        Profile.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
+        })
+
+    }
+                                   
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true, completion: {
+                self.startAnimation = false
+
+                })
+    }
 
         func openGallaryVideo()
         {
@@ -590,7 +616,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
         func openGallary()
         {
             imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             self.modalPresentationStyle = .fullScreen
 
             self.present(imagePicker, animated: true, completion: nil)
@@ -1069,7 +1095,7 @@ extension CandidateProfileVC: UIImagePickerControllerDelegate {
                 
                 self.tblCandidateProfile.reloadData()
             }
-            uploadImage(paramName: "file", fileName: "        Profile.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
+            presentCropViewController(image: image)
                 return
         }
     urlVideo = url
