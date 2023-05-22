@@ -8,7 +8,28 @@
 import UIKit
 import AVFoundation
 
-class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate {
+class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate, CongratsDelegate {
+    func showMatch() {
+        
+        if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
+        {
+            if userType == 2
+            {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobSearchDetailsVC") as! JobSearchDetailsVC
+               vc.searchId = Int(searchJobId) ?? 0
+                self.navigationController?.pushViewController(vc, animated: true)
+
+            }
+            else
+            {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "CandidateSearchDetailVC") as! CandidateSearchDetailVC
+                vc.jobId = Int(searchJobId) ?? 0
+                self.navigationController?.pushViewController(vc, animated: true)
+
+            }
+        }
+    }
+    
     @IBOutlet var btnSearch: UIButton!
     func dataFromSearch(data: [NSDictionary], searchId: String) {
         mainDataArray = data
@@ -25,7 +46,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
 
     }
     
-  
+    var userType = 0
     
     
     @IBOutlet var collViewVideos: UICollectionView!
@@ -42,6 +63,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
 
         if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
         {
+            self.userType = userType
             if userType == 2
             {
                 videoUrlArray = ["https://seetoapp.s3.us-east-1.amazonaws.com/6309cf17-1c9f-4ca4-83a6-3274e1506c17_IMG_0205.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/934cc68e-594c-4129-9c77-a696cca99837_IMG_0206.MP4","https://seetoapp.s3.us-east-1.amazonaws.com/6577df53-b518-4599-b491-631799e631d2_IMG_0219.MP4"]
@@ -102,6 +124,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
                 {
               if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
                 {
+                  var data = (dataJson["data"] as? NSDictionary)
                   DispatchQueue.main.async {
                       Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
                       DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -115,7 +138,16 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate 
                                                   self.mainDataArray.remove(at: indexPathMain.item)
                                                   self.collViewVideos.deleteItems(at:[indexPathMain])
                                               }, completion: { [unowned self] (_) in
+                                                 if String(describing: data?["isMutualMatch"] as AnyObject) == "1"
+                                                  {
+                                                     DispatchQueue.main.async
+                                                     {
+                                                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "CongratsVC") as! CongratsVC
+                                                         vc.showMatchDelegate = self
+                                                         self.present(vc, animated: true)
+                                                     }
 
+                                                 }
                                               })
                                           })
                       }

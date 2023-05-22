@@ -1973,7 +1973,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gtf-D2-ps4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="15991.304347826088" y="-1075.4464285714284"/>
+            <point key="canvasLocation" x="15299" y="-1278"/>
         </scene>
         <!--Employer Main SettingVC-->
         <scene sceneID="cJ4-um-wbI">
@@ -2035,7 +2035,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xfi-OP-jW9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="16746.376811594204" y="-1075.4464285714284"/>
+            <point key="canvasLocation" x="16594" y="-1197"/>
         </scene>
         <!--Add New Job Screen-->
         <scene sceneID="Vah-N0-RnR">
