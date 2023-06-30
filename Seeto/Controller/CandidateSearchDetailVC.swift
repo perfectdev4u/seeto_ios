@@ -129,6 +129,8 @@ extension CandidateSearchDetailVC : UITableViewDelegate,UITableViewDataSource
             cell.imgVideo.sd_setImage(with: URL(string: mainDict["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "placeholderImg"))
             cell.viewEdit.isHidden = false
             cell.imgEdit.image = UIImage(named: "player")
+            cell.heightImg.constant = 10
+            cell.widthImg.constant = 10
             cell.btnImageProfilr.addTarget(self, action: #selector(playVideo), for: .touchUpInside)
 
             return cell

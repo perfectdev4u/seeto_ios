@@ -165,22 +165,48 @@ class SearchVC: UIViewController{
                 print("Autocomplete error \(error)")
                 return
             }
+
             if let results = results {
                 for result in results {
+                    
                     self.primaryAddressArray.append(result.attributedPrimaryText.string)
                     //print("primary text: \(result.attributedPrimaryText.string)")
                     //print("Result \(result.attributedFullText) with placeID \(String(describing: result.placeID!))")
                     self.resultsArray.append(result.attributedFullText.string)
                     self.primaryAddressArray.append(result.attributedPrimaryText.string)
                     self.placeIDArray.append(result.placeID)
+                    
                 }
             }
+
+              
             self.searchResults = self.resultsArray
             self.searhPlacesName = self.primaryAddressArray
             self.tableV.reloadData()
         }
     }
     
+    func getLongLat(placeId : String) -> (long : CLLocationDegrees,lat : CLLocationDegrees)
+    {
+        let placeClient = GMSPlacesClient()
+        var long = 0.0,lat = 0.0
+        placeClient.lookUpPlaceID(placeId) { (place, error) -> Void in
+            if let error = error {
+                //show error
+                print(error)
+                return
+            }
+
+            if let place = place {
+                long = place.coordinate.longitude //longitude
+                lat = place.coordinate.latitude
+            } else {
+
+            //show error
+            }
+        }
+        return (long : long,lat : lat)
+    }
 
 }
 extension SearchVC: UISearchResultsUpdating {
@@ -216,6 +242,7 @@ extension SearchVC :  UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if forIndustry == false
         {
+//            print(getLongLat(placeId: placeIDArray[indexPath.row]))
             self.searchController.isActive = false
             searchAdressDelegate.adressMap(address: searchResults[indexPath.row])
             self.navigationController?.popViewController(animated: true)

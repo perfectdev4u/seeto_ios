@@ -29,7 +29,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
             }
         }
     }
-    
+   
     @IBOutlet var btnSearch: UIButton!
     func dataFromSearch(data: [NSDictionary], searchId: String) {
         mainDataArray = data
@@ -70,7 +70,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
             }
             else
             {
-                btnSearch.isHidden = true
+                btnSearch.isHidden = false
 
             }
         }
@@ -96,7 +96,30 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
 //            }
 //        }
     }
-    
+    func showToast(iconName : String) {
+        let view = UIView(frame: CGRect(x: self.view.frame.size.width/2 - 80, y: self.view.frame.size.height/2 - 80, width: 160, height: 160))
+        let toastIcon = UIImageView(frame: CGRect(x: self.view.frame.size.width/2 - 60, y: iconName == "dislike" ? self.view.frame.size.height/2 - 56 : self.view.frame.size.height/2 - 60, width: 120, height: 120))
+        toastIcon.contentMode = .scaleAspectFit
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.6) // background color with 0.6 ransparency
+        view.layer.cornerRadius = view.frame.height / 2 // for rounded image
+        view.layer.masksToBounds = true
+        let pauseImg = UIImage(named: iconName)
+        toastIcon.image = pauseImg
+//        toastIcon.tintColor = .white
+        toastIcon.alpha = 1.0
+        self.view.addSubview(view)
+        self.view.addSubview(toastIcon)
+
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+            view.alpha = 0.0
+            toastIcon.alpha = 0.0
+
+                }, completion: {(isCompleted) in
+                    view.removeFromSuperview()
+                    toastIcon.removeFromSuperview()
+
+        })
+    }
     func matchOrPassUser(Id: Int,isMatch : Bool,index : Int)
     {
         var params = [:] as [String:Any]
@@ -126,7 +149,8 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
                 {
                   var data = (dataJson["data"] as? NSDictionary)
                   DispatchQueue.main.async {
-                      Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                      self.showToast(iconName: isMatch == true ? "like" : "dislike")
+//                      Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
                       DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                           let indexPathMain = IndexPath(item: index, section: 0)
                           let cell = self.collViewVideos!.cellForItem(at: indexPathMain)
@@ -257,8 +281,9 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
         {
             cell.imgThumb = UIImageView()
             cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
-            cell.imgThumb.contentMode = .scaleAspectFill
+            cell.imgThumb.contentMode = .scaleToFill
             cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
+            cell.imgThumb.image = cell.imgThumb.image?.resizeImage(1.0, opaque: false)
             cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height))
             cell.activityIndicator.style = .large
             cell.activityIndicator.startAnimating()
@@ -431,5 +456,47 @@ extension HomeScreenVC: UIScrollViewDelegate {
                videoCell.startPlaying()
            }
        }
+    }
+}
+
+extension UIImage {
+    func resizeImage(_ dimension: CGFloat, opaque: Bool, contentMode: UIView.ContentMode = .scaleAspectFit) -> UIImage {
+        var width: CGFloat
+        var height: CGFloat
+        var newImage: UIImage
+
+        let size = self.size
+        let aspectRatio =  size.width/size.height
+
+        switch contentMode {
+            case .scaleAspectFit:
+                if aspectRatio > 1 {                            // Landscape image
+                    width = dimension
+                    height = dimension / aspectRatio
+                } else {                                        // Portrait image
+                    height = dimension
+                    width = dimension * aspectRatio
+                }
+
+        default:
+            fatalError("UIIMage.resizeToFit(): FATAL: Unimplemented ContentMode")
+        }
+
+        if #available(iOS 10.0, *) {
+            let renderFormat = UIGraphicsImageRendererFormat.default()
+            renderFormat.opaque = opaque
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height), format: renderFormat)
+            newImage = renderer.image {
+                (context) in
+                self.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+            }
+        } else {
+            UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), opaque, 0)
+                self.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+                newImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+        }
+
+        return newImage
     }
 }

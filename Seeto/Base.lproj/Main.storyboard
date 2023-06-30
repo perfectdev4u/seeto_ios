@@ -1607,6 +1607,7 @@
                     </view>
                     <connections>
                         <outlet property="btnThanks" destination="Eyz-3R-FtM" id="YgU-ys-l3x"/>
+                        <outlet property="lblDescription" destination="okU-dI-jiW" id="bML-yf-8eS"/>
                         <outlet property="mainView" destination="JIR-az-lqP" id="5G4-5m-rF7"/>
                     </connections>
                 </viewController>
@@ -2181,6 +2182,7 @@
                     </view>
                     <connections>
                         <outlet property="btnNext" destination="mEI-8G-dEr" id="yIP-r7-0Vs"/>
+                        <outlet property="lblAddNewJob" destination="9a4-6F-ke6" id="JCF-JL-Kh3"/>
                         <outlet property="tblJob" destination="dCs-ra-uxg" id="U9f-52-gGR"/>
                     </connections>
                 </viewController>

@@ -10,6 +10,8 @@ import UIKit
 class ProfileViewCell: UITableViewCell {
 
     @IBOutlet var btnImageProfilr: UIButton!
+    @IBOutlet var heightImg: NSLayoutConstraint!
+    @IBOutlet var widthImg: NSLayoutConstraint!
     @IBOutlet var imgEdit: UIImageView!
     @IBOutlet var btnShowVideoUrl: UIButton!
     @IBOutlet var imgVideo: UIImageView!

@@ -81,6 +81,8 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
             "industryId": industryId,
             "jobType" : JobType(rawValue: dictTable[3]["value"]!)?.id ?? 0,
             "jobLocation" : JobLocation(rawValue: dictTable[4]["value"]!)?.id ?? 0,
+            "location" : dictTable[5]["value"]!,
+            "desiredSalary" : Int(dictTable[6]["value"]!),
             "page" : 1,
             "pageSize" : 10,
         ] as [String : Any]
@@ -118,7 +120,7 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
                             self.dictTable[3]["value"]! = jobArray[self.inputArray["jobType"] as? Int ?? 0]
                             self.dictTable[4]["value"]! = JobLocationArray[self.inputArray["jobLocation"] as? Int ?? 0]
                             self.dictTable[5]["value"]! = self.inputArray["location"] as? String ?? ""
-                            self.dictTable[6]["value"]! = self.inputArray["desiredSalary"] as? String ?? ""
+                            self.dictTable[6]["value"]! = String(describing: self.inputArray["desiredSalary"] as AnyObject)  
                             self.tblModifySearch.reloadData()
                         }
                     }

@@ -89,8 +89,10 @@ extension EmployerMainSettingVC : UITableViewDelegate,UITableViewDataSource
             tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! ProfileViewCell
             cell.lblName.text = self.mainDict["fullName"] as? String ?? ""
-            cell.imgVideo.sd_setImage(with: URL(string: mainDict["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "placeholderImg"))
+            cell.imgVideo.sd_setImage(with: URL(string: mainDict["profileImage"] as? String ?? ""), placeholderImage: UIImage(named: "placeholderImg"))
             cell.btnImageProfilr.addTarget(self, action: #selector(playVideo), for: .touchUpInside)
+            cell.heightImg.constant = 10
+            cell.widthImg.constant = 10
             cell.imgEdit.image = UIImage(named: "player")
             cell.selectionStyle = .none
             return cell

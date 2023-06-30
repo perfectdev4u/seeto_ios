@@ -12,12 +12,19 @@ import SwiftLoader
 import GrowingTextView
 
 class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate,JobDelegate, SearchAddressProtocol, MinMaxSalaryDelegate, UITextViewDelegate {
+    @IBOutlet var lblAddNewJob: UILabel!
     var heightTxtV = 40.0
+    var mainMinSal = 0
+    var mainMaxSal = 0
+
     func addMinMaxSalary(minSal: String, maxSal: String) {
         for i in 0...dictTable.count - 1
         {
             if dictTable[i]["title"] == "Salary Range in U.S. Dollars"
             {
+                mainMinSal = Int(minSal)!
+                mainMaxSal = Int(maxSal)!
+
                 dictTable[i]["value"] = minSal + " - " + maxSal
             }
         }
@@ -154,7 +161,18 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
              self.dictTable[3]["value"]! = JobLocationArray[self.inputArray["jobLocation"] as? Int ?? 0]
              self.dictTable[4]["value"]! = self.inputArray["location"] as? String ?? ""
              self.dictTable[6]["value"]! = self.inputArray["jobDescription"] as? String ?? ""
+             for i in 0...dictTable.count - 1
+             {
+                 if dictTable[i]["title"] == "Salary Range in U.S. Dollars"
+                 {
+                     dictTable[i]["value"] = String(describing: self.inputArray["minSalary"] as AnyObject) + " - " + String(describing: self.inputArray["maxSalary"] as AnyObject)
+                 }
+             }
+             mainMaxSal = self.inputArray["maxSalary"] as? Int ?? 0
+             mainMinSal = self.inputArray["minSalary"] as? Int ?? 0
 
+             lblAddNewJob.text = "Update Job"
+//             btnNext.setTitle("Update", for: .normal)
             
         }
         
@@ -194,8 +212,8 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
             "jobType" : JobType(rawValue: dictTable[2]["value"]!)?.id ?? "",
             "jobLocation" : JobLocation(rawValue: dictTable[3]["value"]!)?.id ?? "",
             "location" : dictTable[4]["value"]!,
-            "minSalary" : dictTable[5]["value"]! == "50000 - 100000" ? 50000 : 1000000,
-            "maxSalary" :  dictTable[5]["value"]! == "50000 - 100000" ? 1000000 : 2000000,
+            "minSalary" : mainMinSal,
+            "maxSalary" :  mainMaxSal,
             "isSalaryDisplayed" : true,
             "jobDescription" : dictTable[6]["value"]!,
             "country" : "America",
@@ -277,7 +295,116 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
             imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
         }
+    
+    func updateJobApi()
+    {
+    
+        var dictParam = self.addNewJobData()
+        if self.fromHome == true
+        {
+            dictParam["jobId"] = jobId
+        }
+       
+        ApiManager().postRequest(parameters: dictParam,api: ApiManager.shared.UpdateJob  ) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+               
+                  print(dataJson)
+//                  UserDefaults.standard.set(2, forKey: "userType")
+                  DispatchQueue.main.async {
+
+                     
+                              self.GetAllCandidateByJobApi()
+                            
+                      }
+                  }
+
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:"Erro", controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    
+
+    func GetAllCandidateByJobApi()
+    {
+        
+        var param = [
+            "jobId":  jobId,
+        ] as [String : Any]
+        
+        ApiManager().postRequest(parameters: param,api:  ApiManager.shared.GetAllCandidateByJob) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                 
+                if let dictArray = dataJson["data"] as? [NSDictionary]{
+                    DispatchQueue.main.async {
+                        if dictArray.count == 0
+                        {
+                            Toast.show(message: "No match found for your job", controller: self)
+
+                        }
+                        else
+                        {
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                            vc.mainDataArray = dictArray
+                            vc.inputArray = self.addNewJobData() as NSDictionary
+                            vc.searchJobId = String(describing: self.jobId)
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    }
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:errorMessage, controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+
 }
+
 
 extension AddNewJobAndVideoVC
 {
@@ -289,7 +416,7 @@ extension AddNewJobAndVideoVC
         view.backgroundColor = backGroundColor
         let button = UIButton(frame: CGRect(x: 20, y: 40, width: self.view.frame.width - 40, height: 50))
         button.layer.cornerRadius = 10
-        button.setTitle("Create & Record Video", for: .normal)
+        button.setTitle( fromHome == true ? "Update" : "Create & Record Video", for: .normal)
         button.titleLabel?.font =  UIFont.systemFont(ofSize: 16, weight: .semibold)
         button.addTarget(self, action: #selector(btnCreateVideoAct), for: .touchUpInside)
         button.backgroundColor = blueButtonColor
@@ -324,6 +451,12 @@ extension AddNewJobAndVideoVC
             Toast.show(message:"Please add Job Description", controller: self)
             return
         }
+        
+        if fromHome == true
+        {
+            updateJobApi()
+            return
+        }
         cameraGallery()
    
 
@@ -346,7 +479,7 @@ extension AddNewJobAndVideoVC
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 70
+        return 110
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -737,6 +870,13 @@ extension AddNewJobAndVideoVC
    
 
     func textViewDidEndEditing(_ textView: UITextView) {
+        for i in 0...dictTable.count - 1
+        {
+            if dictTable[i]["title"] == "Job Description"
+            {
+                dictTable[i]["value"] = textView.text
+            }
+        }
         DispatchQueue.main.async
         {
             self.tblJob.reloadData()

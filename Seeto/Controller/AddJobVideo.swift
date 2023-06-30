@@ -39,6 +39,31 @@ class AddJobVideo: UIViewController {
     let scrollView = UIScrollView()
     var imageViews = [UIImageView]()
    var fromHome = false
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(origin: .zero, size: newSize)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         btnCheck.layer.cornerRadius = btnCheck.frame.height / 2
@@ -321,7 +346,7 @@ class AddJobVideo: UIViewController {
                         {
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
                             vc.mainDataArray = dictArray
-                            vc.inputArray = dictTable
+                            vc.inputArray = self.dictParam as NSDictionary
                             vc.searchJobId = String(describing: dictTable["jobId"] as AnyObject)
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
@@ -411,7 +436,7 @@ class AddJobVideo: UIViewController {
         SwiftLoader.show(animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1)
         {
-            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: self.imgMain.image!.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
+            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: self.imgMain.image!.convert(toSize:CGSize(width: self.view.frame.width, height:self.view.frame.height), scale: UIScreen.main.scale))
 
         }
 

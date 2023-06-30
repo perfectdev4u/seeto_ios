@@ -39,6 +39,7 @@ class ThumbnailVideoVC: UIViewController {
     @IBOutlet var collView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(dictParam)
         btnCheck.layer.cornerRadius = btnCheck.frame.height / 2
         btnDone.layer.cornerRadius = 12
         collView.backgroundColor = .clear
@@ -243,8 +244,7 @@ class ThumbnailVideoVC: UIViewController {
                       }
                       else
                       {
-                          let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-                          self.navigationController?.pushViewController(vc, animated: true)
+                          self.AddSearchApi()
                       }
                   }
 
@@ -264,7 +264,104 @@ class ThumbnailVideoVC: UIViewController {
             }
         }
     }
+    func addNewSearchData() -> [String : Any]
+    {
+       return [
+            "position" : dictParam["currentPosition"] as? String ?? "",
+            "experienceLevel" : dictParam["experienceLevel"] as? Int ?? 0,
+            "industry":  dictParam["industry"] as? String ?? "",
+            "industryId": dictParam["industryId"] as? Int ?? "",
+            "jobType" :  0,
+            "jobLocation" : 0,
+            "location" : dictParam["currentLocation"] as? String ?? "",
+            "desiredSalary" : Int(dictParam["desiredMonthlyIncome"] as? String ?? "") ?? 0,
+            "page" : 1,
+            "pageSize" : 10,
+        ] as [String : Any]
+    }
+    func AddSearchApi()
+    {
+        ApiManager().postRequest(parameters: addNewSearchData(),api:  ApiManager.shared.SearchJobs) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                 
+                if let dictArray = dataJson["data"] as? [NSDictionary]{
+                    
+                  
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.AddJobSearchApi(dataArray: dictArray)
+                        }
+                 
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
 
+                      //  self.showToast(message: ()
+                  Toast.show(message:"Erro", controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
+    func AddJobSearchApi(dataArray : [NSDictionary])
+    {
+        var param = addNewSearchData()
+       
+        ApiManager().postRequest(parameters: param,api:  ApiManager.shared.AddJobSearch) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+                print(dataJson)
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                    DispatchQueue.main.async {
+                     
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+                            vc.mainDataArray = dataArray
+                            vc.inputArray = param as NSDictionary
+                            vc.searchJobId = String(describing: (dataJson["data"] as? NSDictionary)?["searchId"] as AnyObject )
+                            self.navigationController?.pushViewController(vc, animated: true)
+                  }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+                      //  self.showToast(message: ()
+                  Toast.show(message:"Erro", controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
+    }
     
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
         let url = URL(string: "http://34.207.158.183/api/v1.0/User/UploadFile")
@@ -334,7 +431,7 @@ class ThumbnailVideoVC: UIViewController {
         SwiftLoader.show(animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1)
         {
-            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: self.imgMain.image!.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
+            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: self.imgMain.image!.convert(toSize:CGSize(width: self.view.frame.width, height:self.view.frame.height), scale: UIScreen.main.scale))
 
         }
     }

@@ -26,7 +26,8 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.tblCandidateProfile.reloadData()
         }
     }
-    
+    var languageArrayMain = LanguageLevel.allCases.map { $0.rawValue }
+
     
     var flagImage = UIImage(named: "usa")
     var profileImage = UIImage(named: "placeholderImg")
@@ -712,7 +713,7 @@ extension CandidateProfileVC
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 70
+        return 110
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -970,11 +971,11 @@ extension CandidateProfileVC : UIPickerViewDelegate, UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray.count : languageArray.count   : pickerArray.count
+        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray.count : languageArrayMain.count   : pickerArray.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray[row] : languageArray[row]   : pickerArray[row]
+        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray[row] : languageArrayMain[row]   : pickerArray[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0

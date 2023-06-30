@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -96,18 +97,20 @@
             <connections>
                 <outlet property="btnImageProfilr" destination="7hM-eD-Pdf" id="hQh-za-1dK"/>
                 <outlet property="btnShowVideoUrl" destination="DZc-1S-ZXe" id="yDW-ol-GlH"/>
+                <outlet property="heightImg" destination="8vq-Qt-2iz" id="h1k-JD-ICH"/>
                 <outlet property="imgEdit" destination="ZIo-aK-DsL" id="cGD-nu-lia"/>
                 <outlet property="imgVideo" destination="uh6-cU-nQl" id="Sq4-ZA-67N"/>
                 <outlet property="lblName" destination="NHZ-qg-BPL" id="iQa-N3-XMG"/>
                 <outlet property="viewBack" destination="U0C-HF-1qx" id="Ppz-4p-zfB"/>
                 <outlet property="viewEdit" destination="rCW-Zk-hKW" id="Jlf-Ty-hE6"/>
+                <outlet property="widthImg" destination="Gx4-VL-g5h" id="MF2-BF-JgL"/>
             </connections>
             <point key="canvasLocation" x="100.76335877862596" y="19.718309859154932"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="edit" width="22" height="22"/>
-        <image name="video" width="66" height="66"/>
+        <image name="video" width="96" height="96"/>
         <namedColor name="DarkShade">
             <color red="0.10980392156862745" green="0.10980392156862745" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

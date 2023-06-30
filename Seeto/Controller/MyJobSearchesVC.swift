@@ -32,21 +32,13 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
     }
     
     @IBAction func btnNewSearch(_ sender: UIButton) {
-        if fromHome == false
-        {
+       
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
-            vc.fromHome = fromHome
+            vc.fromHome = false
             vc.searchDetailDelegate = self
             self.navigationController?.pushViewController(vc, animated: true)
-        }
-        else
-        {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyJobSearchVC") as! ModifyJobSearchVC
-            vc.fromHome = fromHome
-            vc.searchDetailDelegate = self
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-        }
+       
+        
     }
     var arraySearch = [NSDictionary].init()
     var fromHome = false
@@ -163,6 +155,8 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
             "industryId":  dictTable["industryId"] as? Int ?? 0,
             "jobType" : dictTable["jobType"] as? Int ?? 0,
             "jobLocation" : dictTable["jobLocation"] as? Int ?? 0,
+            "location" : dictTable["location"] as? String ?? "",
+            "desiredSalary" : dictTable["desiredSalary"] as? Int ?? nil ,
             "page" : 1,
             "pageSize" : 10,
         ] as [String : Any]
