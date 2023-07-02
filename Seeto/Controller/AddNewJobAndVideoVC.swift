@@ -165,7 +165,10 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
              {
                  if dictTable[i]["title"] == "Salary Range in U.S. Dollars"
                  {
-                     dictTable[i]["value"] = String(describing: self.inputArray["minSalary"] as AnyObject) + " - " + String(describing: self.inputArray["maxSalary"] as AnyObject)
+                     if String(describing: self.inputArray["maxSalary"] as AnyObject) != "0" && self.inputArray["maxSalary"] != nil
+                     {
+                         dictTable[i]["value"] = String(describing: self.inputArray["minSalary"] as AnyObject) + " - " + String(describing: self.inputArray["maxSalary"] as AnyObject)
+                     }
                  }
              }
              mainMaxSal = self.inputArray["maxSalary"] as? Int ?? 0
@@ -580,6 +583,8 @@ extension AddNewJobAndVideoVC
              {
                   let vc = self.storyboard?.instantiateViewController(withIdentifier: "MinMaxSalaryVC") as! MinMaxSalaryVC
                   vc.minMaxSalDelegate = self
+                vc.minSal = mainMinSal
+                vc.maxSal = mainMaxSal
                 self.present(vc, animated: true)
               }
         }

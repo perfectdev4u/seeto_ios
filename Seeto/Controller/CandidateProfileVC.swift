@@ -577,7 +577,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
     func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         cropViewController.dismiss(animated: true, completion: {
             
-            self.uploadImage(paramName: "file", fileName: "        Profile.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
+            self.uploadImage(paramName: "file", fileName: "Profile.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
         })
 
     }
@@ -602,6 +602,8 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
                 print("Camera Available")
                 
                 imagePicker.sourceType = UIImagePickerController.SourceType.camera
+                imagePicker.cameraDevice = .front
+
            //     imagePicker.allowsEditing = true
                 self.present(imagePicker, animated: true, completion: nil)
             }
@@ -647,15 +649,21 @@ extension CandidateProfileVC
     
     @objc func btnCreateVideoAct()
     {
-        if updateScreen == false
-        {
+       
             for i in dictTable
             {
                 if i["required"] == "true"
                 {
                     if i["value"] == ""
                     {
-                        Toast.show(message: "Please enter \(i["title"] ?? "value")", controller: self)
+                        if i["title"] == "+1 0000000000"
+                        {
+                            Toast.show(message: "Please enter Phone Number", controller: self)
+                        }
+                        else
+                        {
+                            Toast.show(message: "Please enter \(i["title"] ?? "value")", controller: self)
+                        }
                         return
                     }
                 }
@@ -685,9 +693,9 @@ extension CandidateProfileVC
                     }
                 }
             }
+        if updateScreen == false
+        {
             cameraGalleryVideo()
-
-            
             
         }
         else
@@ -971,11 +979,11 @@ extension CandidateProfileVC : UIPickerViewDelegate, UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray.count : languageArrayMain.count   : pickerArray.count
+        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray.count : langLevelArray.count   : pickerArray.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray[row] : languageArrayMain[row]   : pickerArray[row]
+        return (dictTable[textFieldTag]["title"]!) == "Spoken Language" ? component == 0 ? pickerArray[row] : langLevelArray[row]   : pickerArray[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0
@@ -1002,13 +1010,49 @@ extension CandidateProfileVC : UITextFieldDelegate
         }
         else if (dictTable[textFieldTag]["title"]!) == "Experience Level"
         {
-            DispatchQueue.main.async { [self] in
-                pickerArray = ExperienceLevel.allCases.map { $0.rawValue }
-
-            }        }
+           
+        pickerArray = ["Not Selected","Entry Level","Internship","Associate","Mid Senior","Director","Executive"]
+            
+        }
         else if (dictTable[textFieldTag]["title"]!) == "Spoken Language"
         {
-            pickerArray = ["English","Russian","Ukranian"]
+            pickerArray = [
+                "English",
+                "Ukrainian",
+                "Arabic",
+                "Belarusian",
+                "Bengali",
+                "Bulgarian",
+                "Czech",
+                "Danish",
+                "Dutch",
+                "Estonian",
+                "Finnish",
+                "French",
+                "German",
+                "Greek",
+                "Hindi",
+                "Hungarian",
+                "Icelandic",
+                "Indonesian",
+                "Ingrian",
+                "Ingush",
+                "Irish",
+                "Italian",
+                "Japanese",
+                "Latvian",
+                "Lithuanian",
+                "Mandarin Chinese",
+                "Polish",
+                "Portuguese",
+                "Romanian",
+                "Russian",
+                "Slovak",
+                "Slovene",
+                "Spanish",
+                "Turkish"
+            ]
+
         }else if (dictTable[textFieldTag]["title"]!) == "Gender"
         {
             pickerArray = ["Male","Female"]
@@ -1028,7 +1072,7 @@ extension CandidateProfileVC : UITextFieldDelegate
                 textField.inputAccessoryView = toolBar
                 index = 0
                 self.myPickerView.selectRow(0, inComponent: 0, animated: false)
-
+                self.myPickerView.reloadAllComponents()
             }
         }
         else if (dictTable[textFieldTag]["type"]!) == "btn"

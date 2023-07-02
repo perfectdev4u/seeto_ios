@@ -12,6 +12,8 @@ protocol MinMaxSalaryDelegate
 }
 class MinMaxSalaryVC: UIViewController {
     var jobId = 0
+    var minSal = 0
+    var maxSal = 0
     @IBOutlet var mainView: UIView!
     @IBOutlet var backView: UIView!
     @IBOutlet var minSalaryTf: UITextField!
@@ -23,6 +25,11 @@ class MinMaxSalaryVC: UIViewController {
         btnConfirm.layer.cornerRadius = 10
         addBlurToView()
         setUpView()
+        if minSal != 0 && maxSal != 0
+        {
+            minSalaryTf.text = String(describing: minSal)
+            maxSalaryTf.text = String(describing: maxSal) 
+        }
         // Do any additional setup after loading the view.
     }
      var minMaxSalDelegate : MinMaxSalaryDelegate?

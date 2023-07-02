@@ -48,27 +48,22 @@ var appleLogin = false
     }
     
     @IBAction func btnActBack(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Are you sure to exit ?", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
-          exit(1)
+        let refreshAlert = UIAlertController(title: "Logout", message: "Are you sure?", preferredStyle: UIAlertController.Style.alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action: UIAlertAction!) in
+            UserDefaults.standard.removeObject(forKey: "accessToken")
+            UserDefaults.standard.removeObject(forKey: "userType")
+            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+            let window = UIApplication.shared.windows.first
+            // Embed loginVC in Navigation Controller and assign the Navigation Controller as windows root
+            let nav = UINavigationController(rootViewController: loginVC!)
+            window?.rootViewController = nav
         }))
-        
-        alert.addAction(UIAlertAction(title: "No", style: .default, handler: { _ in
-            print("no")
+
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .default, handler: { (action: UIAlertAction!) in
         }))
-        /*If you want work actionsheet on ipad
-        then you have to use popoverPresentationController to present the actionsheet,
-        otherwise app will crash on iPad */
-        switch UIDevice.current.userInterfaceIdiom {
-        case .pad:
-            alert.popoverPresentationController?.sourceView = self.view
-            alert.popoverPresentationController?.sourceRect = self.view.bounds
-            alert.popoverPresentationController?.permittedArrowDirections = .up
-        default:
-            break
-        }
-        
-        self.present(alert, animated: true, completion: nil)
+
+        present(refreshAlert, animated: true, completion: nil)
 
       
     }

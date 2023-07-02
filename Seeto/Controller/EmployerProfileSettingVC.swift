@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftLoader
+import CropViewController
 
 class EmployerProfileSettingVC: UIViewController, UINavigationControllerDelegate {
    var companyLogoUrl = ""
@@ -101,7 +102,8 @@ class EmployerProfileSettingVC: UIViewController, UINavigationControllerDelegate
              if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
              {
                  imagePicker.sourceType = UIImagePickerController.SourceType.camera
-          //       imagePicker.allowsEditing = true
+                 imagePicker.allowsEditing = false
+                 imagePicker.cameraDevice = .front
                  
                  self.present(imagePicker, animated: true, completion: nil)
              }
@@ -117,7 +119,7 @@ class EmployerProfileSettingVC: UIViewController, UINavigationControllerDelegate
          func openGallary()
          {
              imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-             imagePicker.allowsEditing = true
+             imagePicker.allowsEditing = false
              self.modalPresentationStyle = .fullScreen
 
              self.present(imagePicker, animated: true, completion: nil)
@@ -315,13 +317,33 @@ extension EmployerProfileSettingVC : UITableViewDelegate,UITableViewDataSource
     }
 }
 
-extension EmployerProfileSettingVC: UIImagePickerControllerDelegate {
+extension EmployerProfileSettingVC: UIImagePickerControllerDelegate , CropViewControllerDelegate{
+    
+    func presentCropViewController(image : UIImage)
+    {
+        let cropViewController = CropViewController(croppingStyle: .circular, image: image)
+        cropViewController.delegate = self
+        self.present(cropViewController, animated: true, completion: nil)
+    }
+    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        cropViewController.dismiss(animated: true, completion: {
+            
+            self.uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
+        })
+
+    }
+                                   
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true, completion: {
+
+                })
+    }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
 
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         
-        uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale) )
+        presentCropViewController(image: image)
                 return
     }
     

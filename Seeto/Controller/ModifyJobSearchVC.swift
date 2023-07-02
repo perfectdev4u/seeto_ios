@@ -120,7 +120,10 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
                             self.dictTable[3]["value"]! = jobArray[self.inputArray["jobType"] as? Int ?? 0]
                             self.dictTable[4]["value"]! = JobLocationArray[self.inputArray["jobLocation"] as? Int ?? 0]
                             self.dictTable[5]["value"]! = self.inputArray["location"] as? String ?? ""
-                            self.dictTable[6]["value"]! = String(describing: self.inputArray["desiredSalary"] as AnyObject)  
+                            if let desiredSalary = self.inputArray["desiredSalary"]
+                            {
+                                self.dictTable[6]["value"]! = String(describing: desiredSalary)
+                            }
                             self.tblModifySearch.reloadData()
                         }
                     }

@@ -7,7 +7,7 @@
 
 import UIKit
 import AVFoundation
-
+import SDWebImage
 class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate, CongratsDelegate {
     func showMatch() {
         
@@ -26,6 +26,13 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
                 vc.jobId = Int(searchJobId) ?? 0
                 self.navigationController?.pushViewController(vc, animated: true)
 
+            }
+        }
+        let cells = collViewVideos.visibleCells.compactMap({ $0 as? VideoPlayerCollViewCell })
+        cells.forEach { videoCell in
+
+            if videoCell.isPlaying {
+                videoCell.stopPlaying()
             }
         }
     }
@@ -97,15 +104,23 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
 //        }
     }
     func showToast(iconName : String) {
+
         let view = UIView(frame: CGRect(x: self.view.frame.size.width/2 - 80, y: self.view.frame.size.height/2 - 80, width: 160, height: 160))
-        let toastIcon = UIImageView(frame: CGRect(x: self.view.frame.size.width/2 - 60, y: iconName == "dislike" ? self.view.frame.size.height/2 - 56 : self.view.frame.size.height/2 - 60, width: 120, height: 120))
-        toastIcon.contentMode = .scaleAspectFit
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.6) // background color with 0.6 ransparency
+        var toastIcon = UIImageView(frame: CGRect(x: iconName == "close" ? self.view.frame.size.width/2 - 40 : self.view.frame.size.width/2 - 60, y: iconName == "close" ? self.view.frame.size.height/2 - 40 : self.view.frame.size.height/2 - 60, width: iconName == "close" ? 80 : 120, height: iconName == "close" ? 80 : 120))
+//        let imageData = try? Data(contentsOf: Bundle.main.url(forResource: iconName, withExtension: "gif")!)
+//        let advTimeGif = UIImage.sd_animatedGIF(with: imageData)
+//         toastIcon = UIImageView(image: advTimeGif)
+//        let imageData = try? Data(contentsOf: Bundle.main.url(forResource: iconName, withExtension: "gif")!)
+//        toastIcon.image = UIImage.gifImageWithData(imageData!)
+//        toastIcon.contentMode = .scaleAspectFill
+        view.backgroundColor = UIColor.clear.withAlphaComponent(0.6) // background color with 0.6 ransparency
         view.layer.cornerRadius = view.frame.height / 2 // for rounded image
         view.layer.masksToBounds = true
+        view.clipsToBounds = true
+        toastIcon.clipsToBounds = true
         let pauseImg = UIImage(named: iconName)
         toastIcon.image = pauseImg
-//        toastIcon.tintColor = .white
+        toastIcon.tintColor = .white
         toastIcon.alpha = 1.0
         self.view.addSubview(view)
         self.view.addSubview(toastIcon)
@@ -149,7 +164,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
                 {
                   var data = (dataJson["data"] as? NSDictionary)
                   DispatchQueue.main.async {
-                      self.showToast(iconName: isMatch == true ? "like" : "dislike")
+                      self.showToast(iconName: isMatch == true ? "ticknew" : "close")
 //                      Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
                       DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                           let indexPathMain = IndexPath(item: index, section: 0)
@@ -164,6 +179,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
                                               }, completion: { [unowned self] (_) in
                                                  if String(describing: data?["isMutualMatch"] as AnyObject) == "1"
                                                   {
+                                                     
                                                      DispatchQueue.main.async
                                                      {
                                                          let vc = self.storyboard?.instantiateViewController(withIdentifier: "CongratsVC") as! CongratsVC
@@ -380,14 +396,19 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
     {
         if let userType = UserDefaults.standard.value(forKey: "userType") as? Int
         {
-            if userType == 2
-            {
-                matchOrPassUser(Id: mainDataArray[sender.tag]["jobId"] as? Int ?? -1, isMatch: true,index : sender.tag)
+            DispatchQueue.main.async {
+                if userType == 2
+                {
+
+                    self.matchOrPassUser(Id: self.mainDataArray[sender.tag]["jobId"] as? Int ?? -1, isMatch: true,index : sender.tag)
+                }
+                else
+                {
+
+                    self.matchOrPassUser(Id: self.mainDataArray[sender.tag]["candidateId"] as? Int ?? -1, isMatch: true,index : sender.tag)
+                }
             }
-            else
-            {
-                matchOrPassUser(Id: mainDataArray[sender.tag]["candidateId"] as? Int ?? -1, isMatch: true,index : sender.tag)
-            }
+         
             
         }
     }
@@ -398,10 +419,12 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
         {
             if userType == 2
             {
+
                 matchOrPassUser(Id: mainDataArray[sender.tag]["jobId"] as? Int ?? -1, isMatch: false,index : sender.tag)
             }
             else
             {
+
                 matchOrPassUser(Id: mainDataArray[sender.tag]["candidateId"] as? Int ?? -1, isMatch: false,index : sender.tag)
             }
         }

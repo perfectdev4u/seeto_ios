@@ -11,6 +11,7 @@ import AVKit
 import MobileCoreServices
 import SwiftLoader
 import Photos
+import CropViewController
 class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
     var dictTable = [["title":"Name","value":"Loading..."],["title":"DOB","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Gender","value":"Loading..."],["title":"Current Location","value":"Loading..."],["title":"Current Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Spoken Language","value":"Loading..."]]
     var mainDataJson = NSDictionary.init()
@@ -271,8 +272,9 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
            if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
            {
                imagePicker.sourceType = UIImagePickerController.SourceType.camera
-//               imagePicker.allowsEditing = true
+               imagePicker.allowsEditing = false
                self.modalPresentationStyle = .fullScreen
+               imagePicker.cameraDevice = .front
                self.present(imagePicker, animated: true, completion: nil)
            }
            else
@@ -287,7 +289,7 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
        func openGallary()
        {
            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-           imagePicker.allowsEditing = true
+           imagePicker.allowsEditing = false
            self.modalPresentationStyle = .fullScreen
 
            self.present(imagePicker, animated: true, completion: nil)
@@ -489,7 +491,28 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
     }
 }
 
-extension ProfileSettingView: UIImagePickerControllerDelegate {
+extension ProfileSettingView: UIImagePickerControllerDelegate , CropViewControllerDelegate {
+    
+    func presentCropViewController(image : UIImage)
+    {
+        let cropViewController = CropViewController(croppingStyle: .circular, image: image)
+        cropViewController.delegate = self
+        self.present(cropViewController, animated: true, completion: nil)
+    }
+    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        cropViewController.dismiss(animated: true, completion: {
+            
+            self.uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
+        })
+
+    }
+                                   
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true, completion: {
+
+                })
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
 
@@ -507,7 +530,9 @@ extension ProfileSettingView: UIImagePickerControllerDelegate {
                     } else {
                         // show error
                     }
-            uploadImage(paramName: "file", fileName: "ProfileImage.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
+            presentCropViewController(image: image)
+
+          
                 return
         }
     urlVideo = url

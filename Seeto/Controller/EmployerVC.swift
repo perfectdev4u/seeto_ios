@@ -95,7 +95,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
     func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         cropViewController.dismiss(animated: true, completion: {
             
-            self.uploadImage(paramName: "file", fileName: "        Profile.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
+            self.uploadImage(paramName: "file", fileName: "Profile.png", image: image.convert(toSize:CGSize(width:100.0, height:100.0), scale: UIScreen.main.scale))
         })
 
     }
@@ -382,6 +382,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
             {
                 imagePicker.sourceType = UIImagePickerController.SourceType.camera
            //     imagePicker.allowsEditing = true
+                imagePicker.cameraDevice = .front
                 self.present(imagePicker, animated: true, completion: nil)
             }
             else

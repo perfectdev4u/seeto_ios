@@ -41,6 +41,10 @@
 		1B2DF90E2979D9470073D6A0 /* LikeDislikeBtnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2DF90C2979D9470073D6A0 /* LikeDislikeBtnCell.xib */; };
 		1B2DF9102979E0800073D6A0 /* CongratsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF90F2979E0800073D6A0 /* CongratsVC.swift */; };
 		1B2DF9122979E3DB0073D6A0 /* SelectResumeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF9112979E3DB0073D6A0 /* SelectResumeVC.swift */; };
+		1B5663532A4F50C300146153 /* like-checkmark.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1B5663522A4F50C300146153 /* like-checkmark.gif */; };
+		1B5663552A4F50CA00146153 /* cancel.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1B5663542A4F50C900146153 /* cancel.gif */; };
+		1B5663572A4F544C00146153 /* GifLoaderFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5663562A4F544C00146153 /* GifLoaderFile.swift */; };
+		1B5663592A503F2500146153 /* icons8-tick.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1B5663582A503F2400146153 /* icons8-tick.gif */; };
 		1B59FD2029A1123A002F159A /* AddJobVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B59FD1F29A1123A002F159A /* AddJobVideo.swift */; };
 		1B6F5C3D29BBF1F40020C58D /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6F5C3C29BBF1F30020C58D /* SearchVC.swift */; };
 		1B7F71CA2965EE6000D74132 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F71C92965EE6000D74132 /* AppDelegate.swift */; };
@@ -156,6 +160,10 @@
 		1B2DF90C2979D9470073D6A0 /* LikeDislikeBtnCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikeDislikeBtnCell.xib; sourceTree = "<group>"; };
 		1B2DF90F2979E0800073D6A0 /* CongratsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsVC.swift; sourceTree = "<group>"; };
 		1B2DF9112979E3DB0073D6A0 /* SelectResumeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectResumeVC.swift; sourceTree = "<group>"; };
+		1B5663522A4F50C300146153 /* like-checkmark.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "like-checkmark.gif"; sourceTree = "<group>"; };
+		1B5663542A4F50C900146153 /* cancel.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cancel.gif; sourceTree = "<group>"; };
+		1B5663562A4F544C00146153 /* GifLoaderFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifLoaderFile.swift; sourceTree = "<group>"; };
+		1B5663582A503F2400146153 /* icons8-tick.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "icons8-tick.gif"; sourceTree = "<group>"; };
 		1B59FD1F29A1123A002F159A /* AddJobVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJobVideo.swift; sourceTree = "<group>"; };
 		1B6F5C3C29BBF1F30020C58D /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		1B7F71C62965EE6000D74132 /* Seeto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seeto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,6 +279,9 @@
 			isa = PBXGroup;
 			children = (
 				1BB84E6B29E95AB2005438ED /* IMG_0232.MP4 */,
+				1B5663522A4F50C300146153 /* like-checkmark.gif */,
+				1B5663542A4F50C900146153 /* cancel.gif */,
+				1B5663582A503F2400146153 /* icons8-tick.gif */,
 				1BB84E6C29E95ABC005438ED /* IMG_0240.MP4 */,
 				1BB84E6D29E95B03005438ED /* IMG_0238.MP4 */,
 				1BB84E7129E96B5D005438ED /* IMG_0216.MP4 */,
@@ -430,6 +441,7 @@
 			children = (
 				1B959DEA29BE612900598BB3 /* MonthYearPickerView */,
 				1B1D5AFC29709374006CC084 /* Helpers.swift */,
+				1B5663562A4F544C00146153 /* GifLoaderFile.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -600,6 +612,8 @@
 				1BB84E7429E96CC3005438ED /* IMG_0216.MP4 in Resources */,
 				1BB84E7029E95B2C005438ED /* IMG_0238.MP4 in Resources */,
 				1BB84E6F29E95B28005438ED /* IMG_0240.MP4 in Resources */,
+				1B5663552A4F50CA00146153 /* cancel.gif in Resources */,
+				1B5663532A4F50C300146153 /* like-checkmark.gif in Resources */,
 				1BB84E6E29E95B24005438ED /* IMG_0232.MP4 in Resources */,
 				1B2DF9062979C8780073D6A0 /* CompanyDetailCell.xib in Resources */,
 				1B7F71D62965EE6100D74132 /* LaunchScreen.storyboard in Resources */,
@@ -616,6 +630,7 @@
 				1B7F72202969B27100D74132 /* MyJobSearchesCell.xib in Resources */,
 				1B0B014F2994FA1C00A63DC4 /* SpokenLanguageCell.xib in Resources */,
 				1B7F720C296832C000D74132 /* CandidateProfileCell.xib in Resources */,
+				1B5663592A503F2500146153 /* icons8-tick.gif in Resources */,
 				1B7F72282969F04200D74132 /* DetailsCell.xib in Resources */,
 				1B2DF90A2979D0430073D6A0 /* ProfileViewCell.xib in Resources */,
 				1B7F72182969A58500D74132 /* MyJobDetailCell.xib in Resources */,
@@ -788,6 +803,7 @@
 				1B264A8929806BDE001E7EDD /* EmployerMainSettingVC.swift in Sources */,
 				1B08D600296A1D1400458A46 /* CongratsCell.swift in Sources */,
 				1B264A872980673C001E7EDD /* EmployerProfileSettingVC.swift in Sources */,
+				1B5663572A4F544C00146153 /* GifLoaderFile.swift in Sources */,
 				1B7F72272969F04200D74132 /* DetailsCell.swift in Sources */,
 				1B7F72032967203000D74132 /* OTPViewController.swift in Sources */,
 				1B06194629803EC100E096C3 /* EmployerVC.swift in Sources */,
@@ -1019,7 +1035,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1059,7 +1075,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
