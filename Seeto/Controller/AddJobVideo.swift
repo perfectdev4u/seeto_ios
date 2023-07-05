@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import SwiftLoader
 
-class AddJobVideo: UIViewController {
+class AddJobVideo: UIViewController, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
     @IBOutlet var sliderMain: UISlider!
     @IBOutlet var imgMain: UIImageView!
     @IBOutlet var collView: UICollectionView!
@@ -76,6 +76,7 @@ class AddJobVideo: UIViewController {
         collView.layer.cornerRadius = 8
         collView.layer.borderWidth = 2
         collView.layer.borderColor = blueButtonColor.cgColor
+        imagePicker.delegate = self
         if let url = urlVideo
         {
             asset = AVAsset(url: url)
@@ -191,13 +192,43 @@ class AddJobVideo: UIViewController {
  
     }
     @IBAction func btnActShowImage(_ sender: UIButton) {
-        if self.thumbImg == true
-        {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ShowImageVC") as! ShowImageVC
-            vc.image = imgThumbnail.image!
-            self.present(vc, animated: true)
-        }
+        cameraGallery()
         
+    }
+    func cameraGallery()
+   {
+       
+       let alert = UIAlertController(title: "Choose Thumbnail from Gallery", message: nil, preferredStyle: .alert)
+      
+       alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
+           self.openGallary()
+       }))
+       
+       alert.addAction(UIAlertAction.init(title: "No", style: .destructive, handler: nil))
+       
+       /*If you want work actionsheet on ipad
+       then you have to use popoverPresentationController to present the actionsheet,
+       otherwise app will crash on iPad */
+       switch UIDevice.current.userInterfaceIdiom {
+       case .pad:
+           alert.popoverPresentationController?.sourceView = self.view
+           alert.popoverPresentationController?.sourceRect = self.view.bounds
+           alert.popoverPresentationController?.permittedArrowDirections = .up
+       default:
+           break
+       }
+       
+       self.present(alert, animated: true, completion: nil)
+   }
+    let imagePicker = UIImagePickerController()
+
+    func openGallary()
+    {
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        imagePicker.allowsEditing = false
+        self.modalPresentationStyle = .fullScreen
+
+        self.present(imagePicker, animated: true, completion: nil)
     }
     @objc func didfinishplaying()
     {
@@ -340,6 +371,12 @@ class AddJobVideo: UIViewController {
                         if dictArray.count == 0
                         {
                             Toast.show(message: "No match found for your job", controller: self)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                self.jobDelegate.JobDone()
+
+                                self.navigationController?.popViewController(animated: true)
+
+                            }
 
                         }
                         else
@@ -501,5 +538,27 @@ extension AddJobVideo : UICollectionViewDelegate,UICollectionViewDelegateFlowLay
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: ((screenSize.width - CGFloat(20)) / CGFloat(images.count)) , height: collectionView.frame.height)
+    }
+}
+
+extension AddJobVideo {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true, completion: nil)
+        
+     
+            let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            //            let photo = info[.phAsset] as? PHAsset
+            //            DispatchQueue.main.async {
+            //                self.tblCandidateProfile.reloadData()
+            //            }
+        print("entered")
+        SwiftLoader.show(animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+        {
+            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: image.convert(toSize:CGSize(width: self.view.frame.width, height:self.view.frame.height), scale: UIScreen.main.scale))
+
+        }
+        // Handle a movie capture
+        
     }
 }

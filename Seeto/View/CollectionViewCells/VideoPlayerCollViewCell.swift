@@ -24,6 +24,8 @@ class VideoPlayerCollViewCell: UICollectionViewCell {
             super.prepareForReuse()
             // Remove the player item observer and stop the player
             NotificationCenter.default.removeObserver(self, name: .AVPlayerItemNewAccessLogEntry, object: playerViewAV.player?.currentItem)
+        playerViewAV.removeFromSuperlayer()
+//        imgThumb.removeFromSuperview()
         stopPlaying()
         }
     func addObserverNotification()

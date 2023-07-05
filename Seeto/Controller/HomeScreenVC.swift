@@ -87,6 +87,22 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
         catch {
             print("Setting category to AVAudioSessionCategoryPlayback failed.")
         }
+        var indexArray = [Int]()
+        for index in 0...mainDataArray.count - 1
+        {
+            if let url = URL(string: (mainDataArray[index]["videoUrl"] as? String ?? ""))
+            {
+                
+            }
+            else
+            {
+                indexArray.append(index)
+            }
+        }
+        for i in indexArray
+        {
+            mainDataArray.remove(at: i)
+        }
         //collViewVideos.layer.cornerRadius = 40
         collViewVideos.delegate = self
         collViewVideos.dataSource = self
@@ -292,12 +308,13 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoPlayerCollViewCell", for: indexPath) as! VideoPlayerCollViewCell
             //Video player
        
-        
+        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+
         if let url = URL(string: (mainDataArray[indexPath.row]["videoUrl"] as? String ?? ""))
         {
             cell.imgThumb = UIImageView()
             cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
-            cell.imgThumb.contentMode = .scaleToFill
+            cell.imgThumb.contentMode = .scaleAspectFill
             cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
             cell.imgThumb.image = cell.imgThumb.image?.resizeImage(1.0, opaque: false)
             cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height))
@@ -331,6 +348,7 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
             cell.contentView.layer.addSublayer(cell.playerViewAV)
             cell.addObserverNotification()
 //            cell.contentView.layer.addSublayer()
+            
             cell.contentView.addSubview(cell.imgThumb)
             cell.contentView.addSubview(cell.activityIndicator)
 
@@ -480,6 +498,24 @@ extension HomeScreenVC: UIScrollViewDelegate {
            }
        }
     }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+            // Get the total number of items in the collection view
+            let numberOfItems = collViewVideos.numberOfItems(inSection: 0)
+            
+            // Get the index path of the last item in the collection view
+            let lastIndex = IndexPath(item: numberOfItems - 1, section: 0)
+            
+            // Check if the user is trying to scroll down from the last index
+            if let layoutAttributes = collViewVideos.layoutAttributesForItem(at: lastIndex) {
+                let distanceToEnd = layoutAttributes.frame.maxY - scrollView.contentOffset.y - scrollView.bounds.height
+                if distanceToEnd <= 0 && velocity.y > 0 {
+                    // The user is trying to scroll down from the last index, so scroll back to the 0 index
+                    targetContentOffset.pointee = CGPoint(x: 0, y: 0)
+                }
+            }
+        }
+    
 }
 
 extension UIImage {

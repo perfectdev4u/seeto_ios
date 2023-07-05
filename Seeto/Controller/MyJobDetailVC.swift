@@ -119,6 +119,8 @@ extension MyJobDetailVC : UITableViewDelegate,UITableViewDataSource
             cell.myJobTitleLbl.text = (dictTable[indexPath.row]["title"] ?? "")
             cell.leadingMainView.constant = 20
             cell.trailingMainView.constant = 20
+            cell.topView.constant = 10
+            cell.bottomView.constant = 10
             if (dictTable[indexPath.row]["title"] ?? "") ==  "Website" || (dictTable[indexPath.row]["title"] ?? "") ==  "Linkedin Profile"
             {
                 cell.myJobDataLbl.textColor = blueButtonColor
@@ -163,23 +165,23 @@ extension MyJobDetailVC : UITableViewDelegate,UITableViewDataSource
 
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height:section == 1 ? 140 : 10))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height:section == 1 ? 100 : 10))
         if section == 1
         {
             view.backgroundColor = backGroundColor
             let btnLike = UIButton()
             let btnDislike = UIButton()
             let imageLike = UIImageView(image:  UIImage(named: "tick"))
-            imageLike.frame = CGRect(x: ((screenSize.width - 20) / 2) - 75, y: 62.5, width: 35, height: 35)
+            imageLike.frame = CGRect(x: ((screenSize.width - 20) / 2) - 75, y: 42.5, width: 35, height: 35)
             imageLike.contentMode = .scaleAspectFill
             let imageDislike = UIImageView(image:  UIImage(named: "cross"))
-            imageDislike.frame = CGRect(x: ((screenSize.width - 20) / 2) + 40, y:  62.5, width: 35, height: 35)
+            imageDislike.frame = CGRect(x: ((screenSize.width - 20) / 2) + 40, y:  42.5, width: 35, height: 35)
             imageDislike.contentMode = .scaleAspectFill
 
-            btnLike.frame = CGRect(x: ((screenSize.width - 20) / 2) - 97.5, y: 40, width: 80, height: 80)
+            btnLike.frame = CGRect(x: ((screenSize.width - 20) / 2) - 97.5, y: 20, width: 80, height: 80)
             btnLike.backgroundColor = likeButtonBackGroundColor
             btnLike.layer.cornerRadius = btnLike.frame.height / 2
-            btnDislike.frame = CGRect(x: ((screenSize.width - 20) / 2) + 17.5, y: 40, width: 80, height: 80)
+            btnDislike.frame = CGRect(x: ((screenSize.width - 20) / 2) + 17.5, y: 20, width: 80, height: 80)
             btnDislike.layer.cornerRadius = btnLike.frame.height / 2
             btnDislike.backgroundColor = likeButtonBackGroundColor
 //            btnDislike.setShadowButton()
@@ -206,7 +208,7 @@ extension MyJobDetailVC : UITableViewDelegate,UITableViewDataSource
         self.navigationController?.popViewController(animated: true)
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return section == 0 ? 10 : 160
+        return section == 0 ? 10 : 100
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         

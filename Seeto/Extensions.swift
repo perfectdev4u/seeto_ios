@@ -78,6 +78,16 @@ extension UIView {
          UIGraphicsEndImageContext()
          return image
      }
+    func removeShadow() {
+         // Remove any existing shadow layer from the cell
+         if let sublayers = layer.sublayers {
+             for layer in sublayers {
+                 if layer.shadowPath != nil {
+                     layer.shadowPath = nil
+                 }
+             }
+         }
+     }
     func setGradientBackground() {
         let colorTop =  UIColor.clear.cgColor
         let colorBottom = UIColor.black.cgColor

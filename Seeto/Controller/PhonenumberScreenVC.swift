@@ -44,6 +44,12 @@ class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewD
         tfPhone.delegate = self
         // Do any additional setup after loading the view.
     }
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
     
     func setUpEmailView()
     {
@@ -102,22 +108,41 @@ class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewD
         if tfPhone.text == ""
         {
             Toast.show(message: email == true ? "Enter email address" : "Enter Phone Number", controller: self)
+            return
 
         }
         else
         {
-            if tfPhone.text! == "9779780544"
+            if email == true
             {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "OTPViewController") as! OTPViewController
-                vc.phoneNumber = "9779780544"
-                vc.email = self.email
-                self.navigationController?.pushViewController(vc, animated: true)
-
+               if isValidEmail(tfPhone.text!) == true
+                {
+                   callLoginApi()
+                   return
+               }
+                else
+                {
+                    Toast.show(message: "Please enter a valid email", controller: self)
+                    return
+                }
             }
             else
             {
-                callLoginApi()
+                if tfPhone.text! == "9779780544"
+                {
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "OTPViewController") as! OTPViewController
+                    vc.phoneNumber = "9779780544"
+                    vc.email = self.email
+                    self.navigationController?.pushViewController(vc, animated: true)
+
+                }
+                else
+                {
+                    callLoginApi()
+                }
             }
+            
+        
         }
     }
     

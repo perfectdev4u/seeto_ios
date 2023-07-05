@@ -41,6 +41,7 @@
 		1B2DF90E2979D9470073D6A0 /* LikeDislikeBtnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2DF90C2979D9470073D6A0 /* LikeDislikeBtnCell.xib */; };
 		1B2DF9102979E0800073D6A0 /* CongratsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF90F2979E0800073D6A0 /* CongratsVC.swift */; };
 		1B2DF9122979E3DB0073D6A0 /* SelectResumeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DF9112979E3DB0073D6A0 /* SelectResumeVC.swift */; };
+		1B372ACC2A51EB21005CA278 /* IMG_0208.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1B372ACB2A51EB20005CA278 /* IMG_0208.MP4 */; };
 		1B5663532A4F50C300146153 /* like-checkmark.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1B5663522A4F50C300146153 /* like-checkmark.gif */; };
 		1B5663552A4F50CA00146153 /* cancel.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1B5663542A4F50C900146153 /* cancel.gif */; };
 		1B5663572A4F544C00146153 /* GifLoaderFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5663562A4F544C00146153 /* GifLoaderFile.swift */; };
@@ -87,7 +88,6 @@
 		1BB84E6E29E95B24005438ED /* IMG_0232.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E6B29E95AB2005438ED /* IMG_0232.MP4 */; };
 		1BB84E6F29E95B28005438ED /* IMG_0240.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E6C29E95ABC005438ED /* IMG_0240.MP4 */; };
 		1BB84E7029E95B2C005438ED /* IMG_0238.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E6D29E95B03005438ED /* IMG_0238.MP4 */; };
-		1BB84E7429E96CC3005438ED /* IMG_0216.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E7129E96B5D005438ED /* IMG_0216.MP4 */; };
 		1BB84E7529E96CC6005438ED /* IMG_0233.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E7229E96B77005438ED /* IMG_0233.MP4 */; };
 		1BB84E7629E96CCA005438ED /* IMG_0221.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 1BB84E7329E96B94005438ED /* IMG_0221.MP4 */; };
 		1BCE9B77296DB7DD005E40BB /* ThumbnailVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */; };
@@ -160,6 +160,7 @@
 		1B2DF90C2979D9470073D6A0 /* LikeDislikeBtnCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikeDislikeBtnCell.xib; sourceTree = "<group>"; };
 		1B2DF90F2979E0800073D6A0 /* CongratsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsVC.swift; sourceTree = "<group>"; };
 		1B2DF9112979E3DB0073D6A0 /* SelectResumeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectResumeVC.swift; sourceTree = "<group>"; };
+		1B372ACB2A51EB20005CA278 /* IMG_0208.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0208.MP4; sourceTree = "<group>"; };
 		1B5663522A4F50C300146153 /* like-checkmark.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "like-checkmark.gif"; sourceTree = "<group>"; };
 		1B5663542A4F50C900146153 /* cancel.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cancel.gif; sourceTree = "<group>"; };
 		1B5663562A4F544C00146153 /* GifLoaderFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifLoaderFile.swift; sourceTree = "<group>"; };
@@ -210,7 +211,6 @@
 		1BB84E6B29E95AB2005438ED /* IMG_0232.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0232.MP4; sourceTree = "<group>"; };
 		1BB84E6C29E95ABC005438ED /* IMG_0240.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0240.MP4; sourceTree = "<group>"; };
 		1BB84E6D29E95B03005438ED /* IMG_0238.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0238.MP4; sourceTree = "<group>"; };
-		1BB84E7129E96B5D005438ED /* IMG_0216.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0216.MP4; sourceTree = "<group>"; };
 		1BB84E7229E96B77005438ED /* IMG_0233.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0233.MP4; sourceTree = "<group>"; };
 		1BB84E7329E96B94005438ED /* IMG_0221.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0221.MP4; sourceTree = "<group>"; };
 		1BCE9B76296DB7DD005E40BB /* ThumbnailVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailVideoVC.swift; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 				1B5663582A503F2400146153 /* icons8-tick.gif */,
 				1BB84E6C29E95ABC005438ED /* IMG_0240.MP4 */,
 				1BB84E6D29E95B03005438ED /* IMG_0238.MP4 */,
-				1BB84E7129E96B5D005438ED /* IMG_0216.MP4 */,
+				1B372ACB2A51EB20005CA278 /* IMG_0208.MP4 */,
 				1BB84E7229E96B77005438ED /* IMG_0233.MP4 */,
 				1BB84E7329E96B94005438ED /* IMG_0221.MP4 */,
 				1B7F71C82965EE6000D74132 /* Seeto */,
@@ -609,7 +609,6 @@
 			files = (
 				1BB84E7629E96CCA005438ED /* IMG_0221.MP4 in Resources */,
 				1BB84E7529E96CC6005438ED /* IMG_0233.MP4 in Resources */,
-				1BB84E7429E96CC3005438ED /* IMG_0216.MP4 in Resources */,
 				1BB84E7029E95B2C005438ED /* IMG_0238.MP4 in Resources */,
 				1BB84E6F29E95B28005438ED /* IMG_0240.MP4 in Resources */,
 				1B5663552A4F50CA00146153 /* cancel.gif in Resources */,
@@ -617,6 +616,7 @@
 				1BB84E6E29E95B24005438ED /* IMG_0232.MP4 in Resources */,
 				1B2DF9062979C8780073D6A0 /* CompanyDetailCell.xib in Resources */,
 				1B7F71D62965EE6100D74132 /* LaunchScreen.storyboard in Resources */,
+				1B372ACC2A51EB21005CA278 /* IMG_0208.MP4 in Resources */,
 				1B1D5AF929706737006CC084 /* credentials.plist in Resources */,
 				1B08D601296A1D1400458A46 /* CongratsCell.xib in Resources */,
 				1B2424D4296B13BE003A363F /* VideoPlayerCell.xib in Resources */,
@@ -1035,7 +1035,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1075,7 +1075,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Seeto/Seeto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = CDKM6994Z2;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;

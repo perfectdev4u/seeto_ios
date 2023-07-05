@@ -551,7 +551,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
                 imagePicker.sourceType = .camera
                 imagePicker.mediaTypes = [kUTTypeMovie as String]
                 imagePicker.allowsEditing = false
-                imagePicker.videoQuality = .typeMedium
+                imagePicker.videoQuality = .typeIFrame960x540
                 imagePicker.cameraDevice = .front
                 self.present(imagePicker, animated: true, completion: nil)
             }

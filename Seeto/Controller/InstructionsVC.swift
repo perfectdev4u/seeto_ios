@@ -11,12 +11,13 @@ class InstructionsVC: UIViewController {
     var appleLogin = false
     var findJob = false
     var justExploring = false
+    var mainDataArray = [NSDictionary].init()
 
     @IBOutlet var collView: UICollectionView!
     let screenSize: CGRect = UIScreen.main.bounds
 
     var videoUrlArray = [Bundle.main.path(forResource: "IMG_0232", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0240", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0238", ofType:"MP4")]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         do {
@@ -27,17 +28,75 @@ class InstructionsVC: UIViewController {
         }
         if findJob == true
         {
-            videoUrlArray = [Bundle.main.path(forResource: "IMG_0216", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0233", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0221", ofType:"MP4")]
+            videoUrlArray = [Bundle.main.path(forResource: "IMG_0208", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0233", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0221", ofType:"MP4")]
         }
         if justExploring == true
         {
-            videoUrlArray = [Bundle.main.path(forResource: "IMG_0216", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0232", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0233", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0240", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0221", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0238", ofType:"MP4")]
+            videoUrlArray = [Bundle.main.path(forResource: "IMG_0208", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0232", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0233", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0240", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0221", ofType:"MP4"),Bundle.main.path(forResource: "IMG_0238", ofType:"MP4")]
 
         }
         self.navigationController?.isNavigationBarHidden = true
         collView.contentInsetAdjustmentBehavior = .never
-
+        getAllVideosApi()
         // Do any additional setup after loading the view.
+    }
+    
+    func getAllVideosApi()
+    {
+        var param = ["page": 1,"pageSize": 100]
+
+        if findJob == true
+        {
+            param = ["page": 1,"pageSize": 100,"userType":  1]
+        }
+        else if justExploring == true
+        {
+             param = ["page": 1,"pageSize": 100]
+
+        }
+        else
+        {
+            param = ["page": 1,"pageSize": 100,"userType":  2]
+
+        }
+        ApiManager().postRequest(parameters: param,api:  ApiManager.shared.GetAllVideos) { dataJson, error in
+            if let error = error
+            {
+                DispatchQueue.main.async {
+                    
+                    self.showToast(message: error.localizedDescription)
+                }
+            }
+            else
+            {
+            if let dataJson = dataJson
+                {
+              if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
+                {
+                if let dictArray = dataJson["data"] as? [NSDictionary]{
+                    DispatchQueue.main.async {
+                        self.mainDataArray = dictArray
+                        self.collView.reloadData()
+                    }
+                  }
+
+
+
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+
+                      //  self.showToast(message: ()
+                  Toast.show(message:"Erro", controller: self)
+                    }
+
+                }
+                
+            }
+
+            }
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         collView.reloadData()
@@ -57,7 +116,7 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // TODO: need to implement
         
-        return videoUrlArray.count
+        return mainDataArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -67,15 +126,22 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoPlayerCollViewCell", for: indexPath) as! VideoPlayerCollViewCell
             //Video player
        
-         let url = URL(fileURLWithPath: videoUrlArray[indexPath.row] ?? "" )
-        
+        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+
+        if let url = URL(string: (mainDataArray[indexPath.row]["videoUrl"] as? String ?? ""))
+        {
+            cell.imgThumb = UIImageView()
+            cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
+            cell.imgThumb.contentMode = .scaleAspectFill
+            cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
+            cell.imgThumb.image = cell.imgThumb.image?.resizeImage(1.0, opaque: false)
             cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height))
             cell.activityIndicator.style = .large
-//            cell.activityIndicator.startAnimating()
+            cell.activityIndicator.startAnimating()
             let avPlayer = AVPlayer(url: url)
             cell.playerViewAV.player = avPlayer
-            cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
-            cell.playerViewAV.videoGravity = AVLayerVideoGravity.resize
+            cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width ,height:collectionView.frame.height)
+            cell.playerViewAV.videoGravity = AVLayerVideoGravity.resizeAspectFill
             let btnLike = UIButton()
             let btnDislike = UIButton()
             let imageLike = UIImageView(image:  UIImage(named: "tick"))
@@ -84,11 +150,9 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
             let imageDislike = UIImageView(image:  UIImage(named: "cross"))
             imageDislike.frame = CGRect(x: ((screenSize.width) / 2) + 40, y: collectionView.frame.height - 82.5, width: 35, height: 35)
             imageDislike.contentMode = .scaleAspectFill
-            btnLike.tag = indexPath.row
             btnLike.frame = CGRect(x: ((screenSize.width) / 2) - 97.5, y: collectionView.frame.height - 105, width: 80, height: 80)
             btnLike.backgroundColor = likeButtonBackGroundColor
             btnLike.layer.cornerRadius = btnLike.frame.height / 2
-            btnDislike.tag = indexPath.row
             btnDislike.frame = CGRect(x: ((screenSize.width) / 2) + 17.5, y: collectionView.frame.height - 105, width: 80, height: 80)
             btnDislike.layer.cornerRadius = btnLike.frame.height / 2
             btnDislike.backgroundColor = likeButtonBackGroundColor
@@ -101,6 +165,9 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
             blackView.setGradientBackground()
             cell.contentView.layer.addSublayer(cell.playerViewAV)
             cell.addObserverNotification()
+//            cell.contentView.layer.addSublayer()
+            
+            cell.contentView.addSubview(cell.imgThumb)
             cell.contentView.addSubview(cell.activityIndicator)
 
             cell.contentView.addSubview(blackView)
@@ -108,8 +175,21 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
             cell.contentView.addSubview(btnLike)
             cell.contentView.addSubview(imageLike)
             cell.contentView.addSubview(imageDislike)
+            btnLike.tag = indexPath.row
+            btnDislike.tag = indexPath.row
+
+            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(HomeScreenVC.leftSwiped))
+            swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+            cell.addGestureRecognizer(swipeLeft)
+            swipeLeft.view?.tag = indexPath.row
+
+            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(HomeScreenVC.rightSwiped))
+            swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+            cell.addGestureRecognizer(swipeRight)
+            swipeRight.view?.tag = indexPath.row
+
                  //Setting cell's player
-             
+             }
           return cell
     }
     func likeDislikeAct(index : Int)

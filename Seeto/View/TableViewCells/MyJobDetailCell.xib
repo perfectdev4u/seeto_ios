@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -67,11 +68,13 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" name="backgroundColor"/>
             <connections>
+                <outlet property="bottomView" destination="OoK-xt-5ad" id="QMo-yc-pKe"/>
                 <outlet property="leadingMainView" destination="5Kb-5t-DFQ" id="EfN-xD-JUJ"/>
                 <outlet property="mainView" destination="sN9-Z4-JcQ" id="vDy-jv-Ro6"/>
                 <outlet property="myJobDataLbl" destination="cpY-XQ-LrC" id="FFy-n2-AgW"/>
                 <outlet property="myJobTitleLbl" destination="Y3Z-a3-GpB" id="1of-ic-pcy"/>
                 <outlet property="seperaterView" destination="vog-Np-o3T" id="Zhm-Jz-CFF"/>
+                <outlet property="topView" destination="ZiK-b6-nZ4" id="2Tz-mO-Le7"/>
                 <outlet property="trailingMainView" destination="CTk-7U-5qK" id="F63-qI-8To"/>
             </connections>
             <point key="canvasLocation" x="93.129770992366403" y="42.95774647887324"/>

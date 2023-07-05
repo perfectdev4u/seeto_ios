@@ -174,6 +174,8 @@ extension LoginViewController: GIDSignInDelegate {
 //            let userFirstName = appleIDCredential.fullName?.givenName
 //            let userLastName = appleIDCredential.fullName?.familyName
             let userEmail = appleIDCredential.email ?? ""
+            let userSecretEmail = appleIDCredential.email ?? ""
+
             self.verifyApi(grantType: "apple", externalLogin: userIdentifier , email: userEmail)
 
 //            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppCategoryVC") as! AppCategoryVC

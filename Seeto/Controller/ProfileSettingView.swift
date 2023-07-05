@@ -13,7 +13,7 @@ import SwiftLoader
 import Photos
 import CropViewController
 class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
-    var dictTable = [["title":"Name","value":"Loading..."],["title":"DOB","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Gender","value":"Loading..."],["title":"Current Location","value":"Loading..."],["title":"Current Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Spoken Language","value":"Loading..."]]
+    var dictTable = [["title":"Name","value":"Loading..."],["title":"DOB","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Gender","value":"Loading..."],["title":"Current Location","value":"Loading..."],["title":"Current Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Spoken Language","value":"Loading..."],["title":"Phone Number","value":"Loading..."],["title":"Email","value":"Loading..."],["title":"Desired Monthly Income (U.S. Dollars)","value":"Loading..."],["title":"Education","value":"Loading..."],["title":"Working Experience","value":"Loading..."],["title":"Disabilities","value":"Loading..."],["title":"Military Status","value":"Loading..."],["title":"Veteran Status","value":"Loading..."]]
     var mainDataJson = NSDictionary.init()
     var urlVideo = URL(string: "")
     var videoUrlString = ""
@@ -83,7 +83,7 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
                 imagePicker.sourceType = .camera
                 imagePicker.mediaTypes = [kUTTypeMovie as String]
                 imagePicker.allowsEditing = false
-                imagePicker.videoQuality = .typeMedium
+                imagePicker.videoQuality = .typeIFrame960x540
                 imagePicker.cameraDevice = .front
                 self.present(imagePicker, animated: true, completion: nil)
             }
@@ -211,6 +211,24 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
                           
                           self.dictTable[7]["value"]?.append((i["language"] as! String) + " ")
                       }
+                      self.dictTable[8]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["phoneNumber"] as AnyObject))
+                      self.dictTable[9]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["email"] as AnyObject))
+                      self.dictTable[10]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["desiredMonthlyIncome"] as AnyObject))
+                      self.dictTable[11]["value"] = ""
+                      for i in ((dataJson["data"] as! NSDictionary)["educationList"] as! [NSDictionary])
+                      {
+                          
+                          self.dictTable[11]["value"]?.append((i["education"] as! String) + " ")
+                      }
+                      self.dictTable[12]["value"] = ""
+                      for i in ((dataJson["data"] as! NSDictionary)["experienceList"] as! [NSDictionary])
+                      {
+                          
+                          self.dictTable[12]["value"]?.append((i["experience"] as! String) + " ")
+                      }
+                      self.dictTable[13]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["disability"] as AnyObject))
+                      self.dictTable[14]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["militaryStatus"] as AnyObject))
+                      self.dictTable[15]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["veteranStatus"] as AnyObject))
                       self.tblProfileSettings.reloadData()
                     //  self.showToast(message: ()
                   }
@@ -371,6 +389,8 @@ extension ProfileSettingView : UITableViewDelegate,UITableViewDataSource
                     let AttriString = NSAttributedString(string: dictTable[indexPath.row - 1]["value"]!)
                     cell.myJobDataLbl.attributedText = AttriString
                     cell.myJobDataLbl.textColor = UIColor.white
+                    cell.myJobDataLbl.isUserInteractionEnabled = false
+
                 }
                 if indexPath.row == (tableView.numberOfRows(inSection: 0) - 1)
                 {

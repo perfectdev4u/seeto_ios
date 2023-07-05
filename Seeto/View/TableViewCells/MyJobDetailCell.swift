@@ -11,7 +11,9 @@ class MyJobDetailCell: UITableViewCell {
     @IBOutlet var myJobTitleLbl: UILabel!
     @IBOutlet var myJobDataLbl: UILabel!
     
+    @IBOutlet var topView: NSLayoutConstraint!
     @IBOutlet var trailingMainView: NSLayoutConstraint!
+    @IBOutlet var bottomView: NSLayoutConstraint!
     @IBOutlet var leadingMainView: NSLayoutConstraint!
     @IBOutlet var mainView: UIView!
     @IBOutlet var seperaterView: UIView!
