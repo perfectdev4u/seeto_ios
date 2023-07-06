@@ -181,6 +181,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
                   var data = (dataJson["data"] as? NSDictionary)
                   DispatchQueue.main.async {
                       self.showToast(iconName: isMatch == true ? "ticknew" : "close")
+                      print("deleted" + "\(index)")
 //                      Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
                       DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                           let indexPathMain = IndexPath(item: index, section: 0)
@@ -204,6 +205,8 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
                                                      }
 
                                                  }
+                                                  self.collViewVideos.reloadItems(at: self.collViewVideos.indexPathsForVisibleItems)
+
                                               })
                                           })
                       }
@@ -314,7 +317,7 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
         {
             cell.imgThumb = UIImageView()
             cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
-            cell.imgThumb.contentMode = .scaleAspectFill
+            cell.imgThumb.contentMode = .scaleAspectFit
             cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
             cell.imgThumb.image = cell.imgThumb.image?.resizeImage(1.0, opaque: false)
             cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height))

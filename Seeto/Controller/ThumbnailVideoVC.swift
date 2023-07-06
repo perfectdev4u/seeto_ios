@@ -297,18 +297,31 @@ class ThumbnailVideoVC: UIViewController, UIImagePickerControllerDelegate , UINa
     }
     func addNewSearchData() -> [String : Any]
     {
-       return [
-            "position" : dictParam["currentPosition"] as? String ?? "",
-            "experienceLevel" : dictParam["experienceLevel"] as? Int ?? 0,
-            "industry":  dictParam["industry"] as? String ?? "",
-            "industryId": dictParam["industryId"] as? Int ?? "",
-            "jobType" :  0,
-            "jobLocation" : 0,
-            "location" : dictParam["currentLocation"] as? String ?? "",
-            "desiredSalary" : Int(dictParam["desiredMonthlyIncome"] as? String ?? "") ?? 0,
-            "page" : 1,
-            "pageSize" : 10,
-        ] as [String : Any]
+//       return [
+//            "position" : dictParam["currentPosition"] as? String ?? "",
+//            "experienceLevel" : dictParam["experienceLevel"] as? Int ?? 0,
+//            "industry":  dictParam["industry"] as? String ?? "",
+//            "industryId": dictParam["industryId"] as? Int ?? "",
+//            "jobType" :  0,
+//            "jobLocation" : 0,
+//            "location" : dictParam["currentLocation"] as? String ?? "",
+//            "desiredSalary" : Int(dictParam["desiredMonthlyIncome"] as? String ?? "") ?? 0,
+//            "page" : 1,
+//            "pageSize" : 10,
+//        ] as [String : Any]
+        return [
+             "position" : "",
+             "experienceLevel" :  0,
+             "industry":  "",
+             "industryId":  "",
+             "jobType" :  0,
+             "jobLocation" : 0,
+             "location" :  "",
+             "desiredSalary" : nil,
+             "page" : 1,
+             "pageSize" : 10,
+         ] as [String : Any]
+
     }
     func AddSearchApi()
     {

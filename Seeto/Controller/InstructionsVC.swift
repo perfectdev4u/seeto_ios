@@ -51,7 +51,7 @@ class InstructionsVC: UIViewController {
         }
         else if justExploring == true
         {
-             param = ["page": 1,"pageSize": 100]
+             param = ["page": 1,"pageSize": 100,"userType":  0]
 
         }
         else
@@ -132,7 +132,7 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
         {
             cell.imgThumb = UIImageView()
             cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
-            cell.imgThumb.contentMode = .scaleAspectFill
+            cell.imgThumb.contentMode = .scaleAspectFit
             cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
             cell.imgThumb.image = cell.imgThumb.image?.resizeImage(1.0, opaque: false)
             cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height))
@@ -141,7 +141,7 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
             let avPlayer = AVPlayer(url: url)
             cell.playerViewAV.player = avPlayer
             cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width ,height:collectionView.frame.height)
-            cell.playerViewAV.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            cell.playerViewAV.videoGravity = AVLayerVideoGravity.resizeAspect
             let btnLike = UIButton()
             let btnDislike = UIButton()
             let imageLike = UIImageView(image:  UIImage(named: "tick"))
@@ -178,15 +178,15 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
             btnLike.tag = indexPath.row
             btnDislike.tag = indexPath.row
 
-            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(HomeScreenVC.leftSwiped))
-            swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
-            cell.addGestureRecognizer(swipeLeft)
-            swipeLeft.view?.tag = indexPath.row
-
-            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(HomeScreenVC.rightSwiped))
-            swipeRight.direction = UISwipeGestureRecognizer.Direction.right
-            cell.addGestureRecognizer(swipeRight)
-            swipeRight.view?.tag = indexPath.row
+//            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(HomeScreenVC.leftSwiped))
+//            swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+//            cell.addGestureRecognizer(swipeLeft)
+//            swipeLeft.view?.tag = indexPath.row
+//
+//            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(HomeScreenVC.rightSwiped))
+//            swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+//            cell.addGestureRecognizer(swipeRight)
+//            swipeRight.view?.tag = indexPath.row
 
                  //Setting cell's player
              }

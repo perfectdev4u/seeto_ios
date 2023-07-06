@@ -36,14 +36,14 @@
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="like" translatesAutoresizingMaskIntoConstraints="NO" id="IPo-82-2bH">
-                                <rect key="frame" x="245" y="26" width="28" height="23"/>
+                                <rect key="frame" x="237" y="26" width="28" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="3QT-9w-eOq"/>
                                     <constraint firstAttribute="height" constant="23" id="XZV-8i-ELV"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UI Ux Designer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhI-dg-FHq">
-                                <rect key="frame" x="90" y="15" width="147" height="20"/>
+                                <rect key="frame" x="90" y="15" width="139" height="20"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -55,9 +55,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ve2-1Z-gzU">
-                                <rect key="frame" x="273" y="20.666666666666671" width="27" height="34"/>
+                                <rect key="frame" x="265" y="20.666666666666671" width="35" height="34"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="27" id="o9B-vw-AXs"/>
+                                    <constraint firstAttribute="width" constant="35" id="o9B-vw-AXs"/>
                                     <constraint firstAttribute="height" constant="34" id="r8y-Xl-7Gx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>

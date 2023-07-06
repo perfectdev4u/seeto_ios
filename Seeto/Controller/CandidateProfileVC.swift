@@ -1097,6 +1097,15 @@ extension CandidateProfileVC : UITextFieldDelegate
             textField.inputAccessoryView = nil
 
         }
+        if (dictTable[textFieldTag]["title"]!) == "+1 0000000000"
+        {
+            textField.keyboardType = .numberPad
+        }
+        else
+        {
+            textField.keyboardType = .default
+
+        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

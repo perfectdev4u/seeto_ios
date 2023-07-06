@@ -191,7 +191,7 @@ extension JobSearchDetailsVC : UITableViewDelegate,UITableViewDataSource
             tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! MatchedEmployerCell
             cell.companyTitle.text = matchEmployerArray[indexPath.row]["name"] as? String ?? "N/A"
-            cell.imgThumb.sd_setImage(with: URL(string: matchEmployerArray[indexPath.row]["thumbnailUrl"] as? String ?? ""), placeholderImage: UIImage(named: "placeholderImg"))
+            cell.imgThumb.sd_setImage(with: URL(string: matchEmployerArray[indexPath.row]["companyLogo"] as? String ?? ""), placeholderImage: UIImage(named: "placeholderImg"))
             cell.noOfEmployeesLbl.text =  matchEmployerArray[indexPath.row]["industry"] as? String ?? "N/A"
             if indexPath.row == (tableView.numberOfRows(inSection: 1) - 1)
             {
