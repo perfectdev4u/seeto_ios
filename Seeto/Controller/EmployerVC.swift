@@ -241,6 +241,7 @@ class EmployerVC: UIViewController ,UITableViewDelegate,UITableViewDataSource, U
                       {
                           UserDefaults.standard.set(1, forKey: "userType")
                           let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddNewJobAndVideoVC") as! AddNewJobAndVideoVC
+                          vc.fromEmployerScreen = true
                           self.navigationController?.pushViewController(vc, animated: true)
                       }
                       else

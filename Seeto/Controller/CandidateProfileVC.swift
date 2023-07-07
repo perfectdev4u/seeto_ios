@@ -60,7 +60,8 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
 
     var videoUrlString = ""
     var langList = [NSDictionary].init()
-    var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"First Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Industry","type":"btn","required":"false","value":""],["title":"Date of Birth","type":"drop","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"true","value":UserDefaults.standard.value(forKey: "phone") as? String ?? ""],["title":"Email Address","type":"text","required":"true","value": UserDefaults.standard.value(forKey: "email") as? String ?? ""],["title":"Linkedin Profile","type":"text","required":"false","value":""],["title":"Current Location","type":"btn","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income (U.S. Dollars)","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""],["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]]
+    var dictTable = [["title":"Upload Profile Picture","type":"btn","required":"false","value":""],["title":"First Name","type":"text","required":"true","value":""],["title":"Last Name","type":"text","required":"true","value":""],["title":"Industry","type":"btn","required":"false","value":""],["title":"Date of Birth","type":"drop","required":"true","value":""],["title":"+1 0000000000","type":"text","required":"true","value":UserDefaults.standard.value(forKey: "phone") as? String ?? ""],["title":"Email Address","type":"text","required":"true","value": UserDefaults.standard.value(forKey: "email") as? String ?? ""],["title":"Linkedin Profile","type":"text","required":"false","value":""],["title":"Current Location","type":"btn","required":"false","value":""],["title":"Current Position","type":"text","required":"false","value":""],["title":"Experience Level","type":"drop","required":"false","value":""],["title":"Desired Monthly Income (U.S. Dollars)","type":"text","required":"false","value":""],["title":"Spoken Language","type":"drop","required":"false","value":""],["title":"Education","type":"btn","required":"false","value":""],["title":"Working Experience","type":"btn","required":"false","value":""],["title":"Gender","type":"drop","required":"false","value":""]]
+ //   ["title":"Disabilities","type":"text","required":"false","value":""],["title":"Veteran Status","type":"text","required":"false","value":""],["title":"Military Status","type":"text","required":"false","value":""]
     var myPickerView : UIPickerView!
     var pickerArray = ["USA","UKR"]
     let toolBar = UIToolbar()
@@ -221,9 +222,9 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         }
         setValueForTitle(title: "Gender", value: String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "0" ?  "" : String(describing: ((dataJson["data"] as! NSDictionary)["gender"] as AnyObject)) == "1" ? "Male" : "Female")
-        setValueForTitle(title: "Disabilities", value: ((dataJson["data"] as! NSDictionary)["disability"] as! String))
-        setValueForTitle(title: "Veteran Status", value: ((dataJson["data"] as! NSDictionary)["veteranStatus"] as! String))
-        setValueForTitle(title: "Military Status", value: ((dataJson["data"] as! NSDictionary)["militaryStatus"] as? String) ?? "")
+//        setValueForTitle(title: "Disabilities", value: ((dataJson["data"] as! NSDictionary)["disability"] as! String))
+//        setValueForTitle(title: "Veteran Status", value: ((dataJson["data"] as! NSDictionary)["veteranStatus"] as! String))
+//        setValueForTitle(title: "Military Status", value: ((dataJson["data"] as! NSDictionary)["militaryStatus"] as? String) ?? "")
 
         
         langList = ((dataJson["data"] as! NSDictionary)["languageList"] as! [NSDictionary])
@@ -304,8 +305,8 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "educationList" : getArrayFromTitleEdu(title: "Education",key: "education"),
             "experienceList" : getArrayFromTitleWork(title: "Working Experience",key: "experience"),
             "gender" : getValueFromTitle(title: "Gender") == "" ? 0 : getValueFromTitle(title: "Gender") == "Male" ? 1 : 2,
-            "disability" : getValueFromTitle(title: "Disabilities"),
-            "veteranStatus" : getValueFromTitle(title: "Veteran Status"),
+//            "disability" : getValueFromTitle(title: "Disabilities"),
+//            "veteranStatus" : getValueFromTitle(title: "Veteran Status"),
             "country" : "America",
             "region" : "California",
             "city" : "Cali",
@@ -316,7 +317,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "jobType" : 0,
             "videoUrl": videoUrlString,
             "bio" : "",
-            "militaryStatus":getValueFromTitle(title: "Military Status"),
+//            "militaryStatus":getValueFromTitle(title: "Military Status"),
             "languageList" : langList
         ] as [String : Any]
     }
@@ -348,8 +349,8 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "educationList" : getArrayFromTitleEdu(title: "Education",key: "education"),
             "experienceList" : getArrayFromTitleWork(title: "Working Experience",key: "experience"),
             "gender" : getValueFromTitle(title: "Gender") == "" ? 0 : getValueFromTitle(title: "Gender") == "Male" ? 1 : 2,
-            "disability" : getValueFromTitle(title: "Disabilities"),
-            "veteranStatus" : getValueFromTitle(title: "Veteran Status"),
+//            "disability" : getValueFromTitle(title: "Disabilities"),
+//            "veteranStatus" : getValueFromTitle(title: "Veteran Status"),
             "country" : "America",
             "region" : "California",
             "city" : "Cali",
@@ -359,7 +360,7 @@ class CandidateProfileVC: UIViewController,UITableViewDelegate,UITableViewDataSo
             "currentPosition" : dictTable[8]["value"]!,
             "jobType" : 0,
             "bio" :"",
-            "militaryStatus":getValueFromTitle(title: "Military Status"),
+//            "militaryStatus":getValueFromTitle(title: "Military Status"),
             "languageList" : langList
         ] as [String : Any]
     }

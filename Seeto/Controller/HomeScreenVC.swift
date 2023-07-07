@@ -180,7 +180,21 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
                 {
                   var data = (dataJson["data"] as? NSDictionary)
                   DispatchQueue.main.async {
-                      self.showToast(iconName: isMatch == true ? "ticknew" : "close")
+                      if String(describing: data?["isMutualMatch"] as AnyObject) == "1"
+                       {
+                          
+                          DispatchQueue.main.async
+                          {
+                              let vc = self.storyboard?.instantiateViewController(withIdentifier: "CongratsVC") as! CongratsVC
+                              vc.showMatchDelegate = self
+                              self.present(vc, animated: true)
+                          }
+
+                      }
+                      else
+                      {
+                          self.showToast(iconName: isMatch == true ? "ticknew" : "close")
+                      }
                       print("deleted" + "\(index)")
 //                      Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
                       DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -194,17 +208,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
                                                   self.mainDataArray.remove(at: indexPathMain.item)
                                                   self.collViewVideos.deleteItems(at:[indexPathMain])
                                               }, completion: { [unowned self] (_) in
-                                                 if String(describing: data?["isMutualMatch"] as AnyObject) == "1"
-                                                  {
-                                                     
-                                                     DispatchQueue.main.async
-                                                     {
-                                                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "CongratsVC") as! CongratsVC
-                                                         vc.showMatchDelegate = self
-                                                         self.present(vc, animated: true)
-                                                     }
-
-                                                 }
+                                                
                                                   self.collViewVideos.reloadItems(at: self.collViewVideos.indexPathsForVisibleItems)
 
                                               })
@@ -315,18 +319,18 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
 
         if let url = URL(string: (mainDataArray[indexPath.row]["videoUrl"] as? String ?? ""))
         {
-            cell.imgThumb = UIImageView()
-            cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
-            cell.imgThumb.contentMode = .scaleAspectFit
-            cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
-            cell.imgThumb.image = cell.imgThumb.image?.resizeImage(1.0, opaque: false)
+//            cell.imgThumb = UIImageView()
+//            cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
+//            cell.imgThumb.contentMode = .scaleAspectFit
+//            cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
+//            cell.imgThumb.image = cell.imgThumb.image?.resizeImage(1.0, opaque: false)
             cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height))
             cell.activityIndicator.style = .large
             cell.activityIndicator.startAnimating()
             let avPlayer = AVPlayer(url: url)
             cell.playerViewAV.player = avPlayer
             cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width ,height:collectionView.frame.height)
-            cell.playerViewAV.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            cell.playerViewAV.videoGravity = AVLayerVideoGravity.resizeAspect
             let btnLike = UIButton()
             let btnDislike = UIButton()
             let imageLike = UIImageView(image:  UIImage(named: "tick"))
@@ -352,7 +356,7 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
             cell.addObserverNotification()
 //            cell.contentView.layer.addSublayer()
             
-            cell.contentView.addSubview(cell.imgThumb)
+//            cell.contentView.addSubview(cell.imgThumb)
             cell.contentView.addSubview(cell.activityIndicator)
 
             cell.contentView.addSubview(blackView)

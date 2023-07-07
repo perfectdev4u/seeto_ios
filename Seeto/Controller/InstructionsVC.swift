@@ -130,11 +130,11 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
 
         if let url = URL(string: (mainDataArray[indexPath.row]["videoUrl"] as? String ?? ""))
         {
-            cell.imgThumb = UIImageView()
-            cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
-            cell.imgThumb.contentMode = .scaleAspectFit
-            cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
-            cell.imgThumb.image = cell.imgThumb.image?.resizeImage(1.0, opaque: false)
+//            cell.imgThumb = UIImageView()
+//            cell.imgThumb.frame = CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height)
+//            cell.imgThumb.contentMode = .scaleAspectFit
+//            cell.imgThumb.sd_setImage(with: URL(string: (mainDataArray[indexPath.row]["thumbnailUrl"] as? String ?? "")), placeholderImage: UIImage(named: ""))
+//            cell.imgThumb.image = cell.imgThumb.image?.resizeImage(1.0, opaque: false)
             cell.activityIndicator = UIActivityIndicatorView(frame:  CGRect(x:0,y:0,width:screenSize.width,height:collectionView.frame.height))
             cell.activityIndicator.style = .large
             cell.activityIndicator.startAnimating()
@@ -167,7 +167,7 @@ extension InstructionsVC: UICollectionViewDelegate, UICollectionViewDataSource ,
             cell.addObserverNotification()
 //            cell.contentView.layer.addSublayer()
             
-            cell.contentView.addSubview(cell.imgThumb)
+//            cell.contentView.addSubview(cell.imgThumb)
             cell.contentView.addSubview(cell.activityIndicator)
 
             cell.contentView.addSubview(blackView)

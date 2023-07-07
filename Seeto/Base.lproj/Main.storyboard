@@ -2181,6 +2181,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnBack" destination="hAL-FT-d2R" id="eQB-Bd-gAB"/>
                         <outlet property="btnNext" destination="mEI-8G-dEr" id="yIP-r7-0Vs"/>
                         <outlet property="lblAddNewJob" destination="9a4-6F-ke6" id="JCF-JL-Kh3"/>
                         <outlet property="tblJob" destination="dCs-ra-uxg" id="U9f-52-gGR"/>
@@ -3025,7 +3026,7 @@
         <image name="placeholder" width="30" height="26"/>
         <image name="search" width="26" height="26"/>
         <image name="seetoLogo" width="258" height="258"/>
-        <image name="settings" width="96" height="96"/>
+        <image name="settings" width="10.666666984558105" height="10.666666984558105"/>
         <image name="usa" width="1200" height="632"/>
         <image name="whitecheck" width="34" height="24"/>
         <namedColor name="BlueMain">

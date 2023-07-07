@@ -19,11 +19,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SJY-eK-NV9" customClass="GrowingTextView" customModule="GrowingTextView">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SJY-eK-NV9">
                         <rect key="frame" x="24" y="25" width="269" height="41"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="41" id="B8W-s5-IjW"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="41" id="B8W-s5-IjW"/>
                         </constraints>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -51,7 +51,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="heightTextV" destination="B8W-s5-IjW" id="ucy-8j-oJU"/>
-                <outlet property="textView" destination="SJY-eK-NV9" id="aZ2-lf-KKg"/>
+                <outlet property="textView" destination="SJY-eK-NV9" id="zg0-cc-kPx"/>
             </connections>
             <point key="canvasLocation" x="-29.007633587786259" y="12.323943661971832"/>
         </tableViewCell>

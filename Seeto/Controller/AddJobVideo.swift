@@ -473,7 +473,9 @@ class AddJobVideo: UIViewController, UIImagePickerControllerDelegate , UINavigat
         SwiftLoader.show(animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1)
         {
-            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: self.imgMain.image!.convert(toSize:CGSize(width: self.view.frame.width, height:self.view.frame.height), scale: UIScreen.main.scale))
+            let targetSize = CGSize(width: 720, height: 1280)
+
+            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: self.imgMain.image!.scalePreservingAspectRatio(targetSize: targetSize))
 
         }
 
@@ -555,10 +557,42 @@ extension AddJobVideo {
         SwiftLoader.show(animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1)
         {
-            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: image.convert(toSize:CGSize(width: self.view.frame.width, height:self.view.frame.height), scale: UIScreen.main.scale))
+            let targetSize = CGSize(width: 720, height: 1280)
+
+            self.uploadImage(paramName: "file", fileName: "thumbImg.png", image: image.scalePreservingAspectRatio(targetSize: targetSize))
 
         }
         // Handle a movie capture
         
+    }
+}
+
+extension UIImage {
+    func scalePreservingAspectRatio(targetSize: CGSize) -> UIImage {
+        // Determine the scale factor that preserves aspect ratio
+        let widthRatio = targetSize.width / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        let scaleFactor = min(widthRatio, heightRatio)
+        
+        // Compute the new image size that preserves aspect ratio
+        let scaledImageSize = CGSize(
+            width: size.width * scaleFactor,
+            height: size.height * scaleFactor
+        )
+
+        // Draw and return the resized UIImage
+        let renderer = UIGraphicsImageRenderer(
+            size: scaledImageSize
+        )
+
+        let scaledImage = renderer.image { _ in
+            self.draw(in: CGRect(
+                origin: .zero,
+                size: scaledImageSize
+            ))
+        }
+        
+        return scaledImage
     }
 }

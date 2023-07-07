@@ -16,7 +16,8 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
     var heightTxtV = 40.0
     var mainMinSal = 0
     var mainMaxSal = 0
-
+    @IBOutlet var btnBack: UIButton!
+    var fromEmployerScreen = false
     func addMinMaxSalary(minSal: String, maxSal: String) {
         for i in 0...dictTable.count - 1
         {
@@ -178,7 +179,10 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
 //             btnNext.setTitle("Update", for: .normal)
             
         }
-        
+        if fromEmployerScreen == true
+        {
+            btnBack.isHidden = true
+        }
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -278,7 +282,7 @@ class AddNewJobAndVideoVC: UIViewController,UITableViewDelegate,UITableViewDataS
                        imagePicker.sourceType = .camera
                        imagePicker.mediaTypes = [kUTTypeMovie as String]
                        imagePicker.allowsEditing = false
-                       imagePicker.videoQuality = .typeIFrame960x540
+                       imagePicker.videoQuality = .typeIFrame1280x720
                        imagePicker.cameraDevice = .front
                        self.present(imagePicker, animated: true, completion: nil)
                    }
@@ -516,9 +520,17 @@ extension AddNewJobAndVideoVC
                 attributes: [NSAttributedString.Key.foregroundColor: UIColor.red,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]
             )
             attributedString.append(attributedMark)
+            if (dictTable[indexPath.row]["value"]!) == ""
+            {
+                cell.textView.attributedText = attributedString
 
-            cell.textView.text = (dictTable[indexPath.row]["value"]!)
-            cell.textView.attributedPlaceholder = attributedString
+            }
+            else
+            {
+                cell.textView.text = (dictTable[indexPath.row]["value"]!)
+                cell.textView.textColor = .white
+            }
+//            cell.textView.attributedPlaceholder = attributedString
             cell.textView.delegate = self
             return cell
         }
@@ -855,6 +867,17 @@ extension AddNewJobAndVideoVC: UIImagePickerControllerDelegate {
 
 extension AddNewJobAndVideoVC
 {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        for i in 0...dictTable.count - 1
+        {
+            if dictTable[i]["title"] == "Job Description" && dictTable[i]["value"] == ""
+            {
+                textView.text = ""
+                textView.textColor = .white
+            }
+        }
+      
+    }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let text = textView.text

@@ -13,7 +13,8 @@ import SwiftLoader
 import Photos
 import CropViewController
 class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
-    var dictTable = [["title":"Name","value":"Loading..."],["title":"DOB","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Gender","value":"Loading..."],["title":"Current Location","value":"Loading..."],["title":"Current Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Spoken Language","value":"Loading..."],["title":"Phone Number","value":"Loading..."],["title":"Email","value":"Loading..."],["title":"Desired Monthly Income (U.S. Dollars)","value":"Loading..."],["title":"Education","value":"Loading..."],["title":"Working Experience","value":"Loading..."],["title":"Disabilities","value":"Loading..."],["title":"Military Status","value":"Loading..."],["title":"Veteran Status","value":"Loading..."]]
+    var dictTable = [["title":"Name","value":"Loading..."],["title":"DOB","value":"Loading..."],["title":"Linkedin Profile","value":"Loading..."],["title":"Gender","value":"Loading..."],["title":"Current Location","value":"Loading..."],["title":"Current Position","value":"Loading..."],["title":"Experience Level","value":"Loading..."],["title":"Spoken Language","value":"Loading..."],["title":"Phone Number","value":"Loading..."],["title":"Email","value":"Loading..."],["title":"Desired Monthly Income (U.S. Dollars)","value":"Loading..."],["title":"Education","value":"Loading..."],["title":"Working Experience","value":"Loading..."]]
+    //,["title":"Disabilities","value":"Loading..."],["title":"Military Status","value":"Loading..."],["title":"Veteran Status","value":"Loading..."]
     var mainDataJson = NSDictionary.init()
     var urlVideo = URL(string: "")
     var videoUrlString = ""
@@ -158,8 +159,8 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
             "educationList" : ((mainDataJson["data"] as! NSDictionary)["educationList"] as? [NSDictionary]) ?? [NSDictionary].init(),
             "experienceList" :((mainDataJson["data"] as! NSDictionary)["experienceList"] as? [NSDictionary]) ?? [NSDictionary].init(),
             "gender" : ((mainDataJson["data"] as! NSDictionary)["gender"] as! Int),
-            "disability" : ((mainDataJson["data"] as! NSDictionary)["disability"] as! String),
-            "veteranStatus" : ((mainDataJson["data"] as! NSDictionary)["veteranStatus"] as! String),
+//            "disability" : ((mainDataJson["data"] as! NSDictionary)["disability"] as! String),
+//            "veteranStatus" : ((mainDataJson["data"] as! NSDictionary)["veteranStatus"] as! String),
             "country" : "America",
             "region" : "California",
             "city" : "Cali",
@@ -226,9 +227,9 @@ class ProfileSettingView: UIViewController, UINavigationControllerDelegate {
                           
                           self.dictTable[12]["value"]?.append((i["experience"] as! String) + " ")
                       }
-                      self.dictTable[13]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["disability"] as AnyObject))
-                      self.dictTable[14]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["militaryStatus"] as AnyObject))
-                      self.dictTable[15]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["veteranStatus"] as AnyObject))
+//                      self.dictTable[13]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["disability"] as AnyObject))
+//                      self.dictTable[14]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["militaryStatus"] as AnyObject))
+//                      self.dictTable[15]["value"] = String(describing: ((dataJson["data"] as! NSDictionary)["veteranStatus"] as AnyObject))
                       self.tblProfileSettings.reloadData()
                     //  self.showToast(message: ()
                   }

@@ -145,6 +145,7 @@
                 <outlet property="lblSkillLevel" destination="Rvs-TN-mko" id="rfD-2R-U6E"/>
                 <outlet property="seperatorView" destination="jV9-0n-qGD" id="6aX-fc-oLf"/>
                 <outlet property="viewPlay" destination="rU9-JW-meA" id="St2-Kp-wCy"/>
+                <outlet property="widthLblLikes" destination="o9B-vw-AXs" id="0VE-ac-Gi6"/>
                 <outlet property="widthPic" destination="xtc-Ii-ftR" id="KRS-zV-k0S"/>
             </connections>
             <point key="canvasLocation" x="48.854961832061065" y="12.67605633802817"/>

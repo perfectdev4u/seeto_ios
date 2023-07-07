@@ -237,7 +237,7 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
         }
         cell.btnLike.tag = indexPath.row
         cell.btnLike.addTarget(self, action:  #selector(btnLikeAct), for: .touchUpInside)
-
+        cell.widthLblLikes.constant = cell.lblLikes.intrinsicContentSize.width
         cell.selectionStyle = .none
         return cell
         
