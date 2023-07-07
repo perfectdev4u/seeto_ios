@@ -170,6 +170,7 @@ extension LoginViewController: GIDSignInDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             // Create an account in your system.
+        
             let userIdentifier = appleIDCredential.user ?? ""
 //            let userFirstName = appleIDCredential.fullName?.givenName
 //            let userLastName = appleIDCredential.fullName?.familyName

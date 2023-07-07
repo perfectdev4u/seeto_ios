@@ -34,17 +34,17 @@ var appleLogin = false
         
     }
     @IBAction func btnFindJobAct(_ sender: UIButton) {
-        if appleLogin == true
-        {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        else
-        {
+//        if appleLogin == true
+//        {
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeScreenVC") as! HomeScreenVC
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
+//        else
+//        {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "InstructionsVC") as! InstructionsVC
             vc.findJob = true
             self.navigationController?.pushViewController(vc, animated: true)
-        }
+//        }
     }
     
     @IBAction func btnActBack(_ sender: UIButton) {

@@ -27,8 +27,8 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
     @IBOutlet var btnNewSearch: UIButton!
     
     func dataFromSearch(data: [NSDictionary], searchId: String) {
-        arraySearch = data
-        self.tblJobSearches.reloadData()
+        getJobSearchesApi()
+
     }
     
     @IBAction func btnNewSearch(_ sender: UIButton) {

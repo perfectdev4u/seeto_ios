@@ -169,6 +169,8 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
             if let error = error
             {
                 DispatchQueue.main.async {
+                    self.collViewVideos.isUserInteractionEnabled = true
+
                     Toast.show(message:error.localizedDescription, controller: self)
                 }
             }
@@ -210,7 +212,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
                                               }, completion: { [unowned self] (_) in
                                                 
                                                   self.collViewVideos.reloadItems(at: self.collViewVideos.indexPathsForVisibleItems)
-
+                                                  self.collViewVideos.isUserInteractionEnabled = true
                                               })
                                           })
                       }
@@ -225,6 +227,8 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
 
                       //  self.showToast(message: ()
                   Toast.show(message:(dataJson["returnMessage"] as! [String])[0], controller: self)
+                        self.collViewVideos.isUserInteractionEnabled = true
+
                     }
 
                 }
@@ -330,7 +334,7 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
             let avPlayer = AVPlayer(url: url)
             cell.playerViewAV.player = avPlayer
             cell.playerViewAV.frame = CGRect(x:0,y:0,width:screenSize.width ,height:collectionView.frame.height)
-            cell.playerViewAV.videoGravity = AVLayerVideoGravity.resizeAspect
+            cell.playerViewAV.videoGravity = AVLayerVideoGravity.resizeAspectFill
             let btnLike = UIButton()
             let btnDislike = UIButton()
             let imageLike = UIImageView(image:  UIImage(named: "tick"))
@@ -432,6 +436,8 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
 
                     self.matchOrPassUser(Id: self.mainDataArray[sender.tag]["candidateId"] as? Int ?? -1, isMatch: true,index : sender.tag)
                 }
+                self.collViewVideos.isUserInteractionEnabled = false
+
             }
          
             
@@ -452,6 +458,8 @@ extension HomeScreenVC: UICollectionViewDelegate, UICollectionViewDataSource ,UI
 
                 matchOrPassUser(Id: mainDataArray[sender.tag]["candidateId"] as? Int ?? -1, isMatch: false,index : sender.tag)
             }
+            self.collViewVideos.isUserInteractionEnabled = false
+
         }
         
     }

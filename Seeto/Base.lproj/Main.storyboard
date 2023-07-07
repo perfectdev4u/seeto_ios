@@ -1076,6 +1076,13 @@
                                     <outlet property="delegate" destination="t1I-vO-UfX" id="LHF-ys-Te7"/>
                                 </connections>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="tC9-3w-D15">
+                                <rect key="frame" x="358" y="118.66666666666669" width="50" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="1Uw-w5-uCh"/>
+                                    <constraint firstAttribute="width" constant="50" id="kr1-jw-QUK"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q0S-e6-wk8">
                                 <rect key="frame" x="358" y="111" width="50" height="50"/>
                                 <constraints>
@@ -1088,13 +1095,6 @@
                                     <action selector="btnSettingsAct:" destination="t1I-vO-UfX" eventType="touchUpInside" id="yIW-zW-Q9S"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="tC9-3w-D15">
-                                <rect key="frame" x="358" y="118.66666666666669" width="50" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="1Uw-w5-uCh"/>
-                                    <constraint firstAttribute="width" constant="50" id="kr1-jw-QUK"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pFf-Ma-x0B"/>
                         <color key="backgroundColor" name="backgroundColor"/>
@@ -2447,7 +2447,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sci-r1-vSw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5412" y="-1277"/>
+            <point key="canvasLocation" x="5666" y="-1277"/>
         </scene>
         <!--Thumbnail VideoVC-->
         <scene sceneID="hO7-Ln-aZo">

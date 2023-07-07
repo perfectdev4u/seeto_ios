@@ -224,15 +224,21 @@ class ModifyJobSearchVC: UIViewController ,UINavigationControllerDelegate, Searc
                     self.mainDataArray = dictArray
                     if self.mainDataArray.count > 0
                     {
+
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            
+
                                 self.AddJobSearchApi()
                         }
                     }
                     else
                     {
-                        DispatchQueue.main.async {
-                        Toast.show(message:"No match found for your search", controller: self)
-                    }
+                        DispatchQueue.main.async
+                        {
+                            self.searchDetailDelegate.dataFromSearch(data: [],searchId: "")
+                            self.navigationController?.popViewController(animated: true)
+
+                        }
                     }
                   }
                 }
