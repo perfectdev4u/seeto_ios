@@ -51,7 +51,7 @@ class InstructionsVC: UIViewController {
         }
         else if justExploring == true
         {
-             param = ["page": 1,"pageSize": 100,"userType":  0]
+             param = ["page": 1,"pageSize": 100]
 
         }
         else
@@ -59,7 +59,7 @@ class InstructionsVC: UIViewController {
             param = ["page": 1,"pageSize": 100,"userType":  2]
 
         }
-        ApiManager().postRequest(parameters: param,api:  ApiManager.shared.GetAllVideos) { dataJson, error in
+        ApiManager().postRequest(parameters: param,api: justExploring == true ? ApiManager.shared.GetRandomVideos : ApiManager.shared.GetAllVideos) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {

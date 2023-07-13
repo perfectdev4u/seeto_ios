@@ -191,15 +191,6 @@
                                     <action selector="btnNextAct:" destination="jfz-0r-oEy" eventType="touchUpInside" id="w3Y-up-JTs"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your mobile number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jyj-hD-Lg5">
-                                <rect key="frame" x="120" y="210.66666666666666" width="288" height="49.999999999999972"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="c3b-t9-8em"/>
-                                </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
-                            </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ujy-wn-K50">
                                 <rect key="frame" x="110" y="258.33333333333331" width="298" height="2"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -268,6 +259,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your mobile number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jyj-hD-Lg5">
+                                <rect key="frame" x="120" y="210.66666666666666" width="288" height="49.999999999999972"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="c3b-t9-8em"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4GD-h9-3f0"/>
                         <color key="backgroundColor" name="backgroundColor"/>
@@ -1157,7 +1157,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="67w-4H-zS4">
-                                        <rect key="frame" x="20" y="125" width="154.66666666666666" height="50"/>
+                                        <rect key="frame" x="20" y="125" width="154.66666666666669" height="50"/>
                                         <color key="backgroundColor" red="0.33725491169999999" green="0.73333334920000004" blue="0.94509804249999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="L1m-fV-EOc"/>
@@ -2343,7 +2343,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SjQ-fw-Yh6">
-                                        <rect key="frame" x="20" y="150" width="154.66666666666666" height="50"/>
+                                        <rect key="frame" x="20" y="150" width="154.66666666666669" height="50"/>
                                         <color key="backgroundColor" red="0.33725491169999999" green="0.73333334920000004" blue="0.94509804249999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="xH4-sY-UI6"/>
@@ -2916,7 +2916,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bV1-kw-Acp">
-                                        <rect key="frame" x="20" y="150" width="154.66666666666666" height="50"/>
+                                        <rect key="frame" x="20" y="150" width="154.66666666666669" height="50"/>
                                         <color key="backgroundColor" red="0.33725491169999999" green="0.73333334920000004" blue="0.94509804249999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="gjV-6J-USI"/>
@@ -2931,7 +2931,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Min Salary" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KUh-hi-wGa">
-                                        <rect key="frame" x="20" y="82" width="154.66666666666666" height="43"/>
+                                        <rect key="frame" x="20" y="82" width="154.66666666666669" height="43"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="43" id="SjD-k4-iBd"/>
                                         </constraints>

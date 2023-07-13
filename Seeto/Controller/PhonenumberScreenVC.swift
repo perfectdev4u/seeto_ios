@@ -128,28 +128,27 @@ class PhonenumberScreenVC: UIViewController, UIPickerViewDelegate, UIPickerViewD
             }
             else
             {
-                if tfPhone.text! == "9779780544"
-                {
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "OTPViewController") as! OTPViewController
-                    vc.phoneNumber = "9779780544"
-                    vc.email = self.email
-                    self.navigationController?.pushViewController(vc, animated: true)
-
-                }
-                else
-                {
+//                if tfPhone.text! == "9779780544"
+//                {
+//                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "OTPViewController") as! OTPViewController
+//                    vc.phoneNumber = "9779780544"
+//                    vc.email = self.email
+//                    self.navigationController?.pushViewController(vc, animated: true)
+//
+//                }
+//                else
+//                {
                     callLoginApi()
-                }
+//                }
             }
             
         
         }
     }
-    
     func callLoginApi()
     {
         let phoneNumber =  (tfCountryCode.text == "USA" + " ▼" ? "1" : "380") + tfPhone.text!
-        var params = ["grantType" : "phone_number" ,"phoneNumber" :  tfPhone.text!] as [String : Any]
+        var params = ["grantType" : "phone_number" ,"phoneNumber" :  tfPhone.text!,"countryCode": lblCode.text!] as [String : Any]
         if email == true
         {
             

@@ -162,7 +162,7 @@ class HomeScreenVC: UIViewController, LikeDislikeDelegate, SearchDetailDelegate,
             }
             else
             {
-                params = ["candidateId" : Id,"isMatch": isMatch]
+                params = ["candidateId" : Id,"isMatch": isMatch,"jobId" : searchJobId]
             }
         }
         ApiManager().postRequest(parameters: params, api: ApiManager.shared.MatchOrPassUser) { dataJson, error in
