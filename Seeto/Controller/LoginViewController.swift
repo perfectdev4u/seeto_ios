@@ -113,7 +113,10 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, 
                     UserDefaults.standard.set((dict["access_token"] as? String) ?? "", forKey: "accessToken")
                     UserDefaults.standard.set((dict["userType"] as? Int) ?? "", forKey: "userType")
                     UserDefaults.standard.set(email, forKey: "email")
-
+                    if grantType == "apple"
+                    {
+                        UserDefaults.standard.set((dict["username"] as? String) ?? "", forKey: "email")
+                    }
                     DispatchQueue.main.async {
                         if let userType = (dict["userType"] as? Int)
                         {

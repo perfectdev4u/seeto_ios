@@ -657,7 +657,7 @@ extension CandidateProfileVC
                 {
                     if i["value"] == ""
                     {
-                        if i["title"] == "+1 0000000000"
+                        if ((i["title"]?.contains("0000000000")) != nil)
                         {
                             Toast.show(message: "Please enter Phone Number", controller: self)
                         }
@@ -835,7 +835,7 @@ extension CandidateProfileVC
         }
         else
         {
-            if (dictTable[indexPath.row]["title"]!) == "Desired Monthly Income (U.S. Dollars)" || (dictTable[indexPath.row]["title"]!) == "Linkedin Profile" || (dictTable[indexPath.row]["title"]!) == "+1 0000000000" || (dictTable[indexPath.row]["title"]!) == "+1 0000000000" || (dictTable[indexPath.row]["title"]!) == "Date of Birth" || (dictTable[indexPath.row]["title"]!) == "Email Address"
+            if (dictTable[indexPath.row]["title"]!) == "Desired Monthly Income (U.S. Dollars)" || (dictTable[indexPath.row]["title"]!) == "Linkedin Profile" || (dictTable[indexPath.row]["title"]!).contains("0000000000") || (dictTable[indexPath.row]["title"]!).contains("0000000000") || (dictTable[indexPath.row]["title"]!) == "Date of Birth" || (dictTable[indexPath.row]["title"]!) == "Email Address"
             {
                 cell.tfMain.text = (dictTable[indexPath.row]["value"]!)
 
@@ -1098,9 +1098,9 @@ extension CandidateProfileVC : UITextFieldDelegate
             textField.inputAccessoryView = nil
 
         }
-        if (dictTable[textFieldTag]["title"]!) == "+1 0000000000"
+        if (dictTable[textFieldTag]["title"]!).contains("0000000000")
         {
-            textField.keyboardType = .numberPad
+            textField.keyboardType = .phonePad
         }
         else
         {

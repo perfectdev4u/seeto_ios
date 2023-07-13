@@ -11,7 +11,8 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
 //    func dataFromSearch(data: [NSDictionary], searchId: String) {
 //        <#code#>
 //    }
-    
+    var currentPage = 1
+    var totalPages = 1
     func JobDone() {
         getJobSearchesApi()
 
@@ -43,13 +44,26 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
     var arraySearch = [NSDictionary].init()
     var fromHome = false
     @IBOutlet var tblJobSearches: UITableView!
+    let refreshControl = UIRefreshControl()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         btnNewSearch.layer.cornerRadius = 10
         getJobSearchesApi()
-        // Do any additional setup after loading the view.
     }
+    @objc func loadData() {
+        // Make network call to fetch data for currentPage
+        if currentPage >= totalPages
+        {
+            refreshControl.endRefreshing()
+            return
+        }
+        refreshControl.endRefreshing()
+        currentPage += 1
+        getJobSearchesApi()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
     }
        func setUpView()
@@ -74,7 +88,7 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
     }
     func getJobSearchesApi()
     {
-        ApiManager().postRequest(parameters: ["page": 1,"pageSize": 1000], api: ApiManager.shared.GetAllJobSearch) { dataJson, error in
+        ApiManager().postRequest(parameters: ["page": currentPage,"pageSize": 1000], api: ApiManager.shared.GetAllJobSearch) { dataJson, error in
             if let error = error
             {
                 DispatchQueue.main.async {
@@ -85,10 +99,11 @@ class MyJobSearchesVC: UIViewController, SearchDetailDelegate, DeleteIndexDelega
             {
                 if let dataJson = dataJson
                 {
+                    self.totalPages = dataJson["total"] as? Int ?? 0
                     if String(describing: (dataJson["statusCode"] as AnyObject)) == "200"
                     {
                         DispatchQueue.main.async {
-                            self.arraySearch = dataJson["data"] as? [NSDictionary] ?? []
+                            self.arraySearch += dataJson["data"] as? [NSDictionary] ?? []
                             if self.arraySearch.count == 0
                             {
                                 self.viewOops.isHidden = false
@@ -306,5 +321,9 @@ extension MyJobSearchesVC : UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return .leastNormalMagnitude
     }
-    
+//     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if indexPath.row == dataArray.count - 1, currentPage < totalPages {
+//            loadData()
+//        }
+//    }
 }

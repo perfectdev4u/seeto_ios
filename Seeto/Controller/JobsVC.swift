@@ -11,7 +11,9 @@ class JobsVC: UIViewController,JobDelegate {
     func JobDone() {
         getJobsApi()
     }
-    
+    var currentPage = 1
+    var totalPages = 1
+
     @IBOutlet var oopsView: UIView!
     var mainArray = [NSDictionary].init()
     @IBOutlet var tblJob: UITableView!
